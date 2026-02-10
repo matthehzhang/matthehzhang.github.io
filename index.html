@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split-Flap Display</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            padding-top: 0;
+            margin-top: -90px;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            transform-origin: center center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 30px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            padding-top: 25px;
+            width: 100%;
+            justify-content: space-between;
+            padding-left: 19px;
+            padding-right: 19px;
+        }
+
+        .nav-links.visible {
+            opacity: 1;
+        }
+
+        .nav-links a {
+            font-family: 'Doto', monospace;
+            font-size: 32px;
+            font-weight: 900;
+            text-decoration: none;
+            color: #888888;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .nav-links a:hover {
+            color: #404040;
+        }
+
+        .nav-links a:nth-child(2) {
+            margin-right: auto;
+            margin-left: 30px;
+        }
+
+        .nav-links a:last-child {
+            color: #ff7847;
+        }
+
+        .nav-links a:last-child:hover {
+            color: #ff4500;
+        }
+
+        .container {
+            display: flex;
+            gap: 4px;
+            flex-wrap: nowrap;
+            justify-content: center;
+            padding: 20px;
+            padding-bottom: 0;
+            width: max-content;
+        }
+        
+        @media (max-width: 1200px) {
+            .wrapper {
+                transform: scale(0.8);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .wrapper {
+                transform: scale(0.6);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .wrapper {
+                transform: scale(0.45);
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .wrapper {
+                transform: scale(0.35);
+            }
+        }
+
+        .flap-container {
+            width: 50px;
+            height: 70px;
+            position: relative;
+            perspective: 500px;
+        }
+
+        .flap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .flap-half {
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            left: 0;
+            overflow: hidden;
+            background: #2a2a2a;
+            border: 2px solid #1a1a1a;
+        }
+
+        .flap-top {
+            top: 0;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .flap-bottom {
+            bottom: 0;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .flap-content {
+            width: 100%;
+            height: 200%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: bold;
+            color: #e0e0e0;
+            position: absolute;
+            left: 0;
+            line-height: 1;
+            padding-bottom: 4px;
+        }
+
+        .flap-top .flap-content {
+            top: 0;
+            transform: translateY(0);
+        }
+
+        .flap-bottom .flap-content {
+            bottom: 0;
+            transform: translateY(0);
+        }
+
+        .flap-flip {
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform-origin: bottom;
+            transform-style: preserve-3d;
+            animation: flip 0.6s ease-in-out;
+            z-index: 2;
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(-180deg);
+            }
+        }
+
+        .flap-flip .flap-content {
+            width: 100%;
+            height: 200%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: bold;
+            color: #e0e0e0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #2a2a2a;
+            border: 2px solid #1a1a1a;
+            border-radius: 4px 4px 0 0;
+            backface-visibility: hidden;
+            line-height: 1;
+            transform: translateY(0);
+            padding-bottom: 4px;
+        }
+
+        .space {
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <img src="data:image/jpeg;base64,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" alt="Logo" class="logo">
+        <div class="container" id="display"></div>
+        <div class="nav-links" id="navLinks">
+            <a href="projects.html">projects</a>
+            <a href="#other">other</a>
+            <a href="https://ecb.utexas.edu/" target="_blank">ut austin ecb</a>
+        </div>
+    </div>
+
+    <script>
+        const startText = "welcome:&:hello";
+        const targetText = "matthew:h:zhang";
+        
+        function createFlap(startChar, finalChar, index) {
+            const container = document.createElement('div');
+            
+            if (finalChar === ' ') {
+                container.className = 'space';
+                return container;
+            }
+            
+            container.className = 'flap-container';
+            container.dataset.targetChar = finalChar;
+            container.dataset.currentChar = startChar;
+            
+            const flap = document.createElement('div');
+            flap.className = 'flap';
+            
+            // Top half (starts with initial character)
+            const topHalf = document.createElement('div');
+            topHalf.className = 'flap-half flap-top';
+            const topContent = document.createElement('div');
+            topContent.className = 'flap-content';
+            topContent.textContent = startChar;
+            topHalf.appendChild(topContent);
+            
+            // Bottom half (starts with initial character)
+            const bottomHalf = document.createElement('div');
+            bottomHalf.className = 'flap-half flap-bottom';
+            const bottomContent = document.createElement('div');
+            bottomContent.className = 'flap-content';
+            bottomContent.textContent = startChar;
+            bottomHalf.appendChild(bottomContent);
+            
+            flap.appendChild(topHalf);
+            flap.appendChild(bottomHalf);
+            container.appendChild(flap);
+            
+            return container;
+        }
+        
+        function updateStaticFlaps(char) {
+            const topContent = this.querySelector('.flap-top .flap-content');
+            const bottomContent = this.querySelector('.flap-bottom .flap-content');
+            if (topContent) topContent.textContent = char;
+            if (bottomContent) bottomContent.textContent = char;
+        }
+        
+        function getCharSequence(startChar, endChar) {
+            const startCode = startChar.charCodeAt(0);
+            const endCode = endChar.charCodeAt(0);
+            const sequence = [];
+            const distance = Math.abs(endCode - startCode);
+            
+            // If the distance is large (like & to h), skip characters to speed it up
+            const skipAmount = distance > 30 ? 3 : 1;
+            
+            if (startCode < endCode) {
+                // Ascending
+                for (let i = startCode; i <= endCode; i += skipAmount) {
+                    sequence.push(String.fromCharCode(i));
+                }
+                // Make sure we end on the target character
+                if (sequence[sequence.length - 1] !== endChar) {
+                    sequence.push(endChar);
+                }
+            } else {
+                // Descending
+                for (let i = startCode; i >= endCode; i -= skipAmount) {
+                    sequence.push(String.fromCharCode(i));
+                }
+                // Make sure we end on the target character
+                if (sequence[sequence.length - 1] !== endChar) {
+                    sequence.push(endChar);
+                }
+            }
+            
+            return sequence;
+        }
+        
+        function animateFlap(container, startChar, finalChar) {
+            const sequence = getCharSequence(startChar, finalChar);
+            const baseFlipDuration = 250; // Base duration for each flip in ms (increased from 150)
+            let flipIndex = 0;
+            
+            function getFlipDuration(index, total) {
+                // Create an ease-in-ease-out effect
+                // Start slow, speed up in the middle, slow down at the end
+                const progress = index / Math.max(total - 1, 1);
+                
+                if (progress < 0.3) {
+                    // Ease in - start slow, speed up
+                    const easeProgress = progress / 0.3;
+                    return baseFlipDuration * (1 - easeProgress * 0.6); // 100% to 40% speed
+                } else if (progress > 0.7) {
+                    // Ease out - slow down at the end
+                    const easeProgress = (progress - 0.7) / 0.3;
+                    return baseFlipDuration * (0.4 + easeProgress * 0.6); // 40% to 100% speed
+                } else {
+                    // Middle - fast
+                    return baseFlipDuration * 0.4; // 40% speed (fastest)
+                }
+            }
+            
+            function flip() {
+                if (flipIndex >= sequence.length) {
+                    return;
+                }
+                
+                const currentChar = sequence[flipIndex];
+                const duration = getFlipDuration(flipIndex, sequence.length);
+                
+                const flipElement = document.createElement('div');
+                flipElement.className = 'flap-flip';
+                flipElement.style.animation = `flip ${duration}ms ease-in-out`;
+                
+                const content = document.createElement('div');
+                content.className = 'flap-content';
+                content.textContent = currentChar;
+                
+                flipElement.appendChild(content);
+                container.appendChild(flipElement);
+                
+                // Update static flaps to current character
+                updateStaticFlaps.call(container, currentChar);
+                
+                setTimeout(() => {
+                    flipElement.remove();
+                }, duration);
+                
+                flipIndex++;
+                
+                if (flipIndex < sequence.length) {
+                    setTimeout(flip, duration);
+                }
+            }
+            
+            flip();
+        }
+        
+        // Build display with starting text
+        const display = document.getElementById('display');
+        const containers = [];
+        let lastMouseY = 0;
+        const returnTimers = new Map();
+        
+        targetText.split('').forEach((char, index) => {
+            const startChar = startText[index] || 'a';
+            const container = createFlap(startChar, char, index);
+            containers.push(container);
+            display.appendChild(container);
+        });
+        
+        // Start animation after mouse movement is detected
+        let hasStarted = false;
+        
+        function startAnimation() {
+            if (hasStarted) return;
+            hasStarted = true;
+            
+            let maxDuration = 0;
+            
+            containers.forEach((container, index) => {
+                const startChar = startText[index] || 'a';
+                const finalChar = targetText[index];
+                if (finalChar !== ' ') {
+                    // Calculate approximate animation duration
+                    const sequence = getCharSequence(startChar, finalChar);
+                    const duration = sequence.length * 250; // Approximate
+                    maxDuration = Math.max(maxDuration, duration + (index * 50));
+                    
+                    // Stagger each character slightly
+                    setTimeout(() => {
+                        animateFlap(container, startChar, finalChar);
+                    }, index * 50);
+                }
+            });
+            
+            // Fade in navigation links after animation completes
+            setTimeout(() => {
+                document.getElementById('navLinks').classList.add('visible');
+            }, maxDuration + 500);
+        }
+        
+        function instantFlip(container, newChar) {
+            const currentChar = container.dataset.currentChar;
+            if (currentChar === newChar) return;
+            
+            const flipDuration = 120;
+            
+            const flipElement = document.createElement('div');
+            flipElement.className = 'flap-flip';
+            flipElement.style.animation = `flip ${flipDuration}ms ease-in-out`;
+            
+            const content = document.createElement('div');
+            content.className = 'flap-content';
+            content.textContent = newChar;
+            
+            flipElement.appendChild(content);
+            container.appendChild(flipElement);
+            
+            // Update static flaps
+            updateStaticFlaps.call(container, newChar);
+            container.dataset.currentChar = newChar;
+            
+            setTimeout(() => {
+                flipElement.remove();
+            }, flipDuration);
+        }
+        
+        function returnToTarget(container) {
+            const currentChar = container.dataset.currentChar;
+            const targetChar = container.dataset.targetChar;
+            
+            if (currentChar !== targetChar) {
+                animateFlap(container, currentChar, targetChar);
+            }
+        }
+        
+        // Mouse movement handler for interactive flipping
+        document.addEventListener('mousemove', (e) => {
+            if (!hasStarted) {
+                startAnimation();
+                lastMouseY = e.clientY;
+                return;
+            }
+            
+            const deltaY = e.clientY - lastMouseY;
+            const speed = Math.abs(deltaY);
+            
+            // Check if mouse is over any flap
+            containers.forEach((container) => {
+                if (container.classList.contains('space')) return;
+                
+                const rect = container.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    
+                    // Clear any pending return timer
+                    if (returnTimers.has(container)) {
+                        clearTimeout(returnTimers.get(container));
+                    }
+                    
+                    // Flip based on direction and speed
+                    if (speed > 2) { // Minimum speed threshold
+                        const currentCharCode = container.dataset.currentChar.charCodeAt(0);
+                        let newCharCode;
+                        
+                        if (deltaY < 0) {
+                            // Moving up - decrease ASCII
+                            newCharCode = currentCharCode - 1;
+                        } else {
+                            // Moving down - increase ASCII
+                            newCharCode = currentCharCode + 1;
+                        }
+                        
+                        // Keep within reasonable ASCII range
+                        newCharCode = Math.max(33, Math.min(126, newCharCode));
+                        const newChar = String.fromCharCode(newCharCode);
+                        
+                        instantFlip(container, newChar);
+                    }
+                    
+                    // Set timer to return to target after mouse leaves
+                    const timer = setTimeout(() => {
+                        returnToTarget(container);
+                    }, 800);
+                    returnTimers.set(container, timer);
+                }
+            });
+            
+            lastMouseY = e.clientY;
+        });
+        
+        // Also trigger on touch for mobile devices
+        document.addEventListener('touchstart', startAnimation, { once: true });
+    </script>
+</body>
+</html>
