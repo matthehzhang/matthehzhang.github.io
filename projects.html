@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Matthew H Zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -44,6 +47,7 @@
             padding-bottom: 0;
             width: max-content;
             transform-origin: center center;
+            transition: transform 0.3s ease-out;
         }
 
         .flap-container {
@@ -153,33 +157,77 @@
         .filters {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             margin-bottom: 50px;
         }
 
         .filter-btn {
-            padding: 4px 16px;
-            background: #ddd;
+            font-family: 'Doto', monospace;
+            font-size: 20px;
+            font-weight: 900;
+            background: none;
             border: none;
-            font-size: 13px;
-            font-weight: bold;
+            color: #888888;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            line-height: 1;
+            padding: 6px 12px;
+            position: relative;
+            text-shadow:
+                1px 0 0 rgba(136, 136, 136, 1),
+                -1px 0 0 rgba(136, 136, 136, 1),
+                0 1px 0 rgba(136, 136, 136, 1),
+                0 -1px 0 rgba(136, 136, 136, 1);
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #888888;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
         .filter-btn:hover {
-            background: #ccc;
+            color: #666666;
+            text-shadow:
+                1px 0 0 rgba(102, 102, 102, 1),
+                -1px 0 0 rgba(102, 102, 102, 1),
+                0 1px 0 rgba(102, 102, 102, 1),
+                0 -1px 0 rgba(102, 102, 102, 1);
+        }
+
+        .filter-btn:hover::before {
+            opacity: 0.15;
         }
 
         .filter-btn.active {
-            background: #999;
+            color: #666666;
+            text-shadow:
+                1px 0 0 rgba(102, 102, 102, 1),
+                -1px 0 0 rgba(102, 102, 102, 1),
+                0 1px 0 rgba(102, 102, 102, 1),
+                0 -1px 0 rgba(102, 102, 102, 1);
+        }
+
+        .filter-btn.active::before {
+            opacity: 0.15;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 60px 40px;
             margin-bottom: 60px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .project {
@@ -274,27 +322,10 @@
             text-decoration: underline;
         }
 
+
         @media (max-width: 1200px) {
-            .split-flap-container {
-                transform: scale(0.8);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .split-flap-container {
-                transform: scale(0.6);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .split-flap-container {
-                transform: scale(0.45);
-            }
-        }
-
-        @media (max-width: 400px) {
-            .split-flap-container {
-                transform: scale(0.35);
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -304,7 +335,7 @@
             }
 
             .projects-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: 1fr;
                 gap: 40px 30px;
             }
         }
@@ -584,6 +615,46 @@
                 }
             });
         }, 200);
+
+        // Dynamic scaling for split-flap display
+        function updateSplitFlapScale() {
+            const splitFlapContainer = document.getElementById('splitFlapTitle');
+            const filtersBar = document.querySelector('.filters');
+
+            if (!splitFlapContainer || !filtersBar) return;
+
+            // Get the natural width of the split-flap container (unscaled)
+            const tempScale = splitFlapContainer.style.transform;
+            splitFlapContainer.style.transform = 'scale(1)';
+            const naturalWidth = splitFlapContainer.scrollWidth;
+            splitFlapContainer.style.transform = tempScale || '';
+
+            // Get the width of the button bar
+            const buttonBarWidth = filtersBar.offsetWidth;
+
+            // Get viewport width with some padding
+            const viewportWidth = window.innerWidth - 40; // 20px padding on each side
+
+            // Calculate scale based on viewport
+            let scale = Math.min(1, viewportWidth / naturalWidth);
+
+            // Calculate the minimum scale needed to keep split-flap at least as wide as button bar
+            const minScale = buttonBarWidth / naturalWidth;
+
+            // Use the larger of the two scales (never go below button bar width)
+            // But also never exceed 1.0 (100% of natural size)
+            scale = Math.min(1, Math.max(scale, minScale));
+
+            // Apply the scale
+            splitFlapContainer.style.transform = `scale(${scale})`;
+        }
+
+        // Update scale on load and resize
+        window.addEventListener('load', updateSplitFlapScale);
+        window.addEventListener('resize', updateSplitFlapScale);
+
+        // Initial scale update
+        setTimeout(updateSplitFlapScale, 100);
 
         // Project sorting functionality
         const filterButtons = document.querySelectorAll('.filter-btn');

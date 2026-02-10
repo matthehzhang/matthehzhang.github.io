@@ -34,6 +34,7 @@
             transform-origin: center center;
             position: relative;
             padding-top: 80px;
+            transition: transform 0.3s ease-out;
         }
 
         .logo {
@@ -50,8 +51,8 @@
             padding-top: 25px;
             width: 100%;
             justify-content: space-between;
-            padding-left: 19px;
-            padding-right: 19px;
+            padding-left: 0;
+            padding-right: 0;
         }
 
         .nav-links.visible {
@@ -60,29 +61,78 @@
 
         .nav-links a {
             font-family: 'Doto', monospace;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 900;
             text-decoration: none;
             color: #888888;
             transition: color 0.3s ease;
             line-height: 1;
+            position: relative;
+            padding: 7px 14px;
+            text-shadow:
+                1px 0 0 rgba(136, 136, 136, 1),
+                -1px 0 0 rgba(136, 136, 136, 1),
+                0 1px 0 rgba(136, 136, 136, 1),
+                0 -1px 0 rgba(136, 136, 136, 1);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #888888;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
         .nav-links a:hover {
-            color: #404040;
+            color: #666666;
+            text-shadow:
+                1px 0 0 rgba(102, 102, 102, 1),
+                -1px 0 0 rgba(102, 102, 102, 1),
+                0 1px 0 rgba(102, 102, 102, 1),
+                0 -1px 0 rgba(102, 102, 102, 1);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 0.15;
+        }
+
+        .nav-links a:first-child {
+            margin-left: 19px;
         }
 
         .nav-links a:nth-child(2) {
             margin-right: auto;
-            margin-left: 30px;
+            margin-left: 20px;
         }
 
         .nav-links a:last-child {
             color: #ff7847;
+            margin-right: 19px;
+            text-shadow:
+                1px 0 0 rgba(255, 120, 71, 1),
+                -1px 0 0 rgba(255, 120, 71, 1),
+                0 1px 0 rgba(255, 120, 71, 1),
+                0 -1px 0 rgba(255, 120, 71, 1);
+        }
+
+        .nav-links a:last-child::before {
+            background-color: #ff7847;
         }
 
         .nav-links a:last-child:hover {
             color: #ff4500;
+            text-shadow:
+                1px 0 0 rgba(255, 69, 0, 1),
+                -1px 0 0 rgba(255, 69, 0, 1),
+                0 1px 0 rgba(255, 69, 0, 1),
+                0 -1px 0 rgba(255, 69, 0, 1);
         }
 
         .container {
@@ -93,30 +143,6 @@
             padding: 20px;
             padding-bottom: 0;
             width: max-content;
-        }
-        
-        @media (max-width: 1200px) {
-            .wrapper {
-                transform: scale(0.8);
-            }
-        }
-        
-        @media (max-width: 900px) {
-            .wrapper {
-                transform: scale(0.6);
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .wrapper {
-                transform: scale(0.45);
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .wrapper {
-                transform: scale(0.35);
-            }
         }
 
         .flap-container {
@@ -456,6 +482,25 @@
             }
         }
         
+        // Check if mouse is near nav links area and show them early
+        function checkNavLinksProximity(e) {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks.classList.contains('visible')) return;
+
+            const navRect = navLinks.getBoundingClientRect();
+            const proximityThreshold = 100; // pixels
+
+            // Check if mouse is within threshold distance of nav links
+            const nearTop = e.clientY >= navRect.top - proximityThreshold;
+            const nearBottom = e.clientY <= navRect.bottom + proximityThreshold;
+            const nearLeft = e.clientX >= navRect.left - proximityThreshold;
+            const nearRight = e.clientX <= navRect.right + proximityThreshold;
+
+            if (nearTop && nearBottom && nearLeft && nearRight) {
+                navLinks.classList.add('visible');
+            }
+        }
+
         // Mouse movement handler for interactive flipping
         document.addEventListener('mousemove', (e) => {
             if (!hasStarted) {
@@ -463,6 +508,9 @@
                 lastMouseY = e.clientY;
                 return;
             }
+
+            // Check if cursor is near nav links
+            checkNavLinksProximity(e);
             
             const deltaY = e.clientY - lastMouseY;
             const speed = Math.abs(deltaY);
@@ -513,6 +561,34 @@
         
         // Also trigger on touch for mobile devices
         document.addEventListener('touchstart', startAnimation, { once: true });
+
+        // Dynamic scaling for wrapper
+        function updateWrapperScale() {
+            const wrapper = document.querySelector('.wrapper');
+            if (!wrapper) return;
+
+            // Get the natural width of the wrapper (unscaled)
+            const tempScale = wrapper.style.transform;
+            wrapper.style.transform = 'scale(1)';
+            const naturalWidth = wrapper.scrollWidth;
+            wrapper.style.transform = tempScale || '';
+
+            // Get viewport width with some padding
+            const viewportWidth = window.innerWidth - 40; // 20px padding on each side
+
+            // Calculate scale based on viewport, capped at 0.75 for full screen
+            const scale = Math.min(0.75, viewportWidth / naturalWidth);
+
+            // Apply the scale
+            wrapper.style.transform = `scale(${scale})`;
+        }
+
+        // Update scale on load and resize
+        window.addEventListener('load', updateWrapperScale);
+        window.addEventListener('resize', updateWrapperScale);
+
+        // Initial scale update
+        setTimeout(updateWrapperScale, 100);
     </script>
 </body>
 </html>
