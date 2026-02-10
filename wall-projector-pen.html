@@ -14,25 +14,44 @@
         body {
             background: #ffffff;
             font-family: Arial, sans-serif;
-            padding: 40px 20px;
+            padding: 90px 20px 40px;
+            color: #333333;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: rgba(245, 245, 245, 0.95);
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+        }
+
+        .top-bar a {
+            font-size: 16px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .top-title {
+            font-weight: 700;
             color: #333333;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 30px;
-            font-size: 16px;
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
         }
 
         .title {
@@ -59,8 +78,12 @@
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <a href="index.html">← Back to main site</a>
+        <div class="top-title">Wall Projector Pen</div>
+        <a href="https://matthewhzhang.notion.site/ebd//303ce3e0547e80b5998bf7148dd8f1b8" target="_blank" rel="noopener">Open in Notion</a>
+    </div>
     <div class="container">
-        <a href="index.html" class="back-link">← Back to main site</a>
         <div class="title">Wall Projector Pen</div>
         <iframe
             class="embed"
