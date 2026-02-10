@@ -38,7 +38,12 @@
         .split-flap-container {
             display: flex;
             gap: 4px;
+            flex-wrap: nowrap;
             justify-content: center;
+            padding: 20px;
+            padding-bottom: 0;
+            width: max-content;
+            transform-origin: center center;
         }
 
         .flap-container {
@@ -267,6 +272,30 @@
 
         .back-link:hover {
             text-decoration: underline;
+        }
+
+        @media (max-width: 1200px) {
+            .split-flap-container {
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .split-flap-container {
+                transform: scale(0.6);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .split-flap-container {
+                transform: scale(0.45);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .split-flap-container {
+                transform: scale(0.35);
+            }
         }
 
         @media (max-width: 768px) {
