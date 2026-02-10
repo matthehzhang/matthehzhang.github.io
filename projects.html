@@ -187,42 +187,42 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #888888;
+            background-color: #FEC94A;
             border-radius: 8px;
-            opacity: 0;
+            opacity: 0.18;
             transition: opacity 0.3s ease;
             z-index: -1;
         }
 
         .filter-btn:hover {
-            color: #666666;
+            color: #FEC94A;
             text-shadow:
-                1px 0 0 rgba(102, 102, 102, 1),
-                -1px 0 0 rgba(102, 102, 102, 1),
-                0 1px 0 rgba(102, 102, 102, 1),
-                0 -1px 0 rgba(102, 102, 102, 1);
+                1px 0 0 rgba(254, 201, 74, 1),
+                -1px 0 0 rgba(254, 201, 74, 1),
+                0 1px 0 rgba(254, 201, 74, 1),
+                0 -1px 0 rgba(254, 201, 74, 1);
         }
 
         .filter-btn:hover::before {
-            opacity: 0.15;
+            opacity: 0.18;
         }
 
         .filter-btn.active {
-            color: #666666;
+            color: #FEC94A;
             text-shadow:
-                1px 0 0 rgba(102, 102, 102, 1),
-                -1px 0 0 rgba(102, 102, 102, 1),
-                0 1px 0 rgba(102, 102, 102, 1),
-                0 -1px 0 rgba(102, 102, 102, 1);
+                1px 0 0 rgba(254, 201, 74, 1),
+                -1px 0 0 rgba(254, 201, 74, 1),
+                0 1px 0 rgba(254, 201, 74, 1),
+                0 -1px 0 rgba(254, 201, 74, 1);
         }
 
         .filter-btn.active::before {
-            opacity: 0.15;
+            opacity: 0.18;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 60px 40px;
             margin-bottom: 60px;
             max-width: 1100px;
@@ -323,13 +323,19 @@
         }
 
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1199px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 899px) {
             .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 599px) {
             .header h1 {
                 font-size: 48px;
             }
