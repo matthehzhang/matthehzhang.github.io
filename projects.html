@@ -25,6 +25,14 @@
             margin: 0 auto;
         }
 
+        .title-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: center center;
+            transition: transform 0.3s ease-out;
+        }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
@@ -355,16 +363,18 @@
     <div class="container">
         <a href="index.html" class="back-link">← Back</a>
 
-        <div class="header">
-            <h1>PROJECTS</h1>
-            <div class="split-flap-container" id="splitFlapTitle"></div>
-        </div>
+        <div class="title-block">
+            <div class="header">
+                <h1>PROJECTS</h1>
+                <div class="split-flap-container" id="splitFlapTitle"></div>
+            </div>
 
-        <div class="filters">
-            <button class="filter-btn active" data-sort="date">Date</button>
-            <button class="filter-btn" data-sort="name">Name</button>
-            <button class="filter-btn" data-sort="progress">Progress</button>
-            <button class="filter-btn" data-sort="random">Random</button>
+            <div class="filters">
+                <button class="filter-btn active" data-sort="date">Date</button>
+                <button class="filter-btn" data-sort="name">Name</button>
+                <button class="filter-btn" data-sort="progress">Progress</button>
+                <button class="filter-btn" data-sort="random">Random</button>
+            </div>
         </div>
 
         <div class="projects-grid" id="projectsGrid">
@@ -626,45 +636,33 @@
             });
         }, 200);
 
-        // Dynamic scaling for split-flap display
-        function updateSplitFlapScale() {
-            const splitFlapContainer = document.getElementById('splitFlapTitle');
-            const filtersBar = document.querySelector('.filters');
+        // Dynamic scaling for split-flap + filters (match index.html ratios)
+        function updateTitleBlockScale() {
+            const titleBlock = document.querySelector('.title-block');
+            if (!titleBlock) return;
 
-            if (!splitFlapContainer || !filtersBar) return;
-
-            // Get the natural width of the split-flap container (unscaled)
-            const tempScale = splitFlapContainer.style.transform;
-            splitFlapContainer.style.transform = 'scale(1)';
-            const naturalWidth = splitFlapContainer.scrollWidth;
-            splitFlapContainer.style.transform = tempScale || '';
-
-            // Get the width of the button bar
-            const buttonBarWidth = filtersBar.offsetWidth;
+            // Get the natural width of the title block (unscaled)
+            const tempScale = titleBlock.style.transform;
+            titleBlock.style.transform = 'scale(1)';
+            const naturalWidth = titleBlock.scrollWidth;
+            titleBlock.style.transform = tempScale || '';
 
             // Get viewport width with some padding
             const viewportWidth = window.innerWidth - 40; // 20px padding on each side
 
-            // Calculate scale based on viewport
-            let scale = Math.min(1, viewportWidth / naturalWidth);
-
-            // Calculate the minimum scale needed to keep split-flap at least as wide as button bar
-            const minScale = buttonBarWidth / naturalWidth;
-
-            // Use the larger of the two scales (never go below button bar width)
-            // But also never exceed 1.0 (100% of natural size)
-            scale = Math.min(1, Math.max(scale, minScale));
+            // Calculate scale based on viewport, capped at 0.75 for full screen
+            const scale = Math.min(0.75, viewportWidth / naturalWidth);
 
             // Apply the scale
-            splitFlapContainer.style.transform = `scale(${scale})`;
+            titleBlock.style.transform = `scale(${scale})`;
         }
 
         // Update scale on load and resize
-        window.addEventListener('load', updateSplitFlapScale);
-        window.addEventListener('resize', updateSplitFlapScale);
+        window.addEventListener('load', updateTitleBlockScale);
+        window.addEventListener('resize', updateTitleBlockScale);
 
         // Initial scale update
-        setTimeout(updateSplitFlapScale, 100);
+        setTimeout(updateTitleBlockScale, 100);
 
         // Project sorting functionality
         const filterButtons = document.querySelectorAll('.filter-btn');
