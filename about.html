@@ -300,19 +300,8 @@
         }
 
         .mini-projects.mobile-locked .project {
-            animation: miniFloat 6s ease-in-out infinite;
-        }
-
-        .mini-projects.mobile-locked .project:nth-child(2) {
-            animation-delay: 0.6s;
-        }
-
-        .mini-projects.mobile-locked .project:nth-child(3) {
-            animation-delay: 1.2s;
-        }
-
-        .mini-projects.mobile-locked .project:nth-child(4) {
-            animation-delay: 1.8s;
+            animation: miniFloat var(--float-duration, 6s) ease-in-out infinite;
+            animation-delay: var(--float-delay, 0s);
         }
 
         .mini-projects .project {
@@ -446,23 +435,28 @@
             }
 
             .intro-photo {
-                justify-content: flex-start;
+                justify-content: center;
                 margin-top: 10px;
             }
 
             .photo {
-                transform: rotate(0deg);
+                transform: rotate(-2deg);
                 max-width: 640px;
             }
 
             .mini-projects {
                 grid-template-columns: repeat(2, var(--mini-card-width));
-                justify-content: start;
+                justify-content: center;
             }
 
             .mini-projects-scale {
                 --mini-shift: 0px;
+                --mini-scale: 0.92;
                 margin: 0 auto;
+            }
+
+            .timeline {
+                display: none;
             }
         }
 
@@ -827,9 +821,13 @@
 
             if (isMobile) {
                 miniProjects.classList.add('mobile-locked');
+                miniProjects.style.transform = 'translate(20px, 20px)';
                 const cards = getCards();
                 cards.forEach((card) => {
                     const state = ensureState(card);
+                    state.baseRot = (Math.random() * 6) - 3;
+                    const floatDelay = (Math.random() * 1.6).toFixed(2);
+                    const floatDuration = (5.2 + Math.random() * 2.2).toFixed(2);
                     state.x = state.baseX;
                     state.y = state.baseY;
                     state.vx = 0;
@@ -838,6 +836,8 @@
                     card.style.setProperty('--target-x', `${state.x}px`);
                     card.style.setProperty('--target-y', `${state.y}px`);
                     card.style.setProperty('--scatter-rot', `${state.rot}deg`);
+                    card.style.setProperty('--float-delay', `${floatDelay}s`);
+                    card.style.setProperty('--float-duration', `${floatDuration}s`);
                     card.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) rotate(${state.rot}deg)`;
                 });
                 return;

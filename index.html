@@ -197,7 +197,7 @@
             top: 0;
             transform-origin: bottom;
             transform-style: preserve-3d;
-            animation: flip 0.6s ease-in-out;
+            animation: flip 0.4s ease-in-out;
             z-index: 2;
         }
 
@@ -330,7 +330,7 @@
         
         function animateFlap(container, startChar, finalChar) {
             const sequence = getCharSequence(startChar, finalChar);
-            const baseFlipDuration = 250; // Base duration for each flip in ms (increased from 150)
+            const baseFlipDuration = 170; // Base duration for each flip in ms
             let flipIndex = 0;
             
             function getFlipDuration(index, total) {
@@ -401,6 +401,8 @@
             display.appendChild(container);
         });
         
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
         // Start animation after mouse movement is detected
         let hasStarted = false;
         
@@ -416,7 +418,7 @@
                 if (finalChar !== ' ') {
                     // Calculate approximate animation duration
                     const sequence = getCharSequence(startChar, finalChar);
-                    const duration = sequence.length * 250; // Approximate
+                    const duration = sequence.length * 170; // Approximate
                     maxDuration = Math.max(maxDuration, duration + (index * 50));
                     
                     // Stagger each character slightly
@@ -427,16 +429,21 @@
             });
             
             // Fade in navigation links after animation completes
+            const navDelay = 700;
             setTimeout(() => {
                 document.getElementById('navLinks').classList.add('visible');
-            }, maxDuration + 500);
+            }, navDelay);
+        }
+
+        if (isMobile) {
+            setTimeout(startAnimation, 200);
         }
         
         function instantFlip(container, newChar) {
             const currentChar = container.dataset.currentChar;
             if (currentChar === newChar) return;
             
-            const flipDuration = 120;
+            const flipDuration = 90;
             
             const flipElement = document.createElement('div');
             flipElement.className = 'flap-flip';
