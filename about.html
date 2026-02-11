@@ -299,6 +299,22 @@
             z-index: 1;
         }
 
+        .mini-projects.mobile-locked .project {
+            animation: miniFloat 6s ease-in-out infinite;
+        }
+
+        .mini-projects.mobile-locked .project:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .mini-projects.mobile-locked .project:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+
+        .mini-projects.mobile-locked .project:nth-child(4) {
+            animation-delay: 1.8s;
+        }
+
         .mini-projects .project {
             text-align: center;
             padding: 14px;
@@ -316,6 +332,11 @@
             position: relative;
             aspect-ratio: 3 / 4;
             width: var(--mini-card-width);
+        }
+
+        @keyframes miniFloat {
+            0%, 100% { transform: translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg)); }
+            50% { transform: translate3d(calc(var(--target-x, 0px) + 4px), calc(var(--target-y, 0px) - 6px), 0) rotate(calc(var(--scatter-rot, 0deg) + 1deg)); }
         }
 
         .mini-projects .project::before {
@@ -735,6 +756,7 @@
             let biasStrength = 0.0005;
             let glideFriction = 0.97;
             let glideBackEnabled = true;
+            const isMobile = window.matchMedia('(max-width: 900px)').matches;
 
             const ensureState = (card) => {
                 if (!states.has(card)) {
@@ -802,6 +824,24 @@
             };
 
             applyRandomOffsets();
+
+            if (isMobile) {
+                miniProjects.classList.add('mobile-locked');
+                const cards = getCards();
+                cards.forEach((card) => {
+                    const state = ensureState(card);
+                    state.x = state.baseX;
+                    state.y = state.baseY;
+                    state.vx = 0;
+                    state.vy = 0;
+                    state.rot = state.baseRot;
+                    card.style.setProperty('--target-x', `${state.x}px`);
+                    card.style.setProperty('--target-y', `${state.y}px`);
+                    card.style.setProperty('--scatter-rot', `${state.rot}deg`);
+                    card.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) rotate(${state.rot}deg)`;
+                });
+                return;
+            }
 
             let resizeTimer;
             window.addEventListener('resize', () => {
