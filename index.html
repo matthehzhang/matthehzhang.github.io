@@ -405,6 +405,22 @@
 
         // Start animation after mouse movement is detected
         let hasStarted = false;
+
+        function resetFlapsToTarget() {
+            containers.forEach((container, index) => {
+                const targetChar = targetText[index] || ' ';
+                if (targetChar === ' ') {
+                    container.classList.add('space');
+                    container.dataset.currentChar = ' ';
+                    container.dataset.targetChar = ' ';
+                    return;
+                }
+                container.dataset.targetChar = targetChar;
+                container.dataset.currentChar = targetChar;
+                updateStaticFlaps.call(container, targetChar);
+                container.querySelectorAll('.flap-flip').forEach(el => el.remove());
+            });
+        }
         
         function startAnimation() {
             if (hasStarted) return;
@@ -581,6 +597,22 @@
 
         // Initial scale update
         setTimeout(updateWrapperScale, 100);
+
+        // Fix iOS pull-to-refresh glitches by resetting flaps on re-show
+        window.addEventListener('pageshow', () => {
+            resetFlapsToTarget();
+            updateWrapperScale();
+            if (isMobile && !hasStarted) {
+                setTimeout(startAnimation, 200);
+            }
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                resetFlapsToTarget();
+                updateWrapperScale();
+            }
+        });
     </script>
 </body>
 </html>
