@@ -345,7 +345,13 @@
 
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 40px 30px;
+                gap: 32px 24px;
+                justify-items: center;
+            }
+
+            .project {
+                max-width: 280px;
+                padding: 16px;
             }
         }
     </style>
@@ -627,7 +633,10 @@
             });
         }, 200);
 
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
         // Dynamic scaling for split-flap + filters (match index.html ratios)
+        let initialMobileScale = null;
         function updateTitleBlockScale() {
             const titleBlock = document.querySelector('.title-block');
             if (!titleBlock) return;
@@ -643,6 +652,13 @@
 
             // Calculate scale based on viewport, capped at 0.75 for full screen
             const scale = Math.min(0.75, viewportWidth / naturalWidth);
+            if (isMobile) {
+                if (initialMobileScale === null) {
+                    initialMobileScale = scale;
+                }
+                titleBlock.style.transform = `scale(${initialMobileScale})`;
+                return;
+            }
 
             // Apply the scale
             titleBlock.style.transform = `scale(${scale})`;
@@ -650,7 +666,9 @@
 
         // Update scale on load and resize
         window.addEventListener('load', updateTitleBlockScale);
-        window.addEventListener('resize', updateTitleBlockScale);
+        if (!isMobile) {
+            window.addEventListener('resize', updateTitleBlockScale);
+        }
 
         // Initial scale update
         setTimeout(updateTitleBlockScale, 100);
