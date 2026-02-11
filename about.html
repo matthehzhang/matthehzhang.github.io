@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>About - matthew zhang</title>
     <style>
         :root {
@@ -96,35 +96,168 @@
             text-transform: uppercase;
         }
 
-        .toggle-row {
-            display: flex;
-            gap: 10px;
-            margin: 6px 0 12px;
-        }
-
-        .toggle-btn {
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 6px 10px;
-            border-radius: 8px;
-            border: 1px solid #b0b0b0;
-            background: #f2f2f2;
-            color: #444444;
-            cursor: pointer;
-        }
-
-        .toggle-btn.active {
-            background: #dcdcdc;
-            border-color: #909090;
-        }
+        /* toggle styles removed */
 
         p {
             font-size: 14px;
             line-height: 1.6;
             color: var(--ink);
             margin-bottom: 14px;
+        }
+
+        .timeline {
+            margin: 10px 0 6px;
+            max-width: 100%;
+        }
+
+        .timeline-track {
+            position: relative;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 6px 6px 18px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            background: transparent;
+            --month-width: 150px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .timeline-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .timeline-inner {
+            position: relative;
+            width: calc(var(--month-width) * 48);
+        }
+
+        .timeline-line {
+            position: relative;
+            height: 2px;
+            background: #cfcfcf;
+            margin: 10px 0 2px;
+            width: 100%;
+        }
+
+        .timeline-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 2px;
+            left: var(--onwards-left-px, 0px);
+            width: calc(100% - var(--onwards-left-px, 0px));
+            background: #FEC94A;
+        }
+
+        .timeline-onwards {
+            position: absolute;
+            left: var(--onwards-left-px, 0px);
+            top: -18px;
+            font-size: 11px;
+            color: #FEC94A;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            transform: translateX(-6px);
+        }
+
+        .timeline-year-layer {
+            position: sticky;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 0;
+            bottom: -131px;
+            height: 16px;
+            width: 60px;
+            font-size: 14px;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 700;
+            background: #ffffff;
+            padding: 0 2px;
+        }
+
+        .timeline-year.future {
+            color: #FEC94A;
+        }
+
+        .timeline-ticks {
+            position: relative;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: var(--month-width);
+            gap: 0;
+            align-items: start;
+        }
+
+        .timeline-tick {
+            position: relative;
+            height: 22px;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        .timeline-tick::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 2px;
+            height: 10px;
+            background: #bdbdbd;
+        }
+
+        .timeline-tick span {
+            font-size: 11px;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .timeline-events {
+            position: relative;
+            height: 80px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-event {
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            text-align: left;
+            width: 180px;
+        }
+
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #888888;
+            margin-top: 6px;
+        }
+
+        .timeline-event-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-event-desc {
+            font-size: 11px;
+            color: #444444;
+            line-height: 1.4;
         }
 
 
@@ -330,6 +463,101 @@
                 <h1>About Me</h1>
                 <p>Electrical and Computer Engineering Honors and Canfield Business Honors student at UT Austin. I build hardware, embedded systems, and tooling that make projects feel clean, reliable, and shippable.</p>
                 <p>Recent work includes an MCU-based PWM motor driver board for a 12V DC turntable, and a projector pen that maps force and position data to a wall using BLE and computer vision.</p>
+                <div class="timeline">
+                    <div class="timeline-track" id="timelineTrack">
+                        <div class="timeline-year-layer" id="timelineYearLayer">
+                            <span class="timeline-year" id="timelineYearCurrent">2024</span>
+                            <span class="timeline-year" id="timelineYearNext">2025</span>
+                        </div>
+                        <div class="timeline-inner" id="timelineInner">
+                        <div class="timeline-events">
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 2);">
+                                <div class="timeline-event-title">Placeholder Event</div>
+                                <div class="timeline-event-desc">Add details later.</div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 7);">
+                                <div class="timeline-event-title">Placeholder Event</div>
+                                <div class="timeline-event-desc">Add details later.</div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 15);">
+                                <div class="timeline-event-title">Placeholder Event</div>
+                                <div class="timeline-event-desc">Add details later.</div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 23);">
+                                <div class="timeline-event-title">Placeholder Event</div>
+                                <div class="timeline-event-desc">Add details later.</div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 31);">
+                                <div class="timeline-event-title">Placeholder Event</div>
+                                <div class="timeline-event-desc">Add details later.</div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 39);">
+                                <div class="timeline-event-title">Placeholder Event</div>
+                                <div class="timeline-event-desc">Add details later.</div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                        </div>
+                        <div class="timeline-line">
+                            <span class="timeline-onwards">Onwards!</span>
+                        </div>
+                        <div class="timeline-ticks">
+                            <div class="timeline-tick"><span>Jan</span></div>
+                            <div class="timeline-tick"><span>Feb</span></div>
+                            <div class="timeline-tick"><span>Mar</span></div>
+                            <div class="timeline-tick"><span>Apr</span></div>
+                            <div class="timeline-tick"><span>May</span></div>
+                            <div class="timeline-tick"><span>Jun</span></div>
+                            <div class="timeline-tick"><span>Jul</span></div>
+                            <div class="timeline-tick"><span>Aug</span></div>
+                            <div class="timeline-tick"><span>Sep</span></div>
+                            <div class="timeline-tick"><span>Oct</span></div>
+                            <div class="timeline-tick"><span>Nov</span></div>
+                            <div class="timeline-tick"><span>Dec</span></div>
+                            <div class="timeline-tick"><span>Jan</span></div>
+                            <div class="timeline-tick"><span>Feb</span></div>
+                            <div class="timeline-tick"><span>Mar</span></div>
+                            <div class="timeline-tick"><span>Apr</span></div>
+                            <div class="timeline-tick"><span>May</span></div>
+                            <div class="timeline-tick"><span>Jun</span></div>
+                            <div class="timeline-tick"><span>Jul</span></div>
+                            <div class="timeline-tick"><span>Aug</span></div>
+                            <div class="timeline-tick"><span>Sep</span></div>
+                            <div class="timeline-tick"><span>Oct</span></div>
+                            <div class="timeline-tick"><span>Nov</span></div>
+                            <div class="timeline-tick"><span>Dec</span></div>
+                            <div class="timeline-tick"><span>Jan</span></div>
+                            <div class="timeline-tick"><span>Feb</span></div>
+                            <div class="timeline-tick"><span>Mar</span></div>
+                            <div class="timeline-tick"><span>Apr</span></div>
+                            <div class="timeline-tick"><span>May</span></div>
+                            <div class="timeline-tick"><span>Jun</span></div>
+                            <div class="timeline-tick"><span>Jul</span></div>
+                            <div class="timeline-tick"><span>Aug</span></div>
+                            <div class="timeline-tick"><span>Sep</span></div>
+                            <div class="timeline-tick"><span>Oct</span></div>
+                            <div class="timeline-tick"><span>Nov</span></div>
+                            <div class="timeline-tick"><span>Dec</span></div>
+                            <div class="timeline-tick"><span>Jan</span></div>
+                            <div class="timeline-tick"><span>Feb</span></div>
+                            <div class="timeline-tick"><span>Mar</span></div>
+                            <div class="timeline-tick"><span>Apr</span></div>
+                            <div class="timeline-tick"><span>May</span></div>
+                            <div class="timeline-tick"><span>Jun</span></div>
+                            <div class="timeline-tick"><span>Jul</span></div>
+                            <div class="timeline-tick"><span>Aug</span></div>
+                            <div class="timeline-tick"><span>Sep</span></div>
+                            <div class="timeline-tick"><span>Oct</span></div>
+                            <div class="timeline-tick"><span>Nov</span></div>
+                            <div class="timeline-tick"><span>Dec</span></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="intro-photo">
                 <div class="photo">IMAGE PLACEHOLDER</div>
@@ -342,9 +570,6 @@
                 <p>Hands-on builder with a focus on embedded systems, reliable hardware, and fast iteration. I like tight feedback loops, clean schematics, and projects that ship.</p>
 
                 <h1>Projects</h1>
-                <div class="toggle-row">
-                    <button id="glideToggle" class="toggle-btn active" type="button">Glide Back: On</button>
-                </div>
                 <div class="mini-projects-scale">
                     <div class="mini-projects" id="miniProjects"></div>
                 </div>
@@ -378,10 +603,129 @@
     <script>
         const summarySection = document.querySelector('.left');
         const miniProjects = document.querySelector('#miniProjects');
+        let allProjects = [];
+
+        // Swipe/drag timeline
+        const timelineTrack = document.getElementById('timelineTrack');
+        if (timelineTrack) {
+            let isDown = false;
+            let startX = 0;
+            let scrollLeft = 0;
+            const yearCurrent = document.getElementById('timelineYearCurrent');
+            const yearNext = document.getElementById('timelineYearNext');
+            const yearStart = 2024;
+
+            const startDrag = (x) => {
+                isDown = true;
+                startX = x;
+                scrollLeft = timelineTrack.scrollLeft;
+            };
+
+            const moveDrag = (x) => {
+                if (!isDown) return;
+                const walk = (x - startX) * 1.2;
+                timelineTrack.scrollLeft = scrollLeft - walk;
+            };
+
+            const endDrag = () => {
+                isDown = false;
+            };
+
+            timelineTrack.addEventListener('mousedown', (e) => startDrag(e.pageX));
+            timelineTrack.addEventListener('mousemove', (e) => moveDrag(e.pageX));
+            timelineTrack.addEventListener('mouseup', endDrag);
+            timelineTrack.addEventListener('mouseleave', endDrag);
+
+            timelineTrack.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX), { passive: true });
+            timelineTrack.addEventListener('touchmove', (e) => moveDrag(e.touches[0].pageX), { passive: true });
+            timelineTrack.addEventListener('touchend', endDrag);
+
+            const updateYear = () => {
+                if (!yearCurrent || !yearNext) return;
+                const tick = timelineTrack.querySelector('.timeline-tick');
+                const tickWidth = tick ? tick.getBoundingClientRect().width : 150;
+                const yearWidth = tickWidth * 12;
+                const raw = Math.max(0, timelineTrack.scrollLeft);
+                const yearIndex = Math.floor(raw / yearWidth);
+                const current = yearStart + yearIndex;
+                const next = current + 1;
+                const rawNextX = ((yearIndex + 1) * yearWidth) - raw;
+                const trackWidth = timelineTrack.clientWidth || yearWidth;
+                const nowYear = new Date().getFullYear();
+                yearCurrent.textContent = String(current);
+                yearNext.textContent = String(next);
+                yearCurrent.style.transform = 'translateX(0px)';
+                yearCurrent.classList.toggle('future', current > nowYear);
+                yearNext.classList.toggle('future', next > nowYear);
+                yearNext.style.transform = `translateX(${Math.max(0, rawNextX)}px)`;
+            };
+
+            timelineTrack.addEventListener('scroll', updateYear, { passive: true });
+            window.addEventListener('resize', updateYear);
+            updateYear();
+
+            const updateOnwards = () => {
+                const line = timelineTrack.querySelector('.timeline-line');
+                const tick = timelineTrack.querySelector('.timeline-tick');
+                if (!line || !tick) return;
+                const tickWidth = tick.getBoundingClientRect().width;
+                if (!tickWidth || tickWidth < 1) {
+                    requestAnimationFrame(updateOnwards);
+                    return;
+                }
+                const totalMonths = timelineTrack.querySelectorAll('.timeline-tick').length;
+                const start = new Date(2024, 0, 1);
+                const nowDate = new Date();
+                const monthsSinceStart = (nowDate.getFullYear() - start.getFullYear()) * 12 + (nowDate.getMonth() - start.getMonth());
+                const clampedMonths = Math.max(0, Math.min(totalMonths - 1, monthsSinceStart));
+                const daysInMonth = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1, 0).getDate();
+                const monthProgress = Math.min(1, (nowDate.getDate() - 1) / Math.max(1, daysInMonth));
+                const offsetPx = (clampedMonths + monthProgress) * tickWidth;
+                const maxPx = Math.max(0, (totalMonths * tickWidth) - 1);
+                const clampedPx = Math.max(0, Math.min(maxPx, offsetPx));
+                line.style.setProperty('--onwards-left-px', `${clampedPx}px`);
+            };
+
+            requestAnimationFrame(updateOnwards);
+            window.addEventListener('resize', updateOnwards);
+            const autoScrollToRecent = () => {
+                const tick = timelineTrack.querySelector('.timeline-tick');
+                if (!tick) return;
+                const tickWidth = tick.getBoundingClientRect().width;
+                if (!tickWidth || tickWidth < 1) {
+                    requestAnimationFrame(autoScrollToRecent);
+                    return;
+                }
+                const nowDate = new Date();
+                const start = new Date(2024, 0, 1);
+                const monthsSinceStart = (nowDate.getFullYear() - start.getFullYear()) * 12 + (nowDate.getMonth() - start.getMonth());
+                const targetMonth = Math.max(0, monthsSinceStart - 3);
+                const targetLeft = Math.max(0, targetMonth * tickWidth);
+                const startLeft = timelineTrack.scrollLeft;
+                const duration = 2000;
+                const originalSnap = timelineTrack.style.scrollSnapType;
+                timelineTrack.style.scrollSnapType = 'none';
+                const startTime = performance.now();
+                const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                const animate = (now) => {
+                    const elapsed = Math.min(1, (now - startTime) / duration);
+                    const eased = easeInOutCubic(elapsed);
+                    timelineTrack.scrollLeft = startLeft + (targetLeft - startLeft) * eased;
+                    if (elapsed < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        timelineTrack.style.scrollSnapType = originalSnap;
+                    }
+                };
+                requestAnimationFrame(animate);
+            };
+
+            requestAnimationFrame(autoScrollToRecent);
+        }
 
         const setupMiniProjectMotion = () => {
             if (!summarySection || !miniProjects) return;
-            const cards = Array.from(miniProjects.querySelectorAll('.project'));
+            const getCards = () => Array.from(miniProjects.querySelectorAll('.project'));
             let lastX = null;
             let lastY = null;
             let lastT = null;
@@ -391,36 +735,6 @@
             let biasStrength = 0.0005;
             let glideFriction = 0.97;
             let glideBackEnabled = true;
-            const glideToggle = document.getElementById('glideToggle');
-            if (glideToggle) {
-                glideToggle.addEventListener('click', () => {
-                    glideBackEnabled = !glideBackEnabled;
-                    glideToggle.classList.toggle('active', glideBackEnabled);
-                    glideToggle.textContent = glideBackEnabled ? 'Glide Back: On' : 'Glide Back: Off';
-                });
-            }
-            // Start with glide-back disabled; enable after user scrolls
-            glideBackEnabled = false;
-            if (glideToggle) {
-                glideToggle.classList.remove('active');
-                glideToggle.textContent = 'Glide Back: Off';
-            }
-            let glideEnabledOnScroll = false;
-            window.addEventListener('scroll', () => {
-                if (glideEnabledOnScroll) return;
-                glideEnabledOnScroll = true;
-                glideBackEnabled = true;
-                // Ensure all cards start gliding back immediately
-                const now = performance.now();
-                cards.forEach((card) => {
-                    const state = ensureState(card);
-                    state.biasDelayUntil = now;
-                });
-                if (glideToggle) {
-                    glideToggle.classList.add('active');
-                    glideToggle.textContent = 'Glide Back: On';
-                }
-            }, { passive: true });
 
             const ensureState = (card) => {
                 if (!states.has(card)) {
@@ -440,7 +754,15 @@
                     { x: -12, y: 16, r: 7 },
                     { x: 16, y: 18, r: -5 }
                 ];
-                cards.forEach((card, index) => {
+                const baseCenter = baseOffsets.reduce((acc, v) => {
+                    acc.x += v.x;
+                    acc.y += v.y;
+                    return acc;
+                }, { x: 0, y: 0 });
+                baseCenter.x /= baseOffsets.length;
+                baseCenter.y /= baseOffsets.length;
+
+                const initCard = (card, index) => {
                     const rawScatterX = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-x'));
                     const rawScatterY = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-y'));
                     const scatterX = Number.isFinite(rawScatterX) ? rawScatterX : 0;
@@ -474,7 +796,9 @@
                     state.baseRot = base.r;
                     state.vx = 0;
                     state.vy = 0;
-                });
+                };
+
+                getCards().forEach((card, index) => initCard(card, index));
             };
 
             applyRandomOffsets();
@@ -538,7 +862,7 @@
             window.addEventListener('resize', () => {});
 
             const step = () => {
-                cards.forEach((card) => {
+                getCards().forEach((card) => {
                     const state = ensureState(card);
                     const now = performance.now();
                     if (glideBackEnabled && now >= state.biasDelayUntil) {
@@ -644,6 +968,7 @@
                 });
 
                 if (projects.length) {
+                    allProjects = projects;
                     buildMiniProjects(projects);
                 }
             })
