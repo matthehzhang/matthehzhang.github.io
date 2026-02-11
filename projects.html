@@ -16,7 +16,7 @@
 
         body {
             background: white;
-            font-family: Arial, sans-serif;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             padding: 40px 20px;
         }
 
@@ -174,7 +174,7 @@
         }
 
         .filter-btn {
-            font-family: 'Courier New', monospace;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             font-size: 18px;
             font-weight: 900;
             background: none;
@@ -185,11 +185,8 @@
             line-height: 1;
             padding: 4px 10px;
             position: relative;
-            text-shadow:
-                1px 0 0 rgba(136, 136, 136, 1),
-                -1px 0 0 rgba(136, 136, 136, 1),
-                0 1px 0 rgba(136, 136, 136, 1),
-                0 -1px 0 rgba(136, 136, 136, 1);
+            text-transform: uppercase;
+            text-shadow: none;
         }
 
         .filter-btn::before {
@@ -208,11 +205,7 @@
 
         .filter-btn:hover {
             color: #FEC94A;
-            text-shadow:
-                1px 0 0 rgba(254, 201, 74, 1),
-                -1px 0 0 rgba(254, 201, 74, 1),
-                0 1px 0 rgba(254, 201, 74, 1),
-                0 -1px 0 rgba(254, 201, 74, 1);
+            text-shadow: none;
         }
 
         .filter-btn:hover::before {
@@ -221,11 +214,7 @@
 
         .filter-btn.active {
             color: #444444;
-            text-shadow:
-                1px 0 0 rgba(68, 68, 68, 1),
-                -1px 0 0 rgba(68, 68, 68, 1),
-                0 1px 0 rgba(68, 68, 68, 1),
-                0 -1px 0 rgba(68, 68, 68, 1);
+            text-shadow: none;
         }
 
         .filter-btn.active::before {

@@ -21,7 +21,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Courier New', monospace;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             padding-top: 0;
             margin-top: -90px;
         }
@@ -45,12 +45,12 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 10px;
             opacity: 0;
             transition: opacity 1s ease-in;
             padding-top: 25px;
             width: 100%;
-            justify-content: space-between;
+            justify-content: flex-start;
             padding-left: 0;
             padding-right: 0;
         }
@@ -60,8 +60,8 @@
         }
 
         .nav-links a {
-            font-family: 'Doto', monospace;
-            font-size: 28px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            font-size: 20px;
             font-weight: 900;
             text-decoration: none;
             color: #888888;
@@ -69,11 +69,8 @@
             line-height: 1;
             position: relative;
             padding: 7px 14px;
-            text-shadow:
-                1px 0 0 rgba(136, 136, 136, 1),
-                -1px 0 0 rgba(136, 136, 136, 1),
-                0 1px 0 rgba(136, 136, 136, 1),
-                0 -1px 0 rgba(136, 136, 136, 1);
+            text-shadow: none;
+            text-transform: uppercase;
         }
 
         .nav-links a::before {
@@ -92,11 +89,7 @@
 
         .nav-links a:not(:last-child):hover {
             color: #FEC94A;
-            text-shadow:
-                1px 0 0 rgba(254, 201, 74, 1),
-                -1px 0 0 rgba(254, 201, 74, 1),
-                0 1px 0 rgba(254, 201, 74, 1),
-                0 -1px 0 rgba(254, 201, 74, 1);
+            text-shadow: none;
         }
 
         .nav-links a:hover::before {
@@ -108,18 +101,14 @@
         }
 
         .nav-links a:nth-child(2) {
-            margin-right: auto;
-            margin-left: 0px;
+            margin-left: 0;
         }
 
         .nav-links a:last-child {
             color: #FEC94A;
+            margin-left: auto;
             margin-right: 19px;
-            text-shadow:
-                1px 0 0 rgba(254, 201, 74, 1),
-                -1px 0 0 rgba(254, 201, 74, 1),
-                0 1px 0 rgba(254, 201, 74, 1),
-                0 -1px 0 rgba(254, 201, 74, 1);
+            text-shadow: none;
         }
 
         .nav-links a:last-child::before {
@@ -128,11 +117,7 @@
 
         .nav-links a:last-child:hover {
             color: #FEC94A;
-            text-shadow:
-                1px 0 0 rgba(254, 201, 74, 1),
-                -1px 0 0 rgba(254, 201, 74, 1),
-                0 1px 0 rgba(254, 201, 74, 1),
-                0 -1px 0 rgba(254, 201, 74, 1);
+            text-shadow: none;
         }
 
         .container {
@@ -257,7 +242,7 @@
         <div class="container" id="display"></div>
         <div class="nav-links" id="navLinks">
             <a href="projects.html">projects</a>
-            <a href="#other">about me</a>
+            <a href="about.html">about me</a>
             <a href="https://ecb.utexas.edu/" target="_blank">ut austin ecb</a>
         </div>
     </div>

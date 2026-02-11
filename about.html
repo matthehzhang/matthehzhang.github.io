@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - matthew zhang</title>
+    <style>
+        :root {
+            --ink: #111111;
+            --muted: #6b6b6b;
+            --bar: #e9e9e9;
+            --stripe: #cfcfcf;
+            --accent: #FEC94A;
+            --mini-card-width: 190px;
+            --mini-gap: 6px;
+            --mini-scale: 1;
+            --mini-shift: -40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: var(--ink);
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            padding: 28px 24px 60px;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--accent);
+            transition: color 0.3s ease;
+            padding: 0 0 6px 0;
+            border-radius: 8px;
+        }
+
+        .nav a:hover {
+            color: var(--accent);
+        }
+
+
+        .intro-section {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .intro-text {
+            grid-column: 1 / 8;
+        }
+
+        .intro-photo {
+            grid-column: 8 / 13;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .left {
+            grid-column: 1 / 7;
+        }
+
+        .right {
+            grid-column: 7 / 13;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--ink);
+            margin-bottom: 14px;
+        }
+
+
+        .sub {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 6px;
+        }
+
+        ul {
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--ink);
+            margin-bottom: 18px;
+        }
+
+        .mini-projects {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(2, var(--mini-card-width));
+            gap: var(--mini-gap);
+            position: relative;
+            overflow: visible;
+            justify-content: start;
+        }
+
+        .mini-projects-scale {
+            transform-origin: left top;
+            width: fit-content;
+            margin: 0 auto;
+            transform: translateX(var(--mini-shift)) scale(var(--mini-scale));
+        }
+
+        .mini-projects {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mini-projects .project {
+            text-align: center;
+            padding: 14px;
+            border: 2px solid #999;
+            border-radius: 8px;
+            background: #ffffff;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0s linear, box-shadow 0.2s ease;
+            transform: translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg));
+            will-change: transform;
+            backface-visibility: hidden;
+            animation: scatter-in var(--throw-dur, 0.55s) cubic-bezier(0.12, 0.75, 0.1, 1) both;
+            position: relative;
+            aspect-ratio: 3 / 4;
+            width: var(--mini-card-width);
+        }
+
+        .mini-projects .project::before {
+            content: none;
+        }
+
+        .mini-projects .project-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .mini-projects .project-image {
+            width: 100%;
+            height: 120px;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .mini-projects .project-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .mini-projects .project-description {
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333333;
+            margin-bottom: 6px;
+        }
+
+        .mini-projects .project-progress {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .mini-projects .project-date {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .mini-projects.settled .project {
+            transform: translate(0px, 0px) rotate(0deg);
+        }
+
+        .mini-projects .project:nth-child(1) {
+            --scatter-x: -40px;
+            --scatter-y: -28px;
+            --scatter-rot: -6deg;
+        }
+
+        .mini-projects .project:nth-child(2) {
+            --scatter-x: 36px;
+            --scatter-y: -22px;
+            --scatter-rot: 5deg;
+        }
+
+        .mini-projects .project:nth-child(3) {
+            --scatter-x: -28px;
+            --scatter-y: 34px;
+            --scatter-rot: 6deg;
+        }
+
+        .mini-projects .project:nth-child(4) {
+            --scatter-x: 42px;
+            --scatter-y: 30px;
+            --scatter-rot: -5deg;
+        }
+
+        @keyframes scatter-in {
+            from {
+                opacity: 1;
+                transform: translate(var(--start-x, 120vw), var(--start-y, -120vh)) rotate(var(--start-rot, -18deg));
+            }
+            to {
+                transform: translate(var(--target-x, 0px), var(--target-y, 0px)) rotate(var(--scatter-rot, 0deg));
+            }
+        }
+
+        .photo {
+            width: 100%;
+            max-width: 520px;
+            aspect-ratio: 4 / 3;
+            background: #f0f0f0;
+            border: 1px solid #e2e2e2;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 12px;
+            transform: rotate(4deg);
+        }
+
+        @media (max-width: 900px) {
+            .intro-text, .intro-photo,
+            .left, .right {
+                grid-column: 1 / 13;
+            }
+
+            .intro-photo {
+                justify-content: flex-start;
+                margin-top: 10px;
+            }
+
+            .photo {
+                transform: rotate(0deg);
+                max-width: 640px;
+            }
+
+            .mini-projects {
+                grid-template-columns: repeat(2, var(--mini-card-width));
+                justify-content: start;
+            }
+
+            .mini-projects-scale {
+                --mini-shift: 0px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .mini-projects-scale {
+                --mini-scale: 1.25;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="nav">
+            <a href="index.html">Matthew H Zhang</a>
+        </div>
+
+        <section class="intro-section">
+            <div class="intro-text">
+                <h1>About Me</h1>
+                <p>Electrical and Computer Engineering Honors and Canfield Business Honors student at UT Austin. I build hardware, embedded systems, and tooling that make projects feel clean, reliable, and shippable.</p>
+                <p>Recent work includes an MCU-based PWM motor driver board for a 12V DC turntable, and a projector pen that maps force and position data to a wall using BLE and computer vision.</p>
+            </div>
+            <div class="intro-photo">
+                <div class="photo">IMAGE PLACEHOLDER</div>
+            </div>
+        </section>
+
+        <div class="grid">
+            <section class="left">
+                <h1>Summary</h1>
+                <p>Hands-on builder with a focus on embedded systems, reliable hardware, and fast iteration. I like tight feedback loops, clean schematics, and projects that ship.</p>
+
+                <h1>Projects</h1>
+                <div class="mini-projects-scale">
+                    <div class="mini-projects" id="miniProjects"></div>
+                </div>
+            </section>
+
+            <section class="right">
+                <h1>Education</h1>
+                <p><span class="sub">May 2029</span><br>The University of Texas at Austin — B.S. Electrical and Computer Engineering Honors; B.B.A. Canfield Business Honors. GPA 3.73.</p>
+                <p><span class="sub">Coursework</span><br>Circuit Analysis and Design, Computer Systems, Embedded Systems, Software Design.</p>
+
+                <h1>Skills</h1>
+                <p><span class="sub">Technical</span></p>
+                <ul>
+                    <li>C/C++, Assembly, Embedded Systems</li>
+                    <li>Onshape, KiCad, LTSpice</li>
+                    <li>3D Printing, Machining &amp; Shop Tools</li>
+                </ul>
+
+                <h1>Experience</h1>
+                <p><span class="sub">Aug 2023 – Sep 2025</span><br>FRC Team #9400 — Team Captain &amp; Mechanical Design Lead. Led fabrication, CAD, and sponsorship efforts; improved national ranking (1649 → 898 of ~2,900 teams).</p>
+                <p><span class="sub">Mar 2023 – May 2025</span><br>Diversity Matters Club — VP &amp; Pine Ridge STEM Kids Program Director; built and delivered STEM curricula and outreach.</p>
+
+                <h1>Awards</h1>
+                <ul>
+                    <li>IEEE RAS 2025 Robotathon — 1st Place, Software Design Award</li>
+                    <li>FRC Team #9400 — Rising All Stars Award; Rookie Inspiration Award</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <script>
+        const summarySection = document.querySelector('.left');
+        const miniProjects = document.querySelector('#miniProjects');
+
+        const setupMiniProjectMotion = () => {
+            if (!summarySection || !miniProjects) return;
+            const cards = Array.from(miniProjects.querySelectorAll('.project'));
+            let lastX = null;
+            let lastY = null;
+            let lastT = null;
+            let activeHover = null;
+            const states = new Map();
+            let motionStrength = 2.0;
+            let biasStrength = 0.0005;
+            let glideFriction = 0.97;
+
+            const ensureState = (card) => {
+                if (!states.has(card)) {
+                    const x = parseFloat(card.style.getPropertyValue('--target-x')) || 0;
+                    const y = parseFloat(card.style.getPropertyValue('--target-y')) || 0;
+                    const rot = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-rot')) || 0;
+                    states.set(card, { x, y, vx: 0, vy: 0, rot, vr: 0, baseX: x, baseY: y, baseRot: rot, biasDelayUntil: 0 });
+                }
+                return states.get(card);
+            };
+
+            const applyRandomOffsets = () => {
+                miniProjects.classList.remove('settled');
+                const baseOffsets = [
+                    { x: -8, y: -6, r: -2 },
+                    { x: 6, y: -4, r: 1.5 },
+                    { x: -5, y: 8, r: 2.2 },
+                    { x: 7, y: 10, r: -1.8 }
+                ];
+                cards.forEach((card, index) => {
+                    const rawScatterX = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-x'));
+                    const rawScatterY = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-y'));
+                    const scatterX = Number.isFinite(rawScatterX) ? rawScatterX : 0;
+                    const scatterY = Number.isFinite(rawScatterY) ? rawScatterY : 0;
+                    const randX = (Math.random() * 140) - 70;
+                    const randY = (Math.random() * 120) - 60;
+                    const randRot = (Math.random() * 18) - 9;
+                    const startX = `${120 + Math.random() * 60}vw`;
+                    const startY = `${-120 - Math.random() * 60}vh`;
+                    const startRot = `${-18 - Math.random() * 18}deg`;
+                    const throwDur = `${0.35 + Math.random() * 0.25}s`;
+                    const targetX = scatterX + randX;
+                    const targetY = scatterY + randY;
+                    card.style.setProperty('--target-x', `${targetX}px`);
+                    card.style.setProperty('--target-y', `${targetY}px`);
+                    card.style.setProperty('--scatter-rot', `${randRot}deg`);
+                    card.style.setProperty('--start-x', startX);
+                    card.style.setProperty('--start-y', startY);
+                    card.style.setProperty('--start-rot', startRot);
+                    card.style.setProperty('--throw-dur', throwDur);
+                    const state = ensureState(card);
+                    state.x = targetX;
+                    state.y = targetY;
+                    state.rot = randRot;
+                    state.vr = 0;
+                    const base = baseOffsets[index % baseOffsets.length];
+                    state.baseX = base.x;
+                    state.baseY = base.y;
+                    state.baseRot = base.r;
+                    state.vx = 0;
+                    state.vy = 0;
+                });
+            };
+
+            applyRandomOffsets();
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(applyRandomOffsets, 120);
+            });
+
+            summarySection.addEventListener('mouseenter', () => {
+                miniProjects.classList.add('settled');
+            });
+            summarySection.addEventListener('mouseleave', () => {
+                miniProjects.classList.remove('settled');
+                lastX = null;
+                lastY = null;
+                lastT = null;
+            });
+
+            miniProjects.addEventListener('mousemove', (event) => {
+                lastX = event.clientX;
+                lastY = event.clientY;
+                lastT = performance.now();
+            });
+
+            miniProjects.addEventListener('pointerenter', (event) => {
+                const hovered = event.target.closest('.project');
+                if (!hovered || lastX === null || lastY === null || lastT === null) return;
+                if (activeHover === hovered) return;
+                activeHover = hovered;
+                const nowTs = performance.now();
+                const cooldownUntil = parseFloat(hovered.dataset.cooldownUntil || '0');
+                if (nowTs < cooldownUntil) return;
+
+                const now = performance.now();
+                const dt = Math.max(16, now - lastT);
+                const vx = (event.clientX - lastX) / dt;
+                const vy = (event.clientY - lastY) / dt;
+
+                const speed = Math.min(1, Math.hypot(vx, vy) * 0.6);
+                const dirX = vx === 0 ? 0 : vx / Math.max(0.001, Math.abs(vx));
+                const dirY = vy === 0 ? 0 : vy / Math.max(0.001, Math.abs(vy));
+                const pushX = dirX * (0.3 + 3.2 * Math.pow(speed, 2.2)) * motionStrength;
+                const pushY = dirY * (0.25 + 2.6 * Math.pow(speed, 2.2)) * motionStrength;
+                const state = ensureState(hovered);
+                state.vx = Math.max(-8, Math.min(8, state.vx + pushX));
+                state.vy = Math.max(-6, Math.min(6, state.vy + pushY));
+                state.vr = Math.max(-2.5, Math.min(2.5, state.vr + (dirX - dirY) * (0.6 + 1.2 * speed)));
+                state.biasDelayUntil = nowTs + 500;
+                hovered.dataset.cooldownUntil = (nowTs + 120).toString();
+            }, true);
+
+            miniProjects.addEventListener('mouseleave', () => {
+                lastX = null;
+                lastY = null;
+                lastT = null;
+                activeHover = null;
+            });
+
+            window.addEventListener('resize', () => {});
+
+            const step = () => {
+                cards.forEach((card) => {
+                    const state = ensureState(card);
+                    const now = performance.now();
+                    if (now >= state.biasDelayUntil) {
+                        const dx = state.baseX - state.x;
+                        const dy = state.baseY - state.y;
+                        const dist = Math.hypot(dx, dy);
+                        const biasScale = Math.min(1, dist / 200);
+                        const towardX = dx * biasStrength * biasScale;
+                        const towardY = dy * biasStrength * biasScale;
+                        state.vx += towardX;
+                        state.vy += towardY;
+                    }
+                    state.vr += (state.baseRot - state.rot) * 0.0006;
+                    if (Math.abs(state.vx) > 0.01 || Math.abs(state.vy) > 0.01) {
+                        state.x += state.vx;
+                        state.y += state.vy;
+                        state.vx *= glideFriction;
+                        state.vy *= glideFriction;
+                        const dx = state.baseX - state.x;
+                        const dy = state.baseY - state.y;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist < 35) {
+                            state.vx *= 0.9;
+                            state.vy *= 0.9;
+                        }
+                        // friction zone removed
+                        state.rot += state.vr;
+                        state.vr *= 0.9;
+                        card.style.setProperty('--target-x', `${state.x}px`);
+                        card.style.setProperty('--target-y', `${state.y}px`);
+                        card.style.setProperty('--scatter-rot', `${state.rot}deg`);
+
+                        const rect = card.getBoundingClientRect();
+                        const margin = 16;
+                        const minX = margin;
+                        const maxX = window.innerWidth - margin;
+                        const minY = margin;
+                        const maxY = window.innerHeight - margin;
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+
+                        if (centerX < minX || centerX > maxX) {
+                            state.vx = -state.vx * 0.7;
+                            state.x += state.vx;
+                            card.style.setProperty('--target-x', `${state.x}px`);
+                        }
+                        if (centerY < minY || centerY > maxY) {
+                            state.vy = -state.vy * 0.7;
+                            state.y += state.vy;
+                            card.style.setProperty('--target-y', `${state.y}px`);
+                        }
+                    } else {
+                        state.vx = 0;
+                        state.vy = 0;
+                    }
+                });
+                requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+
+        const buildMiniProjects = (projects) => {
+            const shuffled = projects.sort(() => Math.random() - 0.5).slice(0, 4);
+            miniProjects.innerHTML = shuffled.map((p) => `
+                <a class="project" href="${p.href}">
+                    <div class="project-title">${p.title}</div>
+                    <div class="project-image">
+                        <img src="${p.img}" alt="${p.title}">
+                    </div>
+                    <div class="project-progress">${p.progress}</div>
+                    <div class="project-description">${p.description}</div>
+                    <div class="project-date">${p.date}</div>
+                </a>
+            `).join('');
+            setupMiniProjectMotion();
+        };
+
+        fetch('projects.html')
+            .then((res) => res.text())
+            .then((html) => {
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const projectEls = Array.from(doc.querySelectorAll('.project'));
+                const projects = projectEls.map((el) => {
+                    const link = el.querySelector('a');
+                    const title = el.querySelector('.project-title')?.textContent?.trim() || 'Project';
+                    const img = el.querySelector('.project-image img')?.getAttribute('src') || '';
+                    const progress = el.querySelector('.project-progress')?.textContent?.trim() || '';
+                    const description = el.querySelector('.project-description')?.textContent?.trim() || '';
+                    const date = el.querySelector('.project-date')?.textContent?.trim() || '';
+                    const href = link?.getAttribute('href') || 'projects.html';
+                    return { title, img, progress, description, date, href };
+                });
+
+                if (projects.length) {
+                    buildMiniProjects(projects);
+                }
+            })
+            .catch(() => {
+                setupMiniProjectMotion();
+            });
+    </script>
+</body>
+</html>
