@@ -96,6 +96,30 @@
             text-transform: uppercase;
         }
 
+        .toggle-row {
+            display: flex;
+            gap: 10px;
+            margin: 6px 0 12px;
+        }
+
+        .toggle-btn {
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid #b0b0b0;
+            background: #f2f2f2;
+            color: #444444;
+            cursor: pointer;
+        }
+
+        .toggle-btn.active {
+            background: #dcdcdc;
+            border-color: #909090;
+        }
+
         p {
             font-size: 14px;
             line-height: 1.6;
@@ -318,6 +342,9 @@
                 <p>Hands-on builder with a focus on embedded systems, reliable hardware, and fast iteration. I like tight feedback loops, clean schematics, and projects that ship.</p>
 
                 <h1>Projects</h1>
+                <div class="toggle-row">
+                    <button id="glideToggle" class="toggle-btn active" type="button">Glide Back: On</button>
+                </div>
                 <div class="mini-projects-scale">
                     <div class="mini-projects" id="miniProjects"></div>
                 </div>
@@ -363,6 +390,37 @@
             let motionStrength = 2.0;
             let biasStrength = 0.0005;
             let glideFriction = 0.97;
+            let glideBackEnabled = true;
+            const glideToggle = document.getElementById('glideToggle');
+            if (glideToggle) {
+                glideToggle.addEventListener('click', () => {
+                    glideBackEnabled = !glideBackEnabled;
+                    glideToggle.classList.toggle('active', glideBackEnabled);
+                    glideToggle.textContent = glideBackEnabled ? 'Glide Back: On' : 'Glide Back: Off';
+                });
+            }
+            // Start with glide-back disabled; enable after user scrolls
+            glideBackEnabled = false;
+            if (glideToggle) {
+                glideToggle.classList.remove('active');
+                glideToggle.textContent = 'Glide Back: Off';
+            }
+            let glideEnabledOnScroll = false;
+            window.addEventListener('scroll', () => {
+                if (glideEnabledOnScroll) return;
+                glideEnabledOnScroll = true;
+                glideBackEnabled = true;
+                // Ensure all cards start gliding back immediately
+                const now = performance.now();
+                cards.forEach((card) => {
+                    const state = ensureState(card);
+                    state.biasDelayUntil = now;
+                });
+                if (glideToggle) {
+                    glideToggle.classList.add('active');
+                    glideToggle.textContent = 'Glide Back: On';
+                }
+            }, { passive: true });
 
             const ensureState = (card) => {
                 if (!states.has(card)) {
@@ -377,23 +435,25 @@
             const applyRandomOffsets = () => {
                 miniProjects.classList.remove('settled');
                 const baseOffsets = [
-                    { x: -8, y: -6, r: -2 },
-                    { x: 6, y: -4, r: 1.5 },
-                    { x: -5, y: 8, r: 2.2 },
-                    { x: 7, y: 10, r: -1.8 }
+                    { x: -18, y: -14, r: -6 },
+                    { x: 14, y: -10, r: 5 },
+                    { x: -12, y: 16, r: 7 },
+                    { x: 16, y: 18, r: -5 }
                 ];
                 cards.forEach((card, index) => {
                     const rawScatterX = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-x'));
                     const rawScatterY = parseFloat(getComputedStyle(card).getPropertyValue('--scatter-y'));
                     const scatterX = Number.isFinite(rawScatterX) ? rawScatterX : 0;
                     const scatterY = Number.isFinite(rawScatterY) ? rawScatterY : 0;
-                    const randX = (Math.random() * 140) - 70;
-                    const randY = (Math.random() * 120) - 60;
-                    const randRot = (Math.random() * 18) - 9;
+                    const pageWidth = window.innerWidth;
+                    const pageHeight = window.innerHeight;
+                    const randX = (Math.random() * (pageWidth * 0.7)) - (pageWidth * 0.35);
+                    const randY = (Math.random() * (pageHeight * 0.7)) - (pageHeight * 0.35);
+                    const randRot = (Math.random() * 36) - 18;
                     const startX = `${120 + Math.random() * 60}vw`;
                     const startY = `${-120 - Math.random() * 60}vh`;
-                    const startRot = `${-18 - Math.random() * 18}deg`;
-                    const throwDur = `${0.35 + Math.random() * 0.25}s`;
+                    const startRot = `${-30 - Math.random() * 30}deg`;
+                    const throwDur = `${0.35 + Math.random() * 0.45}s`;
                     const targetX = scatterX + randX;
                     const targetY = scatterY + randY;
                     card.style.setProperty('--target-x', `${targetX}px`);
@@ -481,11 +541,11 @@
                 cards.forEach((card) => {
                     const state = ensureState(card);
                     const now = performance.now();
-                    if (now >= state.biasDelayUntil) {
+                    if (glideBackEnabled && now >= state.biasDelayUntil) {
                         const dx = state.baseX - state.x;
                         const dy = state.baseY - state.y;
                         const dist = Math.hypot(dx, dy);
-                        const biasScale = Math.min(1, dist / 200);
+                        const biasScale = Math.min(1, dist / 120);
                         const towardX = dx * biasStrength * biasScale;
                         const towardY = dy * biasStrength * biasScale;
                         state.vx += towardX;
@@ -512,7 +572,7 @@
                         card.style.setProperty('--scatter-rot', `${state.rot}deg`);
 
                         const rect = card.getBoundingClientRect();
-                        const margin = 16;
+                        const margin = 12;
                         const minX = margin;
                         const maxX = window.innerWidth - margin;
                         const minY = margin;
@@ -520,14 +580,22 @@
                         const centerX = rect.left + rect.width / 2;
                         const centerY = rect.top + rect.height / 2;
 
-                        if (centerX < minX || centerX > maxX) {
-                            state.vx = -state.vx * 0.7;
-                            state.x += state.vx;
+                        if (centerX < minX) {
+                            state.vx = Math.abs(state.vx) * 0.7;
+                            state.x += (minX - centerX);
+                            card.style.setProperty('--target-x', `${state.x}px`);
+                        } else if (centerX > maxX) {
+                            state.vx = -Math.abs(state.vx) * 0.7;
+                            state.x -= (centerX - maxX);
                             card.style.setProperty('--target-x', `${state.x}px`);
                         }
-                        if (centerY < minY || centerY > maxY) {
-                            state.vy = -state.vy * 0.7;
-                            state.y += state.vy;
+                        if (centerY < minY) {
+                            state.vy = Math.abs(state.vy) * 0.7;
+                            state.y += (minY - centerY);
+                            card.style.setProperty('--target-y', `${state.y}px`);
+                        } else if (centerY > maxY) {
+                            state.vy = -Math.abs(state.vy) * 0.7;
+                            state.y -= (centerY - maxY);
                             card.style.setProperty('--target-y', `${state.y}px`);
                         }
                     } else {
@@ -542,8 +610,10 @@
 
         const buildMiniProjects = (projects) => {
             const shuffled = projects.sort(() => Math.random() - 0.5).slice(0, 4);
-            miniProjects.innerHTML = shuffled.map((p) => `
-                <a class="project" href="${p.href}">
+            miniProjects.innerHTML = shuffled.map((p) => {
+                const delay = (Math.random() * 260).toFixed(0);
+                return `
+                <a class="project" href="${p.href}" style="animation-delay: ${delay}ms;">
                     <div class="project-title">${p.title}</div>
                     <div class="project-image">
                         <img src="${p.img}" alt="${p.title}">
@@ -552,7 +622,8 @@
                     <div class="project-description">${p.description}</div>
                     <div class="project-date">${p.date}</div>
                 </a>
-            `).join('');
+            `;
+            }).join('');
             setupMiniProjectMotion();
         };
 
