@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>projects - matthew h zhang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: fit-content;
+            width: 100%;
             margin: 0 auto;
             transform-origin: center center;
             transition: transform 0.3s ease-out;
@@ -350,7 +350,9 @@
             .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 24px 16px;
-                justify-items: center;
+                justify-items: start;
+                margin-left: 0;
+                margin-right: auto;
             }
 
             .project {
@@ -644,11 +646,15 @@
         function updateTitleBlockScale() {
             const titleBlock = document.querySelector('.title-block');
             if (!titleBlock) return;
+            const header = titleBlock.querySelector('.header');
+            const filters = titleBlock.querySelector('.filters');
 
             // Get the natural width of the title block (unscaled)
             const tempScale = titleBlock.style.transform;
             titleBlock.style.transform = 'scale(1)';
-            const naturalWidth = titleBlock.scrollWidth;
+            const headerWidth = header ? header.scrollWidth : 0;
+            const filtersWidth = filters ? filters.scrollWidth : 0;
+            const naturalWidth = Math.max(headerWidth, filtersWidth, titleBlock.scrollWidth);
             titleBlock.style.transform = tempScale || '';
 
             // Get viewport width with some padding
