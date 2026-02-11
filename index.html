@@ -570,6 +570,9 @@
         // Also trigger on touch for mobile devices
         document.addEventListener('touchstart', startAnimation, { once: true });
 
+        const scaleIsMobile = window.matchMedia('(max-width: 900px)').matches;
+        let initialMobileScale = null;
+
         // Dynamic scaling for wrapper
         function updateWrapperScale() {
             const wrapper = document.querySelector('.wrapper');
@@ -586,6 +589,13 @@
 
             // Calculate scale based on viewport, capped at 0.75 for full screen
             const scale = Math.min(0.75, viewportWidth / naturalWidth);
+            if (scaleIsMobile) {
+                if (initialMobileScale === null) {
+                    initialMobileScale = scale;
+                }
+                wrapper.style.transform = `scale(${initialMobileScale})`;
+                return;
+            }
 
             // Apply the scale
             wrapper.style.transform = `scale(${scale})`;
@@ -593,7 +603,9 @@
 
         // Update scale on load and resize
         window.addEventListener('load', updateWrapperScale);
-        window.addEventListener('resize', updateWrapperScale);
+        if (!scaleIsMobile) {
+            window.addEventListener('resize', updateWrapperScale);
+        }
 
         // Initial scale update
         setTimeout(updateWrapperScale, 100);
