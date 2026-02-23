@@ -26,7 +26,7 @@
         body {
             background: #ffffff;
             color: var(--ink);
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            font-family: "Merriweather", "Palatino Linotype", "Palatino", "Times New Roman", serif;
             padding: 28px 24px 60px;
         }
 
@@ -43,6 +43,7 @@
             font-weight: 900;
             text-transform: uppercase;
             margin-bottom: 18px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
         }
 
         .nav a {
@@ -94,12 +95,13 @@
             font-size: 22px;
             margin-bottom: 10px;
             text-transform: uppercase;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
         }
 
         /* toggle styles removed */
 
         p {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.6;
             color: var(--ink);
             margin-bottom: 14px;
@@ -154,12 +156,14 @@
         .timeline-onwards {
             position: absolute;
             left: var(--onwards-left-px, 0px);
-            top: -18px;
-            font-size: 11px;
+            top: -24px;
+            font-size: 12px;
             color: #FEC94A;
             text-transform: uppercase;
             letter-spacing: 0.06em;
             transform: translateX(-6px);
+            font-weight: 700;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
         }
 
         .timeline-year-layer {
@@ -241,11 +245,14 @@
         }
 
         .timeline-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #888888;
-            margin-top: 6px;
+            margin-top: 18px;
+            font-size: 12px;
+            line-height: 0.9;
+            color: #888888;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-align: left;
+            white-space: pre;
         }
 
         .timeline-event-title {
@@ -271,7 +278,7 @@
 
         ul {
             list-style: none;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.7;
             color: var(--ink);
             margin-bottom: 18px;
@@ -292,6 +299,7 @@
             width: fit-content;
             margin: 0 auto;
             transform: translateX(var(--mini-shift)) scale(var(--mini-scale));
+            margin-top: 12px;
         }
 
         .mini-projects {
@@ -312,6 +320,7 @@
             background: #ffffff;
             text-decoration: none;
             color: inherit;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             display: block;
             transition: transform 0s linear, box-shadow 0.2s ease;
             transform: translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg));
@@ -321,6 +330,8 @@
             position: relative;
             aspect-ratio: 3 / 4;
             width: var(--mini-card-width);
+            margin-left: -6px;
+            margin-top: -4px;
         }
 
         @keyframes miniFloat {
@@ -484,8 +495,8 @@
         <section class="intro-section">
             <div class="intro-text">
                 <h1>About Me</h1>
-                <p>Electrical and Computer Engineering Honors and Canfield Business Honors student at UT Austin. I build hardware, embedded systems, and tooling that make projects feel clean, reliable, and shippable.</p>
-                <p>Recent work includes an MCU-based PWM motor driver board for a 12V DC turntable, and a projector pen that maps force and position data to a wall using BLE and computer vision.</p>
+                <p>I'm an undergraduate student in the ECB program at the University of Texas at Austin. I've had a passion for making physical projects ever since I was a kid. In high school, I had planned to become a digital artist but developed a greater interest in robotics and engineering after competing in FRC (go BagelBytes!).</p>
+                <p>Currently, I'm loving embedded systems, autonomous control, and PCB design. Additionally, I have extensive CAD experience and still enjoy illustration and graphic design.</p>
                 <div class="timeline">
                     <div class="timeline-track" id="timelineTrack">
                         <div class="timeline-year-layer" id="timelineYearLayer">
@@ -494,35 +505,29 @@
                         </div>
                         <div class="timeline-inner" id="timelineInner">
                         <div class="timeline-events">
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 2);">
-                                <div class="timeline-event-title">Placeholder Event</div>
-                                <div class="timeline-event-desc">Add details later.</div>
-                                <div class="timeline-dot"></div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 11);">
+                                <div class="timeline-event-title">FRC Team #9400</div>
+                                <div class="timeline-event-desc">Joined Dec 2024.</div>
+                                <div class="timeline-dot">|
+v</div>
                             </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 7);">
-                                <div class="timeline-event-title">Placeholder Event</div>
-                                <div class="timeline-event-desc">Add details later.</div>
-                                <div class="timeline-dot"></div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 19);">
+                                <div class="timeline-event-title">UT Austin</div>
+                                <div class="timeline-event-desc">Started Aug 2025.</div>
+                                <div class="timeline-dot">|
+v</div>
                             </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 15);">
-                                <div class="timeline-event-title">Placeholder Event</div>
-                                <div class="timeline-event-desc">Add details later.</div>
-                                <div class="timeline-dot"></div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 22);">
+                                <div class="timeline-event-title">GHOST Robotics</div>
+                                <div class="timeline-event-desc">Joined Nov 2025.</div>
+                                <div class="timeline-dot">|
+v</div>
                             </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 23);">
-                                <div class="timeline-event-title">Placeholder Event</div>
-                                <div class="timeline-event-desc">Add details later.</div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 31);">
-                                <div class="timeline-event-title">Placeholder Event</div>
-                                <div class="timeline-event-desc">Add details later.</div>
-                                <div class="timeline-dot"></div>
-                            </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 39);">
-                                <div class="timeline-event-title">Placeholder Event</div>
-                                <div class="timeline-event-desc">Add details later.</div>
-                                <div class="timeline-dot"></div>
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 24);">
+                                <div class="timeline-event-title">Texas Aerial Robotics</div>
+                                <div class="timeline-event-desc">Joined Jan 2026.</div>
+                                <div class="timeline-dot">|
+v</div>
                             </div>
                         </div>
                         <div class="timeline-line">
@@ -591,10 +596,8 @@
 
         <div class="grid">
             <section class="left">
-                <h1>Summary</h1>
-                <p>Hands-on builder with a focus on embedded systems, reliable hardware, and fast iteration. I like tight feedback loops, clean schematics, and projects that ship.</p>
-
                 <h1>Projects</h1>
+                <p>Having projects to work on is really important to me. Here's a few finished (and many unfinished) projects I've documented. Click the cards to see my documentation or visit my Projects tab for the full list.</p>
                 <div class="mini-projects-scale">
                     <div class="mini-projects" id="miniProjects"></div>
                 </div>
@@ -602,25 +605,27 @@
 
             <section class="right">
                 <h1>Education</h1>
-                <p><span class="sub">May 2029</span><br>The University of Texas at Austin — B.S. Electrical and Computer Engineering Honors; B.B.A. Canfield Business Honors. GPA 3.73.</p>
+                <p><span class="sub">Aug 2025 – May 2029</span><br>The University of Texas at Austin — B.S. Electrical and Computer Engineering Honors; B.B.A. Canfield Business Honors. GPA 3.73.</p>
                 <p><span class="sub">Coursework</span><br>Circuit Analysis and Design, Computer Systems, Embedded Systems, Software Design.</p>
 
                 <h1>Skills</h1>
                 <p><span class="sub">Technical</span></p>
                 <ul>
-                    <li>C/C++, Assembly, Embedded Systems</li>
-                    <li>Onshape, KiCad, LTSpice</li>
-                    <li>3D Printing, Machining &amp; Shop Tools</li>
+                    <li>Languages: Python, C, C++, Assembly, R</li>
+                    <li>Tools: KiCad, LTSpice, Git, Linux, Onshape, GDB</li>
+                    <li>Lab/Shop: Oscilloscope, Logic Analyzer, Machining &amp; Shop Tools</li>
                 </ul>
 
                 <h1>Experience</h1>
-                <p><span class="sub">Aug 2023 – Sep 2025</span><br>FRC Team #9400 — Team Captain &amp; Mechanical Design Lead. Led fabrication, CAD, and sponsorship efforts; improved national ranking (1649 → 898 of ~2,900 teams).</p>
-                <p><span class="sub">Mar 2023 – May 2025</span><br>Diversity Matters Club — VP &amp; Pine Ridge STEM Kids Program Director; built and delivered STEM curricula and outreach.</p>
+                <p><span class="sub">Jan 2026 – Present</span><br>Texas Aerial Robotics — Control Systems Engineer. Modeled inverted pendulum dynamics and implemented PID/MPC controllers in Python; simulated thrust-vector landing with NumPy and Matplotlib.</p>
+                <p><span class="sub">Nov 2025 – Present</span><br>GHOST Robotics (VEX U) — Embedded Systems Engineer. Debugged I2C firmware on custom sensor host boards and integrated sensors with custom CAD.</p>
+                <p><span class="sub">Sep 2025 – Nov 2025</span><br>IEEE Robotics &amp; Automation Society Robotathon — Team #9. Led mechanical design of an autonomous robot with custom flywheels; optimized modularity and maze routing.</p>
+                <p><span class="sub">Dec 2024 – Aug 2025</span><br>FRC Team #9400 — Team Captain, Mechanical Lead. Mentored 28 members in CAD/electrical, raised ~$44,500, and designed 100+ sheet metal parts and 7 custom gearboxes.</p>
+                <p><span class="sub">Mar 2023 – May 2025</span><br>Diversity Matters Club — Vice President, Pine Ridge STEM Program Director. Coordinated a 3-week cultural immersion and led STEM programs in engineering design, computer literacy, and 3D printing.</p>
 
                 <h1>Awards</h1>
                 <ul>
-                    <li>IEEE RAS 2025 Robotathon — 1st Place, Software Design Award</li>
-                    <li>FRC Team #9400 — Rising All Stars Award; Rookie Inspiration Award</li>
+                    <li>IEEE RAS Robotathon 2025 — 1st Place Overall; Software Design Award</li>
                 </ul>
             </section>
         </div>
