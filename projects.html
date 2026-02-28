@@ -175,6 +175,40 @@
             border-radius: 8px;
         }
 
+        .backlinks {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            background: #f4f4f4;
+            border: 1px solid #e0e0e0;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        .backlinks a {
+            text-decoration: none;
+            color: #FEC94A;
+            border-bottom: 1px solid #bdbdbd;
+            padding-bottom: 1px;
+        }
+
+        .backlinks a:hover {
+            border-bottom-color: #FEC94A;
+        }
+
+        .backlinks .prompt {
+            color: #FEC94A;
+        }
+
+        .backlinks .sep {
+            color: #777;
+        }
+
         .filter-btn {
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             font-size: 18px;
@@ -363,8 +397,15 @@
     </style>
 </head>
 <body>
-    <div class="container">
+        <div class="container" style="position: relative;">
         <a href="index.html" class="back-link">← Back</a>
+
+        <div class="backlinks">
+            <span class="prompt">matthehzhang:~$</span>
+            <a href="index.html">home</a>
+            <span class="sep">/</span>
+            <span>projects</span>
+        </div>
 
         <div class="title-block">
             <div class="header">
@@ -383,7 +424,7 @@
         <div class="projects-grid" id="projectsGrid">
             <!-- Project 1 -->
             <div class="project" data-date="2025-11-08" data-name="Project Title 1" data-progress="Complete">
-                <a href="https://matthewhzhang.notion.site/ebd//303ce3e0547e80b5998bf7148dd8f1b8">
+                <a href="projects/wall-projector-pen.html">
                     <div class="project-title">Wall Projector Pen</div>
                     <div class="project-image">
                         <img src="lightpenv2.png" alt="Wall Projector Pen">

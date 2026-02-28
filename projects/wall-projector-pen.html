@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Wall Projector Pen - matthew h zhang</title>
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --muted: #6f6f6f;
+            --border: #dedede;
+            --paper: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 10px 0 0 0;
+        }
+
+        #mxmain {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 24px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            padding: 0 0 6px 0;
+            border-radius: 8px;
+        }
+
+        .nav a:hover {
+            color: var(--ink);
+        }
+
+        p {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 1.7em;
+        }
+
+        .inline-heading {
+            font-weight: 600;
+            font-size: 22px;
+            display: inline-block;
+            margin-top: 12px;
+        }
+
+        h1 {
+            font-size: 34px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .backlinks {
+            position: static;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 18px 0;
+            font-size: 14px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            background: #f4f4f4;
+            border: 1px solid #e0e0e0;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        .backlinks a {
+            text-decoration: none;
+            color: var(--ink);
+            border-bottom: 1px solid #bdbdbd;
+            padding-bottom: 1px;
+        }
+
+        .backlinks a:hover {
+            border-bottom-color: var(--ink);
+        }
+
+        .backlinks .prompt {
+            color: #FEC94A;
+        }
+
+        .backlinks .sep {
+            color: #777;
+        }
+
+        .meta {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 0;
+            line-height: 1.8;
+        }
+
+        .meta + .meta {
+            margin-top: 0;
+        }
+
+        .meta + p {
+            margin-top: 10px;
+        }
+
+        .doc-figure {
+            margin: 28px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            padding: 0 6%;
+        }
+
+        .doc-figure img {
+            width: calc(100% + 12px);
+            max-width: 980px;
+            height: auto;
+            margin: -6px auto;
+            border-radius: 0;
+            border: none;
+            background: transparent;
+            clip-path: inset(6px);
+        }
+
+        .doc-figure figcaption {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 980px;
+            width: calc(100% + 12px);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .doc-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 18px 0 22px;
+        }
+
+        .doc-gallery .doc-figure {
+            margin: 0;
+        }
+
+        @media (max-width: 720px) {
+            p {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            #mxmain { width: 90%; }
+            img { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="mxmain">
+        <div class="backlinks">
+            <span class="prompt">matthehzhang:~$</span>
+            <a href="../index.html">home</a>
+            <span class="sep">/</span>
+            <a href="../projects.html">projects</a>
+            <span class="sep">/</span>
+            <span>wall-projector-pen</span>
+        </div>
+        <h1>Wall Projector Pen</h1>
+        <p class="meta">19 Oct 2025</p>
+        <p class="meta"><strong>STATUS: COMPLETE</strong></p>
+        <p>This project was a collaborative effort among Arya, Luke, Andrew, and me. We built the Wall Projector Pen during my first hackathon at HackTX 2025 (hosted by Freetail Hackers at UT Austin.) This 24 hour work sprint was one of the most fun and inspiring experiences of my life. I’m really proud of what we made.</p>
+        <p>The initial idea came from one of my own problems. I have a small whiteboard in my room I use for projects and studying, and I just wished it were larger. I wanted something that would let me use my wall as a whiteboard.</p>
+        <p>Then I thought of how teachers would sometimes project their tablets on walls in place of a whiteboard.</p>
+        <p>From there, it all clicked. For the hackathon we needed to present something useful, technically challenging, and flashy. A pen that could make any wall into an actual whiteboard and make markings appear out of thin air would satisfy all three of those requirements.</p>
+        <p><span class="inline-heading">Here’s the details:</span><br>The project consisted of a Python app running on the user’s computer to prepare the projector output and a hardware device that collected data for the app.</p>
+        <p>The hardware device (the pen) is what I was mainly responsible for. I decided it would be built around a XIAO ESP32-S3 for its small form and because I’ve used it in the past. To detect the pen’s pressure, we used a wonderfully overpriced (around $200 omg) SingleTact 1N Force Sensor that we borrowed from a friend. The XIAO and the sensors communicate via I2C protocol and send data packets to the Python app through BLE protocol every 100ms. I wrote the firmware for the pen device and worked with Arya on the circuit. Later, we would add some lights to the pen, to assist the computer vision software in detecting the pen tip.</p>
+        <figure class="doc-figure">
+            <img src="wall-projector-pen/img-000.png" alt="Wall Projector Pen image">
+            <figcaption><em>the electronics, working with Andrew’s Python app</em></figcaption>
+        </figure>
+        <p>We didn’t bring batteries to the hackathon, and unfortunately, electronic hobbyist components are not common enough in Amazon warehouses to have same-day shipping. I browsed the Amazon catalogue and found a pretty silly solution: we could just buy a small phone power bank and repackage it. It even came with its own battery percentage display!</p>
+        <figure class="doc-figure">
+            <img src="wall-projector-pen/img-001.png" alt="Wall Projector Pen image">
+            <figcaption><em>we actually nicked the battery a little haha</em></figcaption>
+        </figure>
+        <p>Luke worked on the mechanical design of the pen, and he somehow managed to fit all the electronics into a compact casing. We assembled the pen together and were able to run tests with the program the others created.</p>
+        <figure class="doc-figure">
+            <img src="wall-projector-pen/img-002.png" alt="Wall Projector Pen image">
+            <figcaption><em>the plan…</em></figcaption>
+        </figure>
+        <figure class="doc-figure">
+            <img src="wall-projector-pen/img-003.png" alt="Wall Projector Pen image">
+            <figcaption><em>…executed perfectly!</em></figcaption>
+        </figure>
+        <p><span class="inline-heading">We ran into a few issues along the way:</span></p>
+        <p>1.) Silly of us to include a blue LED on the blue pen and set our computer vision to detect blue pixels. This caused inaccuracies with the software finding the actual pen tip because it would confuse the entire pen as the marked point. All we had to do was switch out the color of the LED.</p>
+        <p>2.) We would receive frequent bluetooth disconnections and took a pretty long time to realize that we haven’t plugged an antenna into the XIAO board.</p>
+        <p>3.) Our pen tip wasn’t integrated perfectly, the force sensor didn’t have consistent contact, so you’d have to press pretty hard to get a good line. We might have scratched the wall a little while doing initial tests of our project. Later, we would decide to not write directly on the wall and treat the pen like a “can of spray paint.” I also edited the Python app to average the pressure sensor data when the pen is not writing and search for outliers to determine if the pen is being pressed rather than just having a base threshold.</p>
+        <div class="doc-gallery">
+            <figure class="doc-figure"><img src="wall-projector-pen/img-004.png" alt="Wall Projector Pen gallery image"></figure>
+        </div>
+    </div>
+</body>
+</html>
