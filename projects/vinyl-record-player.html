@@ -73,6 +73,11 @@
             margin-bottom: 14px;
         }
 
+        .sub-indent {
+            display: inline-block;
+            padding-left: 2.5em;
+        }
+
         .inline-heading {
             font-weight: 600;
             font-size: 22px;
@@ -326,16 +331,16 @@
         <p>Anyways, I had to separate this project into many small parts. I’m not sure how much of this will be designed by scratch. I’ll probably decide as I go along the journey.</p>
         <p>
             1. the turntable (the record spinner)<br>
-            a. electrical hardware (the pcb)<br>
-            b. mechanical hardware (base, motor mounts, pulley)<br>
-            c. firmware (hall effect sensor rpm measurement, pid speed tuning)<br>
+            <span class="sub-indent">a.</span> electrical hardware (the pcb)<br>
+            <span class="sub-indent">b.</span> mechanical hardware (base, motor mounts, pulley)<br>
+            <span class="sub-indent">c.</span> firmware (hall effect sensor rpm measurement, pid speed tuning)<br>
             2. the tonearm (what reads the vinyl)<br>
-            a. the tonearm (pivoting arm)<br>
-            b. the cartridge (pin on end of arm, contacting vinyl)<br>
+            <span class="sub-indent">a.</span> the tonearm (pivoting arm)<br>
+            <span class="sub-indent">b.</span> the cartridge (pin on end of arm, contacting vinyl)<br>
             3. the audio chain<br>
-            a. phono preamp (amplifies tiny signal from cartridge)<br>
-            b. amplifier (amplifies signal to drive speakers)<br>
-            c. speakers (convert signal to sound)
+            <span class="sub-indent">a.</span> phono preamp (amplifies tiny signal from cartridge)<br>
+            <span class="sub-indent">b.</span> amplifier (amplifies signal to drive speakers)<br>
+            <span class="sub-indent">c.</span> speakers (convert signal to sound)
         </p>
         <p id="turntable"><span class="inline-heading">THE TURNTABLE:</span></p>
         <p id="electrical"><span class="inline-heading">ELECTRICAL HARDWARE:</span></p>
@@ -352,12 +357,12 @@
         </figure>
         <p>To power my motor, I had to update this design to receive +12V instead. I found a chip, the CH224A that I could use to handle the USB PD behavior. All I had to do was attach a 24K resistor connecting pin CFG1 to GND.</p>
         <figure class="doc-figure wide">
-            <img src="vinyl-record-player/schematic-data-usb.png" alt="Data/flash USB C connector schematic">
+            <img src="vinyl-record-player/schematic-data-usb.png" alt="Schematic capture">
             <figcaption><em>if this schematic is ugly – it’s my first time and i’m not familiar with conventions yet</em></figcaption>
         </figure>
         <p>Since the data pins on that USB C connector were occupied, I added another one just for flashing the MCU. In the future, I should probably use JTAG or UART to flash. I think you can even use WIFI or Bluetooth to flash ESP32 chips.</p>
         <figure class="doc-figure narrow">
-            <img src="vinyl-record-player/schematic-power-usb.png" alt="Power USB C connector schematic">
+            <img src="vinyl-record-player/schematic-power-usb.png" alt="USB C connector schematic">
             <figcaption><em>idk if this is wired correctly…</em></figcaption>
         </figure>
         <p>Once I was able to receive +12V, I needed to control it precisely with PWM. I measured the stall current of my motor at ~6A and found the MP8040 half bridge power driver to be suitable for my needs. I wired it according to the typical application listed in the datasheet, added some breakout pins, and got ready to route my circuit board.</p>
@@ -370,21 +375,36 @@
             <img src="vinyl-record-player/vinyl-006.png" alt="PCB routing view">
             <figcaption><em>man i hope it works</em></figcaption>
         </figure>
-        <p>Receiving the board I designed in the mail was really exciting. However, I realized a potential mistake I made in my board. During my interview for Texas Aerial Robotics (one of the organizations on campus) I was given a question about powering DC motors. Thanks to their question, I realized I forgot to add a flyback diode to my circuit.</p>
+        <p>Receiving the board I designed in the mail was really exciting. However, I realized a potential mistake I made in my board. During my interview for Texas Aerial Robotics (one of the organizations on campus) I was given a question about powering DC motors. During this interview, I realized I forgot to add a flyback diode to my circuit.</p>
         <figure class="doc-figure small">
             <img src="vinyl-record-player/vinyl-007.png" alt="PCB in the mail">
             <figcaption><em>pcb in the mail</em></figcaption>
         </figure>
         <p>Why might a flyback diode be required?</p>
-        <p>A motor can be modeled as an inductor and a resistor in series. If current is flowing through that inductor at a steady state and I suddenly cut it off, the inductor will try to keep current flowing. However, there's nowhere for current to flow to, so the inductor tries to force current to continue flowing by accumulating a massive voltage difference across its terminals.</p>
+        <p>Let me explain: A motor can be modeled as an inductor and a resistor in series. If current is flowing through that inductor at a steady state and I suddenly cut it off, the inductor will try to keep current flowing. However, there's nowhere for current to flow to, so the inductor tries to force current to continue flowing by accumulating a massive voltage difference across its terminals.</p>
         <p>Anyways, this large spike in voltage can damage sensitive electronics on the same Vbus. The voltage accumulated by the inductor can be so strong that it pulls electrons out of the air to create arcs.</p>
         <p>A flyback diode can prevent all of this by providing the inductor a safe path to route current. It sends the current back through the motor’s resistance and dissipates the stored energy as heat.</p>
         <figure class="doc-figure large">
             <img src="vinyl-record-player/vinyl-008.png" alt="Flyback diode diagram">
             <figcaption><em>image source: https://en.wikipedia.org/wiki/Flyback_diode</em></figcaption>
         </figure>
+        <p>Well, I got the board soldered and found a spare diode. SMD soldering with solder paste and a heat gun is so fun, it just goes right where it should.</p>
+        <figure class="doc-figure tiny">
+            <img src="vinyl-record-player/vinyl-009.png" alt="Soldered PCB">
+            <figcaption><em>i got a blink program running, confirmed the MCU is operational</em></figcaption>
+        </figure>
         <p>to be continued…</p>
         <p id="mechanical"><span class="inline-heading">MECHANICAL HARDWARE:</span></p>
+        <p>to be elaborated…</p>
+        <figure class="doc-figure tiny">
+            <img src="vinyl-record-player/vinyl-010.png" alt="Mechanical hardware part">
+        </figure>
+        <figure class="doc-figure tiny">
+            <img src="vinyl-record-player/vinyl-011.png" alt="CAD and slicer view">
+        </figure>
+        <figure class="doc-figure tiny">
+            <img src="vinyl-record-player/vinyl-013.png" alt="Mechanical prototype">
+        </figure>
         <p>to be continued…</p>
     </div>
     <script>
