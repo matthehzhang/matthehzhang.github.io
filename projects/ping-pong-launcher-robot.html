@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Wall Projector Pen - matthew h zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --muted: #6f6f6f;
+            --border: #dedede;
+            --paper: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+            margin: 10px 0 0 0;
+        }
+
+        #mxmain {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 24px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            padding: 0 0 6px 0;
+            border-radius: 8px;
+        }
+
+        .nav a:hover {
+            color: var(--ink);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .inline-heading {
+            font-weight: 600;
+            font-size: 22px;
+            display: inline-block;
+            margin-top: 12px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 22px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+        }
+
+        .backlinks {
+            position: static;
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            margin: 0 0 18px 0;
+            font-size: 14px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            background: #f4f4f4;
+            border: 1px solid #e0e0e0;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        .backlinks .prompt {
+            margin-right: 6px;
+        }
+
+        .backlinks a {
+            text-decoration: none;
+            color: #E0A800;
+            border-bottom: 1px solid #bdbdbd;
+            padding-bottom: 1px;
+        }
+
+        .backlinks a:hover {
+            border-bottom-color: #E0A800;
+        }
+
+        .backlinks .prompt {
+            color: #E0A800;
+        }
+
+        .backlinks .sep {
+            color: #E0A800;
+        }
+
+        .backlinks .sep-last {
+            color: #1a1a1a;
+        }
+
+
+        .meta {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 0;
+            line-height: 1.8;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+        }
+
+        .meta + .meta {
+            margin-top: 0;
+        }
+
+        .meta + p {
+            margin-top: 10px;
+        }
+
+        .doc-figure {
+            margin: 28px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            padding: 0 6%;
+        }
+
+        .doc-figure img {
+            width: calc(100% + 12px);
+            max-width: 560px;
+            height: auto;
+            margin: -6px auto;
+            border-radius: 12px;
+            border: 1px solid #e2e2e2;
+            background: #f0f0f0;
+            clip-path: inset(6px round 12px);
+            transform: translate(4px, 4px) rotate(var(--tilt, 0deg));
+        }
+
+        .doc-figure.hero img,
+        .doc-figure-row.overlap img {
+            max-width: 700px;
+        }
+
+        .doc-figure.final-image img {
+            max-width: 980px;
+        }
+
+        .doc-figure.side-small img {
+            max-width: 460px;
+        }
+
+        .doc-figure.smaller img {
+            max-width: 360px;
+        }
+
+        .doc-figure.extra-small img {
+            max-width: 300px;
+        }
+
+        .doc-figure figcaption {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 980px;
+            width: calc(100% + 12px);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .doc-figure.center-caption figcaption {
+            width: 80vw;
+            max-width: 980px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .caption-center {
+            text-align: center;
+            font-size: 16px;
+            color: var(--muted);
+            margin: 6px 0 18px;
+        }
+
+        .side-tabs {
+            position: fixed;
+            top: 180px;
+            left: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            font-size: 13px;
+            z-index: 5;
+            padding-left: 10px;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .side-tabs a {
+            text-decoration: none;
+            color: var(--ink);
+            padding: 6px 8px;
+        }
+
+        .side-tabs a:hover {
+            color: var(--accent);
+        }
+
+        .side-tabs a.active {
+            color: var(--accent);
+        }
+
+        @media (max-width: 900px) {
+            .side-tabs {
+                position: static;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+        }
+
+        .doc-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 18px 0 22px;
+        }
+
+        .doc-figure-row {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            margin: 28px auto;
+            padding: 0 6%;
+        }
+
+        .doc-figure-row .doc-figure {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .doc-figure-row .doc-figure img {
+            max-width: 100%;
+        }
+
+        .doc-figure-row.overlap {
+            gap: 0;
+        }
+
+        .doc-figure-row.overlap .doc-figure:first-child {
+            transform: translateX(18px);
+            z-index: 2;
+        }
+
+        .doc-figure-row.overlap .doc-figure:last-child {
+            transform: translateX(-18px) translateY(16px);
+            z-index: 1;
+        }
+
+        .doc-figure-row.overlap-vertical {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+            position: relative;
+        }
+
+        .doc-figure-row.overlap-vertical .doc-figure {
+            width: fit-content;
+        }
+
+        .doc-figure-row.overlap-vertical .doc-figure img {
+            max-width: 700px;
+        }
+
+        .doc-figure-row.overlap-vertical .doc-figure:first-child {
+            transform: translateX(26px);
+            z-index: 2;
+        }
+
+        .doc-figure-row.overlap-vertical .doc-figure:last-child {
+            transform: translateX(-22px) translateY(-28px);
+            z-index: 1;
+        }
+
+        .doc-figure-row.overlap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0;
+            align-items: start;
+            margin: 28px auto;
+            padding: 0 6%;
+        }
+
+        .doc-figure-row.overlap-grid .column {
+            position: relative;
+            width: fit-content;
+        }
+
+        .doc-figure-row.overlap-grid .column.right {
+            margin-left: 6px;
+        }
+
+        .doc-figure-row.overlap-grid .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .doc-figure-row.overlap-grid .stack .doc-figure:first-child {
+            transform: translateX(34px);
+            z-index: 2;
+        }
+
+        .doc-figure-row.overlap-grid .stack .doc-figure:last-child {
+            transform: translateX(-30px) translateY(-24px);
+            z-index: 1;
+        }
+
+        @media (max-width: 780px) {
+            .doc-figure-row {
+                flex-direction: column;
+            }
+        }
+
+        .doc-gallery .doc-figure {
+            margin: 0;
+        }
+
+        @media (max-width: 720px) {
+            p {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            #mxmain { width: 90%; }
+            img { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="mxmain">
+        <div class="backlinks">
+            <span class="prompt">matthehzhang:~$</span>
+            <a href="../index.html">home</a><span class="sep">/</span><a href="../projects.html">projects</a><span class="sep sep-last">/</span><span>ping-pong-launcher-robot</span>
+        </div>
+        <nav class="side-tabs" aria-label="Project sections">
+            <a href="#launcher">THE LAUNCHER</a>
+            <a href="#rest">THE REST OF IT</a>
+        </nav>
+        <div class="content">
+            <h1>Ping Pong Launcher Robot</h1>
+        <p class="meta">15 Nov 2025</p>
+        <p class="meta"><strong>STATUS: COMPLETE</strong></p>
+        <p>My friend, Kevin, invited me to join him to compete in the 2025 IEEE Robotics &amp; Automation Society Robotathon. It’s an annual competition hosted by upperclassmen at UT Austin for ten teams of ten underclassmen to get an introduction to robotics.</p>
+        <p>The competition spans several weeks, however we are only given a brief description of our tasks until a day before the tournament. This is meant to prevent hard coding challenges that are meant to be performed autonomously, but it also makes mechanical design difficult because we aren’t given dimensions, sizing, or even clear objectives.</p>
+        <p>What we were told was that we would be completing these tasks:</p>
+        <p>1.) navigating a maze autonomously<br>2.) navigating towards colors on the field<br>3.) following a line<br>4.) and launching ping pong balls into a tiered structure.</p>
+        <p id="launcher"><span class="inline-heading">THE LAUNCHER:</span></p>
+        <p>In this project, I was responsible for the mechanical design of the robot. The moment I heard the words ‘launch’ and ‘ball’ I immediately gravitated towards my past experiences in FRC. Ball launchers are very common in FRC. They’re designed with massive, heavy flywheels and are often hooded to improve accuracy. But I figured for this competition, that level of precision wouldn’t be necessary.</p>
+        <div class="doc-figure-row overlap">
+            <figure class="doc-figure">
+                <img src="ping-pong-launcher-robot/img-000.png" alt="Ping Pong Launcher Robot image">
+                <figcaption><em>credits: frc team 3476, code orange</em></figcaption>
+            </figure>
+            <figure class="doc-figure">
+                <img src="ping-pong-launcher-robot/img-001.jpg" alt="Ping Pong Launcher Robot image">
+                <figcaption><em>my team: frc 9400, this shooter launches bagels</em></figcaption>
+            </figure>
+        </div>
+        <p>These were initial sketches and designs for the robot’s shooter.</p>
+        <div class="doc-figure-row overlap-grid">
+            <div class="column left">
+                <div class="stack">
+                    <figure class="doc-figure">
+                        <img src="ping-pong-launcher-robot/img-002.png" alt="Ping Pong Launcher Robot image">
+                    </figure>
+                    <figure class="doc-figure">
+                        <img src="ping-pong-launcher-robot/img-003.png" alt="Ping Pong Launcher Robot image">
+                    </figure>
+                </div>
+            </div>
+            <div class="column right">
+                <div class="stack">
+                    <figure class="doc-figure side-small">
+                        <img src="ping-pong-launcher-robot/img-004.png" alt="Ping Pong Launcher Robot image">
+                    </figure>
+                    <figure class="doc-figure side-small">
+                        <img src="ping-pong-launcher-robot/img-005.png" alt="Ping Pong Launcher Robot image">
+                    </figure>
+                </div>
+        </div>
+        <p class="caption-center"><em>cad and cad (i used onshape for how easy it is to work together &amp; share files)</em></p>
+        <p>The tube sitting behind the shooter is meant to be a spring-loaded magazine. I thought we were required to hold onto the balls we were tasked to shoot. Later I found that it wasn&#x27;t necessary so I removed the magazine. My first few attempts at making the gears were very susceptible to slipping. I had to try a few times before I had the right tolerances and they meshed properly.</p>
+        <p id="rest"><span class="inline-heading">THE REST OF IT:</span></p>
+        <p>The rest of the robot (the static parts) took much longer. The smaller I made the footprint of the robot, the easier it would make the maze routing. So I tried my best to package all our components in the tightest configuration possible.</p>
+        <p>Before I began the actual packaging, I measured and modeled all of our parts into the CAD document so I could reference them during design. Some of my team members were interested in learning CAD, so I assigned them some of the designs and also sent them the video I used to teach myself and others who are curious.</p>
+        <p>https://www.youtube.com/watch?v=VvpQu2rsH3A he has a video series with more of this, its great</p>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-006.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>parts modeled, scrambled around, getting ready</em></figcaption>
+        </figure>
+        <p>I tried to add more weight around the wheels so it’s easier to control. The color sensor is low and to the front as the software team specified and I was working on adjustable/sliding distance sensors on all sides of the robots. This helped the software team quickly test their maze algorithm with different configurations without having to wait for me to make a redesign.</p>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-007.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>main chassis</em></figcaption>
+        </figure>
+        <p>After learning about our maze pathfinding strategy, I designed this outer rim to assist the robot in the maze. This would allow for more error in the autonomous routine because the rounded and flexible exterior helped the robot slide against the wall if it got stuck.</p>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-008.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>flexible bumper</em></figcaption>
+        </figure>
+        <p>At first, we thought we would have to pick up balls off the floor. So our robot initially included a ground intake that fed into the shooter.</p>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-009.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>an intake sketch that got scrapped</em></figcaption>
+        </figure>
+        <p>The (lack of) grip in the wheels were causing issues in the robot’s ability to turn consistently. We didn’t have odometry so when we wanted to rotate autonomously we would just hard code a certain amount of time the robot should turn for. I created grippier, TPU wheels to help aid in the consistency of our turns.</p>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-010.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>grippier wheels and more changes</em></figcaption>
+        </figure>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-011.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>the final robot on competition day</em></figcaption>
+        </figure>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/late-night-assembly.jpeg" alt="Late night assembly">
+            <figcaption><em>late night assembly</em></figcaption>
+        </figure>
+        <p>When running tests on competition day, we experienced problems in the launcher gear’s axles popping out of the print. I quickly botched together a solution that would force the top and bottom plates together and prevent the axle from coming out.</p>
+        <figure class="doc-figure">
+            <img src="ping-pong-launcher-robot/img-012.png" alt="Ping Pong Launcher Robot image">
+            <figcaption><em>the final final v3 (2) design</em></figcaption>
+        </figure>
+        <p>The tournament (and participating in the all-nighter before the tournament) was a great time. I didn’t take many photos and I can’t find them online so all I have to show for it is this blurry screenshot.</p>
+        <div class="doc-gallery">
+            <figure class="doc-figure final-image">
+                <img src="ping-pong-launcher-robot/img-013.png" alt="Ping Pong Launcher Robot gallery image">
+                <figcaption><em>First Place in the Tournament &amp; Software Design Award</em></figcaption>
+            </figure>
+        </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const images = Array.from(document.querySelectorAll('.doc-figure img'));
+        const angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
+        const minDiff = 0.6;
+        let lastAngle = null;
+
+        const pickAngle = () => {
+            const shuffled = angles.slice().sort(() => Math.random() - 0.5);
+            const candidate = shuffled.find((a) => lastAngle === null || Math.abs(a - lastAngle) >= minDiff);
+            return candidate !== undefined ? candidate : shuffled[0];
+        };
+
+        images.forEach((img) => {
+            const angle = pickAngle();
+            img.style.setProperty('--tilt', `${angle}deg`);
+            lastAngle = angle;
+        });
+
+        const tabs = Array.from(document.querySelectorAll('.side-tabs a'));
+        const sections = tabs.map((tab) => document.querySelector(tab.getAttribute('href'))).filter(Boolean);
+
+        const setActive = (index) => {
+            tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+            if (visible[0]) {
+                const idx = sections.indexOf(visible[0].target);
+                if (idx >= 0) setActive(idx);
+            }
+        }, { rootMargin: '-30% 0px -60% 0px', threshold: [0.2, 0.6] });
+
+        sections.forEach((section) => observer.observe(section));
+        setActive(0);
+    </script>
+</body>
+</html>

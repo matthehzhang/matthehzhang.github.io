@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Wall Projector Pen - matthew h zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --ink: #1a1a1a;
@@ -21,7 +24,7 @@
         body {
             background: var(--paper);
             color: var(--ink);
-            font-family: Helvetica, Arial, sans-serif;
+            font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
             margin: 10px 0 0 0;
         }
 
@@ -55,9 +58,9 @@
         }
 
         p {
-            font-size: 19px;
+            font-size: 18px;
             line-height: 1.6;
-            margin-bottom: 1.7em;
+            margin-bottom: 14px;
         }
 
         .inline-heading {
@@ -65,19 +68,23 @@
             font-size: 22px;
             display: inline-block;
             margin-top: 12px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            text-transform: uppercase;
         }
 
         h1 {
-            font-size: 34px;
+            font-size: 22px;
             line-height: 1.2;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
         }
 
         .backlinks {
             position: static;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 0;
             margin: 0 0 18px 0;
             font-size: 14px;
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
@@ -87,30 +94,40 @@
             border-radius: 4px;
         }
 
+        .backlinks .prompt {
+            margin-right: 6px;
+        }
+
         .backlinks a {
             text-decoration: none;
-            color: var(--ink);
+            color: #E0A800;
             border-bottom: 1px solid #bdbdbd;
             padding-bottom: 1px;
         }
 
         .backlinks a:hover {
-            border-bottom-color: var(--ink);
+            border-bottom-color: #E0A800;
         }
 
         .backlinks .prompt {
-            color: #FEC94A;
+            color: #E0A800;
         }
 
         .backlinks .sep {
-            color: #777;
+            color: #E0A800;
         }
+
+        .backlinks .sep-last {
+            color: #1a1a1a;
+        }
+
 
         .meta {
             font-size: 16px;
             color: var(--muted);
             margin-bottom: 0;
             line-height: 1.8;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
         }
 
         .meta + .meta {
@@ -135,10 +152,11 @@
             max-width: 980px;
             height: auto;
             margin: -6px auto;
-            border-radius: 0;
-            border: none;
-            background: transparent;
-            clip-path: inset(6px);
+            border-radius: 12px;
+            border: 1px solid #e2e2e2;
+            background: #f0f0f0;
+            clip-path: inset(6px round 12px);
+            transform: translate(4px, 4px) rotate(var(--tilt, 0deg));
         }
 
         .doc-figure figcaption {
@@ -177,11 +195,7 @@
     <div id="mxmain">
         <div class="backlinks">
             <span class="prompt">matthehzhang:~$</span>
-            <a href="../index.html">home</a>
-            <span class="sep">/</span>
-            <a href="../projects.html">projects</a>
-            <span class="sep">/</span>
-            <span>wall-projector-pen</span>
+            <a href="../index.html">home</a><span class="sep">/</span><a href="../projects.html">projects</a><span class="sep sep-last">/</span><span>wall-projector-pen</span>
         </div>
         <h1>Wall Projector Pen</h1>
         <p class="meta">19 Oct 2025</p>
@@ -218,5 +232,23 @@
             <figure class="doc-figure"><img src="wall-projector-pen/img-004.png" alt="Wall Projector Pen gallery image"></figure>
         </div>
     </div>
+    <script>
+        const images = Array.from(document.querySelectorAll('.doc-figure img'));
+        const angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
+        const minDiff = 0.6;
+        let lastAngle = null;
+
+        const pickAngle = () => {
+            const shuffled = angles.slice().sort(() => Math.random() - 0.5);
+            const candidate = shuffled.find((a) => lastAngle === null || Math.abs(a - lastAngle) >= minDiff);
+            return candidate !== undefined ? candidate : shuffled[0];
+        };
+
+        images.forEach((img) => {
+            const angle = pickAngle();
+            img.style.setProperty('--tilt', `${angle}deg`);
+            lastAngle = angle;
+        });
+    </script>
 </body>
 </html>

@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>About - matthew zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --ink: #111111;
             --muted: #6b6b6b;
             --bar: #e9e9e9;
             --stripe: #cfcfcf;
-            --accent: #FEC94A;
+            --accent: #E0A800;
             --mini-card-width: 190px;
             --mini-gap: 6px;
             --mini-scale: 1;
@@ -26,7 +29,7 @@
         body {
             background: #ffffff;
             color: var(--ink);
-            font-family: "Merriweather", "Palatino Linotype", "Palatino", "Times New Roman", serif;
+            font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
             padding: 28px 24px 60px;
         }
 
@@ -61,7 +64,7 @@
         .backlinks {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 0;
             font-size: 14px;
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             background: #f4f4f4;
@@ -69,6 +72,10 @@
             padding: 6px 10px;
             border-radius: 4px;
             margin-bottom: 18px;
+        }
+
+        .backlinks .prompt {
+            margin-right: 6px;
         }
 
         .backlinks a {
@@ -89,6 +96,7 @@
         .backlinks .sep {
             color: #777;
         }
+
 
 
         .intro-section {
@@ -133,7 +141,7 @@
         /* toggle styles removed */
 
         p {
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.6;
             color: var(--ink);
             margin-bottom: 14px;
@@ -182,7 +190,7 @@
             height: 2px;
             left: var(--onwards-left-px, 0px);
             width: calc(100% - var(--onwards-left-px, 0px));
-            background: #FEC94A;
+            background: #E0A800;
         }
 
         .timeline-onwards {
@@ -190,7 +198,7 @@
             left: var(--onwards-left-px, 0px);
             top: -24px;
             font-size: 12px;
-            color: #FEC94A;
+            color: #E0A800;
             text-transform: uppercase;
             letter-spacing: 0.06em;
             transform: translateX(-6px);
@@ -224,7 +232,7 @@
         }
 
         .timeline-year.future {
-            color: #FEC94A;
+            color: #E0A800;
         }
 
         .timeline-ticks {
@@ -272,29 +280,30 @@
             position: absolute;
             top: 0;
             transform: translateX(-50%);
-            text-align: left;
+            text-align: center;
             width: 180px;
         }
 
         .timeline-dot {
-            margin-top: 18px;
-            font-size: 12px;
-            line-height: 0.9;
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1;
             color: #888888;
             font-weight: 700;
             letter-spacing: 0.02em;
-            text-align: left;
+            text-align: center;
             white-space: pre;
+            width: 100%;
         }
 
         .timeline-event-title {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             margin-bottom: 4px;
         }
 
         .timeline-event-desc {
-            font-size: 11px;
+            font-size: 13px;
             color: #444444;
             line-height: 1.4;
         }
@@ -316,26 +325,37 @@
             margin-bottom: 18px;
         }
 
-        .projects-tab-link {
+        .inline-breadcrumb {
             display: inline-flex;
-            align-items: baseline;
-            gap: 6px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            align-items: center;
+            gap: 0;
+            font-size: 13px;
+            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
+            background: #f4f4f4;
+            border: 1px solid #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            vertical-align: baseline;
+        }
+
+        .inline-breadcrumb .prompt {
+            color: var(--accent);
+            margin-right: 4px;
+        }
+
+        .inline-breadcrumb a {
             text-decoration: none;
-            color: inherit;
+            color: var(--ink);
+            border-bottom: 1px solid #bdbdbd;
+            padding-bottom: 1px;
         }
 
-        .projects-tab-link:hover,
-        .projects-tab-link:focus-visible {
-            text-decoration: underline;
-            text-underline-offset: 3px;
+        .inline-breadcrumb a:hover {
+            border-bottom-color: var(--ink);
         }
 
-        .projects-tab-link .arrow {
-            font-size: 0.9em;
-            transform: translateY(-2px);
+        .inline-breadcrumb .sep {
+            color: var(--accent);
         }
 
         .mini-projects {
@@ -546,9 +566,7 @@
             <div class="intro-text">
                 <div class="backlinks">
                     <span class="prompt">matthehzhang:~$</span>
-                    <a href="index.html">home</a>
-                    <span class="sep">/</span>
-                    <span>about</span>
+                    <a href="index.html">home</a><span class="sep">/</span><span>about</span>
                 </div>
                 <p>I'm an undergraduate student in the ECB program at the University of Texas at Austin. I've had a passion for making physical projects ever since I was a kid. In high school, I had planned to become a digital artist but developed a greater interest in robotics and engineering after competing in FRC (go BagelBytes!).</p>
                 <p>Currently, I'm loving embedded systems, autonomous control, and PCB design. Additionally, I have extensive CAD experience and still enjoy illustration and graphic design.</p>
@@ -566,19 +584,19 @@
                                 <div class="timeline-dot">|
 v</div>
                             </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 19);">
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 19.1);">
                                 <div class="timeline-event-title">UT Austin</div>
                                 <div class="timeline-event-desc">Started Aug 2025.</div>
                                 <div class="timeline-dot">|
 v</div>
                             </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 22);">
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 22.5);">
                                 <div class="timeline-event-title">GHOST Robotics</div>
                                 <div class="timeline-event-desc">Joined Nov 2025.</div>
                                 <div class="timeline-dot">|
 v</div>
                             </div>
-                            <div class="timeline-event" style="left: calc(var(--month-width) * 24);">
+                            <div class="timeline-event" style="left: calc(var(--month-width) * 24.5);">
                                 <div class="timeline-event-title">Texas Aerial Robotics</div>
                                 <div class="timeline-event-desc">Joined Jan 2026.</div>
                                 <div class="timeline-dot">|
@@ -652,7 +670,7 @@ v</div>
         <div class="grid">
             <section class="left">
                 <h1>Projects</h1>
-                <p>Having projects to work on is really important to me. Here's a few finished (and many unfinished) projects I've documented. Click the cards to see my documentation or visit my <a class="projects-tab-link" href="projects.html">PROJECTS<span class="arrow" aria-hidden="true">&#8599;</span></a> tab for the full list.</p>
+                <p>Having projects to work on is really important to me. Here's a few finished (and many unfinished) projects I've documented. Click the cards to see my documentation or <span class="inline-breadcrumb"><span class="prompt">matthehzhang:~$</span><a href="projects.html">cd ~/projects</a></span> for the full list.</p>
                 <div class="mini-projects-scale">
                     <div class="mini-projects" id="miniProjects"></div>
                 </div>
