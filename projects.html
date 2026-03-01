@@ -431,22 +431,35 @@
                     <div class="project-image">
                         <img src="lightpenv2.png" alt="Wall Projector Pen">
                     </div>
-                    <div class="project-progress">Progress: Complete</div>
+                    <div class="project-progress">Status: Complete</div>
                     <div class="project-description">Wished my whiteboard were larger</div>
                     <div class="project-date">19 Oct 2025</div>
                 </a>
             </div>
 
             <!-- Project 2 -->
-            <div class="project" data-date="2025-10-29" data-name="Project Title 2" data-progress="Complete">
-                <a href="projects/ping-pong-launcher-robot.html">
-                    <div class="project-title">Ping Pong Launcher Robot</div>
+            <div class="project" data-date="2025-10-29" data-name="IEEE Robotathon Team #9" data-progress="Complete">
+                <a href="projects/ieee-robotathon-team-9.html">
+                    <div class="project-title">IEEE Robotathon Team #9</div>
                     <div class="project-image">
-                        <img src="projects/ping-pong-launcher-robot/img-012.png" alt="Ping Pong Launcher Robot">
+                        <img src="projects/robotathon.png" alt="Ping Pong Launcher Robot">
                     </div>
-                    <div class="project-progress">Progress: Complete</div>
-                    <div class="project-description">IEEE RAS Robotathon 2025 launcher build</div>
+                    <div class="project-progress">Status: Complete</div>
+                    <div class="project-description">practicing some cad</div>
                     <div class="project-date">15 Nov 2025</div>
+                </a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project" data-date="2026-03-01" data-name="Vinyl Record Player" data-progress="In Progress">
+                <a href="projects/vinyl-record-player.html">
+                    <div class="project-title">Vinyl Record Player</div>
+                    <div class="project-image">
+                        <img src="projects/IGOR.png" alt="Vinyl Record Player">
+                    </div>
+                    <div class="project-progress">Status: In Progress</div>
+                    <div class="project-description">all this to play one album</div>
+                    <div class="project-date">Present</div>
                 </a>
             </div>
 
@@ -458,7 +471,7 @@
                     <div class="project-image">
                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3EProject Image%3C/text%3E%3C/svg%3E" alt="Project 7">
                     </div>
-                    <div class="project-progress">Progress: Planning</div>
+                    <div class="project-progress">Status: Planning</div>
                     <div class="project-description">Description of project</div>
                     <div class="project-date">7 Jul 2024</div>
                 </a>
@@ -471,7 +484,7 @@
                     <div class="project-image">
                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3EProject Image%3C/text%3E%3C/svg%3E" alt="Project 8">
                     </div>
-                    <div class="project-progress">Progress: Complete</div>
+                    <div class="project-progress">Status: Complete</div>
                     <div class="project-description">Another description</div>
                     <div class="project-date">1 Apr 2024</div>
                 </a>
@@ -679,6 +692,9 @@
         const filterButtons = document.querySelectorAll('.filter-btn');
         const projectsGrid = document.getElementById('projectsGrid');
         let projects = Array.from(document.querySelectorAll('.project'));
+
+        // Auto-sort by date on load
+        sortProjects('date');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {

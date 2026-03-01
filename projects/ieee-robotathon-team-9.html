@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Wall Projector Pen - matthew h zhang</title>
+    <title>IEEE Robotathon Team #9 - matthew h zhang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,6 +13,7 @@
             --muted: #6f6f6f;
             --border: #dedede;
             --paper: #ffffff;
+            --accent: #E0A800;
         }
 
         * {
@@ -21,11 +22,20 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             background: var(--paper);
             color: var(--ink);
             font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
             margin: 10px 0 0 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            display: none;
         }
 
         #mxmain {
@@ -147,7 +157,8 @@
             padding: 0 6%;
         }
 
-        .doc-figure img {
+        .doc-figure img,
+        .doc-figure iframe {
             width: calc(100% + 12px);
             max-width: 560px;
             height: auto;
@@ -159,12 +170,21 @@
             transform: translate(4px, 4px) rotate(var(--tilt, 0deg));
         }
 
+        .doc-figure iframe {
+            aspect-ratio: 16 / 9;
+        }
+
         .doc-figure.hero img,
+        .doc-figure.hero iframe,
         .doc-figure-row.overlap img {
-            max-width: 700px;
+            max-width: 860px;
         }
 
         .doc-figure.final-image img {
+            max-width: 980px;
+        }
+
+        .doc-figure.large img {
             max-width: 980px;
         }
 
@@ -206,22 +226,53 @@
 
         .side-tabs {
             position: fixed;
-            top: 180px;
+            top: 34px;
             left: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: none;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 12px;
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             font-size: 13px;
             z-index: 5;
-            padding-left: 10px;
-            border-left: 2px solid #e0e0e0;
+            height: calc(100vh - 68px);
+        }
+
+        .side-tabs-line {
+            width: 2px;
+            background: #e0e0e0;
+            position: relative;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .side-tabs-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: top 0.2s ease;
+            box-shadow: 0 0 0 4px var(--accent);
+            cursor: pointer;
+        }
+
+        .side-tabs-links {
+            position: relative;
+            height: 100%;
+            width: 140px;
         }
 
         .side-tabs a {
             text-decoration: none;
             color: var(--ink);
             padding: 6px 8px;
+            position: absolute;
+            left: 0;
+            transform: translateY(-50%);
+            transition: color 0.2s ease;
         }
 
         .side-tabs a:hover {
@@ -232,13 +283,9 @@
             color: var(--accent);
         }
 
-        @media (max-width: 900px) {
+        @media (min-width: 1700px) {
             .side-tabs {
-                position: static;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-bottom: 12px;
+                display: flex;
             }
         }
 
@@ -308,20 +355,26 @@
 
         .doc-figure-row.overlap-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(2, auto);
             gap: 0;
             align-items: start;
+            justify-content: center;
             margin: 28px auto;
             padding: 0 6%;
+        }
+
+        .doc-figure-row.overlap-grid .doc-figure img {
+            max-width: 420px;
         }
 
         .doc-figure-row.overlap-grid .column {
             position: relative;
             width: fit-content;
+            justify-self: center;
         }
 
         .doc-figure-row.overlap-grid .column.right {
-            margin-left: 6px;
+            margin-left: 0;
         }
 
         .doc-figure-row.overlap-grid .stack {
@@ -367,14 +420,19 @@
     <div id="mxmain">
         <div class="backlinks">
             <span class="prompt">matthehzhang:~$</span>
-            <a href="../index.html">home</a><span class="sep">/</span><a href="../projects.html">projects</a><span class="sep sep-last">/</span><span>ping-pong-launcher-robot</span>
+            <a href="../index.html">home</a><span class="sep">/</span><a href="../projects.html">projects</a><span class="sep sep-last">/</span><span>ieee-robotathon-team-9</span>
         </div>
         <nav class="side-tabs" aria-label="Project sections">
-            <a href="#launcher">THE LAUNCHER</a>
-            <a href="#rest">THE REST OF IT</a>
+            <div class="side-tabs-line">
+                <span class="side-tabs-dot" aria-hidden="true"></span>
+            </div>
+            <div class="side-tabs-links">
+                <a href="#launcher">THE LAUNCHER</a>
+                <a href="#rest">THE REST OF IT</a>
+            </div>
         </nav>
         <div class="content">
-            <h1>Ping Pong Launcher Robot</h1>
+            <h1>IEEE Robotathon Team #9</h1>
         <p class="meta">15 Nov 2025</p>
         <p class="meta"><strong>STATUS: COMPLETE</strong></p>
         <p>My friend, Kevin, invited me to join him to compete in the 2025 IEEE Robotics &amp; Automation Society Robotathon. It’s an annual competition hosted by upperclassmen at UT Austin for ten teams of ten underclassmen to get an introduction to robotics.</p>
@@ -414,13 +472,16 @@
                         <img src="ping-pong-launcher-robot/img-005.png" alt="Ping Pong Launcher Robot image">
                     </figure>
                 </div>
+            </div>
         </div>
         <p class="caption-center"><em>cad and cad (i used onshape for how easy it is to work together &amp; share files)</em></p>
         <p>The tube sitting behind the shooter is meant to be a spring-loaded magazine. I thought we were required to hold onto the balls we were tasked to shoot. Later I found that it wasn&#x27;t necessary so I removed the magazine. My first few attempts at making the gears were very susceptible to slipping. I had to try a few times before I had the right tolerances and they meshed properly.</p>
         <p id="rest"><span class="inline-heading">THE REST OF IT:</span></p>
         <p>The rest of the robot (the static parts) took much longer. The smaller I made the footprint of the robot, the easier it would make the maze routing. So I tried my best to package all our components in the tightest configuration possible.</p>
         <p>Before I began the actual packaging, I measured and modeled all of our parts into the CAD document so I could reference them during design. Some of my team members were interested in learning CAD, so I assigned them some of the designs and also sent them the video I used to teach myself and others who are curious.</p>
-        <p>https://www.youtube.com/watch?v=VvpQu2rsH3A he has a video series with more of this, its great</p>
+        <figure class="doc-figure hero">
+            <iframe src="https://www.youtube.com/embed/VvpQu2rsH3A" title="CAD tutorial video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </figure>
         <figure class="doc-figure">
             <img src="ping-pong-launcher-robot/img-006.png" alt="Ping Pong Launcher Robot image">
             <figcaption><em>parts modeled, scrambled around, getting ready</em></figcaption>
@@ -442,14 +503,10 @@
         </figure>
         <p>The (lack of) grip in the wheels were causing issues in the robot’s ability to turn consistently. We didn’t have odometry so when we wanted to rotate autonomously we would just hard code a certain amount of time the robot should turn for. I created grippier, TPU wheels to help aid in the consistency of our turns.</p>
         <figure class="doc-figure">
-            <img src="ping-pong-launcher-robot/img-010.png" alt="Ping Pong Launcher Robot image">
-            <figcaption><em>grippier wheels and more changes</em></figcaption>
-        </figure>
-        <figure class="doc-figure">
             <img src="ping-pong-launcher-robot/img-011.png" alt="Ping Pong Launcher Robot image">
             <figcaption><em>the final robot on competition day</em></figcaption>
         </figure>
-        <figure class="doc-figure">
+        <figure class="doc-figure large">
             <img src="ping-pong-launcher-robot/late-night-assembly.jpeg" alt="Late night assembly">
             <figcaption><em>late night assembly</em></figcaption>
         </figure>
@@ -469,7 +526,7 @@
         </div>
     </div>
     <script>
-        const images = Array.from(document.querySelectorAll('.doc-figure img'));
+        const images = Array.from(document.querySelectorAll('.doc-figure img, .doc-figure iframe'));
         const angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
         const minDiff = 0.6;
         let lastAngle = null;
@@ -488,9 +545,79 @@
 
         const tabs = Array.from(document.querySelectorAll('.side-tabs a'));
         const sections = tabs.map((tab) => document.querySelector(tab.getAttribute('href'))).filter(Boolean);
+        const tabsNav = document.querySelector('.side-tabs');
+        const tabsLinks = document.querySelector('.side-tabs-links');
+        const tabsDot = document.querySelector('.side-tabs-dot');
+        const tabsLine = document.querySelector('.side-tabs-line');
 
         const setActive = (index) => {
             tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
+        };
+
+        const positionDotByScroll = () => {
+            if (!tabsDot || !tabsLinks) return;
+            const doc = document.documentElement;
+            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            const lineHeight = tabsLinks.clientHeight;
+            const padding = 6;
+            const usable = Math.max(1, lineHeight - padding * 2);
+            const ratio = Math.min(1, Math.max(0, doc.scrollTop / scrollable));
+            const y = padding + ratio * usable;
+            tabsDot.style.top = `${y}px`;
+        };
+
+        const scrollToRatio = (ratio) => {
+            const doc = document.documentElement;
+            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            const clamped = Math.min(1, Math.max(0, ratio));
+            doc.scrollTop = clamped * scrollable;
+        };
+
+        const getRatioFromEvent = (event) => {
+            if (!tabsLinks) return 0;
+            const rect = tabsLinks.getBoundingClientRect();
+            const padding = 6;
+            const usable = Math.max(1, rect.height - padding * 2);
+            const y = Math.min(rect.bottom - padding, Math.max(rect.top + padding, event.clientY));
+            return (y - rect.top - padding) / usable;
+        };
+
+        const positionTabs = () => {
+            if (!tabsLinks || !tabsLine) return;
+            const doc = document.documentElement;
+            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            const lineHeight = tabsLinks.clientHeight;
+            const padding = 6;
+            const usable = Math.max(1, lineHeight - padding * 2);
+            const minGap = 32;
+
+            sections.forEach((section, i) => {
+                const ratio = Math.min(1, Math.max(0, section.offsetTop / scrollable));
+                const y = padding + ratio * usable;
+                tabs[i].style.top = `${y}px`;
+            });
+
+            for (let i = 1; i < tabs.length; i++) {
+                const prevTop = parseFloat(tabs[i - 1].style.top) || 0;
+                const currentTop = parseFloat(tabs[i].style.top) || 0;
+                if (currentTop - prevTop < minGap) {
+                    tabs[i].style.top = `${prevTop + minGap}px`;
+                }
+            }
+
+            const maxTop = padding + usable;
+            for (let i = tabs.length - 2; i >= 0; i--) {
+                const nextTop = parseFloat(tabs[i + 1].style.top) || maxTop;
+                const currentTop = parseFloat(tabs[i].style.top) || 0;
+                if (nextTop - currentTop < minGap) {
+                    tabs[i].style.top = `${nextTop - minGap}px`;
+                }
+            }
+
+            for (let i = 0; i < tabs.length; i++) {
+                const currentTop = parseFloat(tabs[i].style.top) || 0;
+                tabs[i].style.top = `${Math.min(maxTop, Math.max(padding, currentTop))}px`;
+            }
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -504,7 +631,53 @@
         }, { rootMargin: '-30% 0px -60% 0px', threshold: [0.2, 0.6] });
 
         sections.forEach((section) => observer.observe(section));
+        const onResize = () => {
+            positionTabs();
+            setActive(tabs.findIndex((tab) => tab.classList.contains('active')) || 0);
+            positionDotByScroll();
+        };
+
+        positionTabs();
         setActive(0);
+        positionDotByScroll();
+        window.addEventListener('resize', onResize);
+        window.addEventListener('scroll', () => requestAnimationFrame(positionDotByScroll), { passive: true });
+        window.addEventListener('load', onResize);
+
+        const imagesToWatch = Array.from(document.querySelectorAll('.doc-figure img, .doc-figure iframe'));
+        imagesToWatch.forEach((media) => {
+            if (media.complete) return;
+            media.addEventListener('load', onResize, { once: true });
+        });
+
+        let isDragging = false;
+        const onPointerMove = (event) => {
+            if (!isDragging) return;
+            scrollToRatio(getRatioFromEvent(event));
+        };
+        const endDrag = () => {
+            isDragging = false;
+            window.removeEventListener('pointermove', onPointerMove);
+            window.removeEventListener('pointerup', endDrag);
+        };
+
+        if (tabsLine) {
+            tabsLine.addEventListener('pointerdown', (event) => {
+                isDragging = true;
+                scrollToRatio(getRatioFromEvent(event));
+                window.addEventListener('pointermove', onPointerMove);
+                window.addEventListener('pointerup', endDrag);
+            });
+        }
+        if (tabsDot) {
+            tabsDot.addEventListener('pointerdown', (event) => {
+                isDragging = true;
+                scrollToRatio(getRatioFromEvent(event));
+                window.addEventListener('pointermove', onPointerMove);
+                window.addEventListener('pointerup', endDrag);
+                event.preventDefault();
+            });
+        }
     </script>
 </body>
 </html>
