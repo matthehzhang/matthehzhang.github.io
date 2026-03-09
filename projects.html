@@ -47,6 +47,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
             min-height: 120px;
         }
 
@@ -64,6 +65,10 @@
             width: max-content;
             transform-origin: center center;
             transition: transform 0.3s ease-out;
+        }
+
+        .splitflap-mobile-note {
+            display: none;
         }
 
         .flap-container {
@@ -174,12 +179,17 @@
             display: inline-flex;
             justify-content: center;
             gap: 22px;
-            margin: -4px auto 36px;
+            margin: -4px 0 36px;
             width: max-content;
             background: rgba(160, 160, 160, 0.3);
             padding: 8px 26px;
             border-radius: 8px;
-            align-self: center;
+        }
+
+        .filters-wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .backlinks {
@@ -380,12 +390,44 @@
         }
 
         @media (max-width: 899px) {
-            .filters {
+            .header {
+                flex-direction: column;
+            }
+
+            .splitflap-mobile-note {
+                display: inline-block;
+                margin-top: 10px;
+                max-width: min(88vw, 360px);
+                padding: 7px 12px;
+                font-size: 12px;
+                line-height: 1.35;
+                color: #222222;
+                background: #ffffff;
+                border: 1px solid #d0d0d0;
+                border-radius: 6px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+                white-space: normal;
                 position: relative;
+            }
+
+            .splitflap-mobile-note::before {
+                content: "";
+                position: absolute;
                 left: 50%;
+                top: -12px;
                 transform: translateX(-50%);
-                margin-left: 0;
-                margin-right: 0;
+                border: 6px solid transparent;
+                border-bottom-color: #d0d0d0;
+            }
+
+            .splitflap-mobile-note::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: -11px;
+                transform: translateX(-50%);
+                border: 6px solid transparent;
+                border-bottom-color: #ffffff;
             }
 
             .projects-grid {
@@ -429,13 +471,16 @@
             <div class="header">
                 <h1>PROJECTS</h1>
                 <div class="split-flap-container" id="splitFlapTitle"></div>
+                <div class="splitflap-mobile-note">my website works better on larger screens</div>
             </div>
 
-            <div class="filters">
-                <button class="filter-btn active" data-sort="date">Date</button>
-                <button class="filter-btn" data-sort="name">Name</button>
-                <button class="filter-btn" data-sort="progress">Progress</button>
-                <button class="filter-btn" data-sort="random">Random</button>
+            <div class="filters-wrap">
+                <div class="filters">
+                    <button class="filter-btn active" data-sort="date">Date</button>
+                    <button class="filter-btn" data-sort="name">Name</button>
+                    <button class="filter-btn" data-sort="progress">Progress</button>
+                    <button class="filter-btn" data-sort="random">Random</button>
+                </div>
             </div>
         </div>
 
