@@ -47,7 +47,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
             min-height: 120px;
         }
 
@@ -65,10 +64,6 @@
             width: max-content;
             transform-origin: center center;
             transition: transform 0.3s ease-out;
-        }
-
-        .splitflap-mobile-note {
-            display: none;
         }
 
         .flap-container {
@@ -390,46 +385,6 @@
         }
 
         @media (max-width: 899px) {
-            .header {
-                flex-direction: column;
-            }
-
-            .splitflap-mobile-note {
-                display: inline-block;
-                margin-top: 10px;
-                max-width: min(88vw, 360px);
-                padding: 7px 12px;
-                font-size: 12px;
-                line-height: 1.35;
-                color: #222222;
-                background: #ffffff;
-                border: 1px solid #d0d0d0;
-                border-radius: 6px;
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-                white-space: normal;
-                position: relative;
-            }
-
-            .splitflap-mobile-note::before {
-                content: "";
-                position: absolute;
-                left: 50%;
-                top: -12px;
-                transform: translateX(-50%);
-                border: 6px solid transparent;
-                border-bottom-color: #d0d0d0;
-            }
-
-            .splitflap-mobile-note::after {
-                content: "";
-                position: absolute;
-                left: 50%;
-                top: -11px;
-                transform: translateX(-50%);
-                border: 6px solid transparent;
-                border-bottom-color: #ffffff;
-            }
-
             .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -471,7 +426,6 @@
             <div class="header">
                 <h1>PROJECTS</h1>
                 <div class="split-flap-container" id="splitFlapTitle"></div>
-                <div class="splitflap-mobile-note">my website works better on larger screens</div>
             </div>
 
             <div class="filters-wrap">
