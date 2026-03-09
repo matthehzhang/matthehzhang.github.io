@@ -548,12 +548,19 @@
             .mini-projects {
                 grid-template-columns: repeat(2, var(--mini-card-width));
                 justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .mini-projects-scale {
                 --mini-shift: 0px;
                 --mini-scale: 0.92;
                 margin: 0 auto;
+            }
+
+            .mini-projects .project {
+                margin-left: 0;
+                margin-top: 0;
             }
 
             .timeline {
@@ -917,15 +924,17 @@ v</div>
 
             if (isMobile) {
                 miniProjects.classList.add('mobile-locked');
-                miniProjects.style.transform = 'translate(20px, 20px)';
+                miniProjects.style.transform = 'none';
                 const cards = getCards();
                 cards.forEach((card) => {
                     const state = ensureState(card);
                     state.baseRot = (Math.random() * 6) - 3;
                     const floatDelay = (Math.random() * 1.6).toFixed(2);
                     const floatDuration = (5.2 + Math.random() * 2.2).toFixed(2);
-                    state.x = state.baseX;
-                    state.y = state.baseY;
+                    state.baseX = 0;
+                    state.baseY = 0;
+                    state.x = 0;
+                    state.y = 0;
                     state.vx = 0;
                     state.vy = 0;
                     state.rot = state.baseRot;
