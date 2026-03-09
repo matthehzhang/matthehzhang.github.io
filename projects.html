@@ -186,6 +186,7 @@
             position: fixed;
             top: 24px;
             left: 24px;
+            z-index: 1000;
             display: inline-flex;
             align-items: center;
             gap: 0;
@@ -379,6 +380,14 @@
         }
 
         @media (max-width: 899px) {
+            .filters {
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-left: 0;
+                margin-right: 0;
+            }
+
             .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -391,11 +400,6 @@
 
             .title-block {
                 transform: scale(0.65);
-            }
-
-            .filters {
-                margin-left: auto;
-                margin-right: auto;
             }
 
             .projects-grid {
