@@ -8,6 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
     <style>
+        @media (min-width: 901px) {
+            html {
+                zoom: 0.8;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -165,14 +171,15 @@
         }
 
         .filters {
-            display: flex;
+            display: inline-flex;
             justify-content: center;
             gap: 22px;
             margin: -4px auto 36px;
-            width: fit-content;
+            width: max-content;
             background: rgba(160, 160, 160, 0.3);
             padding: 8px 26px;
             border-radius: 8px;
+            align-self: center;
         }
 
         .backlinks {
@@ -384,6 +391,11 @@
 
             .title-block {
                 transform: scale(0.65);
+            }
+
+            .filters {
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .projects-grid {

@@ -8,6 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        @media (min-width: 901px) {
+            html {
+                zoom: 0.8;
+            }
+        }
+
         :root {
             --ink: #111111;
             --muted: #6b6b6b;
@@ -117,18 +123,18 @@
             align-items: flex-start;
         }
 
-        .grid {
+        .about-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 20px;
         }
 
-        .left {
+        .about-left-col {
             grid-column: 1 / 7;
             min-width: 0;
         }
 
-        .right {
+        .about-right-col {
             grid-column: 7 / 13;
             min-width: 0;
         }
@@ -525,7 +531,7 @@
 
         @media (max-width: 900px) {
             .intro-text, .intro-photo,
-            .left, .right {
+            .about-left-col, .about-right-col {
                 grid-column: 1 / 13;
             }
 
@@ -669,8 +675,8 @@ v</div>
             </div>
         </section>
 
-        <div class="grid">
-            <section class="left">
+        <div class="about-grid">
+            <section class="about-left-col">
                 <h1>Projects</h1>
                 <p>Having projects to work on is really important to me. Here's a few finished (and many unfinished) projects I've documented. Click the cards to see my documentation or <span class="inline-breadcrumb"><span class="prompt">matthehzhang:~$</span><a href="projects.html">cd ~/projects</a></span> for the full list.</p>
                 <div class="mini-projects-scale">
@@ -678,7 +684,7 @@ v</div>
                 </div>
             </section>
 
-            <section class="right">
+            <section class="about-right-col">
                 <h1>Education</h1>
                 <p><span class="sub">Aug 2025 – May 2029</span><br>The University of Texas at Austin — B.S. Electrical and Computer Engineering Honors; B.B.A. Canfield Business Honors. GPA 3.73.</p>
                 <p><span class="sub">Coursework</span><br>Circuit Analysis and Design, Computer Systems, Embedded Systems, Software Design.</p>
@@ -706,7 +712,7 @@ v</div>
         </div>
     </div>
     <script>
-        const summarySection = document.querySelector('.left');
+        const summarySection = document.querySelector('.about-left-col');
         const miniProjects = document.querySelector('#miniProjects');
         let allProjects = [];
 
