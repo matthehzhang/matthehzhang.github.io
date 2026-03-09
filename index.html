@@ -295,6 +295,10 @@
             color: #777;
         }
 
+        .backlinks .mobile-note {
+            display: none;
+        }
+
 
         .container {
             display: flex;
@@ -316,12 +320,12 @@
                 border-bottom-color: #d0d0d0;
             }
 
-            .backlinks::after {
-                content: "my website works better on larger screens";
+            .backlinks .mobile-note {
+                display: block;
                 position: absolute;
-                left: 0;
+                left: clamp(-24px, calc(100vw - 40px - 100%), 0px);
                 top: calc(100% + 8px);
-                width: min(340px, calc(100vw - 48px));
+                width: min(340px, calc(100vw - 16px));
                 padding: 7px 12px;
                 font-size: 14px;
                 line-height: 1.35;
@@ -331,6 +335,12 @@
                 border-radius: 6px;
                 box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
                 white-space: normal;
+                box-sizing: border-box;
+            }
+
+            .backlinks .mobile-note .alert {
+                color: #E0A800;
+                font-weight: 900;
             }
         }
 
@@ -444,6 +454,7 @@
     <div class="backlinks">
         <span class="prompt">matthehzhang:~$</span>
         <span>home</span>
+        <div class="mobile-note"><span class="alert">!!!</span> my website works better on larger screens :)</div>
     </div>
 <div class="social-links">
         <a href="https://github.com/matthehzhang" aria-label="GitHub" target="_blank" rel="noopener" class="newtab">
