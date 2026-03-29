@@ -784,13 +784,8 @@ v</div>
 
             const updateOnwards = () => {
                 const line = timelineTrack.querySelector('.timeline-line');
-                const tick = timelineTrack.querySelector('.timeline-tick');
-                if (!line || !tick) return;
-                const tickWidth = tick.getBoundingClientRect().width;
-                if (!tickWidth || tickWidth < 1) {
-                    requestAnimationFrame(updateOnwards);
-                    return;
-                }
+                if (!line) return;
+                const monthWidth = parseFloat(getComputedStyle(timelineTrack).getPropertyValue('--month-width')) || 150;
                 const totalMonths = timelineTrack.querySelectorAll('.timeline-tick').length;
                 const start = new Date(2024, 0, 1);
                 const nowDate = new Date();
@@ -798,27 +793,21 @@ v</div>
                 const clampedMonths = Math.max(0, Math.min(totalMonths - 1, monthsSinceStart));
                 const daysInMonth = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1, 0).getDate();
                 const monthProgress = Math.min(1, (nowDate.getDate() - 1) / Math.max(1, daysInMonth));
-                const offsetPx = (clampedMonths + monthProgress) * tickWidth;
-                const maxPx = Math.max(0, (totalMonths * tickWidth) - 1);
+                const offsetPx = (clampedMonths + monthProgress) * monthWidth;
+                const maxPx = Math.max(0, (totalMonths * monthWidth) - 1);
                 const clampedPx = Math.max(0, Math.min(maxPx, offsetPx));
                 line.style.setProperty('--onwards-left-px', `${clampedPx}px`);
             };
 
-            requestAnimationFrame(updateOnwards);
+            updateOnwards();
             window.addEventListener('resize', updateOnwards);
             const autoScrollToRecent = () => {
-                const tick = timelineTrack.querySelector('.timeline-tick');
-                if (!tick) return;
-                const tickWidth = tick.getBoundingClientRect().width;
-                if (!tickWidth || tickWidth < 1) {
-                    requestAnimationFrame(autoScrollToRecent);
-                    return;
-                }
+                const monthWidth = parseFloat(getComputedStyle(timelineTrack).getPropertyValue('--month-width')) || 150;
                 const nowDate = new Date();
                 const start = new Date(2024, 0, 1);
                 const monthsSinceStart = (nowDate.getFullYear() - start.getFullYear()) * 12 + (nowDate.getMonth() - start.getMonth());
                 const targetMonth = Math.max(0, monthsSinceStart - 3);
-                const targetLeft = Math.max(0, targetMonth * tickWidth);
+                const targetLeft = Math.max(0, targetMonth * monthWidth);
                 const startLeft = timelineTrack.scrollLeft;
                 const duration = 2000;
                 const originalSnap = timelineTrack.style.scrollSnapType;
