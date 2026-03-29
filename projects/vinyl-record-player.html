@@ -407,7 +407,7 @@
             <figcaption><em>pcb in the mail</em></figcaption>
         </figure>
         <p>Why might a flyback diode be required?</p>
-        <p>Let me explain: A motor can be modeled as an inductor and a resistor in series. If current is flowing through that inductor at a steady state and I suddenly cut it off, the inductor will try to keep current flowing. However, there's nowhere for current to flow to, so the inductor tries to force current to continue flowing by accumulating a massive voltage difference across its terminals.</p>
+        <p>A motor can be modeled as an inductor and a resistor in series. If current is flowing through that inductor at a steady state and I suddenly cut it off, the inductor will try to keep current flowing. However, there's nowhere for current to flow to, so the inductor tries to force current to continue flowing by accumulating a massive voltage difference across its terminals.</p>
         <p>Anyways, this large spike in voltage can damage sensitive electronics on the same Vbus. The voltage accumulated by the inductor can be so strong that it pulls electrons out of the air to create arcs.</p>
         <p>A flyback diode can prevent all of this by providing the inductor a safe path to route current. It sends the current back through the motor’s resistance and dissipates the stored energy as heat.</p>
         <figure class="doc-figure large">
