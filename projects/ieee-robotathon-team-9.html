@@ -10,7 +10,7 @@
     <style>
         @media (min-width: 901px) {
             html {
-                zoom: 0.8;
+                zoom: 1;
             }
         }
 
@@ -299,6 +299,12 @@
             left: 0;
             transform: translateY(-50%);
             transition: color 0.2s ease;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            white-space: normal;
+            line-height: 1.2;
+            overflow-wrap: anywhere;
         }
 
         .side-tabs a:hover {
@@ -453,12 +459,13 @@
                 <span class="side-tabs-dot" aria-hidden="true"></span>
             </div>
             <div class="side-tabs-links">
+                <a href="#overview">IEEE ROBOTATHON TEAM #9</a>
                 <a href="#launcher">THE LAUNCHER</a>
                 <a href="#rest">THE REST OF IT</a>
             </div>
         </nav>
         <div class="content">
-            <h1>IEEE Robotathon Team #9</h1>
+            <h1 id="overview">IEEE Robotathon Team #9</h1>
         <p class="meta">15 Nov 2025</p>
         <p class="meta"><strong>STATUS: COMPLETE</strong></p>
         <p>My friend, Kevin, invited me to join him to compete in the 2025 IEEE Robotics &amp; Automation Society Robotathon. It’s an annual competition hosted by upperclassmen at UT Austin for ten teams of ten underclassmen to get an introduction to robotics.</p>
@@ -575,21 +582,45 @@
         const tabsLinks = document.querySelector('.side-tabs-links');
         const tabsDot = document.querySelector('.side-tabs-dot');
         const tabsLine = document.querySelector('.side-tabs-line');
+        const mainContent = document.getElementById('mxmain');
 
         const setActive = (index) => {
             tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
         };
 
         const positionDotByScroll = () => {
-            if (!tabsDot || !tabsLinks) return;
+            if (!tabsDot || !tabsLinks || !tabs.length || !sections.length) return;
             const doc = document.documentElement;
-            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
-            const lineHeight = tabsLinks.clientHeight;
-            const padding = 6;
-            const usable = Math.max(1, lineHeight - padding * 2);
-            const ratio = Math.min(1, Math.max(0, doc.scrollTop / scrollable));
-            const y = padding + ratio * usable;
-            tabsDot.style.top = `${y}px`;
+            const scrollTop = Math.max(0, doc.scrollTop);
+            const points = sections.map((section, index) => ({
+                scrollTop: Math.max(0, section.offsetTop),
+                tabTop: parseFloat(tabs[index].style.top) || 0
+            }));
+
+            if (!points.length) return;
+
+            if (scrollTop <= points[0].scrollTop) {
+                tabsDot.style.top = `${points[0].tabTop}px`;
+                return;
+            }
+
+            const lastPoint = points[points.length - 1];
+            if (scrollTop >= lastPoint.scrollTop) {
+                tabsDot.style.top = `${lastPoint.tabTop}px`;
+                return;
+            }
+
+            for (let i = 0; i < points.length - 1; i++) {
+                const current = points[i];
+                const next = points[i + 1];
+                if (scrollTop >= current.scrollTop && scrollTop <= next.scrollTop) {
+                    const span = Math.max(1, next.scrollTop - current.scrollTop);
+                    const progress = (scrollTop - current.scrollTop) / span;
+                    const y = current.tabTop + (next.tabTop - current.tabTop) * progress;
+                    tabsDot.style.top = `${y}px`;
+                    return;
+                }
+            }
         };
 
         const scrollToRatio = (ratio) => {
@@ -610,12 +641,23 @@
 
         const positionTabs = () => {
             if (!tabsLinks || !tabsLine) return;
+            if (tabsNav && mainContent) {
+                const navRect = tabsNav.getBoundingClientRect();
+                const contentRect = mainContent.getBoundingClientRect();
+                const availableWidth = Math.floor(contentRect.left - navRect.left - 28);
+                if (availableWidth < 88) {
+                    tabsNav.style.display = 'none';
+                    return;
+                }
+                tabsNav.style.display = '';
+                const clampedWidth = Math.max(88, Math.min(140, availableWidth));
+                tabsLinks.style.width = `${clampedWidth}px`;
+            }
             const doc = document.documentElement;
             const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
             const lineHeight = tabsLinks.clientHeight;
             const padding = 6;
             const usable = Math.max(1, lineHeight - padding * 2);
-            const minGap = 32;
 
             sections.forEach((section, i) => {
                 const ratio = Math.min(1, Math.max(0, section.offsetTop / scrollable));
@@ -626,6 +668,9 @@
             for (let i = 1; i < tabs.length; i++) {
                 const prevTop = parseFloat(tabs[i - 1].style.top) || 0;
                 const currentTop = parseFloat(tabs[i].style.top) || 0;
+                const prevHeight = tabs[i - 1].offsetHeight || 0;
+                const currentHeight = tabs[i].offsetHeight || 0;
+                const minGap = Math.max(32, (prevHeight + currentHeight) / 2 + 8);
                 if (currentTop - prevTop < minGap) {
                     tabs[i].style.top = `${prevTop + minGap}px`;
                 }
@@ -635,6 +680,9 @@
             for (let i = tabs.length - 2; i >= 0; i--) {
                 const nextTop = parseFloat(tabs[i + 1].style.top) || maxTop;
                 const currentTop = parseFloat(tabs[i].style.top) || 0;
+                const nextHeight = tabs[i + 1].offsetHeight || 0;
+                const currentHeight = tabs[i].offsetHeight || 0;
+                const minGap = Math.max(32, (nextHeight + currentHeight) / 2 + 8);
                 if (nextTop - currentTop < minGap) {
                     tabs[i].style.top = `${nextTop - minGap}px`;
                 }
