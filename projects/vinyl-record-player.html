@@ -306,6 +306,16 @@
             max-width: 306px;
         }
 
+        .doc-figure.full-bleed {
+            padding: 0;
+        }
+
+        .doc-figure.full-bleed img,
+        .doc-figure.full-bleed figcaption {
+            width: 100%;
+            max-width: none;
+        }
+
 
         .doc-figure figcaption {
             font-size: 16px;
@@ -431,6 +441,7 @@
                 <a href="#turntable">THE TURNTABLE</a>
                 <a href="#electrical">MOTOR CONTROL PCB</a>
                 <a href="#mechanical">MECHANICAL DESIGN</a>
+                <a href="#electrical-v2">MOTOR CONTROL PCB V2</a>
             </div>
         </nav>
         <h1 id="overview">Vinyl Record Player</h1>
@@ -459,7 +470,7 @@
         <p id="turntable"><span class="inline-heading">THE TURNTABLE:</span></p>
         <p id="electrical"><span class="inline-heading">MOTOR CONTROL PCB:</span></p>
         <p>The first thing I needed to do was understand what my electrical system needed to complete. I needed to size a motor that could support the turntable, was easy to power, and minimized vibrations/disturbances in the audio signal.</p>
-        <p>In common DC motors, the iron core creates magnetic “detents” which cause small speed variations as the motor spins. These little bumps of resistance are even more noticeable at low RPMs, which our turntable will be running on. Compared to normal DC motors, coreless DC motors eliminate these variations by lacking a conventional iron core. Additionally coreless DC motors are generally known for their stability. After a bit of research, I purchased the maxon 2028.937-12.101-026 Coreless Brushed 12V DC motor.</p>
+        <p>In common DC motors, the iron core creates magnetic “detents” which cause small speed variations as the motor spins. These little bumps of resistance are even more noticeable at low RPMs, which our turntable will be running on. Compared to normal DC motors, coreless DC motors reduce these variations by lacking a conventional iron core. Additionally coreless DC motors are generally known for their stability. After a bit of research, I purchased the maxon 2028.937-12.101-026 Coreless Brushed 12V DC motor.</p>
         <figure class="doc-figure tiny">
             <img src="vinyl-record-player/vinyl-001.png" alt="Coreless DC motor">
             <figcaption><em>-$30</em></figcaption>
@@ -494,9 +505,10 @@
             <img src="vinyl-record-player/vinyl-007.png" alt="PCB in the mail">
             <figcaption><em>pcb in the mail</em></figcaption>
         </figure>
+        <p><strong>EDIT-IN-POST:</strong> The flyback diode is not actually necessary here because the MP8040 integrates two MOSFETs in a half-bridge which already provides body diodes for the current in the motor to recirculate. Still, something I didn’t catch (and I’m learning) so I think it’s worth explaining.</p>
         <p>Why might a flyback diode be required?</p>
         <p>A motor can be modeled as an inductor and a resistor in series. If current is flowing through that inductor at a steady state and I suddenly cut it off, the inductor will try to keep current flowing. However, there's nowhere for current to flow to, so the inductor tries to force current to continue flowing by accumulating a massive voltage difference across its terminals.</p>
-        <p>Anyways, this large spike in voltage can damage sensitive electronics on the same Vbus. The voltage accumulated by the inductor can be so strong that it pulls electrons out of the air to create arcs.</p>
+        <p>Anyways, this large spike in voltage can damage sensitive electronics on the same Vbus. The inductor will generate whatever voltage it can to keep current flowing. At times, it can even pull electrons out of the air to create arcs.</p>
         <p>A flyback diode can prevent all of this by providing the inductor a safe path to route current. It sends the current back through the motor’s resistance and dissipates the stored energy as heat.</p>
         <figure class="doc-figure large">
             <img src="vinyl-record-player/vinyl-008.png" alt="Flyback diode diagram">
@@ -543,6 +555,15 @@
             <img src="vinyl-record-player/vinyl-015.png" alt="CAD rig for testing platter RPM and PID control">
             <figcaption><em>motor housing + intake valve fix</em></figcaption>
         </figure>
+        <p id="electrical-v2"><span class="inline-heading">MOTOR CONTROL PCB V2:</span></p>
+        <p>So I was testing the US5881 Hall Effect Sensor and I got it working well. I started doing some tests with the assembled setup, toggling the onboard LED and seeing if I could calculate a fake RPM from me waving the magnet back and forth. Then suddenly, the +3.3V rail’s LED turned off, as well as my program. I felt around the PCB. The LDO was burning hot.</p>
+        <p>Seems like I’ll need to redo part of the circuit. I was due for this anyway because I’d like to add more components to it rather than having wires strewn about. And since I know the USB-C PD is faultless, I can remove some redundancies in the board.</p>
+        <p>I’ve outlined my mistake in the image provided.</p>
+        <figure class="doc-figure full-bleed">
+            <img src="vinyl-record-player/vinyl-016.png" alt="CAD and slicer view of the updated turntable component">
+            <figcaption><em>1. my mistake, 2. calculations, 3. conclusion</em></figcaption>
+        </figure>
+        <p>Essentially, I read the datasheet too quickly and used the first number I saw for a “maximum current” instead of actually calculating the power loss and fully understanding the operation of the LDO. If I had read through the datasheet properly, I’d likely have realized that an LDO is unfit for this task.</p>
     </div>
     <script>
         const images = Array.from(document.querySelectorAll('.doc-figure img'));
