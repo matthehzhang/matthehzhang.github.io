@@ -15,13 +15,13 @@
         }
 
         :root {
-            --ink: #111111;
-            --muted: #6b6b6b;
-            --bar: #e9e9e9;
-            --stripe: #cfcfcf;
+            --ink: #e0e0e0;
+            --muted: #888;
+            --bar: #2a2a2a;
+            --stripe: #333;
             --accent: #E0A800;
             --mini-card-width: 190px;
-            --mini-gap: 6px;
+            --mini-gap: -20px;
             --mini-scale: 1;
             --mini-shift: -40px;
         }
@@ -33,15 +33,17 @@
         }
 
         body {
-            background: #ffffff;
+            background: #121212;
             color: var(--ink);
             font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
             padding: 28px 24px 60px;
+            overflow-x: hidden;
         }
 
         .page {
             max-width: 1200px;
             margin: 0 auto;
+            overflow: visible;
         }
 
         .nav {
@@ -73,8 +75,8 @@
             gap: 0;
             font-size: 14px;
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            background: #f4f4f4;
-            border: 1px solid #e0e0e0;
+            background: #1e1e1e;
+            border: 1px solid #333;
             padding: 6px 10px;
             border-radius: 4px;
             margin-bottom: 18px;
@@ -87,7 +89,7 @@
         .backlinks a {
             text-decoration: none;
             color: var(--accent);
-            border-bottom: 1px solid #bdbdbd;
+            border-bottom: 1px solid #555;
             padding-bottom: 1px;
         }
 
@@ -100,7 +102,7 @@
         }
 
         .backlinks .sep {
-            color: #777;
+            color: #555;
         }
 
 
@@ -186,7 +188,7 @@
         .timeline-line {
             position: relative;
             height: 2px;
-            background: #cfcfcf;
+            background: #333;
             margin: 10px 0 2px;
             width: 100%;
         }
@@ -231,11 +233,11 @@
             height: 16px;
             width: 60px;
             font-size: 14px;
-            color: #666666;
+            color: #888;
             text-transform: uppercase;
             letter-spacing: 0.04em;
             font-weight: 700;
-            background: #ffffff;
+            background: #121212;
             padding: 0 2px;
         }
 
@@ -266,12 +268,12 @@
             left: 0;
             width: 2px;
             height: 10px;
-            background: #bdbdbd;
+            background: #444;
         }
 
         .timeline-tick span {
             font-size: 11px;
-            color: #666666;
+            color: #888;
             text-transform: uppercase;
             letter-spacing: 0.04em;
             display: inline-block;
@@ -296,7 +298,7 @@
             margin-top: 12px;
             font-size: 13px;
             line-height: 1;
-            color: #888888;
+            color: #666;
             font-weight: 700;
             letter-spacing: 0.02em;
             text-align: center;
@@ -312,7 +314,7 @@
 
         .timeline-event-desc {
             font-size: 13px;
-            color: #444444;
+            color: #aaa;
             line-height: 1.4;
         }
 
@@ -339,8 +341,8 @@
             gap: 0;
             font-size: 13px;
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            background: #f4f4f4;
-            border: 1px solid #e0e0e0;
+            background: #1e1e1e;
+            border: 1px solid #333;
             padding: 2px 6px;
             border-radius: 4px;
             vertical-align: baseline;
@@ -354,7 +356,7 @@
         .inline-breadcrumb a {
             text-decoration: none;
             color: var(--ink);
-            border-bottom: 1px solid #bdbdbd;
+            border-bottom: 1px solid #555;
             padding-bottom: 1px;
         }
 
@@ -369,7 +371,7 @@
         .mini-projects {
             margin-top: 12px;
             display: grid;
-            grid-template-columns: repeat(2, var(--mini-card-width));
+            grid-template-columns: repeat(3, var(--mini-card-width));
             gap: var(--mini-gap);
             position: relative;
             overflow: visible;
@@ -397,18 +399,19 @@
         .mini-projects .project {
             text-align: center;
             padding: 14px;
-            border: 2px solid #999;
-            border-radius: 8px;
-            background: #ffffff;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            background: #1e1e1e;
             text-decoration: none;
             color: inherit;
             font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
             display: block;
-            transition: transform 0s linear, box-shadow 0.2s ease;
-            transform: translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg));
+            transition: transform 0s linear, box-shadow 0.3s ease, border-color 0.3s ease, scale 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+            overflow: hidden;
+            transform: perspective(600px) translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg));
             will-change: transform;
             backface-visibility: hidden;
-            animation: scatter-in var(--throw-dur, 0.55s) cubic-bezier(0.12, 0.75, 0.1, 1) both;
+            animation: none;
             position: relative;
             aspect-ratio: 3 / 4;
             width: var(--mini-card-width);
@@ -417,12 +420,39 @@
         }
 
         @keyframes miniFloat {
-            0%, 100% { transform: translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg)); }
-            50% { transform: translate3d(calc(var(--target-x, 0px) + 4px), calc(var(--target-y, 0px) - 6px), 0) rotate(calc(var(--scatter-rot, 0deg) + 1deg)); }
+            0%, 100% { transform: perspective(600px) translate3d(var(--target-x, 0px), var(--target-y, 0px), 0) rotate(var(--scatter-rot, 0deg)); }
+            50% { transform: perspective(600px) translate3d(calc(var(--target-x, 0px) + 4px), calc(var(--target-y, 0px) - 6px), 0) rotate(calc(var(--scatter-rot, 0deg) + 1deg)); }
         }
 
         .mini-projects .project::before {
-            content: none;
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            border-radius: 12px;
+            background: conic-gradient(from var(--border-angle, 0deg) at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.4), rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.0) 50%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 1.5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .mini-projects .project:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 8px 20px rgba(0,0,0,0.4);
+            scale: 1.1;
+            z-index: 20;
+        }
+
+        .mini-projects .project:hover::before {
+            opacity: 1;
         }
 
         .mini-projects .project-title {
@@ -453,7 +483,7 @@
         .mini-projects .project-description {
             font-size: 12px;
             line-height: 1.4;
-            color: #333333;
+            color: #aaa;
             margin-bottom: 6px;
         }
 
@@ -465,7 +495,7 @@
 
         .mini-projects .project-date {
             font-size: 12px;
-            color: #666666;
+            color: #888;
         }
 
         .mini-projects.settled .project {
@@ -473,27 +503,21 @@
         }
 
         .mini-projects .project:nth-child(1) {
-            --scatter-x: -40px;
-            --scatter-y: -28px;
-            --scatter-rot: -6deg;
+            --scatter-x: -10px;
+            --scatter-y: 10px;
+            --scatter-rot: -5deg;
         }
 
         .mini-projects .project:nth-child(2) {
-            --scatter-x: 36px;
-            --scatter-y: -22px;
-            --scatter-rot: 5deg;
+            --scatter-x: 0px;
+            --scatter-y: -20px;
+            --scatter-rot: 2deg;
         }
 
         .mini-projects .project:nth-child(3) {
-            --scatter-x: -28px;
-            --scatter-y: 34px;
-            --scatter-rot: 6deg;
-        }
-
-        .mini-projects .project:nth-child(4) {
-            --scatter-x: 42px;
-            --scatter-y: 30px;
-            --scatter-rot: -5deg;
+            --scatter-x: 10px;
+            --scatter-y: 10px;
+            --scatter-rot: 4deg;
         }
 
         @keyframes scatter-in {
@@ -510,8 +534,8 @@
             width: 100%;
             max-width: 520px;
             aspect-ratio: 4 / 3;
-            background: #f0f0f0;
-            border: 1px solid #e2e2e2;
+            background: #1a1a1a;
+            border: 1px solid #333;
             border-radius: 16px;
             overflow: hidden;
             display: flex;
@@ -546,7 +570,7 @@
             }
 
             .mini-projects {
-                grid-template-columns: repeat(2, var(--mini-card-width));
+                grid-template-columns: repeat(3, var(--mini-card-width));
                 justify-content: center;
                 margin-left: auto;
                 margin-right: auto;
@@ -686,35 +710,12 @@ v</div>
             <section class="about-left-col">
                 <h1>Projects</h1>
                 <p>There's nothing I enjoy more than working on interesting, creative, and difficult projects. Here's a few finished (and many unfinished) creations I've documented. Click the cards to see my documentation or <span class="inline-breadcrumb"><span class="prompt">matthehzhang:~$</span><a href="projects.html">cd ~/projects</a></span> for the full list.</p>
-                <div class="mini-projects-scale">
-                    <div class="mini-projects" id="miniProjects"></div>
-                </div>
             </section>
 
             <section class="about-right-col">
-                <h1>Education</h1>
-                <p><span class="sub">Aug 2025 – May 2029</span><br>The University of Texas at Austin — B.S. Electrical and Computer Engineering Honors; B.B.A. Canfield Business Honors. GPA 3.73.</p>
-                <p><span class="sub">Coursework</span><br>Circuit Analysis and Design, Computer Systems, Embedded Systems, Software Design.</p>
-
-                <h1>Skills</h1>
-                <p><span class="sub">Technical</span></p>
-                <ul>
-                    <li>Languages: Python, C, C++, Assembly, R</li>
-                    <li>Tools: KiCad, LTSpice, Git, Linux, Onshape, GDB</li>
-                    <li>Lab/Shop: Oscilloscope, Logic Analyzer, Machining &amp; Shop Tools</li>
-                </ul>
-
-                <h1>Experience</h1>
-                <p><span class="sub">Jan 2026 – Present</span><br>Texas Aerial Robotics — Control Systems Engineer. Modeled inverted pendulum dynamics and implemented PID/MPC controllers in Python; simulated thrust-vector landing with NumPy and Matplotlib.</p>
-                <p><span class="sub">Nov 2025 – Present</span><br>GHOST Robotics (VEX U) — Embedded Systems Engineer. Debugged I2C firmware on custom sensor host boards and integrated sensors with custom CAD.</p>
-                <p><span class="sub">Sep 2025 – Nov 2025</span><br>IEEE Robotics &amp; Automation Society Robotathon — Team #9. Led mechanical design of an autonomous robot with custom flywheels; optimized modularity and maze routing.</p>
-                <p><span class="sub">Dec 2024 – Aug 2025</span><br>FRC Team #9400 — Team Captain, Mechanical Lead. Mentored 28 members in CAD/electrical, raised ~$44,500, and designed 100+ sheet metal parts and 7 custom gearboxes.</p>
-                <p><span class="sub">Mar 2023 – May 2025</span><br>Diversity Matters Club — Vice President, Pine Ridge STEM Program Director. Coordinated a 3-week cultural immersion and led STEM programs in engineering design, computer literacy, and 3D printing.</p>
-
-                <h1>Awards</h1>
-                <ul>
-                    <li>IEEE RAS Robotathon 2025 — 1st Place Overall; Software Design Award</li>
-                </ul>
+                <div class="mini-projects-scale">
+                    <div class="mini-projects" id="miniProjects"></div>
+                </div>
             </section>
         </div>
     </div>
@@ -857,10 +858,9 @@ v</div>
             const applyRandomOffsets = () => {
                 miniProjects.classList.remove('settled');
                 const baseOffsets = [
-                    { x: -18, y: -14, r: -6 },
-                    { x: 14, y: -10, r: 5 },
-                    { x: -12, y: 16, r: 7 },
-                    { x: 16, y: 18, r: -5 }
+                    { x: -8, y: -30, r: -5 },
+                    { x: 0, y: -60, r: 2 },
+                    { x: 8, y: -30, r: 4 }
                 ];
                 const baseCenter = baseOffsets.reduce((acc, v) => {
                     acc.x += v.x;
@@ -877,9 +877,9 @@ v</div>
                     const scatterY = Number.isFinite(rawScatterY) ? rawScatterY : 0;
                     const pageWidth = window.innerWidth;
                     const pageHeight = window.innerHeight;
-                    const randX = (Math.random() * (pageWidth * 0.7)) - (pageWidth * 0.35);
-                    const randY = (Math.random() * (pageHeight * 0.7)) - (pageHeight * 0.35);
-                    const randRot = (Math.random() * 36) - 18;
+                    const randX = (Math.random() * 120) - 60;
+                    const randY = (Math.random() * 120) - 60;
+                    const randRot = (Math.random() * 16) - 8;
                     const startX = `${120 + Math.random() * 60}vw`;
                     const startY = `${-120 - Math.random() * 60}vh`;
                     const startRot = `${-30 - Math.random() * 30}deg`;
@@ -944,10 +944,8 @@ v</div>
             });
 
             summarySection.addEventListener('mouseenter', () => {
-                miniProjects.classList.add('settled');
             });
             summarySection.addEventListener('mouseleave', () => {
-                miniProjects.classList.remove('settled');
                 lastX = null;
                 lastY = null;
                 lastT = null;
@@ -959,11 +957,13 @@ v</div>
                 lastT = performance.now();
             });
 
+            let topZ = 10;
             miniProjects.addEventListener('pointerenter', (event) => {
                 const hovered = event.target.closest('.project');
                 if (!hovered || lastX === null || lastY === null || lastT === null) return;
                 if (activeHover === hovered) return;
                 activeHover = hovered;
+                hovered.style.zIndex = ++topZ;
                 const nowTs = performance.now();
                 const cooldownUntil = parseFloat(hovered.dataset.cooldownUntil || '0');
                 if (nowTs < cooldownUntil) return;
@@ -1031,29 +1031,23 @@ v</div>
 
                         const rect = card.getBoundingClientRect();
                         const margin = 12;
-                        const minX = margin;
-                        const maxX = window.innerWidth - margin;
-                        const minY = margin;
-                        const maxY = window.innerHeight - margin;
-                        const centerX = rect.left + rect.width / 2;
-                        const centerY = rect.top + rect.height / 2;
 
-                        if (centerX < minX) {
+                        if (rect.left < margin) {
                             state.vx = Math.abs(state.vx) * 0.7;
-                            state.x += (minX - centerX);
+                            state.x += (margin - rect.left);
                             card.style.setProperty('--target-x', `${state.x}px`);
-                        } else if (centerX > maxX) {
+                        } else if (rect.right > window.innerWidth - margin) {
                             state.vx = -Math.abs(state.vx) * 0.7;
-                            state.x -= (centerX - maxX);
+                            state.x -= (rect.right - (window.innerWidth - margin));
                             card.style.setProperty('--target-x', `${state.x}px`);
                         }
-                        if (centerY < minY) {
+                        if (rect.top < margin) {
                             state.vy = Math.abs(state.vy) * 0.7;
-                            state.y += (minY - centerY);
+                            state.y += (margin - rect.top);
                             card.style.setProperty('--target-y', `${state.y}px`);
-                        } else if (centerY > maxY) {
+                        } else if (rect.bottom > window.innerHeight - margin) {
                             state.vy = -Math.abs(state.vy) * 0.7;
-                            state.y -= (centerY - maxY);
+                            state.y -= (rect.bottom - (window.innerHeight - margin));
                             card.style.setProperty('--target-y', `${state.y}px`);
                         }
                     } else {
@@ -1067,7 +1061,7 @@ v</div>
         };
 
         const buildMiniProjects = (projects) => {
-            const shuffled = projects.sort(() => Math.random() - 0.5).slice(0, 4);
+            const shuffled = projects.sort(() => Math.random() - 0.5).slice(0, 3);
             miniProjects.innerHTML = shuffled.map((p) => {
                 const delay = (Math.random() * 260).toFixed(0);
                 return `
@@ -1083,6 +1077,21 @@ v</div>
             `;
             }).join('');
             setupMiniProjectMotion();
+
+            // Glass border on hover
+            document.querySelectorAll('.mini-projects .project').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                    card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+                    const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+                    card.style.setProperty('--border-angle', `${angle}deg`);
+                });
+            });
         };
 
         fetch('projects.html')
