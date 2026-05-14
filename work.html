@@ -136,31 +136,45 @@
         .page-header h1 { font-weight: 500; }
         .page-description { font-size: var(--smallest); color: var(--muted); max-width: 500px; }
 
-        /* Section headers */
-        .section-header { border-bottom: 1px solid var(--border); padding-bottom: var(--tiny); }
-        .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 14px; }
-
-        /* Project cards */
-        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
-        .project-grid { gap: var(--gap); grid-template-columns: 1fr; display: grid; }
-        @media (min-width: 769px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }
-        .project-card { gap: var(--tiny); flex-direction: column; display: flex; }
-        .project-card-link { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: block; position: relative; }
-        .project-card-link:hover { background-color: var(--surface-hover); }
-        .project-card-link:hover .project-card-content { transform: scale(0.97); }
-        .project-card-link:hover .project-card-image { opacity: 0.9; }
-        .project-card-content { gap: var(--tiny); flex-direction: column; transition: transform 0.3s; display: flex; }
-        .project-card-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); position: relative; overflow: hidden; }
-        .project-card-image { object-fit: cover; width: 100%; height: 100%; transition: opacity 0.3s; }
-        .project-card-info { margin: var(--tiniest); flex-direction: column; gap: 2px; display: flex; }
-        .project-card-info h3 { font-size: var(--smallest); font-weight: 500; margin: 0; }
-        .project-card-meta { font-size: 14px; color: var(--muted); }
-        .project-card-meta .separator { margin: 0 6px; }
-        .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
-        .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
-
         /* Badge */
         .badge { position: absolute; top: var(--tinier); left: var(--tinier); background: var(--foreground); color: var(--background); font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: var(--radius-small); z-index: 2; }
+
+        /* Masonry grid */
+        .masonry { column-count: 3; column-gap: var(--smallest); padding: 0 5px; }
+        @media (max-width: 900px) { .masonry { column-count: 2; } }
+        @media (max-width: 500px) { .masonry { column-count: 1; } }
+
+        /* Project card */
+        .project-card { break-inside: avoid; margin-bottom: var(--smallest); cursor: pointer; border-radius: var(--radius-large); overflow: hidden; position: relative; background: var(--surface); border: 1px solid var(--border); }
+        .project-card-inner { overflow: hidden; border-radius: calc(var(--radius-large) - 1px); position: relative; transition: transform 0.3s ease; }
+        .project-card:hover .project-card-inner { transform: translateY(calc(var(--title-h, 40) * -1px)); }
+        .project-card img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; object-fit: cover; }
+        .project-card:hover img { transform: translateY(calc(var(--title-h, 40) * 1px)); }
+        .project-card-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: var(--tinier) var(--tiny); font-size: var(--smallest); font-weight: 500; color: var(--foreground); transform: translateY(100%); transition: transform 0.3s ease; background: var(--background); }
+        .project-card:hover .project-card-title { transform: translateY(-4px); }
+
+        /* Dialog/Modal */
+        dialog { border: none; background: none; padding: 0; max-width: min(600px, 90vw); width: 100%; max-height: min(800px, 90vh); border-radius: var(--smaller); overflow: hidden; }
+        dialog::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        dialog[open] { display: flex; flex-direction: column; animation: dialogIn 0.3s ease; }
+        @keyframes dialogIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .dialog-content { background: var(--background); border: 1px solid var(--border); border-radius: var(--smaller); overflow: hidden; display: flex; flex-direction: column; max-height: inherit; }
+        .dialog-images { position: relative; overflow: hidden; background: var(--surface); }
+        .dialog-images img { width: 100%; height: auto; display: block; }
+        .dialog-close { position: absolute; top: var(--tinier); right: var(--tinier); width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--background); border: 1px solid var(--border); color: var(--foreground); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.15s; }
+        .dialog-close:hover { background: var(--surface-hover); }
+        .dialog-info { padding: var(--smaller); display: flex; flex-direction: column; gap: var(--tiny); overflow-y: auto; }
+        .dialog-info h2 { font-size: var(--smaller); font-weight: 500; letter-spacing: -0.01em; }
+        .dialog-tags { display: flex; flex-wrap: wrap; gap: var(--tinier); }
+        .dialog-tag { font-size: 13px; color: var(--muted); background: var(--surface); padding: 2px var(--tinier); border-radius: var(--radius); }
+        .dialog-desc { font-size: var(--smallest); color: var(--muted); line-height: 160%; border-top: 1px solid var(--border); padding-top: var(--tiny); margin-top: var(--tinier); }
+        .dialog-link { font-size: 14px; color: var(--foreground); text-decoration: underline; text-underline-offset: 0.2em; }
+        .dialog-link:hover { color: var(--accent); }
+
+        /* Image carousel dots */
+        .carousel-dots { display: flex; gap: var(--tinier); justify-content: center; padding: var(--tinier); }
+        .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); opacity: 0.3; border: none; cursor: pointer; padding: 0; transition: opacity 0.2s; }
+        .carousel-dot.active { opacity: 1; }
 
         /* Footer */
         footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); }
@@ -255,60 +269,14 @@
 
     <!-- Main -->
     <main>
-        <!-- Page Header -->
         <section class="page-header animate-in">
             <h1>Work</h1>
             <p class="page-description">hardware projects and other things i've built.</p>
         </section>
 
-        <!-- All Projects -->
-        <section class="projects-section animate-in">
-            <div class="project-grid">
-                <!-- Card 1: Vinyl Record Player (Featured) -->
-                <div class="project-card">
-                    <a href="projects/vinyl-record-player.html" class="project-card-link">
-                        <span class="badge">Featured</span>
-                        <div class="project-card-content">
-                            <div class="project-card-image-wrapper">
-                            </div>
-                            <div class="project-card-info">
-                                <h3>Vinyl Record Player</h3>
-                                <div class="project-card-meta">Project<span class="separator">&bull;</span>Present</div>
-                                <div class="project-card-desc">all this to play one album</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Card 2 -->
-                <div class="project-card">
-                    <a href="projects/wall-projector-pen.html" class="project-card-link">
-                        <div class="project-card-content">
-                            <div class="project-card-image-wrapper">
-                            </div>
-                            <div class="project-card-info">
-                                <h3>Wall Projector Pen</h3>
-                                <div class="project-card-meta">Project<span class="separator">&bull;</span>2025</div>
-                                <div class="project-card-desc">wished my whiteboard were larger</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Card 3 -->
-                <div class="project-card">
-                    <a href="projects/ieee-robotathon-team-9.html" class="project-card-link">
-                        <div class="project-card-content">
-                            <div class="project-card-image-wrapper">
-                            </div>
-                            <div class="project-card-info">
-                                <h3>IEEE Robotathon Team #9</h3>
-                                <div class="project-card-meta">Competition<span class="separator">&bull;</span>2025</div>
-                                <div class="project-card-desc">practicing some cad</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+        <div class="masonry" id="projectGrid">
+            <!-- Cards generated by JS -->
+        </div>
     </main>
 
 </div>
@@ -331,6 +299,7 @@
             <div class="footer-col footer-social-col">
                 <div class="footer-col-label">Connect</div>
                 <ul class="footer-nav-list">
+                    <li><a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener" class="footer-nav-link">Twitter</a></li>
                     <li><a href="https://github.com/matthehzhang" target="_blank" rel="noopener" class="footer-nav-link">GitHub</a></li>
                     <li><a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener" class="footer-nav-link">LinkedIn</a></li>
                     <li><a href="mailto:matthewzhang@utexas.edu" class="footer-nav-link">Email</a></li>
@@ -354,31 +323,161 @@
 <!-- Preload sounds -->
 <script>
 (function() {
+    // Project data
+    const projects = [
+        {
+            slug: 'vinyl-record-player',
+            title: 'Vinyl Record Player',
+            tags: ['PCB Design', 'Embedded Systems', 'CAD'],
+            description: 'Custom PCB design and embedded systems for a fully handmade vinyl record player. all this to play one album.',
+            link: 'projects/vinyl-record-player.html',
+            preview: 'projects/vinyl-record-player/record_player_cover.jpg',
+            images: ['projects/vinyl-record-player/record_player_cover.jpg'],
+            aspect: '4/3',
+            status: 'In Progress'
+        },
+        {
+            slug: 'wall-projector-pen',
+            title: 'Wall Projector Pen',
+            tags: ['Hardware', 'Computer Vision', 'Python'],
+            description: 'wished my whiteboard were larger. a pen that projects onto walls using a projector and camera tracking.',
+            link: 'projects/wall-projector-pen.html',
+            preview: 'projects/wall-projector-pen/projector_pen_cover.jpg',
+            images: ['projects/wall-projector-pen/projector_pen_cover.jpg'],
+            aspect: '3/4',
+            status: 'Complete'
+        },
+        {
+            slug: 'ieee-robotathon',
+            title: 'IEEE Robotathon Team #9',
+            tags: ['Robotics', 'CAD', 'Competition'],
+            description: 'practicing some cad. designed and built a competition robot for the IEEE Robotathon.',
+            link: 'projects/ieee-robotathon-team-9.html',
+            preview: 'projects/ping-pong-launcher-robot/robotathon_cover.jpg',
+            images: ['projects/ping-pong-launcher-robot/robotathon_cover.jpg'],
+            aspect: '16/9',
+            status: 'Complete'
+        }
+    ];
+
+    const grid = document.getElementById('projectGrid');
+
+    projects.forEach(function(project) {
+        // Create card
+        var card = document.createElement('div');
+        card.className = 'project-card';
+
+        card.innerHTML =
+            '<div class="project-card-inner">' +
+                '<img src="' + project.preview + '" alt="' + project.title + '" style="aspect-ratio: ' + project.aspect + ';" onerror="this.style.display=\'none\'">' +
+            '</div>' +
+            '<div class="project-card-title">' + project.title + '</div>';
+
+        // Create dialog
+        var dialog = document.createElement('dialog');
+        dialog.id = 'dialog-' + project.slug;
+
+        var imagesHTML = project.images.map(function(src, i) {
+            return '<img src="' + src + '" alt="' + project.title + '" style="display: ' + (i === 0 ? 'block' : 'none') + ';" data-index="' + i + '" onerror="this.style.display=\'none\'">';
+        }).join('');
+
+        var dotsHTML = '';
+        if (project.images.length > 1) {
+            dotsHTML = '<div class="carousel-dots">' +
+                project.images.map(function(_, i) {
+                    return '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"></button>';
+                }).join('') +
+                '</div>';
+        }
+
+        var tagsHTML = project.tags.map(function(tag) {
+            return '<span class="dialog-tag">' + tag + '</span>';
+        }).join('');
+
+        dialog.innerHTML =
+            '<div class="dialog-content">' +
+                '<div class="dialog-images">' +
+                    '<button class="dialog-close" aria-label="Close">' +
+                        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' +
+                    '</button>' +
+                    imagesHTML +
+                    dotsHTML +
+                '</div>' +
+                '<div class="dialog-info">' +
+                    '<h2>' + project.title + '</h2>' +
+                    '<div class="dialog-tags">' + tagsHTML + '</div>' +
+                    '<p class="dialog-desc">' + project.description + '</p>' +
+                    '<a href="' + project.link + '" class="dialog-link">View full project &rarr;</a>' +
+                '</div>' +
+            '</div>';
+
+        document.body.appendChild(dialog);
+
+        // Card click opens dialog
+        card.addEventListener('click', function() {
+            dialog.showModal();
+        });
+
+        // Close button
+        dialog.querySelector('.dialog-close').addEventListener('click', function(e) {
+            e.stopPropagation();
+            dialog.close();
+        });
+
+        // Close on backdrop click
+        dialog.addEventListener('click', function(e) {
+            if (e.target === dialog) {
+                dialog.close();
+            }
+        });
+
+        // Carousel dot clicks
+        var dots = dialog.querySelectorAll('.carousel-dot');
+        var imgs = dialog.querySelectorAll('.dialog-images img');
+        dots.forEach(function(dot) {
+            dot.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var idx = parseInt(dot.getAttribute('data-index'));
+                imgs.forEach(function(img, i) { img.style.display = i === idx ? 'block' : 'none'; });
+                dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+            });
+        });
+
+        grid.appendChild(card);
+    });
+
+    // Measure title heights and set CSS variable
+    function measureTitles() {
+        document.querySelectorAll('.project-card').forEach(function(card) {
+            var title = card.querySelector('.project-card-title');
+            if (title) {
+                var h = title.offsetHeight;
+                card.style.setProperty('--title-h', h);
+            }
+        });
+    }
+    // Run after images load or immediately
+    window.addEventListener('load', measureTitles);
+    measureTitles();
+
     // Sound effects
-    const sounds = {
+    var sounds = {
         click: new Audio('sounds/click.mp3'),
         clickstart: new Audio('sounds/clickstart.mp3'),
         clickend: new Audio('sounds/clickend.mp3')
     };
-    // Pre-load
-    Object.values(sounds).forEach(s => { s.preload = 'auto'; s.volume = 0.5; });
+    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.5; });
 
     function playSound(name) {
-        const s = sounds[name];
-        if (s) { s.currentTime = 0; s.play().catch(() => {}); }
+        var s = sounds[name];
+        if (s) { s.currentTime = 0; s.play().catch(function() {}); }
     }
 
     // Theme toggle
-    const toggle = document.querySelector('.theme-toggle');
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else if (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-    toggle.addEventListener('click', () => {
+    var toggle = document.querySelector('.theme-toggle');
+    toggle.addEventListener('click', function() {
         playSound('click');
-        const isDark = document.documentElement.hasAttribute('data-theme');
+        var isDark = document.documentElement.hasAttribute('data-theme');
         if (isDark) {
             document.documentElement.removeAttribute('data-theme');
             localStorage.removeItem('theme');
@@ -389,8 +488,8 @@
     });
 
     // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
@@ -398,14 +497,16 @@
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.animate-in').forEach(function(el) { observer.observe(el); });
 
+    // Footer height measurement
     function setFooterHeight() {
-        const f = document.querySelector('footer');
+        var f = document.querySelector('footer');
         if (f) document.documentElement.style.setProperty('--footer-height', f.offsetHeight + 'px');
     }
     setFooterHeight();
     window.addEventListener('resize', setFooterHeight);
+    window.addEventListener('resize', measureTitles);
 })();
 </script>
 
