@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brayden Petersen</title>
+    <title>Work — Brayden Petersen</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
         :root {
@@ -106,12 +106,17 @@
         nav { align-items: center; gap: var(--smaller); display: flex; }
         .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
         .nav-link:hover { color: var(--foreground); }
+        .nav-link.active { color: var(--foreground); }
         .theme-toggle { width: 32px; height: 32px; margin-left: var(--tinier); color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; transition: color 0.2s; display: flex; }
         .theme-toggle:hover { color: var(--foreground); }
         .icon-sun { display: block; }
         .icon-moon { display: none; }
         [data-theme="dark"] .icon-sun { display: none; }
         [data-theme="dark"] .icon-moon { display: block; }
+
+        /* Back button */
+        .back-button { width: 32px; height: 32px; margin-right: var(--tinier); color: var(--muted); display: flex; justify-content: center; align-items: center; transition: color 0.2s; }
+        .back-button:hover { color: var(--foreground); }
 
         @media (max-width: 768px) {
             header { z-index: 1000; background-color: var(--background); border-bottom: 1px solid var(--border); position: sticky; top: 0; }
@@ -123,67 +128,21 @@
         main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
-        /* Hero */
-        .hero { grid-template-columns: repeat(var(--columns), 1fr); gap: var(--gap); min-height: calc(100vh - var(--margin) * 2 - 60px); align-items: center; display: grid; position: relative; }
-        .hero-headline { z-index: 5; max-width: 900px; font-weight: 600; font-size: var(--bigger); pointer-events: none; color: #fff; mix-blend-mode: difference; text-shadow: 0 0 20px rgba(0,0,0,0.1); grid-column: 1 / -1; position: relative; line-height: 1.1; letter-spacing: -0.03em; }
-        @media (max-width: 768px) { .hero-headline { font-size: var(--big); } }
-        @media (min-width: 769px) { .hero-headline { grid-column: 1 / 9; } }
-
-        /* Draggable canvas */
-        .canvas { pointer-events: none; position: absolute; inset: 0; overflow: visible; }
-        .canvas-item { cursor: grab; pointer-events: auto; user-select: none; opacity: 0; transform-origin: 50%; touch-action: none; transition: opacity 0.4s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: absolute; }
-        .canvas-item.visible { opacity: 1; }
-        .canvas-item:active { cursor: grabbing; }
-        .canvas-item img { object-fit: contain; pointer-events: none; }
+        /* Page header */
+        .page-header { gap: var(--smallest); margin-bottom: var(--small); flex-direction: column; display: flex; }
+        .page-header h1 { font-weight: 500; }
+        .page-description { font-size: var(--smallest); color: var(--muted); max-width: 500px; }
 
         /* Section headers */
         .section-header { border-bottom: 1px solid var(--border); padding-bottom: var(--tiny); }
         .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 14px; }
 
-        /* Experience and Featured */
-        .experience, .featured { gap: var(--small); flex-direction: column; display: flex; }
-        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
-
-        /* Experience list */
-        .exp-list { gap: var(--smallest); flex-direction: column; margin: 0; padding: 0; list-style: none; display: flex; }
-        .exp-item { grid-template-columns: repeat(var(--columns), 1fr); column-gap: var(--gap); align-items: center; display: grid; }
-        .exp-logo-wrapper { flex-shrink: 0; grid-column: 1 / 2; justify-content: center; align-items: center; width: 40px; height: 40px; display: flex; }
-        .exp-logo { object-fit: contain; border-radius: var(--radius-small); width: 40px; height: 40px; }
-        .exp-text, .exp-company-row { display: contents; }
-        .exp-company { grid-area: 1 / 2 / auto / 6; color: var(--foreground); font-weight: 500; }
-        .exp-position { grid-area: 1 / 7 / auto / 11; color: var(--muted); }
-        .exp-year { grid-area: 1 / 11 / auto / -1; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
-        @media (max-width: 768px) {
-            .exp-text { grid-column: 2 / -1; display: flex; flex-direction: column; gap: var(--tinier); line-height: 1; }
-            .exp-company-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--tinier); }
-            .exp-company { font-size: var(--smallest); }
-            .exp-position { font-size: var(--smallest); }
-            .exp-year { font-size: var(--smallest); }
-        }
-
-        /* Featured card */
-        .featured-card { gap: var(--tiny); color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: flex; flex-direction: column-reverse; }
-        .featured-card:hover { background-color: var(--surface-hover); }
-        .featured-card:hover .featured-info, .featured-card:hover .featured-image-wrapper { transform: scale(0.97); }
-        .featured-info { gap: var(--tinier); padding: var(--tinier) var(--tiniest); flex-direction: column; justify-content: center; transition: transform 0.3s; display: flex; }
-        .featured-title { font-size: var(--smaller); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 110%; }
-        .featured-desc { color: var(--muted); margin: 0; font-size: 14px; line-height: 140%; }
-        .featured-footer { justify-content: space-between; align-items: flex-end; gap: var(--tiny); margin-top: auto; display: flex; }
-        .featured-read-more { color: var(--foreground); font-size: 14px; }
-        .featured-year { color: var(--muted); white-space: nowrap; font-size: 14px; }
-        .featured-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); transition: transform 0.3s; position: relative; overflow: hidden; }
-        .featured-image { object-fit: cover; width: 100%; height: 100%; transition: opacity 0.3s; }
-        @media (min-width: 769px) {
-            .featured-card { gap: var(--gap); grid-template-columns: repeat(3, 1fr); display: grid; }
-            .featured-info { padding: var(--tiny); }
-            .featured-title { font-size: var(--small); }
-        }
-
         /* Project cards */
+        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
         .project-grid { gap: var(--gap); grid-template-columns: 1fr; display: grid; }
         @media (min-width: 769px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }
         .project-card { gap: var(--tiny); flex-direction: column; display: flex; }
-        .project-card-link { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: block; }
+        .project-card-link { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: block; position: relative; }
         .project-card-link:hover { background-color: var(--surface-hover); }
         .project-card-link:hover .project-card-content { transform: scale(0.97); }
         .project-card-link:hover .project-card-image { opacity: 0.9; }
@@ -197,8 +156,11 @@
         .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
         .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
 
+        /* Badge */
+        .badge { position: absolute; top: var(--tinier); left: var(--tinier); background: var(--foreground); color: var(--background); font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: var(--radius-small); z-index: 2; }
+
         /* Footer */
-        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; }
+        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); }
         @media (min-width: 769px) { footer { z-index: 0; position: fixed; bottom: 0; left: 0; right: 0; } }
         footer a { color: var(--background); transition: color 0.15s, opacity 0.15s; }
         footer a:hover { color: var(--background); opacity: 0.8; }
@@ -264,7 +226,12 @@
         <div class="header-inner">
             <a href="index.html" class="logo">Brayden<br>Petersen</a>
             <nav>
-                <a href="work.html" class="nav-link">Work</a>
+                <a class="back-button" aria-label="Back to home" href="index.html">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="work.html" class="nav-link active">Work</a>
                 <a href="play.html" class="nav-link">Play</a>
                 <a href="info.html" class="nav-link">Info</a>
                 <button class="theme-toggle" aria-label="Toggle theme">
@@ -285,120 +252,32 @@
 
     <!-- Main -->
     <main>
-        <!-- Hero -->
-        <section class="hero">
-            <div class="canvas" id="canvas"></div>
-            <h1 class="hero-headline animate-in">Brayden Petersen is a Systems Design Engineering student at the University of Waterloo, building at the intersection of design, community, and code.</h1>
+        <!-- Page Header -->
+        <section class="page-header animate-in">
+            <h1>Work</h1>
+            <p class="page-description">Selected projects and collaborations.</p>
         </section>
 
-        <!-- Experience -->
-        <section class="experience animate-in">
-            <div class="section-header">
-                <span class="section-label">Experience</span>
-            </div>
-            <ul class="exp-list">
-                <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <img class="exp-logo skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/b1423a80938e875798342f898044946e6d7b4297-740x740.svg?w=48&h=48" alt="Figma" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">Figma</span>
-                            <span class="exp-year">2024 - Present</span>
-                        </div>
-                        <span class="exp-position">Campus Leader</span>
-                    </div>
-                </li>
-                <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <img class="exp-logo skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/d013a3574657e8d2d2631d5c12f4d2f1bccaee53-740x740.svg?w=48&h=48" alt="Shopify" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">Shopify</span>
-                            <span class="exp-year">2025</span>
-                        </div>
-                        <span class="exp-position">Design Engineer Intern</span>
-                    </div>
-                </li>
-                <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <img class="exp-logo skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/7e2d60048b4ab1d13438e4b9c55a7273b5991570-740x740.svg?w=48&h=48" alt="ODF" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">ODF</span>
-                            <span class="exp-year">2025</span>
-                        </div>
-                        <span class="exp-position">Design Engineer Intern</span>
-                    </div>
-                </li>
-                <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <img class="exp-logo skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/260bd1f166117316d625d7f6d876de223d6ac031-740x740.svg?w=48&h=48" alt="NorthGuide" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">NorthGuide</span>
-                            <span class="exp-year">2024</span>
-                        </div>
-                        <span class="exp-position">Consultant Intern</span>
-                    </div>
-                </li>
-                <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <img class="exp-logo skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/09c8e151a9a8c52dcf860e2dedefcfc182f2ebd3-740x740.svg?w=48&h=48" alt="Government of Ontario" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">Government of Ontario</span>
-                            <span class="exp-year">2024</span>
-                        </div>
-                        <span class="exp-position">Software Engineer Intern</span>
-                    </div>
-                </li>
-                <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <img class="exp-logo skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/09c8e151a9a8c52dcf860e2dedefcfc182f2ebd3-740x740.svg?w=48&h=48" alt="Government of Ontario" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">Government of Ontario</span>
-                            <span class="exp-year">2023</span>
-                        </div>
-                        <span class="exp-position">Software Engineer Intern</span>
-                    </div>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Featured Work -->
-        <section class="featured animate-in">
-            <div class="section-header">
-                <span class="section-label">Featured Work</span>
-            </div>
-            <a href="#" class="featured-card">
-                <div class="featured-info">
-                    <h2 class="featured-title">Themes @ Shopify</h2>
-                    <p class="featured-desc">New blocks, design options, and quality of life features for Shopify's free themes.</p>
-                    <div class="featured-footer">
-                        <span class="featured-read-more">Read more</span>
-                        <span class="featured-year">2025</span>
-                    </div>
-                </div>
-                <div class="featured-image-wrapper">
-                    <img class="featured-image skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/cb22988fb97ed9d4855636c6094fe5a6b65c114b-1150x647.jpg?rect=90,0,971,647&w=600&h=400" alt="Themes at Shopify" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
-                </div>
-            </a>
-        </section>
-
-        <!-- Selected Work -->
+        <!-- All Projects -->
         <section class="projects-section animate-in">
-            <div class="section-header">
-                <span class="section-label">Selected Work</span>
-            </div>
             <div class="project-grid">
-                <!-- Card 1 -->
+                <!-- Card 1: Themes @ Shopify (with Case Study badge) -->
+                <div class="project-card">
+                    <a href="#" class="project-card-link">
+                        <span class="badge">Case Study</span>
+                        <div class="project-card-content">
+                            <div class="project-card-image-wrapper">
+                                <img class="project-card-image skeleton" src="https://cdn.sanity.io/images/fibmqlgv/production/cb22988fb97ed9d4855636c6094fe5a6b65c114b-1150x647.jpg?rect=90,0,971,647&w=600&h=400" alt="Themes at Shopify" loading="lazy" onload="this.classList.remove('skeleton');this.classList.add('img-loaded')">
+                            </div>
+                            <div class="project-card-info">
+                                <h3>Themes @ Shopify</h3>
+                                <div class="project-card-meta">Internship<span class="separator">&bull;</span>2025</div>
+                                <div class="project-card-desc">New blocks, design options, and quality of life features for Shopify's free themes.</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Card 2 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -413,7 +292,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- Card 2 -->
+                <!-- Card 3 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -428,7 +307,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- Card 3 -->
+                <!-- Card 4 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -443,7 +322,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- Card 4 -->
+                <!-- Card 5 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -458,7 +337,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- Card 5 -->
+                <!-- Card 6 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -473,7 +352,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- Card 6 -->
+                <!-- Card 7 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -488,7 +367,7 @@
                         </div>
                     </a>
                 </div>
-                <!-- Card 7 -->
+                <!-- Card 8 -->
                 <div class="project-card">
                     <a href="#" class="project-card-link">
                         <div class="project-card-content">
@@ -523,6 +402,7 @@
                     <li><a href="work.html" class="footer-nav-link">Work</a></li>
                     <li><a href="play.html" class="footer-nav-link">Play</a></li>
                     <li><a href="info.html" class="footer-nav-link">Info</a></li>
+                    <li><a href="collection.html" class="footer-nav-link">Collection</a></li>
                 </ul>
             </div>
             <div class="footer-col footer-social-col">
@@ -586,92 +466,6 @@
         }
     });
 
-    // Draggable canvas items
-    const canvas = document.getElementById('canvas');
-    const canvasImages = [
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/0b09fc23c7b29ab4d5cf9ee0945021810ef59160-219x214.png?w=200', w: 200 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/19ff37be85c04d3a60ff24dbf2c2e25dd3564271-533x320.png?w=220', w: 220 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/3114f98f7daf378e805fc3c7997073f300633be8-251x322.png?w=160', w: 160 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/4f426bbf60acab066e8589344b7cad2c9849945a-603x280.png?w=240', w: 240 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/5e5aec33330fc0df7d2fa54f62114e61f45c22c7-212x685.png?w=120', w: 120 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/65e31c31b3e2450445af81d9ef5b400c54b35ab0-1122x1593.jpg?w=180', w: 180 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/6f95a7ca01a71b5cfaf72205a250052bbd277926-429x304.png?w=200', w: 200 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/e7d6d94dd7a6fd9f57f87389e6e98e31fb2cf60e-372x504.png?w=160', w: 160 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/eab3a780bc0518b1a8472a58906aa0c8e0f74d48-195x238.png?w=140', w: 140 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/f20cf840ba447d0433bbef76a228e4186f6d96cf-203x311.png?w=130', w: 130 },
-        { src: 'https://cdn.sanity.io/images/fibmqlgv/production/f7746ec4737d666563784e8a2edcb87c4aba363c-454x242.png?w=200', w: 200 }
-    ];
-
-    canvasImages.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.className = 'canvas-item';
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.width = item.w;
-        img.draggable = false;
-        img.loading = 'lazy';
-        div.appendChild(img);
-
-        // Random position
-        const x = Math.random() * 80 + 5; // 5-85%
-        const y = Math.random() * 70 + 10; // 10-80%
-        const rot = (Math.random() - 0.5) * 30; // -15 to 15
-        div.style.left = x + '%';
-        div.style.top = y + '%';
-        div.style.transform = 'rotate(' + rot + 'deg)';
-
-        canvas.appendChild(div);
-
-        // Staggered fade in
-        setTimeout(() => { div.classList.add('visible'); }, 200 + i * 100);
-
-        // Dragging
-        let isDragging = false;
-        let startX, startY, origLeft, origTop;
-
-        function onStart(e) {
-            isDragging = true;
-            playSound('clickstart');
-            const rect = div.getBoundingClientRect();
-            const canvasRect = canvas.getBoundingClientRect();
-            origLeft = rect.left - canvasRect.left;
-            origTop = rect.top - canvasRect.top;
-            const point = e.touches ? e.touches[0] : e;
-            startX = point.clientX;
-            startY = point.clientY;
-            div.style.left = origLeft + 'px';
-            div.style.top = origTop + 'px';
-            div.style.zIndex = 10;
-            div.style.transition = 'none';
-            e.preventDefault();
-        }
-
-        function onMove(e) {
-            if (!isDragging) return;
-            const point = e.touches ? e.touches[0] : e;
-            const dx = point.clientX - startX;
-            const dy = point.clientY - startY;
-            div.style.left = (origLeft + dx) + 'px';
-            div.style.top = (origTop + dy) + 'px';
-            e.preventDefault();
-        }
-
-        function onEnd() {
-            if (!isDragging) return;
-            isDragging = false;
-            playSound('clickend');
-            div.style.zIndex = '';
-            div.style.transition = '';
-        }
-
-        div.addEventListener('mousedown', onStart);
-        div.addEventListener('touchstart', onStart, { passive: false });
-        window.addEventListener('mousemove', onMove);
-        window.addEventListener('touchmove', onMove, { passive: false });
-        window.addEventListener('mouseup', onEnd);
-        window.addEventListener('touchend', onEnd);
-    });
-
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -684,7 +478,6 @@
 
     document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-    // Measure footer height and set CSS var for spacer
     function setFooterHeight() {
         const f = document.querySelector('footer');
         if (f) document.documentElement.style.setProperty('--footer-height', f.offsetHeight + 'px');
