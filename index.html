@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matthew H Zhang</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script>
         (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
     </script>
     <style>
         :root {
             --white: #fff;
-            --black: #000;
+            --black: #0a0a0a;
             --blue: #00f;
             --orange: #f60;
             --grey-50: #f5f5f5;
@@ -29,7 +30,7 @@
             --background: var(--white);
             --foreground: var(--black);
             --muted: var(--grey-500);
-            --border: var(--grey-200);
+            --border: var(--grey-300);
             --link: var(--grey-500);
             --link-hover: var(--accent);
             --surface: var(--grey-200);
@@ -73,7 +74,7 @@
             --background: var(--black);
             --foreground: var(--white);
             --muted: var(--grey-400);
-            --border: var(--grey-800);
+            --border: var(--grey-700);
             --link: var(--grey-400);
             --surface: var(--grey-900);
             --surface-hover: var(--grey-800);
@@ -102,9 +103,14 @@
         p { font-size: var(--smallest); letter-spacing: -0.01em; margin: 0; line-height: 140%; }
         @media (max-width: 768px) { h1 { font-size: var(--big); } h2 { font-size: var(--smaller); } h3 { font-size: 20px; } }
 
-        /* Header */
-        header { padding: var(--margin); pointer-events: none; position: relative; }
-        .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; }
+        /* Header with progressive blur below */
+        header { padding: var(--margin); pointer-events: none; position: sticky; top: 0; z-index: 100; }
+        .header-blur { position: absolute; top: 0; left: 0; right: 0; height: calc(100% + 40px); pointer-events: none; }
+        .header-blur > div { position: absolute; inset: 0; }
+        .header-blur > div:nth-child(1) { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); mask: linear-gradient(to bottom, black 50%, transparent 80%); -webkit-mask: linear-gradient(to bottom, black 50%, transparent 80%); }
+        .header-blur > div:nth-child(2) { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); mask: linear-gradient(to bottom, black 35%, transparent 65%); -webkit-mask: linear-gradient(to bottom, black 35%, transparent 65%); }
+        .header-blur > div:nth-child(3) { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); mask: linear-gradient(to bottom, black 20%, transparent 50%); -webkit-mask: linear-gradient(to bottom, black 20%, transparent 50%); }
+        .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; position: relative; z-index: 1; }
         .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
         nav { align-items: center; gap: var(--smaller); display: flex; }
         .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
@@ -148,26 +154,23 @@
         .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
 
         /* Experience list */
-        .exp-list { gap: var(--smallest); flex-direction: column; margin: 0; padding: 0; list-style: none; display: flex; }
-        .exp-item { grid-template-columns: repeat(var(--columns), 1fr); column-gap: var(--gap); align-items: center; display: grid; }
-        .exp-logo-wrapper { flex-shrink: 0; grid-column: 1 / 2; justify-content: center; align-items: center; width: 40px; height: 40px; display: flex; }
-        .exp-logo { object-fit: contain; border-radius: var(--radius-small); width: 40px; height: 40px; }
-        .exp-text, .exp-company-row { display: contents; }
-        .exp-company { grid-area: 1 / 2 / auto / 6; color: var(--foreground); font-weight: 500; }
-        .exp-position { grid-area: 1 / 7 / auto / 11; color: var(--muted); }
-        .exp-year { grid-area: 1 / 11 / auto / -1; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
-        @media (max-width: 768px) {
-            .exp-text { grid-column: 2 / -1; display: flex; flex-direction: column; gap: var(--tinier); line-height: 1; }
-            .exp-company-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--tinier); }
-            .exp-company { font-size: var(--smallest); }
-            .exp-position { font-size: var(--smallest); }
-            .exp-year { font-size: var(--smallest); }
-        }
+        .exp-list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+        .exp-item { display: grid; grid-template-columns: 100px 1fr; gap: var(--smaller); padding: var(--smaller) 0; border-bottom: 1px solid var(--border); }
+        .exp-date { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+        .exp-info { display: flex; flex-direction: column; gap: 4px; }
+        .exp-title-row { font-size: var(--smallest); }
+        .exp-role { font-weight: 600; color: var(--foreground); }
+        .exp-at { color: var(--muted); font-weight: 400; }
+        .exp-company { color: var(--accent); font-weight: 400; }
+        .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+        @media (max-width: 768px) { .exp-item { grid-template-columns: 60px 1fr; gap: var(--smallest); } }
 
-        /* Featured card */
+        /* Featured card — exact Brayden layout */
+        .featured { gap: var(--small); flex-direction: column; display: flex; }
         .featured-card { gap: var(--tiny); color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: flex; flex-direction: column-reverse; }
         .featured-card:hover { background-color: var(--surface-hover); }
         .featured-card:hover .featured-info, .featured-card:hover .featured-image-wrapper { transform: scale(0.97); }
+        .featured-card:hover .featured-image-wrapper img { opacity: 0.9; }
         .featured-info { gap: var(--tinier); padding: var(--tinier) var(--tiniest); flex-direction: column; justify-content: center; transition: transform 0.3s; display: flex; }
         .featured-title { font-size: var(--smaller); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 110%; }
         .featured-desc { color: var(--muted); margin: 0; font-size: 14px; line-height: 140%; }
@@ -175,23 +178,30 @@
         .featured-read-more { color: var(--foreground); font-size: 14px; }
         .featured-year { color: var(--muted); white-space: nowrap; font-size: 14px; }
         .featured-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); transition: transform 0.3s; position: relative; overflow: hidden; }
-        .featured-image { object-fit: cover; width: 100%; height: 100%; transition: opacity 0.3s; }
+        .featured-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
         @media (min-width: 769px) {
             .featured-card { gap: var(--gap); grid-template-columns: repeat(3, 1fr); display: grid; }
             .featured-info { padding: var(--tiny); }
             .featured-title { font-size: var(--small); }
         }
 
-        /* Project cards */
+        /* Selected */
+        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
         .project-grid { gap: var(--gap); grid-template-columns: 1fr; display: grid; }
         @media (min-width: 769px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }
         .project-card { gap: var(--tiny); flex-direction: column; display: flex; }
         .project-card-link { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: block; }
         .project-card-link:hover { background-color: var(--surface-hover); }
         .project-card-link:hover .project-card-content { transform: scale(0.97); }
-        .project-card-link:hover .project-card-image { opacity: 0.9; }
         .project-card-content { gap: var(--tiny); flex-direction: column; transition: transform 0.3s; display: flex; }
         .project-card-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); position: relative; overflow: hidden; }
+        .project-card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .project-card-info { margin: var(--tiniest); flex-direction: column; gap: 2px; display: flex; }
+        .project-card-info h3 { font-size: var(--smallest); font-weight: 500; margin: 0; }
+        .project-card-meta { font-size: 14px; color: var(--muted); }
+        .project-card-meta .separator { margin: 0 6px; }
+        .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
+        .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
         .project-card-image { object-fit: cover; width: 100%; height: 100%; transition: opacity 0.3s; }
         .project-card-info { margin: var(--tiniest); flex-direction: column; gap: 2px; display: flex; }
         .project-card-info h3 { font-size: var(--smallest); font-weight: 500; margin: 0; }
@@ -203,43 +213,26 @@
         /* Footer */
         footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; }
         @media (min-width: 769px) { footer { z-index: 0; position: fixed; bottom: 0; left: 0; right: 0; } }
-        footer a { color: var(--background); transition: color 0.15s, opacity 0.15s; }
-        footer a:hover { color: var(--background); opacity: 0.8; }
-        .footer-content { gap: var(--big); flex-direction: column; display: flex; }
-        .footer-logo { font-size: var(--smallest); color: var(--background); letter-spacing: -0.01em; margin-bottom: var(--small); width: fit-content; font-weight: 500; text-decoration: none; }
-        .footer-logo:hover { opacity: 0.8; }
-        .footer-top { gap: var(--small); flex-direction: column; display: flex; }
-        .footer-col { gap: var(--tiny); flex-direction: column; display: flex; }
-        .footer-col-label { color: var(--background); opacity: 0.6; margin-bottom: var(--tiniest); font-size: 14px; }
-        .footer-nav-list { gap: var(--tiniest); flex-direction: column; margin: 0; padding: 0; list-style: none; display: flex; }
-        .footer-nav-link { font-size: var(--smallest); color: var(--background); text-decoration: none; transition: opacity 0.15s; }
-        .footer-nav-link:hover { opacity: 0.8; }
-        .colophon-text { font-size: var(--smallest); color: var(--background); max-width: 280px; line-height: 140%; }
-        .colophon-text a { text-underline-offset: 0.15em; text-decoration: underline; transition: color .15s, opacity .15s; }
-        .email-cta { width: 100%; padding: var(--big) 0; overflow: hidden; }
-        .big-email { color: var(--background); text-underline-offset: 0.2em; letter-spacing: -0.02em; font-size: 28px; font-weight: 500; line-height: 100%; text-decoration: underline #ffffff59; transition: opacity 0.15s, text-decoration-color 0.15s; display: block; overflow-wrap: break-word; word-break: break-word; }
-        .big-email:hover { opacity: 0.85; cursor: ne-resize; }
-        .footer-bottom { justify-content: space-between; align-items: center; display: flex; }
-        .footer-copyright, .footer-version { color: var(--background); opacity: 0.6; font-size: 14px; }
-        @media (min-width: 769px) {
-            .footer-content { gap: var(--gap); grid-template-columns: repeat(12, 1fr); display: grid; }
-            .footer-top { gap: var(--gap); grid-column: 1 / -1; grid-template-columns: repeat(12, 1fr); display: grid; }
-            .footer-logo { grid-column: 1 / 4; margin-bottom: 0; }
-            .footer-nav-col { grid-column: 4 / 6; }
-            .footer-social-col { grid-column: 6 / 9; }
-            .footer-colophon-col { grid-column: 9 / 13; }
-            .email-cta { padding: var(--bigger) 0; grid-column: 1 / -1; }
-            .big-email { font-size: clamp(var(--big), 8vw, var(--biggest)); letter-spacing: -0.03em; }
-            .footer-bottom { gap: var(--gap); grid-column: 1 / -1; grid-template-columns: repeat(12, 1fr); display: grid; }
-            .footer-copyright { grid-column: 1 / 4; }
-            .footer-version { text-align: right; grid-column: 12 / 13; }
-        }
+        @media (max-width: 768px) { footer { position: relative; } }
+        footer a { color: var(--background); transition: opacity 0.15s; text-decoration: none; }
+        footer a:hover { opacity: 0.6; }
+        .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
+        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--big); }
+        .footer-left { display: flex; flex-direction: column; gap: var(--tiny); }
+        .footer-links { display: flex; gap: var(--smallest); font-size: var(--smallest); }
+        .footer-ascii { width: 180px; height: auto; opacity: 0.5; }
+        [data-theme="dark"] .footer-ascii { content: url(robot-ascii-dark.png); }
+        .footer-sep { opacity: 0.5; }
+        .big-email { font-family: 'IBM Plex Mono', monospace; color: var(--background); letter-spacing: -0.02em; font-size: 20px; font-weight: 300; line-height: 100%; text-decoration: none; display: block; opacity: 0.7; transition: opacity 0.15s; margin-top: var(--tinier); }
+        .big-email:hover { opacity: 1; }
+        .footer-bottom { display: flex; flex-wrap: wrap; gap: var(--tinier); font-size: 13px; opacity: 0.4; }
+        .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
+        @media (max-width: 768px) { .footer-row { flex-direction: column; } .footer-ascii { display: none; } }
 
         /* Page content wrapper and footer spacer */
         .page-content { z-index: 1; background: var(--background); min-height: 100vh; position: relative; border-radius: 0 0 var(--smaller) var(--smaller); }
         .footer-spacer { display: none; }
         @media (min-width: 769px) { .footer-spacer { height: calc(var(--footer-height, 400px) - var(--smaller)); pointer-events: none; display: block; } }
-        @media (max-width: 768px) { footer { position: relative; } }
 
         /* Animations */
         .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -264,6 +257,7 @@
 <div class="page-content">
     <!-- Header -->
     <header>
+        <div class="header-blur"><div></div><div></div><div></div></div>
         <div class="header-inner">
             <a href="index.html" class="logo">Matthew<br>Zhang</a>
             <nav>
@@ -294,6 +288,29 @@
             <h1 class="hero-headline animate-in">Matthew Zhang is an Electrical &amp; Computer Engineering student at UT Austin, building at the intersection of hardware, robotics, and code.</h1>
         </section>
 
+        <!-- Featured Work -->
+        <section class="featured animate-in">
+            <div class="section-header">
+                <span class="section-label">Featured Work</span>
+            </div>
+            <a href="work.html" class="featured-card">
+                <div class="featured-info">
+                    <h2 class="featured-title">Vinyl Record Player</h2>
+                    <p class="featured-desc">Custom PCB design and embedded systems for a fully handmade vinyl record player. all this to play one album.</p>
+                    <div class="featured-footer">
+                        <span class="featured-read-more">Read more &rarr;</span>
+                        <span class="featured-year">In Progress</span>
+                    </div>
+                </div>
+                <div class="featured-image-wrapper">
+                    <img src="projects/vinyl-record-player/vinyl-000.png" alt="" loading="lazy">
+                </div>
+                <div class="featured-image-wrapper">
+                    <img src="projects/recordplayerPCB.png" alt="" loading="lazy">
+                </div>
+            </a>
+        </section>
+
         <!-- Experience -->
         <section class="experience animate-in">
             <div class="section-header">
@@ -301,124 +318,53 @@
             </div>
             <ul class="exp-list">
                 <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <div class="exp-logo" style="background-color: #2a2a2a;"></div>
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">GHOST Robotics</span>
-                            <span class="exp-year">2025 - Present</span>
-                        </div>
-                        <span class="exp-position">Embedded Software</span>
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer</span> <span class="exp-at">@</span> <span class="exp-company">eve Vehicles Corporation</span></div>
+                        <span class="exp-desc">developing battery quick-swap, charging, and power distribution + sensing systems for power efficient UAVs</span>
                     </div>
                 </li>
                 <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <div class="exp-logo" style="background-color: #1a3a5c;"></div>
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">Texas Aerial Robotics</span>
-                            <span class="exp-year">2026 - Present</span>
-                        </div>
-                        <span class="exp-position">Member</span>
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Intern</span> <span class="exp-at">@</span> <span class="exp-company">Tess Ventures</span></div>
                     </div>
                 </li>
                 <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <div class="exp-logo" style="background-color: #bf5700;"></div>
-                    </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">UT Austin ECB</span>
-                            <span class="exp-year">2025 - Present</span>
-                        </div>
-                        <span class="exp-position">Student</span>
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Hardware &amp; Control Systems Engineer</span> <span class="exp-at">@</span> <span class="exp-company">Texas Aerial Robotics</span></div>
+                        <span class="exp-desc">control systems (pid, mpc, lqr). developing am32-based bldc motor driver board</span>
                     </div>
                 </li>
                 <li class="exp-item">
-                    <div class="exp-logo-wrapper">
-                        <div class="exp-logo" style="background-color: #444;"></div>
+                    <span class="exp-date">2025 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Embedded Systems Engineer</span> <span class="exp-at">@</span> <span class="exp-company">GHOST Robotics</span></div>
+                        <span class="exp-desc">designed novel i2c bridge boards for space reduction and reliability. validated pcbs and board bring-up for custom sensor boards. developing sensor polling firmware for jetson orin nano</span>
                     </div>
-                    <div class="exp-text">
-                        <div class="exp-company-row">
-                            <span class="exp-company">FRC Team #9400</span>
-                            <span class="exp-year">2024</span>
-                        </div>
-                        <span class="exp-position">Robotics Lead</span>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Robotics &amp; Automation Society General Leader</span> <span class="exp-at">@</span> <span class="exp-company">IEEE UT Austin</span></div>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2024 &ndash; 2025</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Team Captain, Design Lead</span> <span class="exp-at">@</span> <span class="exp-company">BagelBytes Robotics</span></div>
+                        <span class="exp-desc">lead mechanical designer of 2 robots, 2025 solo design</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2023 &ndash; 2024</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Design, Hardware, and Business</span> <span class="exp-at">@</span> <span class="exp-company">BagelBytes Robotics</span></div>
+                        <span class="exp-desc">learned onshape cad, introduced 3d printing. created and led weekly afterschool programs in electronics &amp; coding</span>
                     </div>
                 </li>
             </ul>
-        </section>
-
-        <!-- Featured Work -->
-        <section class="featured animate-in">
-            <div class="section-header">
-                <span class="section-label">Featured Work</span>
-            </div>
-            <a href="projects/vinyl-record-player.html" class="featured-card">
-                <div class="featured-info">
-                    <h2 class="featured-title">Vinyl Record Player</h2>
-                    <p class="featured-desc">Custom PCB design and embedded systems for a fully handmade vinyl record player. all this to play one album.</p>
-                    <div class="featured-footer">
-                        <span class="featured-read-more">Read more</span>
-                        <span class="featured-year">In Progress</span>
-                    </div>
-                </div>
-                <div class="featured-image-wrapper">
-                </div>
-            </a>
-        </section>
-
-        <!-- Selected Work -->
-        <section class="projects-section animate-in">
-            <div class="section-header">
-                <span class="section-label">Selected Work</span>
-            </div>
-            <div class="project-grid">
-                <!-- Card 1 -->
-                <div class="project-card">
-                    <a href="projects/wall-projector-pen.html" class="project-card-link">
-                        <div class="project-card-content">
-                            <div class="project-card-image-wrapper">
-                            </div>
-                            <div class="project-card-info">
-                                <h3>Wall Projector Pen</h3>
-                                <div class="project-card-meta">Project<span class="separator">&bull;</span>2025</div>
-                                <div class="project-card-desc">wished my whiteboard were larger</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Card 2 -->
-                <div class="project-card">
-                    <a href="projects/ieee-robotathon-team-9.html" class="project-card-link">
-                        <div class="project-card-content">
-                            <div class="project-card-image-wrapper">
-                            </div>
-                            <div class="project-card-info">
-                                <h3>IEEE Robotathon Team #9</h3>
-                                <div class="project-card-meta">Competition<span class="separator">&bull;</span>2025</div>
-                                <div class="project-card-desc">practicing some cad</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Card 3 -->
-                <div class="project-card">
-                    <a href="projects/vinyl-record-player.html" class="project-card-link">
-                        <div class="project-card-content">
-                            <div class="project-card-image-wrapper">
-                            </div>
-                            <div class="project-card-info">
-                                <h3>Vinyl Record Player</h3>
-                                <div class="project-card-meta">Project<span class="separator">&bull;</span>Present</div>
-                                <div class="project-card-desc">all this to play one album</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
         </section>
     </main>
 
@@ -429,36 +375,27 @@
 <!-- Footer -->
 <footer>
     <div class="footer-content">
-        <div class="footer-top">
-            <a href="index.html" class="footer-logo">Matthew<br>Zhang</a>
-            <div class="footer-col footer-nav-col">
-                <div class="footer-col-label">Pages</div>
-                <ul class="footer-nav-list">
-                    <li><a href="index.html" class="footer-nav-link">Home</a></li>
-                    <li><a href="work.html" class="footer-nav-link">Work</a></li>
-                    <li><a href="info.html" class="footer-nav-link">Info</a></li>
-                </ul>
+        <div class="footer-row">
+            <div class="footer-left">
+                <nav class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="work.html">Work</a>
+                    <a href="info.html">Info</a>
+                    <a href="matthewzhangresume.pdf" target="_blank">Resume</a>
+                </nav>
+                <nav class="footer-links">
+                    <a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://github.com/matthehzhang" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+                <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
             </div>
-            <div class="footer-col footer-social-col">
-                <div class="footer-col-label">Connect</div>
-                <ul class="footer-nav-list">
-                    <li><a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener" class="footer-nav-link">Twitter</a></li>
-                    <li><a href="https://github.com/matthehzhang" target="_blank" rel="noopener" class="footer-nav-link">GitHub</a></li>
-                    <li><a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener" class="footer-nav-link">LinkedIn</a></li>
-                    <li><a href="mailto:matthewzhang@utexas.edu" class="footer-nav-link">Email</a></li>
-                </ul>
-            </div>
-            <div class="footer-col footer-colophon-col">
-                <div class="footer-col-label">Colophon</div>
-                <p class="colophon-text">Hand-crafted with HTML &amp; CSS. No frameworks, no build steps.</p>
-            </div>
-        </div>
-        <div class="email-cta">
-            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+<img class="footer-ascii" src="robot-ascii.png" alt="">
         </div>
         <div class="footer-bottom">
-            <span class="footer-copyright">&copy; 2026 Matthew Zhang</span>
-            <span class="footer-version">v1.0.0</span>
+            <span>&copy; 2026 Matthew Zhang</span>
+            <span class="footer-sep">&middot;</span>
+            <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, heavily inspired by <a href="https://www.braydenpetersen.com/" target="_blank" rel="noopener">Brayden Petersen</a> &amp; <a href="https://marijanapav.com" target="_blank" rel="noopener">Marijana Pavlini&#263;</a></span>
         </div>
     </div>
 </footer>

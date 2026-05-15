@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work — Matthew H Zhang</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script>
         (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
     </script>
     <style>
         :root {
             --white: #fff;
-            --black: #000;
+            --black: #0a0a0a;
             --blue: #00f;
             --orange: #f60;
             --grey-50: #f5f5f5;
@@ -144,78 +145,96 @@
         @media (max-width: 900px) { .masonry { column-count: 2; } }
         @media (max-width: 500px) { .masonry { column-count: 1; } }
 
-        /* Project card */
-        .project-card { break-inside: avoid; margin-bottom: var(--smallest); cursor: pointer; border-radius: var(--radius-large); overflow: hidden; position: relative; background: var(--surface); border: 1px solid var(--border); }
-        .project-card-inner { overflow: hidden; border-radius: calc(var(--radius-large) - 1px); position: relative; transition: transform 0.3s ease; }
-        .project-card:hover .project-card-inner { transform: translateY(calc(var(--title-h, 40) * -1px)); }
-        .project-card img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; object-fit: cover; }
-        .project-card:hover img { transform: translateY(calc(var(--title-h, 40) * 1px)); }
-        .project-card-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: var(--tinier) var(--tiny); font-size: var(--smallest); font-weight: 500; color: var(--foreground); transform: translateY(100%); transition: transform 0.3s ease; background: var(--background); }
-        .project-card:hover .project-card-title { transform: translateY(-4px); }
+        /* Filter links */
+        .filter-link { color: var(--foreground); text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; background: none; border: none; font: inherit; font-size: inherit; padding: 0; transition: color 0.2s; }
+        .filter-link:hover { color: var(--accent); }
+        .filter-link.active { color: var(--accent); }
+
+        /* Card entrance animation */
+        @keyframes cardIn { from { opacity: 0; transform: translateY(75px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes imageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
+
+        /* Project card — double-div border trick */
+        .project-card { break-inside: avoid; margin-bottom: var(--smallest); cursor: pointer; border-radius: 8px; position: relative; background: var(--border); padding: 1px; box-shadow: 0px 0px 20px rgba(0,0,0,0.06); opacity: 0; animation: cardIn 0.35s ease-out forwards; }
+        [data-theme="dark"] .project-card { background: var(--grey-800); box-shadow: 0px 0px 20px rgba(0,0,0,0.15); }
+        @media (min-width: 769px) { .project-card { border-radius: 16px; } }
+        .project-card-body { background: var(--background); border-radius: 7px; padding: 4px; overflow: hidden; position: relative; clip-path: inset(0 round 7px); }
+        [data-theme="dark"] .project-card-body { background: var(--grey-900); }
+        @media (min-width: 769px) { .project-card-body { border-radius: 15px; } }
+        .project-card-inner { overflow: hidden; border-radius: 4px; position: relative; transition: transform 0.3s ease; }
+        @media (min-width: 769px) { .project-card-inner { border-radius: 12px; } }
+        
+        .project-card img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; object-fit: cover; animation: imageIn 0.5s ease-out forwards; }
+        
+        .project-card-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: var(--tinier) var(--tiny); font-size: var(--smallest); font-weight: 500; color: var(--muted); background: var(--background); transform: translateY(100%); transition: transform 0.3s ease; }
+        .project-card-title::before, .project-card-title::after { content: ''; position: absolute; top: -12px; width: 12px; height: 12px; }
+        .project-card-title::before { left: 4px; background: radial-gradient(circle at 100% 0, transparent 12px, var(--background) 12px); }
+        .project-card-title::after { right: 4px; background: radial-gradient(circle at 0 0, transparent 12px, var(--background) 12px); }
+        [data-theme="dark"] .project-card-title { background: var(--grey-900); }
+        [data-theme="dark"] .project-card-title::before { background: radial-gradient(circle at 100% 0, transparent 12px, var(--grey-900) 12px); }
+        [data-theme="dark"] .project-card-title::after { background: radial-gradient(circle at 0 0, transparent 12px, var(--grey-900) 12px); }
+        .project-card:hover .project-card-title { transform: translateY(0); }
 
         /* Dialog/Modal */
-        dialog { border: none; background: none; padding: 0; max-width: min(600px, 90vw); width: 100%; max-height: min(800px, 90vh); border-radius: var(--smaller); overflow: hidden; }
+        dialog { border: none; background: none; padding: 0; max-width: min(1050px, 92vw); width: 100%; max-height: 85vh; border-radius: var(--smaller); overflow: hidden; margin: auto; }
         dialog::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
         dialog[open] { display: flex; flex-direction: column; animation: dialogIn 0.3s ease; }
         @keyframes dialogIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .dialog-content { background: var(--background); border: 1px solid var(--border); border-radius: var(--smaller); overflow: hidden; display: flex; flex-direction: column; max-height: inherit; }
-        .dialog-images { position: relative; overflow: hidden; background: var(--surface); }
-        .dialog-images img { width: 100%; height: auto; display: block; }
-        .dialog-close { position: absolute; top: var(--tinier); right: var(--tinier); width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--background); border: 1px solid var(--border); color: var(--foreground); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.15s; }
+        @keyframes dialogImageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
+        .dialog-images img.first-load { animation: dialogImageIn 0.5s ease-out forwards; }
+        .dialog-content { background: var(--background); border: 1px solid var(--border); border-radius: var(--smaller); overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; max-height: inherit; scrollbar-width: none; }
+        .dialog-content::-webkit-scrollbar { display: none; }
+        .dialog-images { position: relative; overflow: hidden; background: var(--surface); min-height: 400px; }
+        .dialog-images img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
+        .dialog-close { position: absolute; top: var(--tinier); right: var(--tinier); width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--surface-hover); border: 1px solid var(--border); color: var(--foreground); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.15s; }
         .dialog-close:hover { background: var(--surface-hover); }
-        .dialog-info { padding: var(--smaller); display: flex; flex-direction: column; gap: var(--tiny); overflow-y: auto; }
-        .dialog-info h2 { font-size: var(--smaller); font-weight: 500; letter-spacing: -0.01em; }
+        .dialog-info { padding: var(--smaller); display: flex; flex-direction: column; gap: var(--tiny); overflow-y: auto; scrollbar-width: none; max-height: 85vh; }
+        .dialog-info::-webkit-scrollbar { display: none; }
+        @media (max-width: 768px) { .dialog-content { grid-template-columns: 1fr; } .dialog-images { min-height: 250px; } }
+        .dialog-info::-webkit-scrollbar { display: none; }
+        .carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--background); border: 1px solid var(--border); color: var(--foreground); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: opacity 0.15s; opacity: 0.7; }
+        .carousel-nav:hover { opacity: 1; }
+        .carousel-prev { left: var(--tinier); }
+        .carousel-next { right: var(--tinier); }
+        .dialog-info h2 { font-size: var(--smaller); font-weight: 600; letter-spacing: -0.01em; color: var(--foreground); }
         .dialog-tags { display: flex; flex-wrap: wrap; gap: var(--tinier); }
         .dialog-tag { font-size: 13px; color: var(--muted); background: var(--surface); padding: 2px var(--tinier); border-radius: var(--radius); }
-        .dialog-desc { font-size: var(--smallest); color: var(--muted); line-height: 160%; border-top: 1px solid var(--border); padding-top: var(--tiny); margin-top: var(--tinier); }
+        .dialog-section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-top: var(--tiny); }
+        .dialog-text { font-size: 14px; color: var(--foreground); line-height: 160%; }
+        .dialog-text ul { padding-left: var(--smallest); margin: var(--tinier) 0 0; }
+        .dialog-text li { margin-bottom: 4px; }
+        .dialog-divider { border: none; border-top: 1px solid var(--border); margin: var(--tinier) 0; }
         .dialog-link { font-size: 14px; color: var(--foreground); text-decoration: underline; text-underline-offset: 0.2em; }
         .dialog-link:hover { color: var(--accent); }
 
         /* Image carousel dots */
-        .carousel-dots { display: flex; gap: var(--tinier); justify-content: center; padding: var(--tinier); }
+        .carousel-dots { display: flex; gap: var(--tinier); justify-content: center; padding: var(--tinier); position: absolute; bottom: var(--tinier); left: 50%; transform: translateX(-50%); z-index: 2; }
         .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); opacity: 0.3; border: none; cursor: pointer; padding: 0; transition: opacity 0.2s; }
         .carousel-dot.active { opacity: 1; }
 
         /* Footer */
-        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); }
+        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; }
         @media (min-width: 769px) { footer { z-index: 0; position: fixed; bottom: 0; left: 0; right: 0; } }
-        footer a { color: var(--background); transition: color 0.15s, opacity 0.15s; }
-        footer a:hover { color: var(--background); opacity: 0.8; }
-        .footer-content { gap: var(--big); flex-direction: column; display: flex; }
-        .footer-logo { font-size: var(--smallest); color: var(--background); letter-spacing: -0.01em; margin-bottom: var(--small); width: fit-content; font-weight: 500; text-decoration: none; }
-        .footer-logo:hover { opacity: 0.8; }
-        .footer-top { gap: var(--small); flex-direction: column; display: flex; }
-        .footer-col { gap: var(--tiny); flex-direction: column; display: flex; }
-        .footer-col-label { color: var(--background); opacity: 0.6; margin-bottom: var(--tiniest); font-size: 14px; }
-        .footer-nav-list { gap: var(--tiniest); flex-direction: column; margin: 0; padding: 0; list-style: none; display: flex; }
-        .footer-nav-link { font-size: var(--smallest); color: var(--background); text-decoration: none; transition: opacity 0.15s; }
-        .footer-nav-link:hover { opacity: 0.8; }
-        .colophon-text { font-size: var(--smallest); color: var(--background); max-width: 280px; line-height: 140%; }
-        .colophon-text a { text-underline-offset: 0.15em; text-decoration: underline; transition: color .15s, opacity .15s; }
-        .email-cta { width: 100%; padding: var(--big) 0; overflow: hidden; }
-        .big-email { color: var(--background); text-underline-offset: 0.2em; letter-spacing: -0.02em; font-size: 28px; font-weight: 500; line-height: 100%; text-decoration: underline #ffffff59; transition: opacity 0.15s, text-decoration-color 0.15s; display: block; overflow-wrap: break-word; word-break: break-word; }
-        .big-email:hover { opacity: 0.85; cursor: ne-resize; }
-        .footer-bottom { justify-content: space-between; align-items: center; display: flex; }
-        .footer-copyright, .footer-version { color: var(--background); opacity: 0.6; font-size: 14px; }
-        @media (min-width: 769px) {
-            .footer-content { gap: var(--gap); grid-template-columns: repeat(12, 1fr); display: grid; }
-            .footer-top { gap: var(--gap); grid-column: 1 / -1; grid-template-columns: repeat(12, 1fr); display: grid; }
-            .footer-logo { grid-column: 1 / 4; margin-bottom: 0; }
-            .footer-nav-col { grid-column: 4 / 6; }
-            .footer-social-col { grid-column: 6 / 9; }
-            .footer-colophon-col { grid-column: 9 / 13; }
-            .email-cta { padding: var(--bigger) 0; grid-column: 1 / -1; }
-            .big-email { font-size: clamp(var(--big), 8vw, var(--biggest)); letter-spacing: -0.03em; }
-            .footer-bottom { gap: var(--gap); grid-column: 1 / -1; grid-template-columns: repeat(12, 1fr); display: grid; }
-            .footer-copyright { grid-column: 1 / 4; }
-            .footer-version { text-align: right; grid-column: 12 / 13; }
-        }
+        @media (max-width: 768px) { footer { position: relative; } }
+        footer a { color: var(--background); transition: opacity 0.15s; text-decoration: none; }
+        footer a:hover { opacity: 0.6; }
+        .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
+        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--big); }
+        .footer-left { display: flex; flex-direction: column; gap: var(--tiny); }
+        .footer-links { display: flex; gap: var(--smallest); font-size: var(--smallest); }
+        .footer-ascii { width: 180px; height: auto; opacity: 0.5; }
+        [data-theme="dark"] .footer-ascii { content: url(robot-ascii-dark.png); }
+        .footer-sep { opacity: 0.5; }
+        .big-email { font-family: 'IBM Plex Mono', monospace; color: var(--background); letter-spacing: -0.02em; font-size: 20px; font-weight: 300; line-height: 100%; text-decoration: none; display: block; opacity: 0.7; transition: opacity 0.15s; margin-top: var(--tinier); }
+        .big-email:hover { opacity: 1; }
+        .footer-bottom { display: flex; flex-wrap: wrap; gap: var(--tinier); font-size: 13px; opacity: 0.4; }
+        .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
+        @media (max-width: 768px) { .footer-row { flex-direction: column; } .footer-ascii { display: none; } }
 
         /* Page content wrapper and footer spacer */
         .page-content { z-index: 1; background: var(--background); min-height: 100vh; position: relative; border-radius: 0 0 var(--smaller) var(--smaller); }
         .footer-spacer { display: none; }
         @media (min-width: 769px) { .footer-spacer { height: calc(var(--footer-height, 400px) - var(--smaller)); pointer-events: none; display: block; } }
-        @media (max-width: 768px) { footer { position: relative; } }
 
         /* Animations */
         .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -269,9 +288,9 @@
 
     <!-- Main -->
     <main>
-        <section class="page-header animate-in">
+        <section class="page-header">
             <h1>Work</h1>
-            <p class="page-description">hardware projects and other things i've built.</p>
+            <p class="page-description">hardware projects and other things i've built. filter by <button class="filter-link active" data-filter="all">all</button>, <button class="filter-link" data-filter="hardware">hardware</button>, <button class="filter-link" data-filter="software">software</button>, or <button class="filter-link" data-filter="design">design</button>.</p>
         </section>
 
         <div class="masonry" id="projectGrid">
@@ -286,36 +305,27 @@
 <!-- Footer -->
 <footer>
     <div class="footer-content">
-        <div class="footer-top">
-            <a href="index.html" class="footer-logo">Matthew<br>Zhang</a>
-            <div class="footer-col footer-nav-col">
-                <div class="footer-col-label">Pages</div>
-                <ul class="footer-nav-list">
-                    <li><a href="index.html" class="footer-nav-link">Home</a></li>
-                    <li><a href="work.html" class="footer-nav-link">Work</a></li>
-                    <li><a href="info.html" class="footer-nav-link">Info</a></li>
-                </ul>
+        <div class="footer-row">
+            <div class="footer-left">
+                <nav class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="work.html">Work</a>
+                    <a href="info.html">Info</a>
+                    <a href="matthewzhangresume.pdf" target="_blank">Resume</a>
+                </nav>
+                <nav class="footer-links">
+                    <a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://github.com/matthehzhang" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+                <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
             </div>
-            <div class="footer-col footer-social-col">
-                <div class="footer-col-label">Connect</div>
-                <ul class="footer-nav-list">
-                    <li><a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener" class="footer-nav-link">Twitter</a></li>
-                    <li><a href="https://github.com/matthehzhang" target="_blank" rel="noopener" class="footer-nav-link">GitHub</a></li>
-                    <li><a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener" class="footer-nav-link">LinkedIn</a></li>
-                    <li><a href="mailto:matthewzhang@utexas.edu" class="footer-nav-link">Email</a></li>
-                </ul>
-            </div>
-            <div class="footer-col footer-colophon-col">
-                <div class="footer-col-label">Colophon</div>
-                <p class="colophon-text">Hand-crafted with HTML &amp; CSS. No frameworks, no build steps.</p>
-            </div>
-        </div>
-        <div class="email-cta">
-            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+<img class="footer-ascii" src="robot-ascii.png" alt="">
         </div>
         <div class="footer-bottom">
-            <span class="footer-copyright">&copy; 2026 Matthew Zhang</span>
-            <span class="footer-version">v1.0.0</span>
+            <span>&copy; 2026 Matthew Zhang</span>
+            <span class="footer-sep">&middot;</span>
+            <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, heavily inspired by <a href="https://www.braydenpetersen.com/" target="_blank" rel="noopener">Brayden Petersen</a> &amp; <a href="https://marijanapav.com" target="_blank" rel="noopener">Marijana Pavlini&#263;</a></span>
         </div>
     </div>
 </footer>
@@ -329,10 +339,15 @@
             slug: 'vinyl-record-player',
             title: 'Vinyl Record Player',
             tags: ['PCB Design', 'Embedded Systems', 'CAD'],
-            description: 'Custom PCB design and embedded systems for a fully handmade vinyl record player. all this to play one album.',
+            filters: ['hardware', 'design'],
+            outcome: 'Custom PCB design and embedded systems for a fully handmade vinyl record player.',
+            role: 'Solo project — all electrical, mechanical, and firmware design.',
+            skills: ['KiCad', 'STM32', 'SolidWorks', 'Soldering', 'Motor Control'],
+            motivation: 'Wanted to understand every layer of how a record player works by building one from scratch.',
+            technical: 'Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.',
             link: 'projects/vinyl-record-player.html',
-            preview: 'projects/vinyl-record-player/record_player_cover.jpg',
-            images: ['projects/vinyl-record-player/record_player_cover.jpg'],
+            preview: 'projects/vinyl-record-player/vinyl-000.png',
+            images: ['projects/vinyl-record-player/vinyl-000.png', 'projects/vinyl-record-player/vinyl-001.png', 'projects/vinyl-record-player/vinyl-002.png', 'projects/recordplayerPCB.png'],
             aspect: '4/3',
             status: 'In Progress'
         },
@@ -340,10 +355,15 @@
             slug: 'wall-projector-pen',
             title: 'Wall Projector Pen',
             tags: ['Hardware', 'Computer Vision', 'Python'],
-            description: 'wished my whiteboard were larger. a pen that projects onto walls using a projector and camera tracking.',
+            filters: ['hardware', 'software'],
+            outcome: 'A pen that draws on any wall surface using a projector and IR camera tracking.',
+            role: 'Solo project — hardware assembly, computer vision pipeline, and calibration.',
+            skills: ['Python', 'OpenCV', 'IR Tracking', 'Projector Calibration'],
+            motivation: 'Wished my whiteboard were larger — wanted infinite drawing space on any surface.',
+            technical: 'IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.',
             link: 'projects/wall-projector-pen.html',
-            preview: 'projects/wall-projector-pen/projector_pen_cover.jpg',
-            images: ['projects/wall-projector-pen/projector_pen_cover.jpg'],
+            preview: 'projects/wall-projector-pen/img-000.png',
+            images: ['projects/wall-projector-pen/img-000.png', 'projects/wall-projector-pen/img-001.png', 'projects/wall-projector-pen/img-002.png'],
             aspect: '3/4',
             status: 'Complete'
         },
@@ -351,27 +371,44 @@
             slug: 'ieee-robotathon',
             title: 'IEEE Robotathon Team #9',
             tags: ['Robotics', 'CAD', 'Competition'],
-            description: 'practicing some cad. designed and built a competition robot for the IEEE Robotathon.',
+            filters: ['hardware', 'design'],
+            outcome: 'Designed and built a competition robot for the IEEE Robotathon.',
+            role: 'Mechanical designer — CAD, fabrication, and assembly.',
+            skills: ['Onshape', '3D Printing', 'Laser Cutting', 'Mechanical Design'],
+            motivation: 'Practicing CAD and rapid prototyping under competition constraints.',
+            technical: 'Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.',
             link: 'projects/ieee-robotathon-team-9.html',
-            preview: 'projects/ping-pong-launcher-robot/robotathon_cover.jpg',
-            images: ['projects/ping-pong-launcher-robot/robotathon_cover.jpg'],
+            preview: 'projects/robotathon.png',
+            images: ['projects/robotathon.png', 'projects/ping-pong-launcher-robot/img-000.png', 'projects/ping-pong-launcher-robot/img-001.jpg'],
             aspect: '16/9',
             status: 'Complete'
-        }
+        },
+        { slug: 'p-livekit', title: 'An overview of how LiveKit works', tags: ['Figma', '2024'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png'], aspect: '0.9' },
+        { slug: 'p-dorscluc', title: 'Branding for Open Source Conference', tags: ['Figma', '2025'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png'], aspect: '0.9' },
+        { slug: 'p-echotab', title: 'EchoTab Chrome Extension Landing', tags: ['Figma', '2024'], filters: ['software', 'design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png'], aspect: '1.1' },
+        { slug: 'p-flowers', title: "Elizabeth's Flowers", tags: ['Illustration', '2024'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png'], aspect: '1.4' },
+        { slug: 'p-havgrim', title: 'Havgrim Seaside Hotel', tags: ['Branding', '2023'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png'], aspect: '1' },
+        { slug: 'p-highroads', title: 'High Roads', tags: ['Illustration', '2023'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/high-roads/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/high-roads/preview.png'], aspect: '0.7' },
+        { slug: 'p-posters', title: 'Opera Posters', tags: ['Illustration', '2022'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/opera-posters/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/opera-posters/preview.png'], aspect: '0.7' },
+        { slug: 'p-sketchbook', title: 'Digital Sketchbook', tags: ['Procreate'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/sketchbook/sketchbook_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/sketchbook/sketchbook_preview.png'], aspect: '1.4' },
+        { slug: 'p-midnight', title: 'Midnight Studio', tags: ['Branding', '2024'], filters: ['software', 'design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/midnight-studio/midnight-studio_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/midnight-studio/midnight-studio_preview.png'], aspect: '1.3' }
     ];
 
     const grid = document.getElementById('projectGrid');
 
-    projects.forEach(function(project) {
+    projects.forEach(function(project, i) {
         // Create card
         var card = document.createElement('div');
         card.className = 'project-card';
 
+        card.setAttribute('data-filters', (project.filters || []).join(','));
         card.innerHTML =
-            '<div class="project-card-inner">' +
-                '<img src="' + project.preview + '" alt="' + project.title + '" style="aspect-ratio: ' + project.aspect + ';" onerror="this.style.display=\'none\'">' +
-            '</div>' +
-            '<div class="project-card-title">' + project.title + '</div>';
+            '<div class="project-card-body">' +
+                '<div class="project-card-inner">' +
+                    '<img src="' + project.preview + '" alt="' + project.title + '" onerror="this.style.opacity=\'0\'">' +
+                '</div>' +
+                '<div class="project-card-title">' + project.title + '</div>' +
+            '</div>';
 
         // Create dialog
         var dialog = document.createElement('dialog');
@@ -394,20 +431,33 @@
             return '<span class="dialog-tag">' + tag + '</span>';
         }).join('');
 
+        var arrowsHTML = '';
+        if (project.images.length > 1) {
+            arrowsHTML =
+                '<button class="carousel-nav carousel-prev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>' +
+                '<button class="carousel-nav carousel-next" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>';
+        }
+
         dialog.innerHTML =
             '<div class="dialog-content">' +
                 '<div class="dialog-images">' +
                     '<button class="dialog-close" aria-label="Close">' +
                         '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' +
                     '</button>' +
+                    arrowsHTML +
                     imagesHTML +
                     dotsHTML +
                 '</div>' +
                 '<div class="dialog-info">' +
                     '<h2>' + project.title + '</h2>' +
                     '<div class="dialog-tags">' + tagsHTML + '</div>' +
-                    '<p class="dialog-desc">' + project.description + '</p>' +
-                    '<a href="' + project.link + '" class="dialog-link">View full project &rarr;</a>' +
+                    '<hr class="dialog-divider">' +
+                    (project.outcome ? '<p class="dialog-section-label">Outcome</p><p class="dialog-text">' + project.outcome + '</p>' : '') +
+                    (project.role ? '<p class="dialog-section-label">My Role</p><p class="dialog-text">' + project.role + '</p>' : '') +
+                    (project.skills ? '<p class="dialog-section-label">Skills</p><div class="dialog-tags">' + project.skills.map(function(s) { return '<span class="dialog-tag">' + s + '</span>'; }).join('') + '</div>' : '') +
+                    (project.motivation ? '<p class="dialog-section-label">Motivation</p><p class="dialog-text">' + project.motivation + '</p>' : '') +
+                    (project.technical ? '<p class="dialog-section-label">Technical Details</p><p class="dialog-text">' + project.technical + '</p>' : '') +
+                    (project.link !== '#' ? '<hr class="dialog-divider"><a href="' + project.link + '" class="dialog-link">View full project &rarr;</a>' : '') +
                 '</div>' +
             '</div>';
 
@@ -415,7 +465,10 @@
 
         // Card click opens dialog
         card.addEventListener('click', function() {
+            var firstImg = dialog.querySelector('.dialog-images img[data-index="0"]');
+            if (firstImg) firstImg.classList.add('first-load');
             dialog.showModal();
+            setTimeout(function() { if (firstImg) firstImg.classList.remove('first-load'); }, 600);
         });
 
         // Close button
@@ -431,18 +484,20 @@
             }
         });
 
-        // Carousel dot clicks
+        // Carousel logic
         var dots = dialog.querySelectorAll('.carousel-dot');
         var imgs = dialog.querySelectorAll('.dialog-images img');
-        dots.forEach(function(dot) {
-            dot.addEventListener('click', function(e) {
-                e.stopPropagation();
-                var idx = parseInt(dot.getAttribute('data-index'));
-                imgs.forEach(function(img, i) { img.style.display = i === idx ? 'block' : 'none'; });
-                dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
-            });
-        });
+        var currentIdx = 0;
+        function goTo(idx) { if (!imgs.length) return; currentIdx = (idx + imgs.length) % imgs.length; imgs.forEach(function(img, j) { img.style.display = j === currentIdx ? 'block' : 'none'; }); dots.forEach(function(d, j) { d.classList.toggle('active', j === currentIdx); }); }
+        dots.forEach(function(dot) { dot.addEventListener('click', function(e) { e.stopPropagation(); goTo(parseInt(dot.getAttribute('data-index'))); }); });
+        var prevBtn = dialog.querySelector('.carousel-prev');
+        var nextBtn = dialog.querySelector('.carousel-next');
+        if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(currentIdx - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(currentIdx + 1); });
 
+        card.style.animationDelay = (i * 0.05) + 's';
+        var cardImg = card.querySelector('img');
+        if (cardImg) cardImg.style.animationDelay = (i * 0.05) + 's';
         grid.appendChild(card);
     });
 
@@ -459,6 +514,19 @@
     // Run after images load or immediately
     window.addEventListener('load', measureTitles);
     measureTitles();
+
+    // Filter links
+    document.querySelectorAll('.filter-link').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-link').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var filter = btn.getAttribute('data-filter');
+            document.querySelectorAll('.project-card').forEach(function(card) {
+                var f = card.getAttribute('data-filters');
+                card.style.display = (filter === 'all' || f.indexOf(filter) !== -1) ? '' : 'none';
+            });
+        });
+    });
 
     // Sound effects
     var sounds = {
