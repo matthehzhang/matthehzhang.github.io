@@ -89,6 +89,14 @@
         /* Selection */
         ::selection { background-color: var(--accent); color: var(--white); }
 
+        *, a, button { cursor: none !important; }
+        .cursor-dot { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: font-size 0.2s ease, transform 0.3s ease; font-size: 18px; font-weight: 300; color: #fff; mix-blend-mode: difference; line-height: 1; }
+        .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.3; }
+        .cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.8; }
+        @keyframes cursorSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .cursor-dot.hovering { font-size: 26px; font-weight: 300; animation: cursorSpin 2s linear infinite; }
+        @media (max-width: 768px) { .cursor-dot, .cursor-ring { display: none; } *, a, button { cursor: auto !important; } }
+
         /* Base reset */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { width: 100%; max-width: 100%; }
@@ -167,6 +175,9 @@
     </style>
 </head>
 <body>
+
+<div class="cursor-dot" id="cursorDot">+</div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <div class="page-content">
     <!-- Header -->
@@ -254,6 +265,36 @@
         const s = sounds[name];
         if (s) { s.currentTime = 0; s.play().catch(() => {}); }
     }
+
+    // Custom cursor
+    var dot = document.getElementById('cursorDot');
+    var ring = document.getElementById('cursorRing');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function followRing() {
+        var tx = mx, ty = my;
+        if (currentTarget && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
+            var rect = currentTarget.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2;
+            var cy = rect.top + rect.height / 2;
+            tx = mx + (cx - mx) * 0.4;
+            ty = my + (cy - my) * 0.4;
+        }
+        rx += (tx - rx) * 0.15; ry += (ty - ry) * 0.15;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(followRing);
+    })();
+    var currentTarget = null;
+    document.addEventListener('mouseover', function(e) {
+        var t = e.target.closest('a, button, [onclick], .project-card-link, .featured-card, .project-card');
+        if (t === currentTarget) return;
+        currentTarget = t;
+        if (t) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
+        else { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
+    });
 
     // Theme toggle
     const toggle = document.querySelector('.theme-toggle');

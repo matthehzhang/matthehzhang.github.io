@@ -89,6 +89,14 @@
         /* Selection */
         ::selection { background-color: var(--accent); color: var(--white); }
 
+        *, a, button { cursor: none !important; }
+        .cursor-dot { position: fixed; pointer-events: none; z-index: 2147483647; transform: translate(-50%, -50%); transition: font-size 0.2s ease, transform 0.3s ease; font-size: 18px; font-weight: 300; color: #fff; mix-blend-mode: difference; line-height: 1; }
+        .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 2147483646; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.3; }
+        .cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.8; }
+        @keyframes cursorSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .cursor-dot.hovering { font-size: 26px; font-weight: 300; animation: cursorSpin 2s linear infinite; }
+        @media (max-width: 768px) { .cursor-dot, .cursor-ring { display: none; } *, a, button { cursor: auto !important; } }
+
         /* Base reset */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { width: 100%; max-width: 100%; }
@@ -129,7 +137,9 @@
         }
 
         /* Main */
-        main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
+        main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; max-width: 1336px; margin: 0 auto; position: relative; }
+        .page-content::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(0,0,0,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.09) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px); background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px, 10px 10px, 10px 10px; }
+        [data-theme="dark"] .page-content::after { background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); }
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
         /* Page header */
@@ -141,7 +151,7 @@
         .badge { position: absolute; top: var(--tinier); left: var(--tinier); background: var(--foreground); color: var(--background); font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: var(--radius-small); z-index: 2; }
 
         /* Masonry grid */
-        .masonry { column-count: 3; column-gap: var(--smallest); padding: 0 5px; }
+        .masonry { column-count: 3; column-gap: var(--tinier); }
         @media (max-width: 900px) { .masonry { column-count: 2; } }
         @media (max-width: 500px) { .masonry { column-count: 1; } }
 
@@ -155,10 +165,10 @@
         @keyframes imageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
 
         /* Project card — double-div border trick */
-        .project-card { break-inside: avoid; margin-bottom: var(--smallest); cursor: pointer; border-radius: 8px; position: relative; background: var(--border); padding: 1px; box-shadow: 0px 0px 20px rgba(0,0,0,0.06); opacity: 0; animation: cardIn 0.35s ease-out forwards; }
+        .project-card { break-inside: avoid; margin-bottom: var(--tinier); cursor: pointer; border-radius: 8px; position: relative; background: var(--border); padding: 1px; box-shadow: 0px 0px 20px rgba(0,0,0,0.06); opacity: 0; animation: cardIn 0.35s ease-out forwards; }
         [data-theme="dark"] .project-card { background: var(--grey-800); box-shadow: 0px 0px 20px rgba(0,0,0,0.15); }
         @media (min-width: 769px) { .project-card { border-radius: 16px; } }
-        .project-card-body { background: var(--background); border-radius: 7px; padding: 4px; overflow: hidden; position: relative; clip-path: inset(0 round 7px); }
+        .project-card-body { background: var(--background); border-radius: 7px; padding: 6px; overflow: hidden; position: relative; clip-path: inset(0 round 7px); }
         [data-theme="dark"] .project-card-body { background: var(--grey-900); }
         @media (min-width: 769px) { .project-card-body { border-radius: 15px; } }
         .project-card-inner { overflow: hidden; border-radius: 4px; position: relative; transition: transform 0.3s ease; }
@@ -256,6 +266,9 @@
 </head>
 <body>
 
+<div class="cursor-dot" id="cursorDot">+</div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <div class="page-content">
     <!-- Header -->
     <header>
@@ -288,10 +301,7 @@
 
     <!-- Main -->
     <main>
-        <section class="page-header">
-            <h1>Work</h1>
-            <p class="page-description">hardware projects and other things i've built. filter by <button class="filter-link active" data-filter="all">all</button>, <button class="filter-link" data-filter="hardware">hardware</button>, <button class="filter-link" data-filter="software">software</button>, or <button class="filter-link" data-filter="design">design</button>.</p>
-        </section>
+        <p class="page-description" style="white-space:nowrap;">hardware projects and other things i've built. filter by <button class="filter-link active" data-filter="all">all</button>, <button class="filter-link" data-filter="hardware">hardware</button>, <button class="filter-link" data-filter="software">software</button>, or <button class="filter-link" data-filter="design">design</button>.</p>
 
         <div class="masonry" id="projectGrid">
             <!-- Cards generated by JS -->
@@ -468,6 +478,8 @@
             var firstImg = dialog.querySelector('.dialog-images img[data-index="0"]');
             if (firstImg) firstImg.classList.add('first-load');
             dialog.showModal();
+            dialog.appendChild(dot);
+            dialog.appendChild(ring);
             setTimeout(function() { if (firstImg) firstImg.classList.remove('first-load'); }, 600);
         });
 
@@ -475,6 +487,12 @@
         dialog.querySelector('.dialog-close').addEventListener('click', function(e) {
             e.stopPropagation();
             dialog.close();
+        });
+
+        // Move cursor back to body on close
+        dialog.addEventListener('close', function() {
+            document.body.appendChild(dot);
+            document.body.appendChild(ring);
         });
 
         // Close on backdrop click
@@ -540,6 +558,36 @@
         var s = sounds[name];
         if (s) { s.currentTime = 0; s.play().catch(function() {}); }
     }
+
+    // Custom cursor
+    var dot = document.getElementById('cursorDot');
+    var ring = document.getElementById('cursorRing');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function followRing() {
+        var tx = mx, ty = my;
+        if (currentTarget && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
+            var rect = currentTarget.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2;
+            var cy = rect.top + rect.height / 2;
+            tx = mx + (cx - mx) * 0.4;
+            ty = my + (cy - my) * 0.4;
+        }
+        rx += (tx - rx) * 0.15; ry += (ty - ry) * 0.15;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(followRing);
+    })();
+    var currentTarget = null;
+    document.addEventListener('mouseover', function(e) {
+        var t = e.target.closest('a, button, [onclick], .project-card-link, .featured-card, .project-card');
+        if (t === currentTarget) return;
+        currentTarget = t;
+        if (t) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
+        else { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
+    });
 
     // Theme toggle
     var toggle = document.querySelector('.theme-toggle');

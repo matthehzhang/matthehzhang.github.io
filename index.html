@@ -92,6 +92,13 @@
         /* Base reset */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { width: 100%; max-width: 100%; }
+        *, a, button { cursor: none !important; }
+        .cursor-dot { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: font-size 0.2s ease, transform 0.3s ease; font-size: 18px; font-weight: 300; color: #fff; mix-blend-mode: difference; line-height: 1; }
+        .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.3; }
+        .cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.8; }
+        @keyframes cursorSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .cursor-dot.hovering { font-size: 26px; font-weight: 300; animation: cursorSpin 2s linear infinite; }
+        @media (max-width: 768px) { .cursor-dot, .cursor-ring { display: none; } *, a, button { cursor: auto !important; } }
         body { background: none; color: var(--foreground); font-feature-settings: "liga" 1, "calt" 1, "ss04" 1, "ss07" 1; font-optical-sizing: auto; text-wrap: pretty; width: 100%; max-width: 100%; min-height: 100vh; margin: 0; padding: 0; font-family: Inter, sans-serif; font-weight: 400; line-height: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         a { color: inherit; text-decoration: inherit; }
         img, video { max-width: 100%; height: auto; }
@@ -107,7 +114,7 @@
         header { padding: var(--margin); pointer-events: none; position: sticky; top: 0; z-index: 100; }
         .header-blur { position: absolute; top: 0; left: 0; right: 0; height: calc(100% + 40px); pointer-events: none; }
         .header-blur > div { position: absolute; inset: 0; }
-        .header-blur > div:nth-child(1) { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); mask: linear-gradient(to bottom, black 50%, transparent 80%); -webkit-mask: linear-gradient(to bottom, black 50%, transparent 80%); }
+        .header-blur > div:nth-child(1) { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: color-mix(in srgb, var(--background) 60%, transparent); mask: linear-gradient(to bottom, black 50%, transparent 80%); -webkit-mask: linear-gradient(to bottom, black 50%, transparent 80%); }
         .header-blur > div:nth-child(2) { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); mask: linear-gradient(to bottom, black 35%, transparent 65%); -webkit-mask: linear-gradient(to bottom, black 35%, transparent 65%); }
         .header-blur > div:nth-child(3) { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); mask: linear-gradient(to bottom, black 20%, transparent 50%); -webkit-mask: linear-gradient(to bottom, black 20%, transparent 50%); }
         .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; position: relative; z-index: 1; }
@@ -162,6 +169,7 @@
         .exp-role { font-weight: 600; color: var(--foreground); }
         .exp-at { color: var(--muted); font-weight: 400; }
         .exp-company { color: var(--accent); font-weight: 400; }
+        a.exp-company { text-decoration: underline; text-underline-offset: 0.15em; }
         .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
         @media (max-width: 768px) { .exp-item { grid-template-columns: 60px 1fr; gap: var(--smallest); } }
 
@@ -170,6 +178,7 @@
         .featured-card { gap: var(--tiny); color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: flex; flex-direction: column-reverse; }
         .featured-card:hover { background-color: var(--surface-hover); }
         .featured-card:hover .featured-info, .featured-card:hover .featured-image-wrapper { transform: scale(0.97); }
+        .featured-card:hover .featured-title { color: var(--accent); }
         .featured-card:hover .featured-image-wrapper img { opacity: 0.9; }
         .featured-info { gap: var(--tinier); padding: var(--tinier) var(--tiniest); flex-direction: column; justify-content: center; transition: transform 0.3s; display: flex; }
         .featured-title { font-size: var(--smaller); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 110%; }
@@ -254,6 +263,9 @@
 </head>
 <body>
 
+<div class="cursor-dot" id="cursorDot">+</div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <div class="page-content">
     <!-- Header -->
     <header>
@@ -320,14 +332,14 @@
                 <li class="exp-item">
                     <span class="exp-date">2026 &ndash; 20xx</span>
                     <div class="exp-info">
-                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer</span> <span class="exp-at">@</span> <span class="exp-company">eve Vehicles Corporation</span></div>
+                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer</span> <span class="exp-at">@</span> <a href="https://www.evevehicles.com/" target="_blank" rel="noopener" class="exp-company">eve Vehicles Corporation</a></div>
                         <span class="exp-desc">developing battery quick-swap, charging, and power distribution + sensing systems for power efficient UAVs</span>
                     </div>
                 </li>
                 <li class="exp-item">
                     <span class="exp-date">2026 &ndash; 20xx</span>
                     <div class="exp-info">
-                        <div class="exp-title-row"><span class="exp-role">Intern</span> <span class="exp-at">@</span> <span class="exp-company">Tess Ventures</span></div>
+                        <div class="exp-title-row"><span class="exp-role">Intern</span> <span class="exp-at">@</span> <a href="https://www.tessventures.xyz/" target="_blank" rel="noopener" class="exp-company">Tess Ventures</a></div>
                     </div>
                 </li>
                 <li class="exp-item">
@@ -429,6 +441,36 @@
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
         }
+    });
+
+    // Custom cursor
+    var dot = document.getElementById('cursorDot');
+    var ring = document.getElementById('cursorRing');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function followRing() {
+        var tx = mx, ty = my;
+        if (currentTarget && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
+            var rect = currentTarget.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2;
+            var cy = rect.top + rect.height / 2;
+            tx = mx + (cx - mx) * 0.4;
+            ty = my + (cy - my) * 0.4;
+        }
+        rx += (tx - rx) * 0.15; ry += (ty - ry) * 0.15;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(followRing);
+    })();
+    var currentTarget = null;
+    document.addEventListener('mouseover', function(e) {
+        var t = e.target.closest('a, button, [onclick], .project-card-link, .featured-card');
+        if (t === currentTarget) return;
+        currentTarget = t;
+        if (t) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
+        else { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
     });
 
     // Draggable canvas items
