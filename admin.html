@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Admin</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app {
+            display: flex;
+            height: calc(100vh - 48px);
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            background: #141414;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            gap: 8px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #888;
+            flex: 1;
+            line-height: 28px;
+        }
+
+        .btn-new {
+            background: #4a9eff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-new:hover { background: #3b8be8; }
+
+        .project-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px 0;
+        }
+
+        .project-list::-webkit-scrollbar { width: 6px; }
+        .project-list::-webkit-scrollbar-track { background: transparent; }
+        .project-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+        .project-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 12px;
+            cursor: pointer;
+            gap: 8px;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+        .project-item:hover { background: #1e1e1e; }
+        .project-item.active {
+            background: #1e1e1e;
+            border-left-color: #4a9eff;
+        }
+        .project-item.drag-over {
+            border-top: 2px solid #4a9eff;
+        }
+
+        .project-item .thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+            background: #252525;
+            flex-shrink: 0;
+        }
+        .project-item .thumb-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background: #252525;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .project-item .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .project-item .item-title {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .project-item .item-status {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .project-item .btn-delete {
+            background: none;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            opacity: 0;
+            flex-shrink: 0;
+        }
+        .project-item:hover .btn-delete { opacity: 1; }
+        .project-item .btn-delete:hover { color: #e74c3c; background: #2a1a1a; }
+
+        /* ── Editor ── */
+        .editor {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 32px;
+        }
+        .editor::-webkit-scrollbar { width: 8px; }
+        .editor::-webkit-scrollbar-track { background: transparent; }
+        .editor::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        .empty-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .editor-content { display: none; max-width: 900px; }
+        .editor-content.visible { display: block; }
+
+        .section {
+            margin-bottom: 28px;
+        }
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #666;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .field-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .field-row > .field { flex: 1; }
+
+        .field {
+            margin-bottom: 10px;
+        }
+        .field label {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            color: #888;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #e0e0e0;
+            padding: 8px 10px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #4a9eff;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 64px;
+        }
+
+        .aspect-presets {
+            display: flex;
+            gap: 4px;
+            margin-top: 4px;
+        }
+        .aspect-presets button {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: #aaa;
+            border-radius: 3px;
+            padding: 2px 8px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .aspect-presets button:hover { background: #333; color: #e0e0e0; }
+        .aspect-presets button.active { background: #4a9eff; color: #fff; border-color: #4a9eff; }
+
+        /* ── Chips ── */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 6px;
+            min-height: 24px;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 3px;
+            padding: 2px 6px 2px 8px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        .chip .chip-remove {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0 2px;
+        }
+        .chip .chip-remove:hover { color: #e74c3c; }
+
+        .chip-input {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        /* ── Filters (checkboxes) ── */
+        .filter-checks {
+            display: flex;
+            gap: 16px;
+        }
+        .filter-checks label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #ccc;
+            cursor: pointer;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .filter-checks input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #4a9eff;
+        }
+
+        /* ── Media Manager ── */
+        .media-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .media-card {
+            width: 100px;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid #333;
+            cursor: grab;
+            background: #1e1e1e;
+        }
+        .media-card.drag-over { border-color: #4a9eff; }
+        .media-card.is-cover { border-color: #f5a623; }
+
+        .media-card .media-thumb {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            display: block;
+            background: #252525;
+        }
+        .media-card .media-placeholder {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #252525;
+            color: #555;
+            font-size: 24px;
+        }
+
+        .media-card .media-badge {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: rgba(0,0,0,0.7);
+            color: #ccc;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 1px 4px;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .media-card .media-actions {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            display: flex;
+            gap: 2px;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+        .media-card:hover .media-actions { opacity: 1; }
+
+        .media-card .media-actions button {
+            width: 20px;
+            height: 20px;
+            border: none;
+            border-radius: 2px;
+            background: rgba(0,0,0,0.7);
+            color: #ccc;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .media-card .media-actions button:hover { background: rgba(0,0,0,0.9); }
+        .media-card .media-actions .btn-star.active { color: #f5a623; }
+
+        .media-card .media-src {
+            font-size: 9px;
+            color: #666;
+            padding: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .add-media {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .add-media .field { margin-bottom: 0; }
+        .add-media .field.path-field { flex: 1; min-width: 200px; }
+        .add-media .field.poster-field { flex: 0.6; min-width: 140px; }
+
+        .btn-add-media {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: #ccc;
+            border-radius: 4px;
+            padding: 8px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            height: 34px;
+        }
+        .btn-add-media:hover { background: #333; }
+
+        /* ── Live Preview ── */
+        .preview-section {
+            margin-bottom: 28px;
+        }
+
+        .preview-card {
+            width: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            position: relative;
+            cursor: pointer;
+        }
+        .preview-card img {
+            width: 100%;
+            display: block;
+            aspect-ratio: var(--aspect, 4/3);
+            object-fit: cover;
+            background: #252525;
+        }
+        .preview-card .preview-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .preview-card:hover .preview-overlay { opacity: 1; }
+        .preview-card .preview-overlay .preview-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .preview-card .preview-overlay .preview-desc {
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+        .preview-no-image {
+            width: 200px;
+            aspect-ratio: var(--aspect, 4/3);
+            background: #252525;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-size: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        /* ── Toolbar ── */
+        .toolbar {
+            height: 48px;
+            background: #141414;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 8px;
+        }
+
+        .toolbar .save-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #555;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
+        .toolbar .save-indicator.unsaved { background: #f5a623; }
+
+        .btn-save {
+            background: #4a9eff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-save:hover { background: #3b8be8; }
+
+        .btn-download {
+            background: #2a2a2a;
+            color: #ccc;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn-download:hover { background: #333; }
+
+        .toolbar-spacer { flex: 1; }
+        .toolbar .shortcut-hint {
+            font-size: 11px;
+            color: #555;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .app { flex-direction: column; height: calc(100vh - 48px); }
+            .sidebar {
+                width: 100%;
+                min-width: 100%;
+                max-height: 200px;
+                border-right: none;
+                border-bottom: 1px solid #333;
+            }
+            .editor { padding: 16px; }
+            .field-row { flex-direction: column; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Projects</h2>
+                <button class="btn-new" onclick="addNewProject()">+ New</button>
+            </div>
+            <div class="project-list" id="projectList"></div>
+        </aside>
+        <main class="editor" id="editor">
+            <div class="empty-state" id="emptyState">Select a project to edit, or create a new one.</div>
+            <div class="editor-content" id="editorContent">
+
+                <!-- Basic Info -->
+                <div class="section">
+                    <div class="section-title">Basic Info</div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label>Title</label>
+                            <input type="text" id="f-title" oninput="onFieldChange('title', this.value)">
+                        </div>
+                        <div class="field" style="max-width:200px">
+                            <label>Slug</label>
+                            <input type="text" id="f-slug" oninput="onFieldChange('slug', this.value)">
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label>Status</label>
+                            <select id="f-status" onchange="onFieldChange('status', this.value)">
+                                <option value="">-- none --</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Complete">Complete</option>
+                                <option value="Archived">Archived</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Date</label>
+                            <input type="date" id="f-date" oninput="onFieldChange('date', this.value)">
+                        </div>
+                        <div class="field">
+                            <label>Link</label>
+                            <input type="text" id="f-link" oninput="onFieldChange('link', this.value)">
+                        </div>
+                    </div>
+                    <div class="field" style="max-width:240px">
+                        <label>Aspect</label>
+                        <input type="text" id="f-aspect" oninput="onFieldChange('aspect', this.value)">
+                        <div class="aspect-presets" id="aspectPresets">
+                            <button onclick="setAspect('4/3')">4/3</button>
+                            <button onclick="setAspect('3/4')">3/4</button>
+                            <button onclick="setAspect('16/9')">16/9</button>
+                            <button onclick="setAspect('1/1')">1/1</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="section">
+                    <div class="section-title">Tags</div>
+                    <div class="chips-container" id="tagsChips"></div>
+                    <input type="text" class="chip-input" id="tagsInput" placeholder="Type and press Enter or comma to add">
+                </div>
+
+                <!-- Filters -->
+                <div class="section">
+                    <div class="section-title">Filters</div>
+                    <div class="filter-checks">
+                        <label><input type="checkbox" id="f-filter-hardware" onchange="onFilterChange()"> Hardware</label>
+                        <label><input type="checkbox" id="f-filter-software" onchange="onFilterChange()"> Software</label>
+                        <label><input type="checkbox" id="f-filter-design" onchange="onFilterChange()"> Design</label>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="section">
+                    <div class="section-title">Content</div>
+                    <div class="field">
+                        <label>Description (short)</label>
+                        <input type="text" id="f-description" oninput="onFieldChange('description', this.value)">
+                    </div>
+                    <div class="field">
+                        <label>Outcome</label>
+                        <textarea id="f-outcome" rows="2" oninput="onFieldChange('outcome', this.value)"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Role</label>
+                        <textarea id="f-role" rows="2" oninput="onFieldChange('role', this.value)"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Motivation</label>
+                        <textarea id="f-motivation" rows="2" oninput="onFieldChange('motivation', this.value)"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Technical</label>
+                        <textarea id="f-technical" rows="3" oninput="onFieldChange('technical', this.value)"></textarea>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="section">
+                    <div class="section-title">Skills</div>
+                    <div class="chips-container" id="skillsChips"></div>
+                    <input type="text" class="chip-input" id="skillsInput" placeholder="Type and press Enter or comma to add">
+                </div>
+
+                <!-- Media Manager -->
+                <div class="section">
+                    <div class="section-title">Media</div>
+                    <div class="media-grid" id="mediaGrid"></div>
+                    <div class="add-media">
+                        <div class="field path-field">
+                            <label>Path / URL</label>
+                            <input type="text" id="media-src" placeholder="projects/my-project/img.png">
+                        </div>
+                        <div class="field" style="width:100px">
+                            <label>Type</label>
+                            <select id="media-type">
+                                <option value="image">Image</option>
+                                <option value="video">Video</option>
+                                <option value="gif">GIF</option>
+                            </select>
+                        </div>
+                        <div class="field poster-field" id="posterField">
+                            <label>Poster (video)</label>
+                            <input type="text" id="media-poster" placeholder="poster.png">
+                        </div>
+                        <button class="btn-add-media" onclick="addMedia()">Add</button>
+                    </div>
+                </div>
+
+                <!-- Live Preview -->
+                <div class="section preview-section">
+                    <div class="section-title">Card Preview</div>
+                    <div id="livePreview"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <div class="toolbar">
+        <div class="save-indicator" id="saveIndicator"></div>
+        <button class="btn-save" id="btnSaveDisk" onclick="saveToDisk()">Save to Disk</button>
+        <button class="btn-download" onclick="downloadJSON()">Download JSON</button>
+        <div class="toolbar-spacer"></div>
+        <span class="shortcut-hint">Ctrl+S to save</span>
+    </div>
+
+    <script>
+        let projects = [];
+        let selectedIndex = -1;
+        let unsavedChanges = false;
+        let fileHandle = null;
+
+        // ── Init ──
+        async function init() {
+            try {
+                const resp = await fetch('projects.json');
+                projects = await resp.json();
+            } catch (e) {
+                console.warn('Could not load projects.json:', e);
+                projects = [];
+            }
+            // Hide save-to-disk button if API not available
+            if (!('showSaveFilePicker' in window)) {
+                document.getElementById('btnSaveDisk').style.display = 'none';
+            }
+            renderSidebar();
+        }
+
+        // ── Slugify ──
+        function slugify(str) {
+            return str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+        }
+
+        // ── Unsaved Changes ──
+        function markUnsaved() {
+            unsavedChanges = true;
+            document.getElementById('saveIndicator').classList.add('unsaved');
+        }
+        function markSaved() {
+            unsavedChanges = false;
+            document.getElementById('saveIndicator').classList.remove('unsaved');
+        }
+        window.addEventListener('beforeunload', (e) => {
+            if (unsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // ── Sidebar Rendering ──
+        function renderSidebar() {
+            const list = document.getElementById('projectList');
+            list.innerHTML = '';
+            projects.forEach((p, i) => {
+                const item = document.createElement('div');
+                item.className = 'project-item' + (i === selectedIndex ? ' active' : '');
+                item.draggable = true;
+                item.dataset.index = i;
+
+                // Thumbnail
+                let thumbHTML;
+                if (p.preview) {
+                    thumbHTML = `<img class="thumb" src="${escHTML(p.preview)}" onerror="this.outerHTML='<div class=\\'thumb-placeholder\\'>?</div>'">`
+                } else {
+                    thumbHTML = `<div class="thumb-placeholder">?</div>`;
+                }
+
+                item.innerHTML = `
+                    ${thumbHTML}
+                    <div class="item-info">
+                        <div class="item-title">${escHTML(p.title || 'Untitled')}</div>
+                        <div class="item-status">${escHTML(p.status || '')}</div>
+                    </div>
+                    <button class="btn-delete" onclick="event.stopPropagation(); deleteProject(${i})" title="Delete">&#128465;</button>
+                `;
+
+                item.addEventListener('click', () => selectProject(i));
+
+                // Drag events
+                item.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', i.toString());
+                    e.dataTransfer.effectAllowed = 'move';
+                    item.style.opacity = '0.4';
+                });
+                item.addEventListener('dragend', () => {
+                    item.style.opacity = '1';
+                    clearDragOver();
+                });
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    clearDragOver();
+                    item.classList.add('drag-over');
+                });
+                item.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    clearDragOver();
+                    const from = parseInt(e.dataTransfer.getData('text/plain'));
+                    const to = i;
+                    if (from !== to) reorderProjects(from, to);
+                });
+
+                list.appendChild(item);
+            });
+        }
+
+        function clearDragOver() {
+            document.querySelectorAll('.project-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+        }
+
+        function reorderProjects(from, to) {
+            const item = projects.splice(from, 1)[0];
+            projects.splice(to, 0, item);
+            // Adjust selectedIndex
+            if (selectedIndex === from) {
+                selectedIndex = to;
+            } else if (from < selectedIndex && to >= selectedIndex) {
+                selectedIndex--;
+            } else if (from > selectedIndex && to <= selectedIndex) {
+                selectedIndex++;
+            }
+            markUnsaved();
+            renderSidebar();
+        }
+
+        // ── Select / Edit ──
+        function selectProject(i) {
+            selectedIndex = i;
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('editorContent').classList.add('visible');
+            renderSidebar();
+            loadForm();
+        }
+
+        function loadForm() {
+            const p = projects[selectedIndex];
+            if (!p) return;
+
+            document.getElementById('f-title').value = p.title || '';
+            document.getElementById('f-slug').value = p.slug || '';
+            document.getElementById('f-status').value = p.status || '';
+            document.getElementById('f-date').value = p.date || '';
+            document.getElementById('f-link').value = p.link || '';
+            document.getElementById('f-aspect').value = p.aspect || '';
+            document.getElementById('f-description').value = p.description || '';
+            document.getElementById('f-outcome').value = p.outcome || '';
+            document.getElementById('f-role').value = p.role || '';
+            document.getElementById('f-motivation').value = p.motivation || '';
+            document.getElementById('f-technical').value = p.technical || '';
+
+            // Filters
+            const filters = p.filters || [];
+            document.getElementById('f-filter-hardware').checked = filters.includes('hardware');
+            document.getElementById('f-filter-software').checked = filters.includes('software');
+            document.getElementById('f-filter-design').checked = filters.includes('design');
+
+            // Aspect presets
+            updateAspectPresets();
+
+            // Chips
+            renderChips('tagsChips', p.tags || [], 'tags');
+            renderChips('skillsChips', p.skills || [], 'skills');
+
+            // Media
+            renderMediaGrid();
+
+            // Preview
+            renderPreview();
+        }
+
+        function onFieldChange(field, value) {
+            if (selectedIndex < 0) return;
+            const p = projects[selectedIndex];
+            p[field] = value;
+            markUnsaved();
+
+            // Auto-gen slug for new projects on title change
+            if (field === 'title' && (!p._slugManual)) {
+                p.slug = slugify(value);
+                document.getElementById('f-slug').value = p.slug;
+            }
+            if (field === 'slug') {
+                p._slugManual = true;
+            }
+            if (field === 'aspect') {
+                updateAspectPresets();
+            }
+
+            // Update sidebar title
+            if (field === 'title') renderSidebar();
+            renderPreview();
+        }
+
+        function onFilterChange() {
+            if (selectedIndex < 0) return;
+            const filters = [];
+            if (document.getElementById('f-filter-hardware').checked) filters.push('hardware');
+            if (document.getElementById('f-filter-software').checked) filters.push('software');
+            if (document.getElementById('f-filter-design').checked) filters.push('design');
+            projects[selectedIndex].filters = filters;
+            markUnsaved();
+        }
+
+        function setAspect(val) {
+            if (selectedIndex < 0) return;
+            document.getElementById('f-aspect').value = val;
+            projects[selectedIndex].aspect = val;
+            updateAspectPresets();
+            markUnsaved();
+            renderPreview();
+        }
+
+        function updateAspectPresets() {
+            const current = document.getElementById('f-aspect').value;
+            document.querySelectorAll('#aspectPresets button').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === current);
+            });
+        }
+
+        // ── Chips (Tags / Skills) ──
+        function renderChips(containerId, items, field) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            items.forEach((item, i) => {
+                const chip = document.createElement('span');
+                chip.className = 'chip';
+                chip.innerHTML = `${escHTML(item)}<button class="chip-remove" data-field="${field}" data-index="${i}">&times;</button>`;
+                container.appendChild(chip);
+            });
+        }
+
+        // Chip remove handler (delegated)
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('chip-remove')) {
+                const field = e.target.dataset.field;
+                const idx = parseInt(e.target.dataset.index);
+                if (selectedIndex < 0) return;
+                const arr = projects[selectedIndex][field] || [];
+                arr.splice(idx, 1);
+                projects[selectedIndex][field] = arr;
+                markUnsaved();
+                renderChips(field + 'Chips', arr, field);
+            }
+        });
+
+        // Chip input handlers
+        function setupChipInput(inputId, field) {
+            const input = document.getElementById(inputId);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ',') {
+                    e.preventDefault();
+                    addChipFromInput(input, field);
+                }
+            });
+            // Also add on blur if there's text
+            input.addEventListener('blur', () => {
+                if (input.value.trim()) addChipFromInput(input, field);
+            });
+        }
+
+        function addChipFromInput(input, field) {
+            const val = input.value.replace(/,/g, '').trim();
+            if (!val || selectedIndex < 0) return;
+            if (!projects[selectedIndex][field]) projects[selectedIndex][field] = [];
+            projects[selectedIndex][field].push(val);
+            input.value = '';
+            markUnsaved();
+            renderChips(field + 'Chips', projects[selectedIndex][field], field);
+        }
+
+        setupChipInput('tagsInput', 'tags');
+        setupChipInput('skillsInput', 'skills');
+
+        // ── Media Manager ──
+        function renderMediaGrid() {
+            const grid = document.getElementById('mediaGrid');
+            grid.innerHTML = '';
+            const p = projects[selectedIndex];
+            if (!p || !p.media) return;
+
+            p.media.forEach((m, i) => {
+                const card = document.createElement('div');
+                card.className = 'media-card' + (p.preview === m.src ? ' is-cover' : '');
+                card.draggable = true;
+                card.dataset.index = i;
+
+                // Thumbnail
+                let thumbHTML;
+                const typeBadge = m.type === 'video' ? 'VID' : m.type === 'gif' ? 'GIF' : 'IMG';
+
+                if (m.type === 'video') {
+                    if (m.poster) {
+                        thumbHTML = `<img class="media-thumb" src="${escHTML(m.poster)}" onerror="this.outerHTML='<div class=\\'media-placeholder\\'>&#9654;</div>'">`;
+                    } else {
+                        thumbHTML = `<div class="media-placeholder">&#9654;</div>`;
+                    }
+                } else {
+                    thumbHTML = `<img class="media-thumb" src="${escHTML(m.src)}" onerror="this.outerHTML='<div class=\\'media-placeholder\\'>?</div>'">`;
+                }
+
+                const isCover = p.preview === m.src;
+                card.innerHTML = `
+                    <span class="media-badge">${typeBadge}</span>
+                    <div class="media-actions">
+                        <button class="btn-star ${isCover ? 'active' : ''}" title="Set as cover" onclick="event.stopPropagation(); setCover(${i})">&#9733;</button>
+                        <button title="Remove" onclick="event.stopPropagation(); removeMedia(${i})">&times;</button>
+                    </div>
+                    ${thumbHTML}
+                    <div class="media-src">${escHTML(m.src.split('/').pop())}</div>
+                `;
+
+                // Media drag events
+                card.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('application/media-index', i.toString());
+                    e.dataTransfer.effectAllowed = 'move';
+                    card.style.opacity = '0.4';
+                });
+                card.addEventListener('dragend', () => {
+                    card.style.opacity = '1';
+                    clearMediaDragOver();
+                });
+                card.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    clearMediaDragOver();
+                    card.classList.add('drag-over');
+                });
+                card.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    clearMediaDragOver();
+                    const fromData = e.dataTransfer.getData('application/media-index');
+                    if (!fromData) return;
+                    const from = parseInt(fromData);
+                    const to = i;
+                    if (from !== to) reorderMedia(from, to);
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        function clearMediaDragOver() {
+            document.querySelectorAll('.media-card.drag-over').forEach(el => el.classList.remove('drag-over'));
+        }
+
+        function reorderMedia(from, to) {
+            const media = projects[selectedIndex].media;
+            const item = media.splice(from, 1)[0];
+            media.splice(to, 0, item);
+            markUnsaved();
+            renderMediaGrid();
+        }
+
+        function setCover(i) {
+            if (selectedIndex < 0) return;
+            const p = projects[selectedIndex];
+            p.preview = p.media[i].src;
+            markUnsaved();
+            renderMediaGrid();
+            renderPreview();
+            renderSidebar();
+        }
+
+        function removeMedia(i) {
+            if (selectedIndex < 0) return;
+            const p = projects[selectedIndex];
+            const removed = p.media.splice(i, 1)[0];
+            if (p.preview === removed.src && p.media.length > 0) {
+                p.preview = p.media[0].src;
+            } else if (p.media.length === 0) {
+                p.preview = '';
+            }
+            markUnsaved();
+            renderMediaGrid();
+            renderPreview();
+            renderSidebar();
+        }
+
+        function addMedia() {
+            if (selectedIndex < 0) return;
+            const src = document.getElementById('media-src').value.trim();
+            if (!src) return;
+            const type = document.getElementById('media-type').value;
+            const poster = document.getElementById('media-poster').value.trim();
+
+            const entry = { type, src };
+            if (type === 'video' && poster) entry.poster = poster;
+
+            if (!projects[selectedIndex].media) projects[selectedIndex].media = [];
+            projects[selectedIndex].media.push(entry);
+
+            // Auto-set preview if first media
+            if (projects[selectedIndex].media.length === 1) {
+                projects[selectedIndex].preview = src;
+            }
+
+            document.getElementById('media-src').value = '';
+            document.getElementById('media-poster').value = '';
+            markUnsaved();
+            renderMediaGrid();
+            renderPreview();
+            renderSidebar();
+        }
+
+        // Show/hide poster field based on type
+        document.getElementById('media-type').addEventListener('change', function() {
+            document.getElementById('posterField').style.display = this.value === 'video' ? '' : 'none';
+        });
+
+        // ── Live Preview ──
+        function renderPreview() {
+            const container = document.getElementById('livePreview');
+            if (selectedIndex < 0) { container.innerHTML = ''; return; }
+            const p = projects[selectedIndex];
+            const aspect = p.aspect || '4/3';
+
+            if (p.preview) {
+                container.innerHTML = `
+                    <div class="preview-card" style="--aspect: ${escHTML(aspect)}">
+                        <img src="${escHTML(p.preview)}" onerror="this.style.display='none'">
+                        <div class="preview-overlay">
+                            <div class="preview-title">${escHTML(p.title || 'Untitled')}</div>
+                            <div class="preview-desc">${escHTML(p.description || '')}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="preview-no-image" style="--aspect: ${escHTML(aspect)}">
+                        No preview image
+                    </div>
+                `;
+            }
+        }
+
+        // ── New / Delete ──
+        function addNewProject() {
+            const p = {
+                slug: '',
+                title: '',
+                tags: [],
+                filters: [],
+                status: '',
+                outcome: '',
+                role: '',
+                skills: [],
+                motivation: '',
+                technical: '',
+                description: '',
+                link: '',
+                preview: '',
+                media: [],
+                aspect: '4/3',
+                date: new Date().toISOString().split('T')[0]
+            };
+            p._slugManual = false;
+            projects.unshift(p);
+            markUnsaved();
+            selectProject(0);
+        }
+
+        function deleteProject(i) {
+            const title = projects[i].title || 'Untitled';
+            if (!confirm(`Delete "${title}"?`)) return;
+            projects.splice(i, 1);
+            if (selectedIndex === i) {
+                selectedIndex = -1;
+                document.getElementById('editorContent').classList.remove('visible');
+                document.getElementById('emptyState').style.display = '';
+            } else if (selectedIndex > i) {
+                selectedIndex--;
+            }
+            markUnsaved();
+            renderSidebar();
+        }
+
+        // ── Save / Export ──
+        function getCleanJSON() {
+            // Remove internal flags before export
+            const clean = projects.map(p => {
+                const copy = { ...p };
+                delete copy._slugManual;
+                // Remove undefined/empty optional fields to keep it clean
+                return copy;
+            });
+            return JSON.stringify(clean, null, 2);
+        }
+
+        async function saveToDisk() {
+            const json = getCleanJSON();
+            try {
+                if (!fileHandle) {
+                    fileHandle = await window.showSaveFilePicker({
+                        suggestedName: 'projects.json',
+                        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+                    });
+                }
+                const writable = await fileHandle.createWritable();
+                await writable.write(json);
+                await writable.close();
+                markSaved();
+            } catch (e) {
+                if (e.name !== 'AbortError') {
+                    console.error('Save failed:', e);
+                    alert('Save failed. Try Download JSON instead.');
+                }
+            }
+        }
+
+        function downloadJSON() {
+            const json = getCleanJSON();
+            const blob = new Blob([json + '\n'], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'projects.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            markSaved();
+        }
+
+        // Ctrl+S
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                if ('showSaveFilePicker' in window) {
+                    saveToDisk();
+                } else {
+                    downloadJSON();
+                }
+            }
+        });
+
+        // ── Util ──
+        function escHTML(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // ── Start ──
+        init();
+    </script>
+</body>
+</html>

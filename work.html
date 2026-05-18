@@ -191,11 +191,12 @@
         dialog[open] { display: flex; flex-direction: column; animation: dialogIn 0.3s ease; }
         @keyframes dialogIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes dialogImageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
-        .dialog-images img.first-load { animation: dialogImageIn 0.5s ease-out forwards; }
+        .dialog-images img.first-load, .dialog-images video.first-load { animation: dialogImageIn 0.5s ease-out forwards; }
         .dialog-content { background: var(--background); border: 1px solid var(--border); border-radius: var(--smaller); overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; max-height: inherit; scrollbar-width: none; }
         .dialog-content::-webkit-scrollbar { display: none; }
         .dialog-images { position: relative; overflow: hidden; background: var(--surface); min-height: 400px; }
         .dialog-images img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
+        .dialog-images video { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
         .dialog-close { position: absolute; top: var(--tinier); right: var(--tinier); width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--surface-hover); border: 1px solid var(--border); color: var(--foreground); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.15s; }
         .dialog-close:hover { background: var(--surface-hover); }
         .dialog-info { padding: var(--smaller); display: flex; flex-direction: column; gap: var(--tiny); overflow-y: auto; scrollbar-width: none; max-height: 85vh; }
@@ -343,68 +344,23 @@
 <!-- Preload sounds -->
 <script>
 (function() {
-    // Project data
-    const projects = [
-        {
-            slug: 'vinyl-record-player',
-            title: 'Vinyl Record Player',
-            tags: ['PCB Design', 'Embedded Systems', 'CAD'],
-            filters: ['hardware', 'design'],
-            outcome: 'Custom PCB design and embedded systems for a fully handmade vinyl record player.',
-            role: 'Solo project — all electrical, mechanical, and firmware design.',
-            skills: ['KiCad', 'STM32', 'SolidWorks', 'Soldering', 'Motor Control'],
-            motivation: 'Wanted to understand every layer of how a record player works by building one from scratch.',
-            technical: 'Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.',
-            link: 'projects/vinyl-record-player.html',
-            preview: 'projects/vinyl-record-player/vinyl-000.png',
-            images: ['projects/vinyl-record-player/vinyl-000.png', 'projects/vinyl-record-player/vinyl-001.png', 'projects/vinyl-record-player/vinyl-002.png', 'projects/recordplayerPCB.png'],
-            aspect: '4/3',
-            status: 'In Progress'
-        },
-        {
-            slug: 'wall-projector-pen',
-            title: 'Wall Projector Pen',
-            tags: ['Hardware', 'Computer Vision', 'Python'],
-            filters: ['hardware', 'software'],
-            outcome: 'A pen that draws on any wall surface using a projector and IR camera tracking.',
-            role: 'Solo project — hardware assembly, computer vision pipeline, and calibration.',
-            skills: ['Python', 'OpenCV', 'IR Tracking', 'Projector Calibration'],
-            motivation: 'Wished my whiteboard were larger — wanted infinite drawing space on any surface.',
-            technical: 'IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.',
-            link: 'projects/wall-projector-pen.html',
-            preview: 'projects/wall-projector-pen/img-000.png',
-            images: ['projects/wall-projector-pen/img-000.png', 'projects/wall-projector-pen/img-001.png', 'projects/wall-projector-pen/img-002.png'],
-            aspect: '3/4',
-            status: 'Complete'
-        },
-        {
-            slug: 'ieee-robotathon',
-            title: 'IEEE Robotathon Team #9',
-            tags: ['Robotics', 'CAD', 'Competition'],
-            filters: ['hardware', 'design'],
-            outcome: 'Designed and built a competition robot for the IEEE Robotathon.',
-            role: 'Mechanical designer — CAD, fabrication, and assembly.',
-            skills: ['Onshape', '3D Printing', 'Laser Cutting', 'Mechanical Design'],
-            motivation: 'Practicing CAD and rapid prototyping under competition constraints.',
-            technical: 'Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.',
-            link: 'projects/ieee-robotathon-team-9.html',
-            preview: 'projects/robotathon.png',
-            images: ['projects/robotathon.png', 'projects/ping-pong-launcher-robot/img-000.png', 'projects/ping-pong-launcher-robot/img-001.jpg'],
-            aspect: '16/9',
-            status: 'Complete'
-        },
-        { slug: 'p-livekit', title: 'An overview of how LiveKit works', tags: ['Figma', '2024'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png'], aspect: '0.9' },
-        { slug: 'p-dorscluc', title: 'Branding for Open Source Conference', tags: ['Figma', '2025'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png'], aspect: '0.9' },
-        { slug: 'p-echotab', title: 'EchoTab Chrome Extension Landing', tags: ['Figma', '2024'], filters: ['software', 'design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png'], aspect: '1.1' },
-        { slug: 'p-flowers', title: "Elizabeth's Flowers", tags: ['Illustration', '2024'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png'], aspect: '1.4' },
-        { slug: 'p-havgrim', title: 'Havgrim Seaside Hotel', tags: ['Branding', '2023'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png'], aspect: '1' },
-        { slug: 'p-highroads', title: 'High Roads', tags: ['Illustration', '2023'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/high-roads/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/high-roads/preview.png'], aspect: '0.7' },
-        { slug: 'p-posters', title: 'Opera Posters', tags: ['Illustration', '2022'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/opera-posters/preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/opera-posters/preview.png'], aspect: '0.7' },
-        { slug: 'p-sketchbook', title: 'Digital Sketchbook', tags: ['Procreate'], filters: ['design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/sketchbook/sketchbook_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/sketchbook/sketchbook_preview.png'], aspect: '1.4' },
-        { slug: 'p-midnight', title: 'Midnight Studio', tags: ['Branding', '2024'], filters: ['software', 'design'], description: 'Placeholder — replace with your project.', link: '#', preview: 'https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/midnight-studio/midnight-studio_preview.png', images: ['https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/midnight-studio/midnight-studio_preview.png'], aspect: '1.3' }
-    ];
+    fetch('projects.json')
+        .then(function(r) { return r.json(); })
+        .then(function(projects) {
+            // Normalize: build images array from media if needed
+            projects.forEach(function(p) {
+                if (p.media && !p.images) {
+                    p.images = p.media.filter(function(m) { return m.type !== 'video'; }).map(function(m) { return m.src; });
+                }
+                if (!p.images) p.images = [];
+                // Use description as fallback for outcome
+                if (!p.outcome && p.description) p.outcome = p.description;
+            });
+            renderProjects(projects);
+        });
 
-    const grid = document.getElementById('projectGrid');
+    function renderProjects(projects) {
+    var grid = document.getElementById('projectGrid');
 
     projects.forEach(function(project, i) {
         // Create card
@@ -424,15 +380,19 @@
         var dialog = document.createElement('dialog');
         dialog.id = 'dialog-' + project.slug;
 
-        var imagesHTML = project.images.map(function(src, i) {
-            return '<img src="' + src + '" alt="' + project.title + '" style="display: ' + (i === 0 ? 'block' : 'none') + ';" data-index="' + i + '" onerror="this.style.display=\'none\'">';
+        var mediaItems = project.media || project.images.map(function(s) { return { type: 'image', src: s }; });
+        var mediaHTML = mediaItems.map(function(m, j) {
+            if (m.type === 'video') {
+                return '<video src="' + m.src + '"' + (m.poster ? ' poster="' + m.poster + '"' : '') + ' muted playsinline loop style="display:' + (j === 0 ? 'block' : 'none') + ';" data-index="' + j + '"></video>';
+            }
+            return '<img src="' + m.src + '" alt="' + project.title + '" style="display:' + (j === 0 ? 'block' : 'none') + ';" data-index="' + j + '" onerror="this.style.display=\'none\'">';
         }).join('');
 
         var dotsHTML = '';
-        if (project.images.length > 1) {
+        if (mediaItems.length > 1) {
             dotsHTML = '<div class="carousel-dots">' +
-                project.images.map(function(_, i) {
-                    return '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"></button>';
+                mediaItems.map(function(_, j) {
+                    return '<button class="carousel-dot' + (j === 0 ? ' active' : '') + '" data-index="' + j + '"></button>';
                 }).join('') +
                 '</div>';
         }
@@ -442,7 +402,7 @@
         }).join('');
 
         var arrowsHTML = '';
-        if (project.images.length > 1) {
+        if (mediaItems.length > 1) {
             arrowsHTML =
                 '<button class="carousel-nav carousel-prev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>' +
                 '<button class="carousel-nav carousel-next" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>';
@@ -455,7 +415,7 @@
                         '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' +
                     '</button>' +
                     arrowsHTML +
-                    imagesHTML +
+                    mediaHTML +
                     dotsHTML +
                 '</div>' +
                 '<div class="dialog-info">' +
@@ -475,12 +435,12 @@
 
         // Card click opens dialog
         card.addEventListener('click', function() {
-            var firstImg = dialog.querySelector('.dialog-images img[data-index="0"]');
-            if (firstImg) firstImg.classList.add('first-load');
+            var firstMedia = dialog.querySelector('.dialog-images img[data-index="0"], .dialog-images video[data-index="0"]');
+            if (firstMedia) firstMedia.classList.add('first-load');
             dialog.showModal();
             dialog.appendChild(dot);
             dialog.appendChild(ring);
-            setTimeout(function() { if (firstImg) firstImg.classList.remove('first-load'); }, 600);
+            setTimeout(function() { if (firstMedia) firstMedia.classList.remove('first-load'); }, 600);
         });
 
         // Close button
@@ -504,9 +464,17 @@
 
         // Carousel logic
         var dots = dialog.querySelectorAll('.carousel-dot');
-        var imgs = dialog.querySelectorAll('.dialog-images img');
+        var allMedia = dialog.querySelectorAll('.dialog-images img, .dialog-images video');
         var currentIdx = 0;
-        function goTo(idx) { if (!imgs.length) return; currentIdx = (idx + imgs.length) % imgs.length; imgs.forEach(function(img, j) { img.style.display = j === currentIdx ? 'block' : 'none'; }); dots.forEach(function(d, j) { d.classList.toggle('active', j === currentIdx); }); }
+        function goTo(idx) {
+            if (!allMedia.length) return;
+            currentIdx = (idx + allMedia.length) % allMedia.length;
+            allMedia.forEach(function(el, j) {
+                el.style.display = j === currentIdx ? 'block' : 'none';
+                if (el.tagName === 'VIDEO') { j === currentIdx ? el.play() : el.pause(); }
+            });
+            dots.forEach(function(d, j) { d.classList.toggle('active', j === currentIdx); });
+        }
         dots.forEach(function(dot) { dot.addEventListener('click', function(e) { e.stopPropagation(); goTo(parseInt(dot.getAttribute('data-index'))); }); });
         var prevBtn = dialog.querySelector('.carousel-prev');
         var nextBtn = dialog.querySelector('.carousel-next');
@@ -531,6 +499,7 @@
     }
     // Run after images load or immediately
     window.addEventListener('load', measureTitles);
+    window.addEventListener('resize', measureTitles);
     measureTitles();
 
     // Filter links
@@ -545,6 +514,7 @@
             });
         });
     });
+    } // end renderProjects
 
     // Sound effects
     var sounds = {
@@ -622,7 +592,6 @@
     }
     setFooterHeight();
     window.addEventListener('resize', setFooterHeight);
-    window.addEventListener('resize', measureTitles);
 })();
 </script>
 
