@@ -57,6 +57,48 @@
     ]
   },
   {
+    "slug": "p-livekit",
+    "title": "An overview of how LiveKit works",
+    "tags": [
+      "Figma",
+      "2024"
+    ],
+    "filters": [
+      "design"
+    ],
+    "description": "Placeholder — replace with your project.",
+    "link": "#",
+    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png"
+      }
+    ],
+    "aspect": "16/9"
+  },
+  {
+    "slug": "p-dorscluc",
+    "title": "Branding for Open Source Conference",
+    "tags": [
+      "Figma",
+      "2025"
+    ],
+    "filters": [
+      "design"
+    ],
+    "description": "Placeholder — replace with your project.",
+    "link": "#",
+    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png"
+      }
+    ],
+    "aspect": "0.9"
+  },
+  {
     "slug": "wall-projector-pen",
     "title": "Wall Projector Pen",
     "tags": [
@@ -104,6 +146,49 @@
     ]
   },
   {
+    "slug": "p-echotab",
+    "title": "EchoTab Chrome Extension Landing",
+    "tags": [
+      "Figma",
+      "2024"
+    ],
+    "filters": [
+      "software",
+      "design"
+    ],
+    "description": "Placeholder — replace with your project.",
+    "link": "#",
+    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png"
+      }
+    ],
+    "aspect": "1.1"
+  },
+  {
+    "slug": "p-flowers",
+    "title": "Elizabeth's Flowers",
+    "tags": [
+      "Illustration",
+      "2024"
+    ],
+    "filters": [
+      "design"
+    ],
+    "description": "Placeholder — replace with your project.",
+    "link": "#",
+    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png"
+      }
+    ],
+    "aspect": "1.4"
+  },
+  {
     "slug": "ieee-robotathon",
     "title": "IEEE Robotathon Team #9",
     "tags": [
@@ -149,91 +234,6 @@
       "practicing some cad :)",
       "built in 2 weeks"
     ]
-  },
-  {
-    "slug": "p-livekit",
-    "title": "An overview of how LiveKit works",
-    "tags": [
-      "Figma",
-      "2024"
-    ],
-    "filters": [
-      "design"
-    ],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png"
-      }
-    ],
-    "aspect": "16/9"
-  },
-  {
-    "slug": "p-dorscluc",
-    "title": "Branding for Open Source Conference",
-    "tags": [
-      "Figma",
-      "2025"
-    ],
-    "filters": [
-      "design"
-    ],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png"
-      }
-    ],
-    "aspect": "0.9"
-  },
-  {
-    "slug": "p-echotab",
-    "title": "EchoTab Chrome Extension Landing",
-    "tags": [
-      "Figma",
-      "2024"
-    ],
-    "filters": [
-      "software",
-      "design"
-    ],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png"
-      }
-    ],
-    "aspect": "1.1"
-  },
-  {
-    "slug": "p-flowers",
-    "title": "Elizabeth's Flowers",
-    "tags": [
-      "Illustration",
-      "2024"
-    ],
-    "filters": [
-      "design"
-    ],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png"
-      }
-    ],
-    "aspect": "1.4"
   },
   {
     "slug": "p-havgrim",
