@@ -50,7 +50,11 @@
     ],
     "aspect": "1/1",
     "date": "2026-03-01",
-    "tooltip": "all this to play one album ^.^"
+    "tooltips": [
+      "all this to play one album ^.^",
+      "a diy record player",
+      "custom pcb + firmware"
+    ]
   },
   {
     "slug": "wall-projector-pen",
@@ -94,7 +98,10 @@
     ],
     "aspect": "3/4",
     "date": "2025-11-08",
-    "tooltip": "my whiteboard is now infinite"
+    "tooltips": [
+      "my whiteboard is now infinite",
+      "opencv + ir tracking"
+    ]
   },
   {
     "slug": "ieee-robotathon",
@@ -138,7 +145,10 @@
     ],
     "aspect": "16/9",
     "date": "2025-10-29",
-    "tooltip": "practicing some cad :)"
+    "tooltips": [
+      "practicing some cad :)",
+      "built in 2 weeks"
+    ]
   },
   {
     "slug": "p-livekit",
