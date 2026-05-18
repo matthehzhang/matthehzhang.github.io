@@ -2,185 +2,248 @@
   {
     "slug": "vinyl-record-player",
     "title": "Vinyl Record Player",
-    "tags": ["PCB Design", "Embedded Systems", "CAD"],
-    "filters": ["hardware", "design"],
+    "tags": [
+      "PCB Design",
+      "Embedded Systems",
+      "CAD"
+    ],
+    "filters": [
+      "hardware",
+      "design"
+    ],
     "status": "In Progress",
     "outcome": "Custom PCB design and embedded systems for a fully handmade vinyl record player.",
     "role": "Solo project — all electrical, mechanical, and firmware design.",
-    "skills": ["KiCad", "STM32", "SolidWorks", "Soldering", "Motor Control"],
+    "skills": [
+      "KiCad",
+      "STM32",
+      "SolidWorks",
+      "Soldering",
+      "Motor Control"
+    ],
     "motivation": "Wanted to understand every layer of how a record player works by building one from scratch.",
     "technical": "Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.",
     "description": "all this to play one album",
     "link": "projects/vinyl-record-player.html",
-    "preview": "projects/vinyl-record-player/vinyl-000.png",
+    "preview": "projects/vinyl-record-player/demo.mp4",
     "media": [
-      { "type": "image", "src": "projects/vinyl-record-player/vinyl-000.png" },
-      { "type": "image", "src": "projects/vinyl-record-player/vinyl-001.png" },
-      { "type": "image", "src": "projects/vinyl-record-player/vinyl-002.png" },
-      { "type": "image", "src": "projects/recordplayerPCB.png" }
+      {
+        "type": "video",
+        "src": "projects/vinyl-record-player/demo.mp4"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/vinyl-000.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/vinyl-001.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/vinyl-002.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/recordplayerPCB.png"
+      }
     ],
-    "aspect": "4/3",
-    "date": "2026-03-01"
+    "aspect": "1/1",
+    "date": "2026-03-01",
+    "tooltip": "all this to play one album ^.^"
   },
   {
     "slug": "wall-projector-pen",
     "title": "Wall Projector Pen",
-    "tags": ["Hardware", "Computer Vision", "Python"],
-    "filters": ["hardware", "software"],
+    "tags": [
+      "Hardware",
+      "Computer Vision",
+      "Python"
+    ],
+    "filters": [
+      "hardware",
+      "software"
+    ],
     "status": "Complete",
     "outcome": "A pen that draws on any wall surface using a projector and IR camera tracking.",
     "role": "Solo project — hardware assembly, computer vision pipeline, and calibration.",
-    "skills": ["Python", "OpenCV", "IR Tracking", "Projector Calibration"],
+    "skills": [
+      "Python",
+      "OpenCV",
+      "IR Tracking",
+      "Projector Calibration"
+    ],
     "motivation": "Wished my whiteboard were larger — wanted infinite drawing space on any surface.",
     "technical": "IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.",
     "description": "wished my whiteboard were larger",
     "link": "projects/wall-projector-pen.html",
     "preview": "projects/wall-projector-pen/img-000.png",
     "media": [
-      { "type": "image", "src": "projects/wall-projector-pen/img-000.png" },
-      { "type": "image", "src": "projects/wall-projector-pen/img-001.png" },
-      { "type": "image", "src": "projects/wall-projector-pen/img-002.png" }
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-000.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-001.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-002.png"
+      }
     ],
     "aspect": "3/4",
-    "date": "2025-11-08"
+    "date": "2025-11-08",
+    "tooltip": "my whiteboard is now infinite"
   },
   {
     "slug": "ieee-robotathon",
     "title": "IEEE Robotathon Team #9",
-    "tags": ["Robotics", "CAD", "Competition"],
-    "filters": ["hardware", "design"],
+    "tags": [
+      "Robotics",
+      "CAD",
+      "Competition"
+    ],
+    "filters": [
+      "hardware",
+      "design"
+    ],
     "status": "Complete",
     "outcome": "Designed and built a competition robot for the IEEE Robotathon.",
     "role": "Mechanical designer — CAD, fabrication, and assembly.",
-    "skills": ["Onshape", "3D Printing", "Laser Cutting", "Mechanical Design"],
+    "skills": [
+      "Onshape",
+      "3D Printing",
+      "Laser Cutting",
+      "Mechanical Design"
+    ],
     "motivation": "Practicing CAD and rapid prototyping under competition constraints.",
     "technical": "Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.",
     "description": "practicing some cad",
     "link": "projects/ieee-robotathon-team-9.html",
     "preview": "projects/robotathon.png",
     "media": [
-      { "type": "image", "src": "projects/robotathon.png" },
-      { "type": "image", "src": "projects/ping-pong-launcher-robot/img-000.png" },
-      { "type": "image", "src": "projects/ping-pong-launcher-robot/img-001.jpg" }
+      {
+        "type": "image",
+        "src": "projects/robotathon.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/ping-pong-launcher-robot/img-000.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/ping-pong-launcher-robot/img-001.jpg"
+      }
     ],
     "aspect": "16/9",
-    "date": "2025-10-29"
+    "date": "2025-10-29",
+    "tooltip": "practicing some cad :)"
   },
   {
     "slug": "p-livekit",
     "title": "An overview of how LiveKit works",
-    "tags": ["Figma", "2024"],
-    "filters": ["design"],
+    "tags": [
+      "Figma",
+      "2024"
+    ],
+    "filters": [
+      "design"
+    ],
     "description": "Placeholder — replace with your project.",
     "link": "#",
     "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png",
     "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png" }
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/livekit/livekit_preview.png"
+      }
     ],
-    "aspect": "0.9"
+    "aspect": "16/9"
   },
   {
     "slug": "p-dorscluc",
     "title": "Branding for Open Source Conference",
-    "tags": ["Figma", "2025"],
-    "filters": ["design"],
+    "tags": [
+      "Figma",
+      "2025"
+    ],
+    "filters": [
+      "design"
+    ],
     "description": "Placeholder — replace with your project.",
     "link": "#",
     "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png",
     "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png" }
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/dorscluc/dorscluc_preview.png"
+      }
     ],
     "aspect": "0.9"
   },
   {
     "slug": "p-echotab",
     "title": "EchoTab Chrome Extension Landing",
-    "tags": ["Figma", "2024"],
-    "filters": ["software", "design"],
+    "tags": [
+      "Figma",
+      "2024"
+    ],
+    "filters": [
+      "software",
+      "design"
+    ],
     "description": "Placeholder — replace with your project.",
     "link": "#",
     "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png",
     "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png" }
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/echo-tab-landing-page/preview.png"
+      }
     ],
     "aspect": "1.1"
   },
   {
     "slug": "p-flowers",
     "title": "Elizabeth's Flowers",
-    "tags": ["Illustration", "2024"],
-    "filters": ["design"],
+    "tags": [
+      "Illustration",
+      "2024"
+    ],
+    "filters": [
+      "design"
+    ],
     "description": "Placeholder — replace with your project.",
     "link": "#",
     "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png",
     "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png" }
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/elizabeths-flowers/preview.png"
+      }
     ],
     "aspect": "1.4"
   },
   {
     "slug": "p-havgrim",
     "title": "Havgrim Seaside Hotel",
-    "tags": ["Branding", "2023"],
-    "filters": ["design"],
+    "tags": [
+      "Branding",
+      "2023"
+    ],
+    "filters": [
+      "design"
+    ],
     "description": "Placeholder — replace with your project.",
     "link": "#",
     "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png",
     "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png" }
+      {
+        "type": "image",
+        "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/havgrim/preview.png"
+      }
     ],
     "aspect": "1"
-  },
-  {
-    "slug": "p-highroads",
-    "title": "High Roads",
-    "tags": ["Illustration", "2023"],
-    "filters": ["design"],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/high-roads/preview.png",
-    "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/high-roads/preview.png" }
-    ],
-    "aspect": "0.7"
-  },
-  {
-    "slug": "p-posters",
-    "title": "Opera Posters",
-    "tags": ["Illustration", "2022"],
-    "filters": ["design"],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/opera-posters/preview.png",
-    "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/opera-posters/preview.png" }
-    ],
-    "aspect": "0.7"
-  },
-  {
-    "slug": "p-sketchbook",
-    "title": "Digital Sketchbook",
-    "tags": ["Procreate"],
-    "filters": ["design"],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/sketchbook/sketchbook_preview.png",
-    "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/sketchbook/sketchbook_preview.png" }
-    ],
-    "aspect": "1.4"
-  },
-  {
-    "slug": "p-midnight",
-    "title": "Midnight Studio",
-    "tags": ["Branding", "2024"],
-    "filters": ["software", "design"],
-    "description": "Placeholder — replace with your project.",
-    "link": "#",
-    "preview": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/midnight-studio/midnight-studio_preview.png",
-    "media": [
-      { "type": "image", "src": "https://raw.githubusercontent.com/buka-studio/www-marijanapav/main/public/work/midnight-studio/midnight-studio_preview.png" }
-    ],
-    "aspect": "1.3"
   }
 ]
