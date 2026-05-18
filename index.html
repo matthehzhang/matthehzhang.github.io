@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matthew H Zhang</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
     <script>
         (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
     </script>
@@ -120,6 +120,7 @@
         .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; position: relative; z-index: 1; }
         .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
         nav { align-items: center; gap: var(--smaller); display: flex; }
+        .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
         .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
         .nav-link:hover { color: var(--foreground); }
         .theme-toggle { width: 32px; height: 32px; margin-left: var(--tinier); color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; transition: color 0.2s; display: flex; }
@@ -141,7 +142,7 @@
 
         /* Hero */
         .hero { grid-template-columns: repeat(var(--columns), 1fr); gap: var(--gap); min-height: calc(100vh - var(--margin) * 2 - 60px); align-items: center; display: grid; position: relative; }
-        .hero-headline { z-index: 5; max-width: 900px; font-weight: 600; font-size: var(--bigger); pointer-events: none; color: #fff; mix-blend-mode: difference; text-shadow: 0 0 20px rgba(0,0,0,0.1); grid-column: 1 / -1; position: relative; line-height: 1.1; letter-spacing: -0.03em; }
+        .hero-headline { z-index: 5; max-width: 900px; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: var(--bigger); pointer-events: none; color: #fff; mix-blend-mode: difference; text-shadow: 0 0 20px rgba(0,0,0,0.1); grid-column: 1 / -1; position: relative; line-height: 1.2; letter-spacing: -0.01em; }
         @media (max-width: 768px) { .hero-headline { font-size: var(--big); } }
         @media (min-width: 769px) { .hero-headline { grid-column: 1 / 9; } }
 
@@ -166,7 +167,7 @@
         .exp-date { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
         .exp-info { display: flex; flex-direction: column; gap: 4px; }
         .exp-title-row { font-size: var(--smallest); }
-        .exp-role { font-weight: 600; color: var(--foreground); }
+        .exp-role { font-family: 'Cormorant Garamond', serif; font-size: var(--smaller); font-weight: 500; font-style: italic; color: var(--foreground); }
         .exp-at { color: var(--muted); font-weight: 400; }
         .exp-company { color: var(--accent); font-weight: 400; }
         a.exp-company { text-decoration: underline; text-underline-offset: 0.15em; }
@@ -181,7 +182,7 @@
         .featured-card:hover .featured-title { color: var(--accent); }
         .featured-card:hover .featured-image-wrapper img { opacity: 0.9; }
         .featured-info { gap: var(--tinier); padding: var(--tinier) var(--tiniest); flex-direction: column; justify-content: center; transition: transform 0.3s; display: flex; }
-        .featured-title { font-size: var(--smaller); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 110%; }
+        .featured-title { font-family: 'Cormorant Garamond', serif; font-size: var(--small); letter-spacing: -0.01em; margin: 0; font-weight: 500; font-style: italic; line-height: 110%; }
         .featured-desc { color: var(--muted); margin: 0; font-size: 14px; line-height: 140%; }
         .featured-footer { justify-content: space-between; align-items: flex-end; gap: var(--tiny); margin-top: auto; display: flex; }
         .featured-read-more { color: var(--foreground); font-size: 14px; }
@@ -226,14 +227,15 @@
         footer a { color: var(--background); transition: opacity 0.15s; text-decoration: none; }
         footer a:hover { opacity: 0.6; }
         .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
-        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--big); }
+        .footer-row { display: flex; justify-content: space-between; align-items: center; gap: var(--big); }
         .footer-left { display: flex; flex-direction: column; gap: var(--tiny); }
         .footer-links { display: flex; gap: var(--smallest); font-size: var(--smallest); }
-        .footer-ascii { width: 180px; height: auto; opacity: 0.5; }
+        .footer-ascii { width: 300px; height: auto; opacity: 0.5; flex-shrink: 0; }
         [data-theme="dark"] .footer-ascii { content: url(robot-ascii-dark.png); }
         .footer-sep { opacity: 0.5; }
-        .big-email { font-family: 'IBM Plex Mono', monospace; color: var(--background); letter-spacing: -0.02em; font-size: 20px; font-weight: 300; line-height: 100%; text-decoration: none; display: block; opacity: 0.7; transition: opacity 0.15s; margin-top: var(--tinier); }
-        .big-email:hover { opacity: 1; }
+        .big-email { color: var(--background); text-underline-offset: 0.2em; letter-spacing: -0.02em; font-size: 24px; font-weight: 500; line-height: 100%; text-decoration: underline #ffffff59; transition: opacity 0.15s; width: fit-content; }
+        .big-email:hover { opacity: 0.85; cursor: ne-resize; }
+        @media (min-width: 769px) { .big-email { font-size: clamp(32px, 5.5vw, 72px); letter-spacing: -0.03em; } }
         .footer-bottom { display: flex; flex-wrap: wrap; gap: var(--tinier); font-size: 13px; opacity: 0.4; }
         .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
         @media (max-width: 768px) { .footer-row { flex-direction: column; } .footer-ascii { display: none; } }
@@ -274,7 +276,10 @@
             <a href="index.html" class="logo">Matthew<br>Zhang</a>
             <nav>
                 <a href="work.html" class="nav-link">Work</a>
-                <a href="info.html" class="nav-link">Info</a>
+                <span class="nav-sep">|</span>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://twitter.com/vcmatthewzhang" class="nav-link" target="_blank" rel="noopener">Twitter</a>
                 <a href="matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
                 <button class="theme-toggle" aria-label="Toggle theme">
                     <span class="icon-sun">
@@ -332,7 +337,7 @@
                 <li class="exp-item">
                     <span class="exp-date">2026 &ndash; 20xx</span>
                     <div class="exp-info">
-                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer</span> <span class="exp-at">@</span> <a href="https://www.evevehicles.com/" target="_blank" rel="noopener" class="exp-company">eve Vehicles Corporation</a></div>
+                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer Intern</span> <span class="exp-at">@</span> <a href="https://www.evevehicles.com/" target="_blank" rel="noopener" class="exp-company">eve Vehicles</a></div>
                         <span class="exp-desc">developing battery quick-swap, charging, and power distribution + sensing systems for power efficient UAVs</span>
                     </div>
                 </li>
@@ -388,21 +393,8 @@
 <footer>
     <div class="footer-content">
         <div class="footer-row">
-            <div class="footer-left">
-                <nav class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="work.html">Work</a>
-                    <a href="info.html">Info</a>
-                    <a href="matthewzhangresume.pdf" target="_blank">Resume</a>
-                </nav>
-                <nav class="footer-links">
-                    <a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener">Twitter</a>
-                    <a href="https://github.com/matthehzhang" target="_blank" rel="noopener">GitHub</a>
-                    <a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener">LinkedIn</a>
-                </nav>
-                <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
-            </div>
-<img class="footer-ascii" src="robot-ascii.png" alt="">
+            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+            <img class="footer-ascii" src="robot-ascii.png" alt="">
         </div>
         <div class="footer-bottom">
             <span>&copy; 2026 Matthew Zhang</span>
@@ -416,18 +408,27 @@
 <script>
 (function() {
     // Sound effects
-    const sounds = {
-        click: new Audio('sounds/click.mp3'),
+    var sounds = {
+        click: new Audio('sounds/clickstart.mp3'),
         clickstart: new Audio('sounds/clickstart.mp3'),
         clickend: new Audio('sounds/clickend.mp3')
     };
-    // Pre-load
-    Object.values(sounds).forEach(s => { s.preload = 'auto'; s.volume = 0.5; });
+    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.8; });
 
     function playSound(name) {
-        const s = sounds[name];
-        if (s) { s.currentTime = 0; s.play().catch(() => {}); }
+        var s = sounds[name];
+        if (!s) return;
+        var clone = s.cloneNode();
+        clone.volume = s.volume;
+        clone.play().catch(function(){});
     }
+
+    // Global click sound on links and buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('a, button, .filter-link, .project-card, .featured-card, .nav-link')) {
+            playSound('click');
+        }
+    });
 
     // Theme toggle
     const toggle = document.querySelector('.theme-toggle');
@@ -453,7 +454,7 @@
     });
     (function followRing() {
         var tx = mx, ty = my;
-        if (currentTarget && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
+        if (currentTarget && !currentTarget.closest('.big-email') && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
             var rect = currentTarget.getBoundingClientRect();
             var cx = rect.left + rect.width / 2;
             var cy = rect.top + rect.height / 2;

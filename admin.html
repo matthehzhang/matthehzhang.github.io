@@ -403,6 +403,8 @@
             height: 34px;
         }
         .btn-add-media:hover { background: #333; }
+        .btn-browse { background: #2a2a2a; border: 1px solid #333; color: #ccc; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 14px; height: 34px; }
+        .btn-browse:hover { background: #333; }
 
         /* ── Live Preview ── */
         .preview-section {
@@ -418,10 +420,9 @@
             position: relative;
             cursor: pointer;
         }
-        .preview-card img {
+        .preview-card img, .preview-card video {
             width: 100%;
             display: block;
-            aspect-ratio: var(--aspect, 4/3);
             object-fit: cover;
             background: #252525;
         }
@@ -468,6 +469,11 @@
             align-items: center;
             padding: 0 16px;
             gap: 8px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
         }
 
         .toolbar .save-indicator {
@@ -607,6 +613,10 @@
                         <input type="text" id="f-description" oninput="onFieldChange('description', this.value)">
                     </div>
                     <div class="field">
+                        <label>Hover Tooltips (one per line, cycles through)</label>
+                        <textarea id="f-tooltips" rows="3" placeholder="all this to play one album ^.^&#10;a diy record player&#10;custom pcb + firmware" oninput="onTooltipsChange()"></textarea>
+                    </div>
+                    <div class="field">
                         <label>Outcome</label>
                         <textarea id="f-outcome" rows="2" oninput="onFieldChange('outcome', this.value)"></textarea>
                     </div>
@@ -638,7 +648,10 @@
                     <div class="add-media">
                         <div class="field path-field">
                             <label>Path / URL</label>
-                            <input type="text" id="media-src" placeholder="projects/my-project/img.png">
+                            <div style="display:flex;gap:4px;">
+                                <input type="text" id="media-src" placeholder="projects/my-project/img.png" style="flex:1;">
+                                <button class="btn-browse" onclick="browseFile()" title="Browse files">📁</button>
+                            </div>
                         </div>
                         <div class="field" style="width:100px">
                             <label>Type</label>
@@ -667,7 +680,9 @@
     </div>
     <div class="toolbar">
         <div class="save-indicator" id="saveIndicator"></div>
-        <button class="btn-save" id="btnSaveDisk" onclick="saveToDisk()">Save to Disk</button>
+        <button class="btn-save" onclick="window._siteWindow=window.open('/work.html','_site')">Open Site</button>
+        <button class="btn-save" id="btnSaveDisk" onclick="saveToDisk()">Save (Ctrl+S)</button>
+        <button class="btn-save" style="background:#2d6a30;" onclick="commitAndRefresh()">Commit &amp; Refresh</button>
         <button class="btn-download" onclick="downloadJSON()">Download JSON</button>
         <div class="toolbar-spacer"></div>
         <span class="shortcut-hint">Ctrl+S to save</span>
@@ -678,6 +693,46 @@
         let selectedIndex = -1;
         let unsavedChanges = false;
         let fileHandle = null;
+        const PROJECT_ROOT = '/home/matthew/projects/matthehzhang.github.io/';
+
+        // ── Setup Dialog ──
+        async function showSetupDialog() {
+            return new Promise((resolve) => {
+                const overlay = document.createElement('div');
+                overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;';
+                const box = document.createElement('div');
+                box.style.cssText = 'background:#1e1e1e;border:1px solid #333;border-radius:12px;padding:32px;max-width:460px;width:90%;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+                box.innerHTML = `
+                    <h2 style="margin:0 0 12px;font-size:20px;font-weight:600;">Project Admin</h2>
+                    <p style="color:#999;font-size:14px;line-height:1.6;margin:0 0 8px;">
+                        Make sure <strong style="color:#e0e0e0;">admin-server.py</strong> is running:
+                    </p>
+                    <code style="display:block;background:#111;border:1px solid #333;border-radius:6px;padding:10px 14px;font-size:13px;color:#4a9eff;margin:0 0 16px;">python3 admin-server.py</code>
+                    <p style="color:#999;font-size:14px;line-height:1.6;margin:0 0 20px;">
+                        <strong style="color:#e0e0e0;">Ctrl+S</strong> saves directly to projects.json.<br>
+                        <strong style="color:#e0e0e0;">📁</strong> button uploads files to project folders.
+                    </p>
+                    <button id="setupOk" style="width:100%;padding:10px;background:#4a9eff;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;font-weight:500;">Got it</button>
+                `;
+                overlay.appendChild(box);
+                document.body.appendChild(overlay);
+                box.querySelector('#setupOk').onclick = () => {
+                    overlay.remove();
+                    resolve(true);
+                };
+            });
+        }
+
+        // ── Server heartbeat — close tab when server stops ──
+        setInterval(async function() {
+            try {
+                await fetch('/projects.json', { method: 'HEAD' });
+            } catch (e) {
+                window.close();
+                // If window.close() is blocked, show message
+                document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#999;font-size:18px;">Server stopped. You can close this tab.</div>';
+            }
+        }, 2000);
 
         // ── Init ──
         async function init() {
@@ -688,6 +743,8 @@
                 console.warn('Could not load projects.json:', e);
                 projects = [];
             }
+            // Always show setup dialog on load
+            await showSetupDialog();
             // Hide save-to-disk button if API not available
             if (!('showSaveFilePicker' in window)) {
                 document.getElementById('btnSaveDisk').style.display = 'none';
@@ -812,6 +869,7 @@
             document.getElementById('f-link').value = p.link || '';
             document.getElementById('f-aspect').value = p.aspect || '';
             document.getElementById('f-description').value = p.description || '';
+            document.getElementById('f-tooltips').value = (p.tooltips || []).join('\n');
             document.getElementById('f-outcome').value = p.outcome || '';
             document.getElementById('f-role').value = p.role || '';
             document.getElementById('f-motivation').value = p.motivation || '';
@@ -858,6 +916,14 @@
             // Update sidebar title
             if (field === 'title') renderSidebar();
             renderPreview();
+        }
+
+        function onTooltipsChange() {
+            if (selectedIndex < 0) return;
+            var lines = document.getElementById('f-tooltips').value.split('\n').filter(function(l) { return l.trim(); });
+            projects[selectedIndex].tooltips = lines;
+            delete projects[selectedIndex].tooltip; // clean old field
+            markUnsaved();
         }
 
         function onFilterChange() {
@@ -1046,6 +1112,44 @@
             renderSidebar();
         }
 
+        function browseFile() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*,video/*,.gif';
+            input.onchange = async function() {
+                if (!input.files.length) return;
+                const file = input.files[0];
+                const name = file.name;
+                const ext = name.split('.').pop().toLowerCase();
+                // Auto-detect type
+                const typeSelect = document.getElementById('media-type');
+                if (['mp4', 'webm', 'mov'].includes(ext)) typeSelect.value = 'video';
+                else if (ext === 'gif') typeSelect.value = 'gif';
+                else typeSelect.value = 'image';
+                typeSelect.dispatchEvent(new Event('change'));
+                // Build destination path
+                const p = projects[selectedIndex];
+                const destPath = p ? 'projects/' + p.slug + '/' + name : name;
+                document.getElementById('media-src').value = destPath;
+                // Upload via server
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('path', destPath);
+                try {
+                    const resp = await fetch('/api/upload-media', { method: 'POST', body: formData });
+                    const result = await resp.json();
+                    if (result.ok) {
+                        console.log('Uploaded to:', destPath);
+                    } else {
+                        console.warn('Upload failed:', result.error);
+                    }
+                } catch (e) {
+                    console.warn('Upload failed — is admin-server.py running?', e);
+                }
+            };
+            input.click();
+        }
+
         function addMedia() {
             if (selectedIndex < 0) return;
             const src = document.getElementById('media-src').value.trim();
@@ -1085,9 +1189,13 @@
             const aspect = p.aspect || '4/3';
 
             if (p.preview) {
+                const isVideo = /\.(mp4|webm|mov)$/i.test(p.preview);
+                const mediaEl = isVideo
+                    ? `<video src="${escHTML(p.preview)}" muted autoplay loop playsinline style="aspect-ratio:${escHTML(aspect)};"></video>`
+                    : `<img src="${escHTML(p.preview)}" onerror="this.style.display='none'" style="aspect-ratio:${escHTML(aspect)};">`;
                 container.innerHTML = `
-                    <div class="preview-card" style="--aspect: ${escHTML(aspect)}">
-                        <img src="${escHTML(p.preview)}" onerror="this.style.display='none'">
+                    <div class="preview-card">
+                        ${mediaEl}
                         <div class="preview-overlay">
                             <div class="preview-title">${escHTML(p.title || 'Untitled')}</div>
                             <div class="preview-desc">${escHTML(p.description || '')}</div>
@@ -1096,7 +1204,7 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <div class="preview-no-image" style="--aspect: ${escHTML(aspect)}">
+                    <div class="preview-no-image" style="aspect-ratio: ${escHTML(aspect)}">
                         No preview image
                     </div>
                 `;
@@ -1159,21 +1267,45 @@
         async function saveToDisk() {
             const json = getCleanJSON();
             try {
-                if (!fileHandle) {
-                    fileHandle = await window.showSaveFilePicker({
-                        suggestedName: 'projects.json',
-                        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
-                    });
+                const resp = await fetch('/api/save-projects', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: json
+                });
+                const result = await resp.json();
+                if (result.ok) {
+                    markSaved();
+                    // Auto-reload any open site tabs
+                    if (window._siteWindow && !window._siteWindow.closed) {
+                        window._siteWindow.location.reload();
+                    }
+                } else {
+                    alert('Save failed: ' + (result.error || 'Unknown error'));
                 }
-                const writable = await fileHandle.createWritable();
-                await writable.write(json);
-                await writable.close();
-                markSaved();
             } catch (e) {
-                if (e.name !== 'AbortError') {
-                    console.error('Save failed:', e);
-                    alert('Save failed. Try Download JSON instead.');
+                console.error('Save failed:', e);
+                alert('Save failed. Is admin-server.py running?');
+            }
+        }
+
+        async function commitAndRefresh() {
+            // Save first
+            await saveToDisk();
+            // Commit
+            try {
+                const resp = await fetch('/api/commit', { method: 'POST' });
+                const result = await resp.json();
+                if (result.ok) {
+                    console.log('Committed');
+                } else {
+                    console.warn('Commit:', result.message || 'no changes');
                 }
+            } catch (e) {
+                console.warn('Commit failed:', e);
+            }
+            // Refresh site window
+            if (window._siteWindow && !window._siteWindow.closed) {
+                window._siteWindow.location.reload();
             }
         }
 

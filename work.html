@@ -99,7 +99,7 @@
 
         /* Base reset */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { width: 100%; max-width: 100%; }
+        html { width: 100%; max-width: 100%; background: var(--foreground); }
         body { background: none; color: var(--foreground); font-feature-settings: "liga" 1, "calt" 1, "ss04" 1, "ss07" 1; font-optical-sizing: auto; text-wrap: pretty; width: 100%; max-width: 100%; min-height: 100vh; margin: 0; padding: 0; font-family: Inter, sans-serif; font-weight: 400; line-height: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         a { color: inherit; text-decoration: inherit; }
         img, video { max-width: 100%; height: auto; }
@@ -116,6 +116,7 @@
         .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; }
         .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
         nav { align-items: center; gap: var(--smaller); display: flex; }
+        .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
         .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
         .nav-link:hover { color: var(--foreground); }
         .nav-link.active { color: var(--foreground); }
@@ -138,7 +139,7 @@
 
         /* Main */
         main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; max-width: 1336px; margin: 0 auto; position: relative; }
-        .page-content::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(0,0,0,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.09) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px); background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px, 10px 10px, 10px 10px; }
+        .page-content::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(0,0,0,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.09) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px); background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px, 10px 10px, 10px 10px; }
         [data-theme="dark"] .page-content::after { background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); }
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
@@ -158,7 +159,9 @@
         /* Filter links */
         .filter-link { color: var(--foreground); text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; background: none; border: none; font: inherit; font-size: inherit; padding: 0; transition: color 0.2s; }
         .filter-link:hover { color: var(--accent); }
-        .filter-link.active { color: var(--accent); }
+        .filter-link.active { color: var(--accent); position: relative; }
+        .filter-link.active::before { content: ''; position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin-left: -20px; margin-top: -20px; background: rgba(0, 0, 255, 0.15); border-radius: 50%; z-index: -1; }
+        [data-theme="dark"] .filter-link.active::before { background: rgba(255, 102, 0, 0.25); }
 
         /* Card entrance animation */
         @keyframes cardIn { from { opacity: 0; transform: translateY(75px); } to { opacity: 1; transform: translateY(0); } }
@@ -174,9 +177,9 @@
         .project-card-inner { overflow: hidden; border-radius: 4px; position: relative; transition: transform 0.3s ease; }
         @media (min-width: 769px) { .project-card-inner { border-radius: 12px; } }
         
-        .project-card img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; object-fit: cover; animation: imageIn 0.5s ease-out forwards; }
+        .project-card img, .project-card video { width: 100%; height: auto; display: block; transition: transform 0.3s ease; object-fit: cover; animation: imageIn 0.5s ease-out forwards; }
         
-        .project-card-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: var(--tinier) var(--tiny); font-size: var(--smallest); font-weight: 500; color: var(--muted); background: var(--background); transform: translateY(100%); transition: transform 0.3s ease; }
+        .project-card-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: var(--tiny) var(--smaller); font-size: 17px; font-weight: 500; color: var(--foreground); background: var(--background); transform: translateY(100%); transition: transform 0.3s ease; }
         .project-card-title::before, .project-card-title::after { content: ''; position: absolute; top: -12px; width: 12px; height: 12px; }
         .project-card-title::before { left: 4px; background: radial-gradient(circle at 100% 0, transparent 12px, var(--background) 12px); }
         .project-card-title::after { right: 4px; background: radial-gradient(circle at 0 0, transparent 12px, var(--background) 12px); }
@@ -184,6 +187,11 @@
         [data-theme="dark"] .project-card-title::before { background: radial-gradient(circle at 100% 0, transparent 12px, var(--grey-900) 12px); }
         [data-theme="dark"] .project-card-title::after { background: radial-gradient(circle at 0 0, transparent 12px, var(--grey-900) 12px); }
         .project-card:hover .project-card-title { transform: translateY(0); }
+        .cursor-tooltip { position: fixed; z-index: 2147483645; pointer-events: none; background: var(--foreground); color: var(--background); font-family: Inter, sans-serif; font-size: var(--smallest); padding: 4px 4px; border-radius: 20px; line-height: 1.4; overflow: hidden; white-space: nowrap; width: 0; opacity: 0; transition: width 0.45s ease-in-out, opacity 0.2s ease, padding 0.35s ease-in-out, border-radius 0.35s ease-in-out; }
+        .cursor-tooltip.visible { opacity: 1; }
+        .cursor-tooltip.typing { padding: 8px 14px; border-radius: 12px; }
+        .cursor-tooltip::after { content: ''; position: absolute; bottom: -4px; right: 12px; width: 8px; height: 8px; background: var(--foreground); transform: rotate(45deg); }
+        .hover-hint { display: inline-block; background: var(--foreground); color: var(--background); font-family: Inter, sans-serif; font-size: var(--smallest); padding: 4px 12px; border-radius: 10px; position: relative; margin: 0 4px; vertical-align: middle; }
 
         /* Dialog/Modal */
         dialog { border: none; background: none; padding: 0; max-width: min(1050px, 92vw); width: 100%; max-height: 85vh; border-radius: var(--smaller); overflow: hidden; margin: auto; }
@@ -230,20 +238,22 @@
         footer a { color: var(--background); transition: opacity 0.15s; text-decoration: none; }
         footer a:hover { opacity: 0.6; }
         .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
-        .footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--big); }
-        .footer-left { display: flex; flex-direction: column; gap: var(--tiny); }
-        .footer-links { display: flex; gap: var(--smallest); font-size: var(--smallest); }
-        .footer-ascii { width: 180px; height: auto; opacity: 0.5; }
+        .footer-row { display: flex; justify-content: space-between; align-items: center; gap: var(--big); }
+        
+        
+        .footer-ascii { width: 300px; height: auto; opacity: 0.5; flex-shrink: 0; }
         [data-theme="dark"] .footer-ascii { content: url(robot-ascii-dark.png); }
         .footer-sep { opacity: 0.5; }
-        .big-email { font-family: 'IBM Plex Mono', monospace; color: var(--background); letter-spacing: -0.02em; font-size: 20px; font-weight: 300; line-height: 100%; text-decoration: none; display: block; opacity: 0.7; transition: opacity 0.15s; margin-top: var(--tinier); }
-        .big-email:hover { opacity: 1; }
+        
+        .big-email { color: var(--background); text-underline-offset: 0.2em; letter-spacing: -0.02em; font-size: 24px; font-weight: 500; line-height: 100%; text-decoration: underline #ffffff59; transition: opacity 0.15s; width: fit-content; }
+        .big-email:hover { opacity: 0.85; cursor: ne-resize; }
+        @media (min-width: 769px) { .big-email { font-size: clamp(32px, 5.5vw, 72px); letter-spacing: -0.03em; } }
         .footer-bottom { display: flex; flex-wrap: wrap; gap: var(--tinier); font-size: 13px; opacity: 0.4; }
         .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
         @media (max-width: 768px) { .footer-row { flex-direction: column; } .footer-ascii { display: none; } }
 
         /* Page content wrapper and footer spacer */
-        .page-content { z-index: 1; background: var(--background); min-height: 100vh; position: relative; border-radius: 0 0 var(--smaller) var(--smaller); }
+        .page-content { z-index: 1; background: var(--background); min-height: 100vh; position: relative; border-radius: 0 0 var(--smaller) var(--smaller); overflow: hidden; }
         .footer-spacer { display: none; }
         @media (min-width: 769px) { .footer-spacer { height: calc(var(--footer-height, 400px) - var(--smaller)); pointer-events: none; display: block; } }
 
@@ -268,6 +278,7 @@
 <body>
 
 <div class="cursor-dot" id="cursorDot">+</div>
+<div class="cursor-tooltip" id="cursorTooltip"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
 <div class="page-content">
@@ -282,7 +293,10 @@
                     </svg>
                 </a>
                 <a href="work.html" class="nav-link active">Work</a>
-                <a href="info.html" class="nav-link">Info</a>
+                <span class="nav-sep">|</span>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://twitter.com/vcmatthewzhang" class="nav-link" target="_blank" rel="noopener">Twitter</a>
                 <a href="matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
                 <button class="theme-toggle" aria-label="Toggle theme">
                     <span class="icon-sun">
@@ -302,7 +316,7 @@
 
     <!-- Main -->
     <main>
-        <p class="page-description" style="white-space:nowrap;">hardware projects and other things i've built. filter by <button class="filter-link active" data-filter="all">all</button>, <button class="filter-link" data-filter="hardware">hardware</button>, <button class="filter-link" data-filter="software">software</button>, or <button class="filter-link" data-filter="design">design</button>.</p>
+        <p class="page-description" style="white-space:nowrap;">hardware projects and other things i've built. <span class="hover-hint">try hovering over the cards!</span> filter by <button class="filter-link active" data-filter="all">all</button>, <button class="filter-link" data-filter="hardware">hardware</button>, <button class="filter-link" data-filter="software">software</button>, or <button class="filter-link" data-filter="design">design</button>.</p>
 
         <div class="masonry" id="projectGrid">
             <!-- Cards generated by JS -->
@@ -317,21 +331,8 @@
 <footer>
     <div class="footer-content">
         <div class="footer-row">
-            <div class="footer-left">
-                <nav class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="work.html">Work</a>
-                    <a href="info.html">Info</a>
-                    <a href="matthewzhangresume.pdf" target="_blank">Resume</a>
-                </nav>
-                <nav class="footer-links">
-                    <a href="https://twitter.com/vcmatthewzhang" target="_blank" rel="noopener">Twitter</a>
-                    <a href="https://github.com/matthehzhang" target="_blank" rel="noopener">GitHub</a>
-                    <a href="https://linkedin.com/in/matthew-h-zhang" target="_blank" rel="noopener">LinkedIn</a>
-                </nav>
-                <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
-            </div>
-<img class="footer-ascii" src="robot-ascii.png" alt="">
+            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+            <img class="footer-ascii" src="robot-ascii.png" alt="">
         </div>
         <div class="footer-bottom">
             <span>&copy; 2026 Matthew Zhang</span>
@@ -368,10 +369,14 @@
         card.className = 'project-card';
 
         card.setAttribute('data-filters', (project.filters || []).join(','));
+        if (project.tooltips && project.tooltips.length) card.setAttribute('data-tooltips', JSON.stringify(project.tooltips));
+        else if (project.tooltip) card.setAttribute('data-tooltips', JSON.stringify([project.tooltip]));
         card.innerHTML =
             '<div class="project-card-body">' +
                 '<div class="project-card-inner">' +
-                    '<img src="' + project.preview + '" alt="' + project.title + '" onerror="this.style.opacity=\'0\'">' +
+                    ((/\.(mp4|webm|mov)$/i.test(project.preview)) ?
+                    '<video src="' + project.preview + '" muted autoplay loop playsinline style="aspect-ratio:' + (project.aspect || 'auto') + ';"></video>' :
+                    '<img src="' + project.preview + '" alt="' + project.title + '" style="aspect-ratio:' + (project.aspect || 'auto') + ';" onerror="this.style.opacity=\'0\'">') +
                 '</div>' +
                 '<div class="project-card-title">' + project.title + '</div>' +
             '</div>';
@@ -380,7 +385,8 @@
         var dialog = document.createElement('dialog');
         dialog.id = 'dialog-' + project.slug;
 
-        var mediaItems = project.media || project.images.map(function(s) { return { type: 'image', src: s }; });
+        var allMedia = project.media || project.images.map(function(s) { return { type: 'image', src: s }; });
+        var mediaItems = allMedia.filter(function(m) { return m.src !== project.preview; });
         var mediaHTML = mediaItems.map(function(m, j) {
             if (m.type === 'video') {
                 return '<video src="' + m.src + '"' + (m.poster ? ' poster="' + m.poster + '"' : '') + ' muted playsinline loop style="display:' + (j === 0 ? 'block' : 'none') + ';" data-index="' + j + '"></video>';
@@ -440,6 +446,10 @@
             dialog.showModal();
             dialog.appendChild(dot);
             dialog.appendChild(ring);
+            // Auto-play if first item is video
+            if (firstMedia && firstMedia.tagName === 'VIDEO') {
+                firstMedia.play().catch(function(){});
+            }
             setTimeout(function() { if (firstMedia) firstMedia.classList.remove('first-load'); }, 600);
         });
 
@@ -449,10 +459,11 @@
             dialog.close();
         });
 
-        // Move cursor back to body on close
+        // Move cursor back to body on close + pause videos
         dialog.addEventListener('close', function() {
             document.body.appendChild(dot);
             document.body.appendChild(ring);
+            dialog.querySelectorAll('video').forEach(function(v) { v.pause(); });
         });
 
         // Close on backdrop click
@@ -516,17 +527,20 @@
     });
     } // end renderProjects
 
-    // Sound effects
+    // Sound effects — use real audio files for clicks, Web Audio for typewriter
     var sounds = {
-        click: new Audio('sounds/click.mp3'),
+        click: new Audio('sounds/clickstart.mp3'),
         clickstart: new Audio('sounds/clickstart.mp3'),
         clickend: new Audio('sounds/clickend.mp3')
     };
-    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.5; });
+    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.8; });
 
     function playSound(name) {
         var s = sounds[name];
-        if (s) { s.currentTime = 0; s.play().catch(function() {}); }
+        if (!s) return;
+        var clone = s.cloneNode();
+        clone.volume = s.volume;
+        clone.play().catch(function(){});
     }
 
     // Custom cursor
@@ -539,7 +553,7 @@
     });
     (function followRing() {
         var tx = mx, ty = my;
-        if (currentTarget && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
+        if (currentTarget && !currentTarget.closest('.big-email') && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
             var rect = currentTarget.getBoundingClientRect();
             var cx = rect.left + rect.width / 2;
             var cy = rect.top + rect.height / 2;
@@ -551,12 +565,170 @@
         requestAnimationFrame(followRing);
     })();
     var currentTarget = null;
+    var tooltip = document.getElementById('cursorTooltip');
+    var tooltipTimer = null;
+    var typewriterInterval = null;
+    var typewriterTimeout = null;
+    var tooltipTx = 0, tooltipTy = 0;
+    var hoveredCard = null;
+    var tooltipGen = 0;
+
+    // Typewriter sound — generate short blip via Web Audio API
+    var audioCtx = null;
+    // Only play sound every few characters, not every one
+    var blipCount = 0;
+    function playBlip() {
+        blipCount++;
+        if (blipCount % 2 !== 0) return; // sound every 2nd char
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = 350 + Math.random() * 200;
+        osc.type = 'square';
+        gain.gain.value = 0.025;
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.08);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.08);
+    }
+
+    // Hidden measurer to calculate text width
+    var measurer = document.createElement('div');
+    measurer.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-family:Inter,sans-serif;font-size:var(--smallest);padding:8px 12px;';
+    document.body.appendChild(measurer);
+
+    var sequenceTimeout = null;
+    function startTooltipSequence(texts, gen, reuseBox) {
+        clearTimeout(sequenceTimeout);
+        var idx = 0;
+        function showNext() {
+            if (gen !== tooltipGen) return;
+            startTypewriter(texts[idx], idx > 0 || reuseBox, true);
+            var myGen = tooltipGen; // capture gen AFTER startTypewriter sets it
+            idx++;
+            if (idx < texts.length) {
+                var textDuration = texts[idx - 1].length * 35 + 500;
+                var pauseDuration = 700;
+                sequenceTimeout = setTimeout(function() {
+                    if (myGen !== tooltipGen) return;
+                    showNext();
+                }, textDuration + pauseDuration);
+            }
+        }
+        showNext();
+    }
+
+    function startTypewriter(text, reuseBox, fromSequence) {
+        clearInterval(typewriterInterval);
+        clearTimeout(hideTimeout);
+        clearTimeout(typewriterTimeout);
+        var gen = fromSequence ? tooltipGen : ++tooltipGen;
+        var alreadyOpen = reuseBox || false;
+        tooltip.textContent = '\u00A0';
+
+        if (!alreadyOpen) {
+            tooltip.style.width = '0px';
+            tooltip.classList.remove('typing');
+            tooltip.classList.remove('visible');
+        }
+
+        requestAnimationFrame(function() {
+            if (gen !== tooltipGen) return;
+            tooltip.classList.add('visible');
+            requestAnimationFrame(function() {
+                if (gen !== tooltipGen) return;
+                tooltip.classList.add('typing');
+                measurer.textContent = text;
+                tooltip.style.width = measurer.offsetWidth + 'px';
+            });
+        });
+
+        var delay = alreadyOpen ? 200 : 500;
+        var i = 0;
+        var typed = '';
+        typewriterTimeout = setTimeout(function() {
+            if (gen !== tooltipGen) return;
+            typewriterInterval = setInterval(function() {
+                if (gen !== tooltipGen) { clearInterval(typewriterInterval); return; }
+                if (i < text.length) {
+                    typed += text[i];
+                    tooltip.textContent = typed;
+                    if (text[i] !== ' ') playBlip();
+                    i++;
+                } else {
+                    clearInterval(typewriterInterval);
+                }
+            }, 35);
+        }, delay);
+    }
+
+    var hideTimeout = null;
+    function hideTooltip(instant) {
+        clearTimeout(tooltipTimer);
+        clearTimeout(hideTimeout);
+        clearTimeout(typewriterTimeout);
+        clearTimeout(sequenceTimeout);
+        clearInterval(typewriterInterval);
+        if (!instant) tooltipGen++;
+        if (instant) {
+            // Keep box visible at current size — just clear text
+            tooltip.textContent = '\u00A0';
+        } else {
+            // Full hide with shrink
+            tooltip.style.width = '0px';
+            tooltip.classList.remove('typing');
+            hideTimeout = setTimeout(function() {
+                tooltip.classList.remove('visible');
+                tooltip.textContent = '';
+            }, 350);
+        }
+        hoveredCard = null;
+        blipCount = 0;
+    }
+
     document.addEventListener('mouseover', function(e) {
         var t = e.target.closest('a, button, [onclick], .project-card-link, .featured-card, .project-card');
         if (t === currentTarget) return;
         currentTarget = t;
         if (t) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
         else { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
+
+        // Tooltip
+        var card = e.target.closest('.project-card[data-tooltips]');
+        if (card && card !== hoveredCard) {
+            hideTooltip(false);
+            hoveredCard = card;
+            var texts = JSON.parse(card.getAttribute('data-tooltips'));
+            var delay = 250 + Math.random() * 500;
+            var gen = tooltipGen;
+            tooltipTimer = setTimeout(function() {
+                if (gen !== tooltipGen) return;
+                var stillVisible = tooltip.classList.contains('visible');
+                startTooltipSequence(texts, gen, stillVisible);
+            }, delay);
+        } else if (!card) {
+            hideTooltip(false);
+        }
+    });
+
+    // Tooltip follows cursor with lag, positioned above cursor centered
+    (function followTooltip() {
+        tooltipTx += (mx - tooltipTx) * 0.1;
+        tooltipTy += (my - tooltipTy) * 0.1;
+        tooltipTx += (mx - tooltipTx) * 0.08;
+        tooltipTy += (my - tooltipTy) * 0.08;
+        tooltip.style.right = (window.innerWidth - tooltipTx + 15) + 'px';
+        tooltip.style.left = 'auto';
+        tooltip.style.top = (tooltipTy - 50) + 'px';
+        requestAnimationFrame(followTooltip);
+    })();
+
+    // Global click sound on links and buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('a, button, .filter-link, .project-card, .featured-card, .nav-link')) {
+            playSound('click');
+        }
     });
 
     // Theme toggle
