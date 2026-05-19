@@ -142,15 +142,15 @@
 
         /* Hero — Canva layout */
         .hero-custom { position: relative; height: calc(100vh - 80px); }
-        .hero-main { position: absolute; left: 4%; top: 30%; font-family: Inter, sans-serif; font-weight: 700; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.2; letter-spacing: -0.02em; color: var(--foreground); width: 72%; }
-        .hero-at { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 2em; color: #2962ff; vertical-align: -0.2em; }
+        .hero-main { position: absolute; left: 4%; top: 25%; font-family: Inter, sans-serif; font-weight: 700; font-size: clamp(28px, 3.4vw, 45px); line-height: 1.2; letter-spacing: -0.02em; color: var(--foreground); width: 74%; }
+        .hero-at { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 1.6em; color: #2962ff; vertical-align: -0.15em; }
         .hero-school { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 1.3em; color: #2962ff; }
-        .hero-ecb { position: absolute; left: 4%; top: 54%; font-size: var(--smallest); color: #2962ff; text-decoration: underline; text-underline-offset: 0.15em; }
-        .hero-tree { position: absolute; right: 12%; top: 12%; width: 260px; height: auto; opacity: 0.85; }
+        .hero-ecb { position: absolute; left: 4%; top: 44%; font-size: var(--smallest); color: #2962ff; text-decoration: underline; text-underline-offset: 0.15em; }
+        .hero-tree { position: absolute; right: 8%; top: 10%; width: 260px; height: auto; opacity: 0.85; }
         [data-theme="dark"] .hero-tree { content: url(tree-ascii.png); }
         [data-theme="dark"] .hero-at, [data-theme="dark"] .hero-school, [data-theme="dark"] .hero-ecb { color: #5c8aff; }
-        .hero-body { position: absolute; left: 4%; top: 66%; width: 28%; font-size: var(--smallest); color: var(--foreground); line-height: 1.65; text-align: justify; }
-        .hero-right { position: absolute; left: 35%; top: 64%; }
+        .hero-body { position: absolute; left: 4%; top: 62%; width: 28%; font-size: var(--smallest); color: var(--foreground); line-height: 1.65; text-align: justify; }
+        .hero-right { position: absolute; left: 35%; top: 60%; }
         .hero-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: clamp(26px, 3vw, 40px); color: #2962ff; line-height: 1.05; }
         .hero-wins { line-height: 1.15; }
         .hero-accent-lg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: clamp(26px, 3vw, 40px); color: #2962ff; }
@@ -314,9 +314,16 @@
     <!-- Main -->
     <main>
         <!-- Hero -->
-        <section class="hero">
-            <div class="canvas" id="canvas"></div>
-            <h1 class="hero-headline animate-in">Matthew Zhang is an Electrical &amp; Computer Engineering student at UT Austin, building at the intersection of hardware, robotics, and code.</h1>
+        <section class="hero-custom">
+            <h1 class="hero-main">Hi, I'm Matthew Zhang, Electrical and Computer Engineering &amp; Business Student <span class="hero-at">@</span><span class="hero-school">UT Austin</span></h1>
+            <a href="https://ecb.utexas.edu/" target="_blank" rel="noopener" class="hero-ecb">ecb honors program</a>
+            <img class="hero-tree" src="tree-ascii-dark.png" alt="">
+            <p class="hero-body">robotics, consumer electronics, and startups. flying fpv drones, conversing with friends, illustration, and probably a whole lot more. you'll see me document my work and thoughts here.</p>
+            <div class="hero-right">
+                <div class="hero-tagline">designer turned engineer</div>
+                <div class="hero-wins"><span class="hero-accent-lg">4x, 1<sup>st</sup> place</span> <span class="hero-wins-sub">something-a-thon wins [$7k total]</span></div>
+                <div class="hero-grad"><span class="hero-grad-label">expected</span> <span class="hero-accent-lg">may 2028</span></div>
+            </div>
         </section>
 
         <!-- Featured Work -->
