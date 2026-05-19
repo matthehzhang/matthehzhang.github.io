@@ -141,8 +141,8 @@
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
         /* Hero — background image from Canva */
-        .hero-custom { position: relative; height: calc(100vh - 80px); background: url('hero-bg.svg') no-repeat center -180px; background-size: 100% auto; user-select: none; -webkit-user-drag: none; }
-        [data-theme="dark"] .hero-custom { filter: invert(1) hue-rotate(180deg); }
+        .hero-custom { position: relative; height: calc(100vh - 80px); background: url('hero-bg.svg') no-repeat center -180px; background-size: 104% auto; user-select: none; -webkit-user-drag: none; overflow: hidden; }
+        [data-theme="dark"] .hero-custom { background-image: url('hero-bg-dark.svg'); background-size: 104% auto; }
         @media (max-width: 768px) { .hero-custom { height: 60vw; background-size: cover; } }
 
         /* Section headers */
@@ -296,23 +296,15 @@
 
         <!-- Featured Work -->
         <section class="featured animate-in">
-            <a href="work.html" class="featured-card" style="display:flex; flex-direction:row; align-items:stretch; gap:var(--smaller);">
-                <div class="featured-info" style="width:320px; flex-shrink:0; display:flex; flex-direction:column; justify-content:space-between; padding:var(--tiny) 0;">
+            <a href="work.html" class="featured-card" style="display:grid; grid-template-columns:1fr 2fr; gap:var(--smaller); align-items:start;">
+                <div style="display:flex; flex-direction:column; gap:var(--tinier); padding:var(--tiny) 0;">
                     <h2 class="featured-title" style="white-space:nowrap;">view my work!! &rarr;</h2>
-                    <p class="featured-desc" style="margin-top:var(--tinier);">embedded systems, pcb design, robotics, autonomous control, cad, computer vision, fabrication, illustration, 3d printing, laser cutting, soldering, motor control, firmware, fpga, vlsi, machine learning, python, c, cnc, electronics, graphic design... are you really reading all of this? i also like rock climbing, drawing, fpv drones, minecraft, urbex, and whatever else catches my eye</p>
-                    <div class="featured-footer">
-                        <span class="featured-read-more">Read more &rarr;</span>
+                    <p class="featured-desc">embedded systems, pcb design, robotics, autonomous control, cad, computer vision, fabrication, illustration, 3d printing, laser cutting, soldering, motor control, firmware, fpga, vlsi, machine learning, python, c, cnc, electronics, graphic design... are you really reading all of this? i also like rock climbing, drawing, fpv drones, minecraft, urbex, and whatever else catches my eye</p>
                 </div>
-                <div style="flex:1; display:flex; gap:var(--tinier); height:250px; min-width:200px;">
-                    <div class="featured-image-wrapper" style="flex:1; height:100%; aspect-ratio:auto;">
-                        <video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
-                    </div>
-                    <div class="featured-image-wrapper" style="flex:1; height:100%; aspect-ratio:auto;">
-                        <video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
-                    </div>
-                    <div class="featured-image-wrapper" style="flex:1; height:100%; aspect-ratio:auto;">
-                        <video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
-                    </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--tinier); height:250px;">
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
                 </div>
             </a>
         </section>
