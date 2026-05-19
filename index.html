@@ -94,7 +94,7 @@
         html { width: 100%; max-width: 100%; }
         *, a, button { cursor: none !important; }
         .cursor-dot { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: font-size 0.2s ease, transform 0.3s ease; font-size: 18px; font-weight: 300; color: #fff; mix-blend-mode: difference; line-height: 1; }
-        .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.3; }
+        .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.6; }
         .cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.8; }
         @keyframes cursorSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
         .cursor-dot.hovering { font-size: 26px; font-weight: 300; animation: cursorSpin 2s linear infinite; }
@@ -137,12 +137,16 @@
         }
 
         /* Main */
-        main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
+        main { min-height: 100vh; padding: var(--big) 4% var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
         /* Hero — background image from Canva */
-        .hero-custom { position: relative; height: calc(100vh - 80px); background: url('hero-bg.svg') no-repeat center -230px; background-size: 104% auto; user-select: none; -webkit-user-drag: none; overflow: hidden; }
-        [data-theme="dark"] .hero-custom { background-image: url('hero-bg-dark.svg'); background-size: 104% auto; }
+        .hero-custom { position: relative; height: calc(100vh - 80px); max-height: 820px; user-select: none; -webkit-user-drag: none; overflow: hidden; }
+        .hero-svg-wrap { position: absolute; top: -15vw; left: 0; right: 0; }
+        .hero-svg { width: 100%; height: auto; display: block; pointer-events: none; -webkit-user-drag: none; transform: scale(1.03); }
+        [data-theme="dark"] .hero-svg { transform: scale(1.03); }
+        .hero-ecb-link { position: absolute; left: 2.5%; top: 52%; width: 20.5%; height: 4%; z-index: 2; cursor: pointer; border-radius: 4px; }
+        [data-theme="dark"] .hero-svg-wrap .hero-svg { content: url('hero-bg-dark.svg'); }
         @media (max-width: 768px) { .hero-custom { height: 60vw; background-size: cover; } }
 
         /* Section headers */
@@ -292,26 +296,32 @@
     <!-- Main -->
     <main>
         <!-- Hero -->
-        <section class="hero-custom" aria-label="Hi, I'm Matthew Zhang, Electrical and Computer Engineering and Business Student at UT Austin"></section>
+        <section class="hero-custom">
+            <div class="hero-svg-wrap">
+                <img class="hero-svg" src="hero-bg.svg" alt="" draggable="false">
+                <a href="https://ecb.utexas.edu/" target="_blank" rel="noopener" class="hero-ecb-link" style=""></a>
+            </div>
+        </section>
+        <hr style="border:none; border-top:2px solid var(--foreground); margin:0; opacity:0.15;">
 
         <!-- Featured Work -->
         <section class="featured animate-in">
-            <a href="work.html" class="featured-card" style="display:grid; grid-template-columns:1fr 2fr; gap:var(--smaller); align-items:start;">
-                <div style="display:flex; flex-direction:column; gap:var(--tinier); padding:var(--tiny) 0;">
+            <a href="work.html" class="featured-card" style="display:flex; flex-direction:row; align-items:stretch; gap:var(--smaller); padding-left:2%;">
+                <div style="width:280px; flex-shrink:0; display:flex; flex-direction:column; gap:var(--tinier); padding:var(--tiny) 0;">
                     <h2 class="featured-title" style="white-space:nowrap;">view my work!! &rarr;</h2>
-                    <p class="featured-desc">embedded systems, pcb design, robotics, autonomous control, cad, computer vision, fabrication, illustration, 3d printing, laser cutting, soldering, motor control, firmware, fpga, vlsi, machine learning, python, c, cnc, electronics, graphic design... are you really reading all of this? i also like rock climbing, drawing, fpv drones, minecraft, urbex, and whatever else catches my eye</p>
+                    <p class="featured-desc" style="text-align:justify; hyphens:auto;">embedded systems, pcb design, robotics, autonomous control, cad, computer vision, fabrication, illustration, 3d printing, laser cutting, soldering, motor control, firmware, fpga, vlsi, machine learning, python, c, cnc, electronics, graphic design... are you really reading all of this? i also like rock climbing, drawing, fpv drones, minecraft, urbex, and whatever else catches my eye</p>
                 </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--tinier); height:250px;">
-                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
-                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
-                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
+                <div style="flex:1; display:flex; gap:var(--tinier); height:250px;">
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%; flex:1;"><video src="drone.mov" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;transform:scale(1.35) translateY(5%);"></video></div>
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%; flex:1;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%; flex:1;"><video src="frcshot.mov" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
                 </div>
             </a>
         </section>
 
         <!-- Experience -->
         <section class="experience animate-in">
-            <h2 class="featured-title" style="margin-bottom:var(--tiny);">experiences.</h2>
+            <h2 class="featured-title" style="margin-bottom:2px; padding-left:2%;">experiences.</h2>
             <ul class="exp-list">
                 <li class="exp-item">
                     <span class="exp-date">2026 &ndash; 20xx</span>
@@ -546,6 +556,9 @@
     }
     setFooterHeight();
     window.addEventListener('resize', setFooterHeight);
+    window.addEventListener('load', setFooterHeight);
+    setTimeout(setFooterHeight, 500);
+    setTimeout(setFooterHeight, 1500);
 })();
 </script>
 

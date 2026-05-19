@@ -762,6 +762,9 @@
     }
     setFooterHeight();
     window.addEventListener('resize', setFooterHeight);
+    window.addEventListener('load', setFooterHeight);
+    setTimeout(setFooterHeight, 500);
+    setTimeout(setFooterHeight, 1500);
 })();
 </script>
 
