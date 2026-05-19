@@ -194,13 +194,13 @@
         .hover-hint { display: inline-block; background: var(--foreground); color: var(--background); font-family: Inter, sans-serif; font-size: var(--smallest); padding: 4px 12px; border-radius: 10px; position: relative; margin: 0 4px; vertical-align: middle; }
 
         /* Dialog/Modal */
-        dialog { border: none; background: none; padding: 0; max-width: min(1050px, 92vw); width: 100%; max-height: 85vh; border-radius: var(--smaller); overflow: hidden; margin: auto; }
+        dialog { border: none; background: none; padding: 0 !important; max-width: min(1300px, 94vw); width: 100%; height: 75vh; border-radius: var(--smaller); overflow: hidden; inset: 0 !important; margin: auto !important; position: fixed !important; }
         dialog::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-        dialog[open] { display: flex; flex-direction: column; animation: dialogIn 0.3s ease; }
-        @keyframes dialogIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        dialog[open] { animation: dialogIn 0.3s ease; }
+        @keyframes dialogIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes dialogImageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
         .dialog-images img.first-load, .dialog-images video.first-load { animation: dialogImageIn 0.5s ease-out forwards; }
-        .dialog-content { background: var(--background); border: 1px solid var(--border); border-radius: var(--smaller); overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; max-height: inherit; scrollbar-width: none; }
+        .dialog-content { background: var(--background); border: 1px solid var(--border); border-radius: var(--smaller); overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; height: 100%; scrollbar-width: none; }
         .dialog-content::-webkit-scrollbar { display: none; }
         .dialog-images { position: relative; overflow: hidden; background: var(--surface); min-height: 400px; }
         .dialog-images img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
@@ -218,8 +218,8 @@
         .dialog-info h2 { font-size: var(--smaller); font-weight: 600; letter-spacing: -0.01em; color: var(--foreground); }
         .dialog-tags { display: flex; flex-wrap: wrap; gap: var(--tinier); }
         .dialog-tag { font-size: 13px; color: var(--muted); background: var(--surface); padding: 2px var(--tinier); border-radius: var(--radius); }
-        .dialog-section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-top: var(--tiny); }
-        .dialog-text { font-size: 14px; color: var(--foreground); line-height: 160%; }
+        .dialog-section-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-top: var(--tiny); }
+        .dialog-text { font-size: var(--smallest); color: var(--foreground); line-height: 160%; }
         .dialog-text ul { padding-left: var(--smallest); margin: var(--tinier) 0 0; }
         .dialog-text li { margin-bottom: 4px; }
         .dialog-divider { border: none; border-top: 1px solid var(--border); margin: var(--tinier) 0; }
@@ -428,12 +428,10 @@
                     '<h2>' + project.title + '</h2>' +
                     '<div class="dialog-tags">' + tagsHTML + '</div>' +
                     '<hr class="dialog-divider">' +
-                    (project.outcome ? '<p class="dialog-section-label">Outcome</p><p class="dialog-text">' + project.outcome + '</p>' : '') +
                     (project.role ? '<p class="dialog-section-label">My Role</p><p class="dialog-text">' + project.role + '</p>' : '') +
-                    (project.skills ? '<p class="dialog-section-label">Skills</p><div class="dialog-tags">' + project.skills.map(function(s) { return '<span class="dialog-tag">' + s + '</span>'; }).join('') + '</div>' : '') +
                     (project.motivation ? '<p class="dialog-section-label">Motivation</p><p class="dialog-text">' + project.motivation + '</p>' : '') +
-                    (project.technical ? '<p class="dialog-section-label">Technical Details</p><p class="dialog-text">' + project.technical + '</p>' : '') +
-                    (project.link !== '#' ? '<hr class="dialog-divider"><a href="' + project.link + '" class="dialog-link">View full project &rarr;</a>' : '') +
+                    ((project.outcome || project.technical) ? '<p class="dialog-section-label">About</p><p class="dialog-text">' + (project.outcome || '') + (project.outcome && project.technical ? ' ' : '') + (project.technical || '') + '</p>' : '') +
+                    (project.link !== '#' ? '<hr class="dialog-divider"><a href="' + project.link + '" class="dialog-link" target="_blank" rel="noopener">View full project &rarr;</a>' : '') +
                 '</div>' +
             '</div>';
 

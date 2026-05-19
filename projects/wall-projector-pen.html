@@ -43,7 +43,7 @@
 
         /* Header */
         header { padding: var(--margin); pointer-events: none; position: relative; }
-        .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; }
+        .header-inner { pointer-events: auto; justify-content: flex-end; align-items: center; display: flex; }
         .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
         nav { align-items: center; gap: var(--smaller); display: flex; }
         .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
@@ -78,10 +78,10 @@
         .doc-gallery .doc-figure { margin: 0; }
 
         /* Side tabs */
-        .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: 13px; z-index: 5; height: calc(100vh - 68px); }
-        .side-tabs-line { width: 2px; background: var(--border); position: relative; border-radius: 2px; cursor: pointer; }
+        .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: var(--smallest); z-index: 5; height: calc(100vh - 68px); }
+        .side-tabs-line { width: 2px; background: transparent; position: relative; border-radius: 2px; cursor: pointer; margin-top: 20px; background: linear-gradient(to bottom, transparent 0%, transparent 5%, var(--border) 5%, var(--border) 100%); }
         .side-tabs-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: absolute; left: 50%; transform: translate(-50%, -50%); transition: top 0.2s ease; box-shadow: 0 0 0 4px var(--accent); cursor: pointer; }
-        .side-tabs-links { position: relative; height: 100%; width: 160px; }
+        .side-tabs-links { position: relative; height: 100%; width: 160px; margin-top: 20px; }
         .side-tabs a { text-decoration: none; color: var(--muted); padding: 6px 8px; position: absolute; left: 0; transform: translateY(-50%); transition: color 0.2s ease; display: block; width: 100%; max-width: 100%; white-space: normal; line-height: 1.2; overflow-wrap: anywhere; }
         .side-tabs a:hover { color: var(--foreground); }
         .side-tabs a.active { color: var(--accent); }
@@ -93,7 +93,6 @@
 <body>
     <header>
         <div class="header-inner">
-            <a href="../index.html" class="logo">Matthew<br>Zhang</a>
             <nav>
                 <a class="back-button" aria-label="Back" href="../work.html">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>

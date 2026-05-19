@@ -140,18 +140,32 @@
         main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
-        /* Hero */
-        .hero { grid-template-columns: repeat(var(--columns), 1fr); gap: var(--gap); min-height: calc(100vh - var(--margin) * 2 - 60px); align-items: center; display: grid; position: relative; }
-        .hero-headline { z-index: 5; max-width: 900px; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: var(--bigger); pointer-events: none; color: #fff; mix-blend-mode: difference; text-shadow: 0 0 20px rgba(0,0,0,0.1); grid-column: 1 / -1; position: relative; line-height: 1.2; letter-spacing: -0.01em; }
-        @media (max-width: 768px) { .hero-headline { font-size: var(--big); } }
-        @media (min-width: 769px) { .hero-headline { grid-column: 1 / 9; } }
-
-        /* Draggable canvas */
-        .canvas { pointer-events: none; position: absolute; inset: 0; overflow: visible; }
-        .canvas-item { cursor: grab; pointer-events: auto; user-select: none; opacity: 0; transform-origin: 50%; touch-action: none; transition: opacity 0.4s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: absolute; }
-        .canvas-item.visible { opacity: 1; }
-        .canvas-item:active { cursor: grabbing; }
-        .canvas-item img { object-fit: contain; pointer-events: none; }
+        /* Hero — Canva layout */
+        .hero-custom { position: relative; height: calc(100vh - 80px); }
+        .hero-main { position: absolute; left: 4%; top: 30%; font-family: Inter, sans-serif; font-weight: 700; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.2; letter-spacing: -0.02em; color: var(--foreground); width: 72%; }
+        .hero-at { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 2em; color: #2962ff; vertical-align: -0.2em; }
+        .hero-school { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 1.3em; color: #2962ff; }
+        .hero-ecb { position: absolute; left: 4%; top: 54%; font-size: var(--smallest); color: #2962ff; text-decoration: underline; text-underline-offset: 0.15em; }
+        .hero-tree { position: absolute; right: 12%; top: 12%; width: 260px; height: auto; opacity: 0.85; }
+        [data-theme="dark"] .hero-tree { content: url(tree-ascii.png); }
+        [data-theme="dark"] .hero-at, [data-theme="dark"] .hero-school, [data-theme="dark"] .hero-ecb { color: #5c8aff; }
+        .hero-body { position: absolute; left: 4%; top: 66%; width: 28%; font-size: var(--smallest); color: var(--foreground); line-height: 1.65; text-align: justify; }
+        .hero-right { position: absolute; left: 35%; top: 64%; }
+        .hero-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: clamp(26px, 3vw, 40px); color: #2962ff; line-height: 1.05; }
+        .hero-wins { line-height: 1.15; }
+        .hero-accent-lg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: clamp(26px, 3vw, 40px); color: #2962ff; }
+        .hero-accent-lg sup { font-size: 0.45em; vertical-align: super; }
+        .hero-wins-sub { font-size: var(--smallest); color: var(--foreground); vertical-align: 0.15em; }
+        .hero-grad { text-align: right; margin-top: 2px; }
+        .hero-grad-label { font-size: var(--smallest); color: var(--foreground); }
+        [data-theme="dark"] .hero-tagline, [data-theme="dark"] .hero-accent-lg { color: #5c8aff; }
+        @media (max-width: 768px) {
+            .hero-custom { height: auto; padding: var(--big) 0; }
+            .hero-main, .hero-ecb, .hero-tree, .hero-body, .hero-right { position: static; width: 100%; }
+            .hero-main { font-size: 28px; margin-bottom: var(--tinier); }
+            .hero-tree { width: 160px; margin: var(--smaller) 0; }
+            .hero-body { margin: var(--smaller) 0; }
+        }
 
         /* Section headers */
         .section-header { border-bottom: 1px solid var(--border); padding-bottom: var(--tiny); }

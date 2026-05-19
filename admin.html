@@ -196,6 +196,8 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        .char-counter { font-size: 12px; color: #666; text-align: right; margin-bottom: var(--tinier); }
+        .char-counter.over { color: #e74c3c; font-weight: 600; }
 
         input[type="text"],
         input[type="date"],
@@ -616,21 +618,18 @@
                         <label>Hover Tooltips (one per line, cycles through)</label>
                         <textarea id="f-tooltips" rows="3" placeholder="all this to play one album ^.^&#10;a diy record player&#10;custom pcb + firmware" oninput="onTooltipsChange()"></textarea>
                     </div>
-                    <div class="field">
-                        <label>Outcome</label>
-                        <textarea id="f-outcome" rows="2" oninput="onFieldChange('outcome', this.value)"></textarea>
-                    </div>
+                    <div class="char-counter" id="charCounter">0 / 500 chars</div>
                     <div class="field">
                         <label>Role</label>
-                        <textarea id="f-role" rows="2" oninput="onFieldChange('role', this.value)"></textarea>
+                        <textarea id="f-role" rows="2" oninput="onFieldChange('role', this.value); updateCharCounter()"></textarea>
                     </div>
                     <div class="field">
                         <label>Motivation</label>
-                        <textarea id="f-motivation" rows="2" oninput="onFieldChange('motivation', this.value)"></textarea>
+                        <textarea id="f-motivation" rows="2" oninput="onFieldChange('motivation', this.value); updateCharCounter()"></textarea>
                     </div>
                     <div class="field">
-                        <label>Technical</label>
-                        <textarea id="f-technical" rows="3" oninput="onFieldChange('technical', this.value)"></textarea>
+                        <label>About (outcome + technical)</label>
+                        <textarea id="f-outcome" rows="3" oninput="onFieldChange('outcome', this.value); updateCharCounter()" placeholder="What you built and how"></textarea>
                     </div>
                 </div>
 
@@ -870,10 +869,10 @@
             document.getElementById('f-aspect').value = p.aspect || '';
             document.getElementById('f-description').value = p.description || '';
             document.getElementById('f-tooltips').value = (p.tooltips || []).join('\n');
-            document.getElementById('f-outcome').value = p.outcome || '';
             document.getElementById('f-role').value = p.role || '';
             document.getElementById('f-motivation').value = p.motivation || '';
-            document.getElementById('f-technical').value = p.technical || '';
+            document.getElementById('f-outcome').value = (p.outcome || '') + (p.outcome && p.technical ? ' ' : '') + (p.technical || '');
+            updateCharCounter();
 
             // Filters
             const filters = p.filters || [];
@@ -893,6 +892,17 @@
 
             // Preview
             renderPreview();
+        }
+
+        var CHAR_LIMIT = 500;
+        function updateCharCounter() {
+            var role = document.getElementById('f-role').value.length;
+            var motivation = document.getElementById('f-motivation').value.length;
+            var outcome = document.getElementById('f-outcome').value.length;
+            var total = role + motivation + outcome;
+            var el = document.getElementById('charCounter');
+            el.textContent = total + ' / ' + CHAR_LIMIT + ' chars';
+            el.classList.toggle('over', total > CHAR_LIMIT);
         }
 
         function onFieldChange(field, value) {
