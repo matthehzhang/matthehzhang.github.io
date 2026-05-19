@@ -3,447 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Vinyl Record Player - matthew h zhang</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Vinyl Record Player — Matthew H Zhang</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script>(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
     <style>
-        @media (min-width: 901px) {
-            html {
-                zoom: 1;
-            }
-        }
-
         :root {
-            --ink: #1a1a1a;
-            --muted: #6f6f6f;
-            --border: #dedede;
-            --paper: #ffffff;
-            --accent: #E0A800;
+            --white: #fff;
+            --black: #0a0a0a;
+            --grey-200: #e5e5e5;
+            --grey-300: #d4d4d4;
+            --grey-400: #a3a3a3;
+            --grey-500: #737373;
+            --grey-700: #404040;
+            --grey-800: #262626;
+            --grey-900: #171717;
+            --background: var(--white);
+            --foreground: var(--black);
+            --muted: var(--grey-500);
+            --border: var(--grey-300);
+            --accent: #00f;
+            --tiniest: 4px; --tinier: 8px; --tiny: 12px; --smallest: 16px; --smaller: 24px; --small: 32px; --big: 48px; --bigger: 64px;
+            --margin: var(--smallest);
+            --columns: 6;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        [data-theme="dark"] {
+            --accent: #f60;
+            --background: var(--black);
+            --foreground: var(--white);
+            --muted: var(--grey-400);
+            --border: var(--grey-700);
         }
+        @media (min-width: 769px) { :root { --margin: var(--small); --columns: 12; } }
 
-        html, body {
-            background: var(--paper);
-            color: var(--ink);
-            font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
-            margin: 10px 0 0 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { width: 100%; }
+        body { background: var(--background); color: var(--foreground); font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        a { color: inherit; text-decoration: inherit; }
+        img { max-width: 100%; height: auto; border-radius: 6px; }
 
-        html::-webkit-scrollbar,
-        body::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-            display: none;
-        }
+        /* Header */
+        header { padding: var(--margin); pointer-events: none; position: relative; }
+        .header-inner { pointer-events: auto; justify-content: flex-end; align-items: center; display: flex; }
+        .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
+        nav { align-items: center; gap: var(--smaller); display: flex; }
+        .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
+        .back-button { width: 32px; height: 32px; margin-right: var(--tinier); color: var(--muted); display: flex; justify-content: center; align-items: center; transition: color 0.2s; text-decoration: none; }
+        .back-button:hover { color: var(--foreground); }
+        .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
+        .nav-link:hover { color: var(--foreground); }
+        .theme-toggle { width: 32px; height: 32px; margin-left: var(--tinier); color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; transition: color 0.2s; display: flex; }
+        .theme-toggle:hover { color: var(--foreground); }
+        .icon-sun { display: block; } .icon-moon { display: none; }
+        [data-theme="dark"] .icon-sun { display: none; } [data-theme="dark"] .icon-moon { display: block; }
+        @media (max-width: 768px) { header { z-index: 1000; background-color: var(--background); border-bottom: 1px solid var(--border); position: sticky; top: 0; } nav { gap: var(--smallest); } }
 
-        #mxmain {
-            width: 80%;
-            margin: 0 auto;
-            position: relative;
-            padding-top: 24px;
-        }
+        /* Main content */
+        main { max-width: 900px; margin: 0 auto; padding: var(--big) var(--margin) var(--margin); }
 
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 22px;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-        }
+        p { font-size: 18px; line-height: 1.6; margin-bottom: 14px; }
 
-        .nav a {
-            text-decoration: none;
-            color: var(--ink);
-            padding: 0 0 6px 0;
-            border-radius: 8px;
-        }
+        .sub-indent { display: inline-block; padding-left: 2.5em; }
 
-        .nav a:hover {
-            color: var(--ink);
-        }
+        .inline-heading { font-weight: 600; font-size: 20px; display: inline-block; margin-top: 12px; }
 
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 14px;
-        }
+        h1 { font-size: 28px; line-height: 1.2; margin-bottom: 10px; font-weight: 600; }
 
-        .sub-indent {
-            display: inline-block;
-            padding-left: 2.5em;
-        }
+        .meta { font-size: 15px; color: var(--muted); margin-bottom: 0; line-height: 1.8; }
+        .meta + .meta { margin-top: 0; }
+        .meta + p { margin-top: 10px; }
 
-        .inline-heading {
-            font-weight: 600;
-            font-size: 22px;
-            display: inline-block;
-            margin-top: 12px;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            text-transform: uppercase;
-        }
+        .doc-figure { margin: 28px auto; display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 6%; }
+        .doc-figure img { width: calc(100% + 12px); max-width: 980px; height: auto; margin: -6px auto; border-radius: 12px; border: 1px solid var(--border); background: var(--background); clip-path: inset(6px round 12px); transform: translate(4px, 4px) rotate(var(--tilt, 0deg)); }
+        .doc-figure.small img { max-width: 560px; }
+        .doc-figure.medium img { max-width: 600px; }
+        .doc-figure.large img { max-width: 980px; }
+        .doc-figure.tiny img { max-width: 480px; }
+        .doc-figure.xsmall img { max-width: 400px; }
+        .doc-figure.wide img { max-width: 640px; }
+        .doc-figure.narrow img { max-width: 360px; }
+        .doc-figure.medium-small img { max-width: 700px; }
+        .doc-figure.power-usb img { max-width: 306px; }
+        .doc-figure.full-bleed { padding: 0; }
+        .doc-figure.full-bleed img, .doc-figure.full-bleed figcaption { width: 100%; max-width: none; }
+        .doc-figure figcaption { font-size: 15px; color: var(--muted); max-width: 980px; width: calc(100% + 12px); margin: 0 auto; text-align: center; }
+        .caption-center { text-align: center; font-size: 15px; color: var(--muted); margin: 6px 0 18px; }
 
-        h1 {
-            font-size: 22px;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-        }
+        .doc-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 18px 0 22px; }
+        .doc-gallery .doc-figure { margin: 0; }
 
-        .backlinks {
-            position: static;
-            display: inline-flex;
-            align-items: center;
-            flex-wrap: nowrap;
-            gap: 0;
-            margin: 0 0 18px 0;
-            max-width: min(100%, calc(100vw - 32px));
-            overflow: hidden;
-            white-space: nowrap;
-            font-size: 14px;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            background: #f4f4f4;
-            border: 1px solid #e0e0e0;
-            padding: 6px 10px;
-            border-radius: 4px;
-        }
-
-        .backlinks .prompt,
-        .backlinks a,
-        .backlinks .sep,
-        .backlinks .sep-last {
-            flex: 0 0 auto;
-        }
-
-        .backlinks .prompt {
-            margin-right: 6px;
-        }
-
-        .backlinks a {
-            text-decoration: none;
-            color: #E0A800;
-            border-bottom: 1px solid #bdbdbd;
-            padding-bottom: 1px;
-        }
-
-        .backlinks a:hover {
-            border-bottom-color: #E0A800;
-        }
-
-        .backlinks .prompt {
-            color: #E0A800;
-        }
-
-        .backlinks .sep {
-            color: #E0A800;
-        }
-
-        .backlinks .sep-last {
-            color: #1a1a1a;
-        }
-
-        .backlinks .current-path {
-            min-width: 0;
-            flex: 1 1 auto;
-            display: inline-block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .side-tabs {
-            position: fixed;
-            top: 34px;
-            left: 24px;
-            display: none;
-            flex-direction: row;
-            align-items: stretch;
-            gap: 12px;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            font-size: 13px;
-            z-index: 5;
-            height: calc(100vh - 68px);
-        }
-
-        .side-tabs-line {
-            width: 2px;
-            background: #e0e0e0;
-            position: relative;
-            border-radius: 2px;
-            cursor: pointer;
-        }
-
-        .side-tabs-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: top 0.2s ease;
-            box-shadow: 0 0 0 4px var(--accent);
-            cursor: pointer;
-        }
-
-        .side-tabs-links {
-            position: relative;
-            height: 100%;
-            width: 160px;
-        }
-
-        .side-tabs a {
-            text-decoration: none;
-            color: var(--ink);
-            padding: 6px 8px;
-            position: absolute;
-            left: 0;
-            transform: translateY(-50%);
-            transition: color 0.2s ease;
-            display: block;
-            width: 100%;
-            max-width: 100%;
-            white-space: normal;
-            line-height: 1.2;
-            overflow-wrap: anywhere;
-        }
-
-        .side-tabs a:hover {
-            color: var(--accent);
-        }
-
-        .side-tabs a.active {
-            color: var(--accent);
-        }
-
-        @media (min-width: 1200px) {
-            .side-tabs {
-                display: flex;
-            }
-        }
-
-        .meta {
-            font-size: 16px;
-            color: var(--muted);
-            margin-bottom: 0;
-            line-height: 1.8;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-        }
-
-        .meta + .meta {
-            margin-top: 0;
-        }
-
-        .meta + p {
-            margin-top: 10px;
-        }
-
-        .doc-figure {
-            margin: 28px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-            padding: 0 6%;
-        }
-
-        .doc-figure img {
-            width: calc(100% + 12px);
-            max-width: 980px;
-            height: auto;
-            margin: -6px auto;
-            border-radius: 12px;
-            border: 1px solid #e2e2e2;
-            background: #f0f0f0;
-            clip-path: inset(6px round 12px);
-            transform: translate(4px, 4px) rotate(var(--tilt, 0deg));
-        }
-
-        .doc-figure.small img {
-            max-width: 560px;
-        }
-
-        .doc-figure.medium img {
-            max-width: 600px;
-        }
-
-        .doc-figure.large img {
-            max-width: 980px;
-        }
-
-        .doc-figure.tiny img {
-            max-width: 480px;
-        }
-
-        .doc-figure.xsmall img {
-            max-width: 400px;
-        }
-
-        .doc-figure.wide img {
-            max-width: 640px;
-        }
-
-        .doc-figure.narrow img {
-            max-width: 360px;
-        }
-
-        .doc-figure.medium-small img {
-            max-width: 700px;
-        }
-
-        .doc-figure.power-usb img {
-            max-width: 306px;
-        }
-
-        .doc-figure.full-bleed {
-            padding: 0;
-        }
-
-        .doc-figure.full-bleed img,
-        .doc-figure.full-bleed figcaption {
-            width: 100%;
-            max-width: none;
-        }
-
-
-        .doc-figure figcaption {
-            font-size: 16px;
-            color: var(--muted);
-            max-width: 980px;
-            width: calc(100% + 12px);
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .doc-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin: 18px 0 22px;
-        }
-
-        .doc-figure-row {
-            display: flex;
-            gap: 18px;
-            align-items: flex-start;
-            margin: 28px auto;
-            padding: 0 6%;
-        }
-
-        .doc-figure-row .doc-figure {
-            flex: 1;
-            margin: 0;
-            padding: 0;
-        }
-
-        .doc-figure-row .doc-figure img {
-            max-width: 100%;
-        }
-
-        .doc-figure-row.overlap-grid {
-            display: grid;
-            grid-template-columns: repeat(2, auto);
-            gap: 0;
-            align-items: start;
-            justify-content: center;
-            margin: 28px auto;
-            padding: 0 6%;
-        }
-
-        .doc-figure-row.overlap-grid .doc-figure img {
-            max-width: 360px;
-        }
-
-        .doc-figure-row.overlap-grid .column {
-            position: relative;
-            width: fit-content;
-            justify-self: center;
-        }
-
-        .doc-figure-row.overlap-grid .stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .doc-figure-row.overlap-grid .stack .doc-figure:first-child {
-            transform: translateX(30px);
-            z-index: 2;
-        }
-
-        .doc-figure-row.overlap-grid .stack .doc-figure:last-child {
-            transform: translateX(-26px) translateY(-20px);
-            z-index: 1;
-        }
-
-        .caption-center {
-            text-align: center;
-            font-size: 16px;
-            color: var(--muted);
-            margin: 6px 0 18px;
-        }
-
-        .doc-gallery .doc-figure {
-            margin: 0;
-        }
-
+        .doc-figure-row { display: flex; gap: 18px; align-items: flex-start; margin: 28px auto; padding: 0 6%; }
+        .doc-figure-row .doc-figure { flex: 1; margin: 0; padding: 0; }
+        .doc-figure-row .doc-figure img { max-width: 100%; }
+        .doc-figure-row.overlap-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 0; align-items: start; justify-content: center; margin: 28px auto; padding: 0 6%; }
+        .doc-figure-row.overlap-grid .doc-figure img { max-width: 360px; }
+        .doc-figure-row.overlap-grid .column { position: relative; width: fit-content; justify-self: center; }
+        .doc-figure-row.overlap-grid .stack { display: flex; flex-direction: column; gap: 0; }
+        .doc-figure-row.overlap-grid .stack .doc-figure:first-child { transform: translateX(30px); z-index: 2; }
+        .doc-figure-row.overlap-grid .stack .doc-figure:last-child { transform: translateX(-26px) translateY(-20px); z-index: 1; }
         @media (max-width: 780px) {
-            .doc-figure-row {
-                flex-direction: column;
-            }
-
-            .doc-figure-row.overlap-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
+            .doc-figure-row { flex-direction: column; }
+            .doc-figure-row.overlap-grid { grid-template-columns: 1fr; gap: 16px; }
             .doc-figure-row.overlap-grid .stack .doc-figure:first-child,
-            .doc-figure-row.overlap-grid .stack .doc-figure:last-child {
-                transform: none;
-            }
+            .doc-figure-row.overlap-grid .stack .doc-figure:last-child { transform: none; }
         }
 
-        @media (max-width: 720px) {
-            p {
-                font-size: 17px;
-            }
-        }
+        /* Side tabs */
+        .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: var(--smallest); z-index: 5; height: calc(100vh - 68px); }
+        .side-tabs-line { width: 2px; background: var(--border); position: relative; border-radius: 2px; cursor: pointer; margin-top: 20px; }
+        .side-tabs-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: absolute; left: 50%; transform: translate(-50%, -50%); transition: top 0.2s ease; box-shadow: 0 0 0 4px var(--accent); cursor: pointer; }
+        .side-tabs-links { position: relative; height: 100%; width: 160px; margin-top: 20px; }
+        .side-tabs a { text-decoration: none; color: var(--muted); padding: 6px 8px; position: absolute; left: 0; transform: translateY(-50%); transition: color 0.2s ease; display: block; width: 100%; max-width: 100%; white-space: normal; line-height: 1.2; overflow-wrap: anywhere; }
+        .side-tabs a:hover { color: var(--foreground); }
+        .side-tabs a.active { color: var(--accent); }
+        @media (min-width: 1200px) { .side-tabs { display: flex; } }
 
-        @media (max-width: 1024px) {
-            #mxmain { width: 90%; }
-            img { max-width: 100%; }
-        }
+        @media (max-width: 720px) { p { font-size: 17px; } }
+
+        /* In-text links */
+        p a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+        p a:hover { opacity: 0.8; }
     </style>
 </head>
 <body>
-    <div id="mxmain">
-        <div class="backlinks">
-            <span class="prompt">matthehzhang:~$</span>
-            <a href="../index.html">home</a><span class="sep">/</span><a href="../projects.html">projects</a><span class="sep sep-last">/</span><span class="current-path">vinyl-record-player</span>
+    <header>
+        <div class="header-inner">
+            <nav>
+                <a class="back-button" aria-label="Back" href="../work.html">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="../work.html" class="nav-link">Work</a>
+                <span class="nav-sep">|</span>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://twitter.com/vcmatthewzhang" class="nav-link" target="_blank">Twitter</a>
+                <a href="../matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="icon-sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/></svg></span>
+                    <span class="icon-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </button>
+            </nav>
         </div>
-        <nav class="side-tabs" aria-label="Project sections">
-            <div class="side-tabs-line">
-                <span class="side-tabs-dot" aria-hidden="true"></span>
-            </div>
-            <div class="side-tabs-links">
-                <a href="#overview">VINYL RECORD PLAYER</a>
-                <a href="#turntable">THE TURNTABLE</a>
-                <a href="#electrical">MOTOR CONTROL PCB</a>
-                <a href="#mechanical">MECHANICAL DESIGN</a>
-                <a href="#electrical-v2">MOTOR CONTROL PCB V2</a>
-            </div>
-        </nav>
+    </header>
+
+    <nav class="side-tabs" aria-label="Project sections">
+        <div class="side-tabs-line">
+            <span class="side-tabs-dot" aria-hidden="true"></span>
+        </div>
+        <div class="side-tabs-links">
+            <a href="#overview">Vinyl Record Player</a>
+            <a href="#turntable">The Turntable</a>
+            <a href="#electrical">Motor Control PCB</a>
+            <a href="#mechanical">Mechanical Design</a>
+            <a href="#electrical-v2">Motor Control PCB V2</a>
+        </div>
+    </nav>
+
+    <main>
         <h1 id="overview">Vinyl Record Player</h1>
         <p class="meta">Present</p>
         <p class="meta"><strong>STATUS: IN PROGRESS</strong></p>
@@ -453,7 +168,7 @@
             <img src="vinyl-record-player/vinyl-000.png" alt="IGOR vinyl album">
             <figcaption><em>Tyler, The Creator: IGOR</em></figcaption>
         </figure>
-        <p>Anyways, I had to separate this project into many small parts. I’m not sure how much of this will be designed by scratch. I’ll probably decide as I go along the journey.</p>
+        <p>Anyways, I had to separate this project into many small parts. I'm not sure how much of this will be designed by scratch. I'll probably decide as I go along the journey.</p>
         <p>
             1. the turntable (the record spinner)<br>
             <span class="sub-indent">a.</span> electrical hardware (the pcb)<br>
@@ -467,15 +182,15 @@
             <span class="sub-indent">b.</span> amplifier (amplifies signal to drive speakers)<br>
             <span class="sub-indent">c.</span> speakers (convert signal to sound)
         </p>
-        <p id="turntable"><span class="inline-heading">THE TURNTABLE:</span></p>
-        <p id="electrical"><span class="inline-heading">MOTOR CONTROL PCB:</span></p>
+        <p id="turntable"><span class="inline-heading">The Turntable:</span></p>
+        <p id="electrical"><span class="inline-heading">Motor Control PCB:</span></p>
         <p>The first thing I needed to do was understand what my electrical system needed to complete. I needed to size a motor that could support the turntable, was easy to power, and minimized vibrations/disturbances in the audio signal.</p>
-        <p>In common DC motors, the iron core creates magnetic “detents” which cause small speed variations as the motor spins. These little bumps of resistance are even more noticeable at low RPMs, which our turntable will be running on. Compared to normal DC motors, coreless DC motors reduce these variations by lacking a conventional iron core. Additionally coreless DC motors are generally known for their stability. After a bit of research, I purchased the maxon 2028.937-12.101-026 Coreless Brushed 12V DC motor.</p>
+        <p>In common DC motors, the iron core creates magnetic "detents" which cause small speed variations as the motor spins. These little bumps of resistance are even more noticeable at low RPMs, which our turntable will be running on. Compared to normal DC motors, coreless DC motors reduce these variations by lacking a conventional iron core. Additionally coreless DC motors are generally known for their stability. After a bit of research, I purchased the maxon 2028.937-12.101-026 Coreless Brushed 12V DC motor.</p>
         <figure class="doc-figure tiny">
             <img src="vinyl-record-player/vinyl-001.png" alt="Coreless DC motor">
             <figcaption><em>-$30</em></figcaption>
         </figure>
-        <p>Since I’ve decided on a motor, I could begin the circuit design. I based the board on an ESP-32-S3 chip and got to work. I set up the basic circuit for an ESP-32-S3 breakout board. I connected two 5.1K resistors to the USB C connector to signal a sink device and receive +5V from the power supply and used an LDO to bring that down to +3.3V for the MCU.</p>
+        <p>Since I've decided on a motor, I could begin the circuit design. I based the board on an ESP-32-S3 chip and got to work. I set up the basic circuit for an ESP-32-S3 breakout board. I connected two 5.1K resistors to the USB C connector to signal a sink device and receive +5V from the power supply and used an LDO to bring that down to +3.3V for the MCU.</p>
         <figure class="doc-figure medium">
             <img src="vinyl-record-player/vinyl-002.png" alt="Basic MCU PCB schematic">
             <figcaption><em>basic MCU pcb</em></figcaption>
@@ -483,7 +198,7 @@
         <p>To power my motor, I had to update this design to receive +12V instead. I found a chip, the CH224A that I could use to handle the USB PD behavior. All I had to do was attach a 24K resistor connecting pin CFG1 to GND.</p>
         <figure class="doc-figure wide">
             <img src="vinyl-record-player/schematic-data-usb.png" alt="Schematic capture">
-            <figcaption><em>if this schematic is ugly – it’s my first time and i’m not familiar with conventions yet</em></figcaption>
+            <figcaption><em>if this schematic is ugly – it's my first time and i'm not familiar with conventions yet</em></figcaption>
         </figure>
         <p>Since the data pins on that USB C connector were occupied, I added another one just for flashing the MCU. In the future, I should probably use JTAG or UART to flash. I think you can even use WIFI or Bluetooth to flash ESP32 chips.</p>
         <figure class="doc-figure narrow power-usb">
@@ -505,11 +220,11 @@
             <img src="vinyl-record-player/vinyl-007.png" alt="PCB in the mail">
             <figcaption><em>pcb in the mail</em></figcaption>
         </figure>
-        <p><strong>EDIT-IN-POST:</strong> The flyback diode is not actually necessary here because the MP8040 integrates two MOSFETs in a half-bridge which already provides body diodes for the current in the motor to recirculate. Still, something I didn’t catch (and I’m learning) so I think it’s worth explaining.</p>
+        <p><strong>EDIT-IN-POST:</strong> The flyback diode is not actually necessary here because the MP8040 integrates two MOSFETs in a half-bridge which already provides body diodes for the current in the motor to recirculate. Still, something I didn't catch (and I'm learning) so I think it's worth explaining.</p>
         <p>Why might a flyback diode be required?</p>
         <p>A motor can be modeled as an inductor and a resistor in series. If current is flowing through that inductor at a steady state and I suddenly cut it off, the inductor will try to keep current flowing. However, there's nowhere for current to flow to, so the inductor tries to force current to continue flowing by accumulating a massive voltage difference across its terminals.</p>
         <p>Anyways, this large spike in voltage can damage sensitive electronics on the same Vbus. The inductor will generate whatever voltage it can to keep current flowing. At times, it can even pull electrons out of the air to create arcs.</p>
-        <p>A flyback diode can prevent all of this by providing the inductor a safe path to route current. It sends the current back through the motor’s resistance and dissipates the stored energy as heat.</p>
+        <p>A flyback diode can prevent all of this by providing the inductor a safe path to route current. It sends the current back through the motor's resistance and dissipates the stored energy as heat.</p>
         <figure class="doc-figure large">
             <img src="vinyl-record-player/vinyl-008.png" alt="Flyback diode diagram">
             <figcaption><em>image source: https://en.wikipedia.org/wiki/Flyback_diode</em></figcaption>
@@ -525,7 +240,7 @@
             <figcaption><em>basic test code</em></figcaption>
         </figure>
         <p>The PCB works. Now it's time to move onto the firmware. I'll do a little more CAD to get a basic turntable setup working and then I'll connect the hall effect sensor to create a small PID control program.</p>
-        <p id="mechanical"><span class="inline-heading">MECHANICAL DESIGN:</span></p>
+        <p id="mechanical"><span class="inline-heading">Mechanical Design:</span></p>
         <p>This project takes a lot of inspiration from the <a href="http://www.altmann.haan.de/turntable/" target="_blank" rel="noopener">ALTMANN turntable</a>. Before this project, I've never taken the time to research what goes into making good sound on a record player. The turntable must spin smoothly with minimal disturbances and noise. I followed Altmann's setup and found a similar motorcycle intake-valve and valve guide setup to use for the turntable's main bearing.</p>
         <div class="doc-figure-row overlap-grid">
             <div class="column left">
@@ -555,53 +270,62 @@
             <img src="vinyl-record-player/vinyl-015.png" alt="CAD rig for testing platter RPM and PID control">
             <figcaption><em>motor housing + intake valve fix</em></figcaption>
         </figure>
-        <p id="electrical-v2"><span class="inline-heading">MOTOR CONTROL PCB V2:</span></p>
-        <p>So I was testing the US5881 Hall Effect Sensor and I got it working well. I started doing some tests with the assembled setup, toggling the onboard LED and seeing if I could calculate a fake RPM from me waving the magnet back and forth. Then suddenly, the +3.3V rail’s LED turned off, as well as my program. I felt around the PCB. The LDO was burning hot.</p>
-        <p>Seems like I’ll need to redo part of the circuit. I was due for this anyway because I’d like to add more components to it rather than having wires strewn about. And since I know the USB-C PD is faultless, I can remove some redundancies in the board.</p>
-        <p>I’ve outlined my mistake in the image provided.</p>
+        <p id="electrical-v2"><span class="inline-heading">Motor Control PCB V2:</span></p>
+        <p>So I was testing the US5881 Hall Effect Sensor and I got it working well. I started doing some tests with the assembled setup, toggling the onboard LED and seeing if I could calculate a fake RPM from me waving the magnet back and forth. Then suddenly, the +3.3V rail's LED turned off, as well as my program. I felt around the PCB. The LDO was burning hot.</p>
+        <p>Seems like I'll need to redo part of the circuit. I was due for this anyway because I'd like to add more components to it rather than having wires strewn about. And since I know the USB-C PD is faultless, I can remove some redundancies in the board.</p>
+        <p>I've outlined my mistake in the image provided.</p>
         <figure class="doc-figure full-bleed">
             <img src="vinyl-record-player/vinyl-016.png" alt="CAD and slicer view of the updated turntable component">
             <figcaption><em>1. my mistake, 2. calculations, 3. conclusion</em></figcaption>
         </figure>
-        <p>Essentially, I read the datasheet too quickly and used the first number I saw for a “maximum current” instead of actually calculating the power loss and fully understanding the operation of the LDO. If I had read through the datasheet properly, I’d likely have realized that an LDO is unfit for this task.</p>
-    </div>
-    <script>
-        const images = Array.from(document.querySelectorAll('.doc-figure img'));
-        const angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
-        const minDiff = 0.6;
-        let lastAngle = null;
+        <p>Essentially, I read the datasheet too quickly and used the first number I saw for a "maximum current" instead of actually calculating the power loss and fully understanding the operation of the LDO. If I had read through the datasheet properly, I'd likely have realized that an LDO is unfit for this task.</p>
+    </main>
 
-        const pickAngle = () => {
-            const shuffled = angles.slice().sort(() => Math.random() - 0.5);
-            const candidate = shuffled.find((a) => lastAngle === null || Math.abs(a - lastAngle) >= minDiff);
+    <script>
+        // Theme toggle
+        var toggle = document.querySelector('.theme-toggle');
+        toggle.addEventListener('click', function() {
+            var isDark = document.documentElement.hasAttribute('data-theme');
+            if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.removeItem('theme'); }
+            else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+        });
+
+        // Image tilt
+        var images = Array.from(document.querySelectorAll('.doc-figure img'));
+        var angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
+        var minDiff = 0.6;
+        var lastAngle = null;
+        var pickAngle = function() {
+            var shuffled = angles.slice().sort(function() { return Math.random() - 0.5; });
+            var candidate = shuffled.find(function(a) { return lastAngle === null || Math.abs(a - lastAngle) >= minDiff; });
             return candidate !== undefined ? candidate : shuffled[0];
         };
-
-        images.forEach((img) => {
-            const angle = pickAngle();
-            img.style.setProperty('--tilt', `${angle}deg`);
+        images.forEach(function(img) {
+            var angle = pickAngle();
+            img.style.setProperty('--tilt', angle + 'deg');
             lastAngle = angle;
         });
 
-        const tabs = Array.from(document.querySelectorAll('.side-tabs a'));
-        const sections = tabs.map((tab) => document.querySelector(tab.getAttribute('href'))).filter(Boolean);
-        const tabsNav = document.querySelector('.side-tabs');
-        const tabsLinks = document.querySelector('.side-tabs-links');
-        const tabsDot = document.querySelector('.side-tabs-dot');
-        const tabsLine = document.querySelector('.side-tabs-line');
-        const mainContent = document.getElementById('mxmain');
+        // Side tabs
+        var tabs = Array.from(document.querySelectorAll('.side-tabs a'));
+        var sections = tabs.map(function(tab) { return document.querySelector(tab.getAttribute('href')); }).filter(Boolean);
+        var tabsNav = document.querySelector('.side-tabs');
+        var tabsLinks = document.querySelector('.side-tabs-links');
+        var tabsDot = document.querySelector('.side-tabs-dot');
+        var tabsLine = document.querySelector('.side-tabs-line');
+        var mainContent = document.querySelector('main');
 
-        const setActive = (index) => {
-            tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
+        var setActive = function(index) {
+            tabs.forEach(function(tab, i) { tab.classList.toggle('active', i === index); });
         };
 
-        const getSectionAnchorTop = (index) => {
-            const section = sections[index];
+        var getSectionAnchorTop = function(index) {
+            var section = sections[index];
             if (!section) return 0;
-            const doc = document.documentElement;
-            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
-            const sectionStart = Math.max(0, section.offsetTop);
-            const sectionEnd = index < sections.length - 1
+            var doc = document.documentElement;
+            var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            var sectionStart = Math.max(0, section.offsetTop);
+            var sectionEnd = index < sections.length - 1
                 ? Math.max(sectionStart, sections[index + 1].offsetTop)
                 : scrollable;
             return index === sections.length - 1
@@ -609,162 +333,126 @@
                 : sectionStart;
         };
 
-        const getTabCenterY = (index) => {
-            const tab = tabs[index];
+        var getTabCenterY = function(index) {
+            var tab = tabs[index];
             if (!tab || !tabsLine) return 0;
-            const lineRect = tabsLine.getBoundingClientRect();
-            const tabRect = tab.getBoundingClientRect();
+            var lineRect = tabsLine.getBoundingClientRect();
+            var tabRect = tab.getBoundingClientRect();
             return (tabRect.top + tabRect.height / 2) - lineRect.top;
         };
 
-        const getActiveSectionIndex = () => {
-            const scrollTop = Math.max(0, document.documentElement.scrollTop);
+        var getActiveSectionIndex = function() {
+            var scrollTop = Math.max(0, document.documentElement.scrollTop);
             if (scrollTop <= 4) return 0;
-
-            let visibleIndex = -1;
-            for (let i = 0; i < sections.length; i++) {
-                const rect = sections[i].getBoundingClientRect();
-                if (rect.top <= window.innerHeight && rect.bottom >= 0) {
-                    visibleIndex = i;
-                }
+            var visibleIndex = -1;
+            for (var i = 0; i < sections.length; i++) {
+                var rect = sections[i].getBoundingClientRect();
+                if (rect.top <= window.innerHeight && rect.bottom >= 0) visibleIndex = i;
             }
             if (visibleIndex >= 0) return visibleIndex;
-
-            let passedIndex = 0;
-            for (let i = 0; i < sections.length; i++) {
-                const rect = sections[i].getBoundingClientRect();
-                if (rect.top <= 0) {
-                    passedIndex = i;
-                } else {
-                    break;
-                }
+            var passedIndex = 0;
+            for (var i = 0; i < sections.length; i++) {
+                var rect = sections[i].getBoundingClientRect();
+                if (rect.top <= 0) passedIndex = i; else break;
             }
             return passedIndex;
         };
 
-        const positionDotByScroll = () => {
+        var positionDotByScroll = function() {
             if (!tabsDot || !tabs.length) return;
-            const activeIndex = getActiveSectionIndex();
+            var activeIndex = getActiveSectionIndex();
             setActive(activeIndex);
-            tabsDot.style.top = `${getTabCenterY(activeIndex)}px`;
+            tabsDot.style.top = getTabCenterY(activeIndex) + 'px';
         };
 
-        const scrollToRatio = (ratio) => {
-            const doc = document.documentElement;
-            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
-            const clamped = Math.min(1, Math.max(0, ratio));
+        var scrollToRatio = function(ratio) {
+            var doc = document.documentElement;
+            var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            var clamped = Math.min(1, Math.max(0, ratio));
             doc.scrollTop = clamped * scrollable;
         };
 
-        const getRatioFromEvent = (event) => {
+        var getRatioFromEvent = function(event) {
             if (!tabsLinks) return 0;
-            const rect = tabsLinks.getBoundingClientRect();
-            const padding = 6;
-            const usable = Math.max(1, rect.height - padding * 2);
-            const y = Math.min(rect.bottom - padding, Math.max(rect.top + padding, event.clientY));
+            var rect = tabsLinks.getBoundingClientRect();
+            var padding = 6;
+            var usable = Math.max(1, rect.height - padding * 2);
+            var y = Math.min(rect.bottom - padding, Math.max(rect.top + padding, event.clientY));
             return (y - rect.top - padding) / usable;
         };
 
-        const positionTabs = () => {
+        var positionTabs = function() {
             if (!tabsLinks) return;
             if (tabsNav && mainContent) {
-                const navRect = tabsNav.getBoundingClientRect();
-                const contentRect = mainContent.getBoundingClientRect();
-                const availableWidth = Math.floor(contentRect.left - navRect.left - 28);
-                if (availableWidth < 88) {
-                    tabsNav.style.display = 'none';
-                    return;
-                }
+                var navRect = tabsNav.getBoundingClientRect();
+                var contentRect = mainContent.getBoundingClientRect();
+                var availableWidth = Math.floor(contentRect.left - navRect.left - 28);
+                if (availableWidth < 88) { tabsNav.style.display = 'none'; return; }
                 tabsNav.style.display = '';
-                const clampedWidth = Math.max(88, Math.min(160, availableWidth));
-                tabsLinks.style.width = `${clampedWidth}px`;
+                var clampedWidth = Math.max(88, Math.min(160, availableWidth));
+                tabsLinks.style.width = clampedWidth + 'px';
             }
-            const doc = document.documentElement;
-            const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
-            const lineHeight = tabsLinks.clientHeight;
-            const padding = 6;
-            const usable = Math.max(1, lineHeight - padding * 2);
-
-            sections.forEach((section, i) => {
-                const ratio = Math.min(1, Math.max(0, getSectionAnchorTop(i) / scrollable));
-                const y = padding + ratio * usable;
-                tabs[i].style.top = `${y}px`;
+            var doc = document.documentElement;
+            var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            var lineHeight = tabsLinks.clientHeight;
+            var padding = 6;
+            var usable = Math.max(1, lineHeight - padding * 2);
+            sections.forEach(function(section, i) {
+                var ratio = Math.min(1, Math.max(0, getSectionAnchorTop(i) / scrollable));
+                var y = padding + ratio * usable;
+                tabs[i].style.top = y + 'px';
             });
-
-            for (let i = 1; i < tabs.length; i++) {
-                const prevTop = parseFloat(tabs[i - 1].style.top) || 0;
-                const currentTop = parseFloat(tabs[i].style.top) || 0;
-                const prevHeight = tabs[i - 1].offsetHeight || 0;
-                const currentHeight = tabs[i].offsetHeight || 0;
-                const minGap = Math.max(32, (prevHeight + currentHeight) / 2 + 8);
-                if (currentTop - prevTop < minGap) {
-                    tabs[i].style.top = `${prevTop + minGap}px`;
-                }
+            for (var i = 1; i < tabs.length; i++) {
+                var prevTop = parseFloat(tabs[i - 1].style.top) || 0;
+                var currentTop = parseFloat(tabs[i].style.top) || 0;
+                var prevHeight = tabs[i - 1].offsetHeight || 0;
+                var currentHeight = tabs[i].offsetHeight || 0;
+                var minGap = Math.max(32, (prevHeight + currentHeight) / 2 + 8);
+                if (currentTop - prevTop < minGap) tabs[i].style.top = (prevTop + minGap) + 'px';
             }
-
-            const maxTop = padding + usable;
-            for (let i = tabs.length - 2; i >= 0; i--) {
-                const nextTop = parseFloat(tabs[i + 1].style.top) || maxTop;
-                const currentTop = parseFloat(tabs[i].style.top) || 0;
-                const nextHeight = tabs[i + 1].offsetHeight || 0;
-                const currentHeight = tabs[i].offsetHeight || 0;
-                const minGap = Math.max(32, (nextHeight + currentHeight) / 2 + 8);
-                if (nextTop - currentTop < minGap) {
-                    tabs[i].style.top = `${nextTop - minGap}px`;
-                }
+            var maxTop = padding + usable;
+            for (var i = tabs.length - 2; i >= 0; i--) {
+                var nextTop = parseFloat(tabs[i + 1].style.top) || maxTop;
+                var currentTop = parseFloat(tabs[i].style.top) || 0;
+                var nextHeight = tabs[i + 1].offsetHeight || 0;
+                var currentHeight = tabs[i].offsetHeight || 0;
+                var minGap = Math.max(32, (nextHeight + currentHeight) / 2 + 8);
+                if (nextTop - currentTop < minGap) tabs[i].style.top = (nextTop - minGap) + 'px';
             }
-
-            for (let i = 0; i < tabs.length; i++) {
-                const currentTop = parseFloat(tabs[i].style.top) || 0;
-                tabs[i].style.top = `${Math.min(maxTop, Math.max(padding, currentTop))}px`;
+            for (var i = 0; i < tabs.length; i++) {
+                var currentTop = parseFloat(tabs[i].style.top) || 0;
+                tabs[i].style.top = Math.min(maxTop, Math.max(padding, currentTop)) + 'px';
             }
-
-            tabsDot.style.top = `${getTabCenterY(tabs.findIndex((tab) => tab.classList.contains('active')) || 0)}px`;
+            tabsDot.style.top = getTabCenterY(tabs.findIndex(function(tab) { return tab.classList.contains('active'); }) || 0) + 'px';
         };
 
-        const onResize = () => {
-            positionTabs();
-            positionDotByScroll();
-        };
-
+        var onResize = function() { positionTabs(); positionDotByScroll(); };
         positionTabs();
         setActive(0);
         positionDotByScroll();
         window.addEventListener('resize', onResize);
-        window.addEventListener('scroll', () => requestAnimationFrame(positionDotByScroll), { passive: true });
+        window.addEventListener('scroll', function() { requestAnimationFrame(positionDotByScroll); }, { passive: true });
         window.addEventListener('load', onResize);
 
-        const imagesToWatch = Array.from(document.querySelectorAll('.doc-figure img, .doc-figure iframe'));
-        imagesToWatch.forEach((media) => {
+        var imagesToWatch = Array.from(document.querySelectorAll('.doc-figure img, .doc-figure iframe'));
+        imagesToWatch.forEach(function(media) {
             if (media.complete) return;
             media.addEventListener('load', onResize, { once: true });
         });
 
-        let isDragging = false;
-        const onPointerMove = (event) => {
-            if (!isDragging) return;
-            scrollToRatio(getRatioFromEvent(event));
-        };
-        const endDrag = () => {
-            isDragging = false;
-            window.removeEventListener('pointermove', onPointerMove);
-            window.removeEventListener('pointerup', endDrag);
-        };
-
+        var isDragging = false;
+        var onPointerMove = function(event) { if (!isDragging) return; scrollToRatio(getRatioFromEvent(event)); };
+        var endDrag = function() { isDragging = false; window.removeEventListener('pointermove', onPointerMove); window.removeEventListener('pointerup', endDrag); };
         if (tabsLine) {
-            tabsLine.addEventListener('pointerdown', (event) => {
-                isDragging = true;
-                scrollToRatio(getRatioFromEvent(event));
-                window.addEventListener('pointermove', onPointerMove);
-                window.addEventListener('pointerup', endDrag);
+            tabsLine.addEventListener('pointerdown', function(event) {
+                isDragging = true; scrollToRatio(getRatioFromEvent(event));
+                window.addEventListener('pointermove', onPointerMove); window.addEventListener('pointerup', endDrag);
             });
         }
         if (tabsDot) {
-            tabsDot.addEventListener('pointerdown', (event) => {
-                isDragging = true;
-                scrollToRatio(getRatioFromEvent(event));
-                window.addEventListener('pointermove', onPointerMove);
-                window.addEventListener('pointerup', endDrag);
+            tabsDot.addEventListener('pointerdown', function(event) {
+                isDragging = true; scrollToRatio(getRatioFromEvent(event));
+                window.addEventListener('pointermove', onPointerMove); window.addEventListener('pointerup', endDrag);
                 event.preventDefault();
             });
         }

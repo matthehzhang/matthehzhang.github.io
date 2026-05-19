@@ -3,882 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>matthew h zhang</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap" rel="stylesheet">
+    <title>Matthew H Zhang</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <script>
+        (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+    </script>
     <style>
-        @media (min-width: 901px) {
-            html {
-                zoom: 1;
-            }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #121212;
-            color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            padding-top: 0;
-            margin-top: -90px;
-        }
-
         :root {
-            --tooltip-pad-y: 6px;
-            --tooltip-pad-x: 12px;
-            --tooltip-font-size: 13px;
+            --white: #fff;
+            --black: #0a0a0a;
+            --blue: #00f;
+            --orange: #f60;
+            --grey-50: #f5f5f5;
+            --grey-100: #f5f5f5;
+            --grey-200: #e5e5e5;
+            --grey-300: #d4d4d4;
+            --grey-400: #a3a3a3;
+            --grey-500: #737373;
+            --grey-600: #525252;
+            --grey-700: #404040;
+            --grey-800: #262626;
+            --grey-900: #171717;
+            --accent: var(--blue);
+            --inverse-accent: var(--orange);
+            --background: var(--white);
+            --foreground: var(--black);
+            --muted: var(--grey-500);
+            --border: var(--grey-300);
+            --link: var(--grey-500);
+            --link-hover: var(--accent);
+            --surface: var(--grey-200);
+            --surface-hover: var(--grey-100);
+            --surface-elevated: var(--grey-300);
+            --inverted-background: var(--black);
+            --inverted-foreground: var(--white);
+            --inverted-muted: var(--grey-400);
+            --dot-pattern: var(--grey-300);
+            --overlay-bg: #0009;
+            --tiniest: 4px;
+            --tinier: 8px;
+            --tiny: 12px;
+            --smallest: 16px;
+            --smaller: 24px;
+            --small: 32px;
+            --big: 48px;
+            --bigger: 64px;
+            --biggest: 96px;
+            --huge: 128px;
+            --gap: var(--smallest);
+            --margin: var(--smallest);
+            --columns: 6;
+            --radius: 6px;
+            --radius-full: 9999px;
+            --radius-large: 8px;
+            --radius-medium: 6px;
+            --radius-small: 4px;
+            overscroll-behavior-y: none;
+            font-family: Inter, sans-serif;
         }
-
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            transform-origin: center center;
-            position: relative;
-            padding-top: 80px;
-            transition: transform 0.3s ease-out;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 30px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 10px;
-            margin: 0;
-            justify-content: center;
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 10;
-        }
-
-        .social-links a {
-            width: 32px;
-            height: 32px;
-            border: 2px solid #444;
-            border-radius: 8px;
-            display: grid;
-            place-items: center;
-            color: #666;
-            text-decoration: none;
-            transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-            position: relative;
-        }
-
-        .social-links a:hover {
-            color: #E0A800;
-            border-color: #E0A800;
-            transform: translateY(-1px);
-        }
-
-        .social-links svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
-
-        .social-links a.newtab::after {
-            content: "opens in new tab";
-            position: absolute;
-            left: 50%;
-            top: calc(100% + 8px);
-            transform: translateX(-50%);
-            background: #1e1e1e;
-            color: #ccc;
-            border: 1px solid #444;
-            border-radius: 6px;
-            padding: var(--tooltip-pad-y) var(--tooltip-pad-x);
-            font-size: var(--tooltip-font-size);
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-            transition: opacity 0.15s ease, transform 0.15s ease;
-        }
-
-        .social-links a.newtab::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: calc(100% + 2px);
-            transform: translateX(calc(-50% + var(--arrow-offset, 0px)));
-            border: 6px solid transparent;
-            border-bottom-color: #444;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.15s ease;
-        }
-
-        .social-links a.newtab:hover::after,
-        .social-links a.newtab.show-tip::after {
-            opacity: 1;
-            transform: translateX(-50%) translateY(2px);
-        }
-
-        .social-links a.newtab:hover::before,
-        .social-links a.newtab.show-tip::before {
-            opacity: 1;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 1s ease-in;
-            padding-top: 25px;
-            width: 100%;
-            justify-content: flex-start;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .nav-links.visible {
-            opacity: 1;
-        }
-
-        .nav-links a {
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            font-size: 20px;
-            font-weight: 900;
-            text-decoration: none;
-            color: #666;
-            transition: color 0.3s ease;
-            line-height: 1;
-            position: relative;
-            padding: 7px 14px;
-            text-shadow: none;
-            text-transform: uppercase;
-            z-index: 0;
-        }
-
-        .nav-links a.newtab::after {
-            content: "opens in new tab";
-            position: absolute;
-            left: 50%;
-            top: calc(100% + 8px);
-            transform: translateX(-50%);
-            background: #1e1e1e;
-            color: #ccc;
-            border: 1px solid #444;
-            border-radius: 6px;
-            padding: var(--tooltip-pad-y) var(--tooltip-pad-x);
-            font-size: var(--tooltip-font-size);
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-            transition: opacity 0.15s ease, transform 0.15s ease;
-            z-index: 2;
-        }
-
-        .nav-links a.newtab::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: calc(100% + 2px);
-            transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-bottom-color: #444;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.15s ease;
-            z-index: 2;
-        }
-
-        .nav-links a.newtab:hover::after {
-            opacity: 1;
-            transform: translateX(-50%) translateY(2px);
-        }
-
-        .nav-links a.newtab:hover::before {
-            opacity: 1;
-        }
-
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #555;
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        .nav-links a:not(:last-child):hover {
-            color: #E0A800;
-            text-shadow: none;
-        }
-
-        .nav-links a:hover::before {
-            opacity: 0.15;
-        }
-
-        .nav-links a:first-child {
-            margin-left: 19px;
-        }
-
-        .nav-links a:nth-child(2) {
-            margin-left: 0;
-        }
-
-        .nav-links a:last-child {
-            color: #E0A800;
-            margin-left: auto;
-            margin-right: 19px;
-            text-shadow: none;
-        }
-
-        .nav-links a:last-child::before {
-            background-color: #E0A800;
-        }
-
-        .nav-links a:last-child:hover {
-            color: #E0A800;
-            text-shadow: none;
-        }
-
-        .backlinks {
-            position: fixed;
-            top: 24px;
-            left: 24px;
-            z-index: 20;
-            display: inline-flex;
-            align-items: center;
-            gap: 0;
-            font-size: 14px;
-            font-family: Consolas, Menlo, Monaco, 'Courier New', monospace;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            padding: 6px 10px;
-            border-radius: 4px;
-        }
-
-        .backlinks .prompt {
-            margin-right: 6px;
-        }
-
-        .backlinks a {
-            text-decoration: none;
-            color: #E0A800;
-            border-bottom: 1px solid #555;
-            padding-bottom: 1px;
-        }
-
-        .backlinks a:hover {
-            border-bottom-color: #E0A800;
-        }
-
-        .backlinks .prompt {
-            color: #E0A800;
-        }
-
-        .backlinks .sep {
-            color: #555;
-        }
-
-        .backlinks .mobile-note {
-            display: none;
-        }
-
-
-        .container {
-            display: flex;
-            gap: 4px;
-            flex-wrap: nowrap;
-            justify-content: center;
-            padding: 20px;
-            padding-bottom: 0;
-            width: max-content;
-        }
-
-        @media (max-width: 900px) {
-            .backlinks::before {
-                content: "";
-                position: absolute;
-                left: 18px;
-                top: calc(100% + 2px);
-                border: 6px solid transparent;
-                border-bottom-color: #444;
-            }
-
-            .backlinks .mobile-note {
-                display: block;
-                position: absolute;
-                left: clamp(-24px, calc(100vw - 40px - 100%), 0px);
-                top: calc(100% + 8px);
-                width: min(340px, calc(100vw - 16px));
-                padding: 7px 12px;
-                font-size: 14px;
-                line-height: 1.35;
-                color: #ccc;
-                background: #1e1e1e;
-                border: 1px solid #444;
-                border-radius: 6px;
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-                white-space: normal;
-                box-sizing: border-box;
-            }
-
-            .backlinks .mobile-note .alert {
-                color: #E0A800;
-                font-weight: 900;
+        @media (min-width: 769px) {
+            :root {
+                --margin: var(--small);
+                --columns: 12;
             }
         }
-
-        .flap-container {
-            width: 50px;
-            height: 70px;
-            position: relative;
-            perspective: 500px;
+        [data-theme="dark"] {
+            --accent: var(--orange);
+            --inverse-accent: var(--blue);
+            --background: var(--black);
+            --foreground: var(--white);
+            --muted: var(--grey-400);
+            --border: var(--grey-700);
+            --link: var(--grey-400);
+            --surface: var(--grey-900);
+            --surface-hover: var(--grey-800);
+            --surface-elevated: var(--grey-700);
+            --inverted-background: var(--white);
+            --inverted-foreground: var(--black);
+            --inverted-muted: var(--grey-600);
+            --dot-pattern: var(--grey-700);
+            --overlay-bg: #000c;
         }
 
-        .flap {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
+        /* Selection */
+        ::selection { background-color: var(--accent); color: var(--white); }
+
+        /* Base reset */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { width: 100%; max-width: 100%; }
+        *, a, button { cursor: none !important; }
+        .cursor-dot { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: font-size 0.2s ease, transform 0.3s ease; font-size: 18px; font-weight: 300; color: #fff; mix-blend-mode: difference; line-height: 1; }
+        .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.6; }
+        .cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.8; }
+        @keyframes cursorSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .cursor-dot.hovering { font-size: 26px; font-weight: 300; animation: cursorSpin 2s linear infinite; }
+        @media (max-width: 768px) { .cursor-dot, .cursor-ring { display: none; } *, a, button { cursor: auto !important; } }
+        body { background: none; color: var(--foreground); font-feature-settings: "liga" 1, "calt" 1, "ss04" 1, "ss07" 1; font-optical-sizing: auto; text-wrap: pretty; width: 100%; max-width: 100%; min-height: 100vh; margin: 0; padding: 0; font-family: Inter, sans-serif; font-weight: 400; line-height: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        a { color: inherit; text-decoration: inherit; }
+        img, video { max-width: 100%; height: auto; }
+        button, input, select, textarea { font: inherit; color: inherit; background: transparent; }
+        h1 { font-size: var(--bigger); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 100%; }
+        h2 { font-size: var(--small); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 100%; }
+        h3 { font-size: var(--smaller); letter-spacing: -0.01em; margin: 0; font-weight: 500; line-height: 110%; }
+        h4 { letter-spacing: -0.01em; margin: 0; font-size: 18px; font-weight: 500; line-height: 110%; }
+        p { font-size: var(--smallest); letter-spacing: -0.01em; margin: 0; line-height: 140%; }
+        @media (max-width: 768px) { h1 { font-size: var(--big); } h2 { font-size: var(--smaller); } h3 { font-size: 20px; } }
+
+        /* Header with progressive blur below */
+        header { padding: var(--margin); pointer-events: none; position: sticky; top: 0; z-index: 100; }
+        .header-blur { position: absolute; top: 0; left: 0; right: 0; height: calc(100% + 40px); pointer-events: none; }
+        .header-blur > div { position: absolute; inset: 0; }
+        .header-blur > div:nth-child(1) { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: color-mix(in srgb, var(--background) 60%, transparent); mask: linear-gradient(to bottom, black 50%, transparent 80%); -webkit-mask: linear-gradient(to bottom, black 50%, transparent 80%); }
+        .header-blur > div:nth-child(2) { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); mask: linear-gradient(to bottom, black 35%, transparent 65%); -webkit-mask: linear-gradient(to bottom, black 35%, transparent 65%); }
+        .header-blur > div:nth-child(3) { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); mask: linear-gradient(to bottom, black 20%, transparent 50%); -webkit-mask: linear-gradient(to bottom, black 20%, transparent 50%); }
+        .header-inner { pointer-events: auto; justify-content: space-between; align-items: center; display: flex; position: relative; z-index: 1; }
+        .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
+        nav { align-items: center; gap: var(--smaller); display: flex; }
+        .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
+        .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
+        .nav-link:hover { color: var(--foreground); }
+        .theme-toggle { width: 32px; height: 32px; margin-left: var(--tinier); color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; transition: color 0.2s; display: flex; }
+        .theme-toggle:hover { color: var(--foreground); }
+        .icon-sun { display: block; }
+        .icon-moon { display: none; }
+        [data-theme="dark"] .icon-sun { display: none; }
+        [data-theme="dark"] .icon-moon { display: block; }
+
+        @media (max-width: 768px) {
+            header { z-index: 1000; background-color: var(--background); border-bottom: 1px solid var(--border); position: sticky; top: 0; }
+            nav { gap: var(--smallest); }
+            .theme-toggle { width: 24px; height: 24px; }
         }
 
-        .flap-half {
-            width: 100%;
-            height: 50%;
-            position: absolute;
-            left: 0;
-            overflow: hidden;
-            background: #2a2a2a;
-            border: 2px solid #1a1a1a;
+        /* Main */
+        main { min-height: 100vh; padding: var(--big) 4% var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
+        @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
+
+        /* Hero — background image from Canva */
+        .hero-custom { position: relative; height: calc(100vh - 80px); max-height: 820px; user-select: none; -webkit-user-drag: none; overflow: hidden; }
+        .hero-svg-wrap { position: absolute; top: -15vw; left: 0; right: 0; }
+        .hero-svg { width: 100%; height: auto; display: block; pointer-events: none; -webkit-user-drag: none; transform: scale(1.03); }
+        [data-theme="dark"] .hero-svg { transform: scale(1.03); }
+        .hero-ecb-link { position: absolute; left: 2.5%; top: 52%; width: 20.5%; height: 4%; z-index: 2; cursor: pointer; border-radius: 4px; }
+        [data-theme="dark"] .hero-svg-wrap .hero-svg { content: url('hero-bg-dark.svg'); }
+        @media (max-width: 768px) { .hero-custom { height: 60vw; background-size: cover; } }
+
+        /* Section headers */
+        .section-header { border-bottom: 1px solid var(--border); padding-bottom: var(--tiny); }
+        .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 14px; }
+
+        /* Experience and Featured */
+        .experience, .featured { gap: var(--small); flex-direction: column; display: flex; }
+        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
+
+        /* Experience list */
+        .exp-list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+        .exp-item { display: grid; grid-template-columns: 100px 1fr; gap: var(--smaller); padding: var(--smaller) 0; border-bottom: 1px solid var(--border); }
+        .exp-date { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+        .exp-info { display: flex; flex-direction: column; gap: 4px; }
+        .exp-title-row { font-size: var(--smallest); }
+        .exp-role { font-family: 'Cormorant Garamond', serif; font-size: var(--smaller); font-weight: 500; font-style: italic; color: var(--foreground); }
+        .exp-at { color: var(--muted); font-weight: 400; }
+        .exp-company { color: var(--accent); font-weight: 400; }
+        a.exp-company { text-decoration: underline; text-underline-offset: 0.15em; }
+        .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+        @media (max-width: 768px) { .exp-item { grid-template-columns: 60px 1fr; gap: var(--smallest); } }
+
+        /* Featured card — exact Brayden layout */
+        .featured { gap: var(--small); flex-direction: column; display: flex; }
+        .featured-card { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; }
+        .featured-card:hover { background-color: var(--surface-hover); }
+        .featured-card:hover .featured-info, .featured-card:hover .featured-image-wrapper { transform: scale(0.97); }
+        .featured-card:hover .featured-title { color: var(--accent); }
+        .featured-card:hover .featured-image-wrapper img { opacity: 0.9; }
+        .featured-info { gap: var(--tinier); padding: var(--tinier) var(--tiniest); flex-direction: column; justify-content: center; transition: transform 0.3s; display: flex; }
+        .featured-title { font-size: var(--small); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 110%; }
+        .featured-desc { color: var(--muted); margin: 0; font-size: 14px; line-height: 140%; }
+        .featured-footer { justify-content: space-between; align-items: flex-end; gap: var(--tiny); margin-top: auto; display: flex; }
+        .featured-read-more { color: var(--foreground); font-size: 14px; }
+        .featured-year { color: var(--muted); white-space: nowrap; font-size: 14px; }
+        .featured-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); transition: transform 0.3s; position: relative; overflow: hidden; }
+        .featured-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+        @media (min-width: 769px) {
+            .featured-title { font-size: var(--small); }
+            .featured-info { padding: var(--tiny); }
+            .featured-title { font-size: var(--small); }
         }
 
-        .flap-top {
-            top: 0;
-            border-radius: 4px 4px 0 0;
-        }
+        /* Selected */
+        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
+        .project-grid { gap: var(--gap); grid-template-columns: 1fr; display: grid; }
+        @media (min-width: 769px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }
+        .project-card { gap: var(--tiny); flex-direction: column; display: flex; }
+        .project-card-link { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: block; }
+        .project-card-link:hover { background-color: var(--surface-hover); }
+        .project-card-link:hover .project-card-content { transform: scale(0.97); }
+        .project-card-content { gap: var(--tiny); flex-direction: column; transition: transform 0.3s; display: flex; }
+        .project-card-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); position: relative; overflow: hidden; }
+        .project-card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .project-card-info { margin: var(--tiniest); flex-direction: column; gap: 2px; display: flex; }
+        .project-card-info h3 { font-size: var(--smallest); font-weight: 500; margin: 0; }
+        .project-card-meta { font-size: 14px; color: var(--muted); }
+        .project-card-meta .separator { margin: 0 6px; }
+        .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
+        .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
+        .project-card-image { object-fit: cover; width: 100%; height: 100%; transition: opacity 0.3s; }
+        .project-card-info { margin: var(--tiniest); flex-direction: column; gap: 2px; display: flex; }
+        .project-card-info h3 { font-size: var(--smallest); font-weight: 500; margin: 0; }
+        .project-card-meta { font-size: 14px; color: var(--muted); }
+        .project-card-meta .separator { margin: 0 6px; }
+        .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
+        .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
 
-        .flap-bottom {
-            bottom: 0;
-            border-radius: 0 0 4px 4px;
-        }
+        /* Footer */
+        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; }
+        @media (min-width: 769px) { footer { z-index: 0; position: fixed; bottom: 0; left: 0; right: 0; } }
+        @media (max-width: 768px) { footer { position: relative; } }
+        footer a { color: var(--background); transition: opacity 0.15s; text-decoration: none; }
+        footer a:hover { opacity: 0.6; }
+        .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
+        .footer-row { display: flex; justify-content: space-between; align-items: center; gap: var(--big); }
+        .footer-left { display: flex; flex-direction: column; gap: var(--tiny); }
+        .footer-links { display: flex; gap: var(--smallest); font-size: var(--smallest); }
+        .footer-ascii { width: 300px; height: auto; opacity: 0.5; flex-shrink: 0; }
+        [data-theme="dark"] .footer-ascii { content: url(robot-ascii-dark.png); }
+        .footer-sep { opacity: 0.5; }
+        .big-email { color: var(--background); text-underline-offset: 0.2em; letter-spacing: -0.02em; font-size: 24px; font-weight: 500; line-height: 100%; text-decoration: underline #ffffff59; transition: opacity 0.15s; width: fit-content; }
+        .big-email:hover { opacity: 0.85; cursor: ne-resize; }
+        @media (min-width: 769px) { .big-email { font-size: clamp(32px, 5.5vw, 72px); letter-spacing: -0.03em; } }
+        .footer-bottom { display: flex; flex-wrap: wrap; gap: var(--tinier); font-size: 13px; opacity: 0.4; }
+        .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
+        @media (max-width: 768px) { .footer-row { flex-direction: column; } .footer-ascii { display: none; } }
 
-        .flap-content {
-            width: 100%;
-            height: 200%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            font-weight: bold;
-            color: #e0e0e0;
-            position: absolute;
-            left: 0;
-            line-height: 1;
-            padding-bottom: 4px;
-        }
+        /* Page content wrapper and footer spacer */
+        .page-content { z-index: 1; background: var(--background); min-height: 100vh; position: relative; border-radius: 0 0 var(--smaller) var(--smaller); }
+        .footer-spacer { display: none; }
+        @media (min-width: 769px) { .footer-spacer { height: calc(var(--footer-height, 400px) - var(--smaller)); pointer-events: none; display: block; } }
 
-        .flap-top .flap-content {
-            top: 0;
-            transform: translateY(0);
-        }
+        /* Animations */
+        .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animate-in.visible { opacity: 1; transform: translateY(0); }
 
-        .flap-bottom .flap-content {
-            bottom: 0;
-            transform: translateY(0);
+        /* Skeleton shimmer for lazy images */
+        .skeleton {
+            background: var(--surface);
+            background-image: linear-gradient(90deg, var(--surface) 0%, var(--surface-elevated) 50%, var(--surface) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
         }
-
-        .flap-flip {
-            width: 100%;
-            height: 50%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            transform-origin: bottom;
-            transform-style: preserve-3d;
-            animation: flip 0.4s ease-in-out;
-            z-index: 2;
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
-
-        @keyframes flip {
-            0% {
-                transform: rotateX(0deg);
-            }
-            100% {
-                transform: rotateX(-180deg);
-            }
-        }
-
-        .flap-flip .flap-content {
-            width: 100%;
-            height: 200%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            font-weight: bold;
-            color: #e0e0e0;
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: #2a2a2a;
-            border: 2px solid #1a1a1a;
-            border-radius: 4px 4px 0 0;
-            backface-visibility: hidden;
-            line-height: 1;
-            transform: translateY(0);
-            padding-bottom: 4px;
-        }
-
-        .space {
-            width: 20px;
-        }
+        .img-loaded { animation: none; background: none; }
     </style>
 </head>
 <body>
-    <div class="backlinks">
-        <span class="prompt">matthehzhang:~$</span>
-        <span>home</span>
-        <div class="mobile-note"><span class="alert">!!!</span> my website works better on larger screens :)</div>
-    </div>
-<div class="social-links">
-        <a href="https://github.com/matthehzhang" aria-label="GitHub" target="_blank" rel="noopener" class="newtab">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 2c-5.52 0-10 4.58-10 10.23 0 4.52 2.86 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.72-2.78.62-3.37-1.38-3.37-1.38-.46-1.2-1.12-1.52-1.12-1.52-.92-.64.07-.63.07-.63 1.02.07 1.56 1.08 1.56 1.08.9 1.57 2.36 1.12 2.93.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.13-4.56-5.04 0-1.11.38-2.02 1.01-2.73-.1-.26-.44-1.3.1-2.7 0 0 .83-.27 2.72 1.04.79-.22 1.63-.33 2.47-.33.84 0 1.68.11 2.47.33 1.89-1.31 2.72-1.04 2.72-1.04.54 1.4.2 2.44.1 2.7.63.71 1.01 1.62 1.01 2.73 0 3.92-2.34 4.78-4.57 5.03.36.32.68.95.68 1.92 0 1.39-.01 2.51-.01 2.85 0 .27.18.59.69.49 3.98-1.35 6.83-5.18 6.83-9.7C22 6.58 17.52 2 12 2z"/>
-                </svg>
-            </a>
-        <a href="https://linkedin.com/in/matthew-h-zhang" aria-label="LinkedIn" target="_blank" rel="noopener" class="newtab linkedin-link">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-.96 1.82-1.97 3.75-1.97 4 0 4.74 2.63 4.74 6.05V21h-4v-5.25c0-1.25-.02-2.86-1.74-2.86-1.74 0-2.01 1.36-2.01 2.77V21H9z"/>
-                </svg>
-            </a>
-        <a href="matthewzhangresume.pdf" aria-label="Resume" target="_blank" rel="noopener" class="resume-link">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v1.8H8V12zm0 3.5h8v1.8H8v-1.8zM8 8.5h5v1.8H8V8.5z"/>
-                </svg>
-            </a>
+
+<div class="cursor-dot" id="cursorDot">+</div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="page-content">
+    <!-- Header -->
+    <header>
+        <div class="header-blur"><div></div><div></div><div></div></div>
+        <div class="header-inner">
+            <a href="index.html" class="logo">Matthew<br>Zhang</a>
+            <nav>
+                <a href="work.html" class="nav-link">Work</a>
+                <span class="nav-sep">|</span>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://twitter.com/vcmatthewzhang" class="nav-link" target="_blank" rel="noopener">Twitter</a>
+                <a href="matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="icon-sun">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.875 3.375V1.875C10.875 1.57663 10.9935 1.29048 11.2045 1.0795C11.4155 0.868526 11.7016 0.75 12 0.75C12.2984 0.75 12.5845 0.868526 12.7955 1.0795C13.0065 1.29048 13.125 1.57663 13.125 1.875V3.375C13.125 3.67337 13.0065 3.95952 12.7955 4.1705C12.5845 4.38147 12.2984 4.5 12 4.5C11.7016 4.5 11.4155 4.38147 11.2045 4.1705C10.9935 3.95952 10.875 3.67337 10.875 3.375ZM18.375 12C18.375 13.2609 18.0011 14.4934 17.3006 15.5418C16.6001 16.5901 15.6045 17.4072 14.4396 17.8897C13.2747 18.3722 11.9929 18.4985 10.7563 18.2525C9.51967 18.0065 8.38375 17.3994 7.49219 16.5078C6.60063 15.6162 5.99347 14.4803 5.74749 13.2437C5.50151 12.0071 5.62776 10.7253 6.11027 9.56039C6.59278 8.39551 7.40988 7.39988 8.45824 6.69938C9.5066 5.99889 10.7391 5.625 12 5.625C13.6902 5.62674 15.3107 6.29894 16.5059 7.49411C17.7011 8.68928 18.3733 10.3098 18.375 12ZM16.125 12C16.125 11.1842 15.8831 10.3866 15.4298 9.70827C14.9766 9.02992 14.3323 8.50121 13.5786 8.189C12.8248 7.87679 11.9954 7.7951 11.1953 7.95426C10.3951 8.11343 9.66008 8.50629 9.08318 9.08318C8.50629 9.66008 8.11343 10.3951 7.95426 11.1953C7.7951 11.9954 7.87679 12.8248 8.189 13.5786C8.50121 14.3323 9.02992 14.9766 9.70827 15.4298C10.3866 15.8831 11.1842 16.125 12 16.125C13.0936 16.1238 14.1421 15.6888 14.9154 14.9154C15.6888 14.1421 16.1238 13.0936 16.125 12ZM4.82906 6.42094C4.93371 6.52558 5.05794 6.6086 5.19467 6.66523C5.3314 6.72186 5.47794 6.75101 5.62594 6.75101C5.77393 6.75101 5.92048 6.72186 6.0572 6.66523C6.19393 6.6086 6.31817 6.52558 6.42281 6.42094C6.52746 6.31629 6.61047 6.19206 6.6671 6.05533C6.72374 5.9186 6.75289 5.77206 6.75289 5.62406C6.75289 5.47607 6.72374 5.32952 6.6671 5.1928C6.61047 5.05607 6.52746 4.93183 6.42281 4.82719L5.29781 3.70219C5.08647 3.49084 4.79982 3.37211 4.50094 3.37211C4.20205 3.37211 3.91541 3.49084 3.70406 3.70219C3.49272 3.91353 3.37399 4.20018 3.37399 4.49906C3.37399 4.79795 3.49272 5.08459 3.70406 5.29594L4.82906 6.42094ZM4.82906 17.5772L3.70406 18.7022C3.59942 18.8068 3.5164 18.9311 3.45977 19.0678C3.40314 19.2045 3.37399 19.3511 3.37399 19.4991C3.37399 19.6471 3.40314 19.7936 3.45977 19.9303C3.5164 20.0671 3.59942 20.1913 3.70406 20.2959C3.91541 20.5073 4.20205 20.626 4.50094 20.626C4.64893 20.626 4.79548 20.5969 4.9322 20.5402C5.06893 20.4836 5.19317 20.4006 5.29781 20.2959L6.42281 19.1709C6.63416 18.9596 6.75289 18.6729 6.75289 18.3741C6.75289 18.0752 6.63416 17.7885 6.42281 17.5772C6.21147 17.3658 5.92482 17.2471 5.62594 17.2471C5.32705 17.2471 5.04041 17.3658 4.82906 17.5772ZM18.375 6.75C18.5228 6.75012 18.6691 6.72112 18.8057 6.66465C18.9423 6.60819 19.0664 6.52538 19.1709 6.42094L20.2959 5.29594C20.4006 5.19129 20.4836 5.06706 20.5402 4.93033C20.5969 4.7936 20.626 4.64706 20.626 4.49906C20.626 4.35107 20.5969 4.20452 20.5402 4.0678C20.4836 3.93107 20.4006 3.80683 20.2959 3.70219C20.1913 3.59754 20.0671 3.51453 19.9303 3.4579C19.7936 3.40126 19.6471 3.37211 19.4991 3.37211C19.3511 3.37211 19.2045 3.40126 19.0678 3.4579C18.9311 3.51453 18.8068 3.59754 18.7022 3.70219L17.5772 4.82719C17.4189 4.98454 17.311 5.18541 17.2672 5.40425C17.2234 5.62309 17.2457 5.85001 17.3312 6.05615C17.4168 6.2623 17.5617 6.43834 17.7475 6.56189C17.9334 6.68544 18.1518 6.75092 18.375 6.75ZM19.1709 17.5791C18.9596 17.3677 18.6729 17.249 18.3741 17.249C18.0752 17.249 17.7885 17.3677 17.5772 17.5791C17.3658 17.7904 17.2471 18.0771 17.2471 18.3759C17.2471 18.6748 17.3658 18.9615 17.5772 19.1728L18.7022 20.2978C18.9135 20.5092 19.2002 20.6279 19.4991 20.6279C19.7979 20.6279 20.0846 20.5092 20.2959 20.2978C20.5073 20.0865 20.626 19.7998 20.626 19.5009C20.626 19.2021 20.5073 18.9154 20.2959 18.7041L19.1709 17.5791ZM4.5 12C4.5 11.7016 4.38147 11.4155 4.1705 11.2045C3.95952 10.9935 3.67337 10.875 3.375 10.875H1.875C1.57663 10.875 1.29048 10.9935 1.0795 11.2045C0.868526 11.4155 0.75 11.7016 0.75 12C0.75 12.2984 0.868526 12.5845 1.0795 12.7955C1.29048 13.0065 1.57663 13.125 1.875 13.125H3.375C3.67337 13.125 3.95952 13.0065 4.1705 12.7955C4.38147 12.5845 4.5 12.2984 4.5 12ZM12 19.5C11.7016 19.5 11.4155 19.6185 11.2045 19.8295C10.9935 20.0405 10.875 20.3266 10.875 20.625V22.125C10.875 22.4234 10.9935 22.7095 11.2045 22.9205C11.4155 23.1315 11.7016 23.25 12 23.25C12.2984 23.25 12.5845 23.1315 12.7955 22.9205C13.0065 22.7095 13.125 22.4234 13.125 22.125V20.625C13.125 20.3266 13.0065 20.0405 12.7955 19.8295C12.5845 19.6185 12.2984 19.5 12 19.5ZM22.125 10.875H20.625C20.3266 10.875 20.0405 10.9935 19.8295 11.2045C19.6185 11.4155 19.5 11.7016 19.5 12C19.5 12.2984 19.6185 12.5845 19.8295 12.7955C20.0405 13.0065 20.3266 13.125 20.625 13.125H22.125C22.4234 13.125 22.7095 13.0065 22.9205 12.7955C23.1315 12.5845 23.25 12.2984 23.25 12C23.25 11.7016 23.1315 11.4155 22.9205 11.2045C22.7095 10.9935 22.4234 10.875 22.125 10.875Z" fill="currentColor"></path>
+                        </svg>
+                    </span>
+                    <span class="icon-moon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.75 15.0001C21.3482 15.0669 20.9407 15.1002 20.5322 15.0994C18.5439 15.0994 16.6373 14.3091 15.231 12.9028C13.8247 11.4965 13.0344 9.5899 13.0344 7.60156C13.0352 6.57498 13.2554 5.56053 13.6809 4.62453C14.1064 3.68852 14.7275 2.85188 15.5025 2.17031C15.5765 2.10315 15.6283 2.01461 15.6505 1.91716C15.6727 1.81971 15.6642 1.71804 15.626 1.62548C15.5879 1.53291 15.5219 1.45396 15.4369 1.39969C15.352 1.34542 15.2522 1.31848 15.1509 1.32234C12.4611 1.44063 9.92119 2.57972 8.05611 4.50627C6.19103 6.43282 5.13472 8.00879 5.10388 10.7017C5.07303 13.3947 6.07017 16.0012 7.89013 17.9848C9.71008 19.9683 12.2188 21.1788 14.9028 21.3636C16.2452 21.4557 17.5932 21.2675 18.8617 20.8106C20.1301 20.3537 21.2924 19.638 22.2759 18.7069C22.348 18.6393 22.3979 18.5516 22.4191 18.4553C22.4404 18.3589 22.4322 18.2585 22.3956 18.1668C22.3589 18.0751 22.2955 17.9963 22.2131 17.9408C22.1308 17.8854 22.0333 17.8558 21.9337 17.856L21.75 15.0001Z" fill="currentColor"></path>
+                        </svg>
+                    </span>
+                </button>
+            </nav>
         </div>
-    <div class="wrapper">
-        <div class="container" id="display"></div>
-        <div class="nav-links" id="navLinks">
-            <a href="projects.html">projects</a>
-            <a href="about.html">about me</a>
-            <a href="https://ecb.utexas.edu/" target="_blank" rel="noopener">ut austin ecb</a>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <!-- Hero -->
+        <section class="hero-custom">
+            <div class="hero-svg-wrap">
+                <img class="hero-svg" src="hero-bg.svg" alt="" draggable="false">
+                <a href="https://ecb.utexas.edu/" target="_blank" rel="noopener" class="hero-ecb-link" style=""></a>
+            </div>
+        </section>
+        <hr style="border:none; border-top:2px solid var(--foreground); margin:0; opacity:0.15;">
+
+        <!-- Featured Work -->
+        <section class="featured animate-in">
+            <a href="work.html" class="featured-card" style="display:flex; flex-direction:row; align-items:stretch; gap:var(--smaller); padding-left:2%;">
+                <div style="width:280px; flex-shrink:0; display:flex; flex-direction:column; gap:var(--tinier); padding:var(--tiny) 0;">
+                    <h2 class="featured-title" style="white-space:nowrap;">view my work!! &rarr;</h2>
+                    <p class="featured-desc" style="text-align:justify; hyphens:auto;">embedded systems, pcb design, robotics, autonomous control, cad, computer vision, fabrication, illustration, 3d printing, laser cutting, soldering, motor control, firmware, fpga, vlsi, machine learning, python, c, cnc, electronics, graphic design... are you really reading all of this? i also like rock climbing, drawing, fpv drones, minecraft, urbex, and whatever else catches my eye</p>
+                </div>
+                <div style="flex:1; display:flex; gap:var(--tinier); height:250px;">
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%; flex:1;"><video src="drone.mov" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;transform:scale(1.35) translateY(5%);"></video></div>
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%; flex:1;"><video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
+                    <div class="featured-image-wrapper" style="aspect-ratio:auto; height:100%; flex:1;"><video src="frcshot.mov" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video></div>
+                </div>
+            </a>
+        </section>
+
+        <!-- Experience -->
+        <section class="experience animate-in">
+            <h2 class="featured-title" style="margin-bottom:2px; padding-left:2%;">experiences.</h2>
+            <ul class="exp-list">
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer Intern</span> <span class="exp-at">@</span> <a href="https://www.evevehicles.com/" target="_blank" rel="noopener" class="exp-company">eve Vehicles</a></div>
+                        <span class="exp-desc">developing battery quick-swap, charging, and power distribution + sensing systems for power efficient UAVs</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Intern</span> <span class="exp-at">@</span> <a href="https://www.tessventures.xyz/" target="_blank" rel="noopener" class="exp-company">Tess Ventures</a></div>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Hardware &amp; Control Systems Engineer</span> <span class="exp-at">@</span> <span class="exp-company">Texas Aerial Robotics</span></div>
+                        <span class="exp-desc">control systems (pid, mpc, lqr). developing am32-based bldc motor driver board</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2025 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Embedded Systems Engineer</span> <span class="exp-at">@</span> <span class="exp-company">GHOST Robotics</span></div>
+                        <span class="exp-desc">designed novel i2c bridge boards for space reduction and reliability. validated pcbs and board bring-up for custom sensor boards. developing sensor polling firmware for jetson orin nano</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Robotics &amp; Automation Society General Leader</span> <span class="exp-at">@</span> <span class="exp-company">IEEE UT Austin</span></div>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2024 &ndash; 2025</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Team Captain, Design Lead</span> <span class="exp-at">@</span> <span class="exp-company">BagelBytes Robotics</span></div>
+                        <span class="exp-desc">lead mechanical designer of 2 robots, 2025 solo design</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2023 &ndash; 2024</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Design, Hardware, and Business</span> <span class="exp-at">@</span> <span class="exp-company">BagelBytes Robotics</span></div>
+                        <span class="exp-desc">learned onshape cad, introduced 3d printing. created and led weekly afterschool programs in electronics &amp; coding</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+</div>
+
+<div class="footer-spacer"></div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-row">
+            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+            <img class="footer-ascii" src="robot-ascii.png" alt="">
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Matthew Zhang</span>
+            <span class="footer-sep">&middot;</span>
+            <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, heavily inspired by <a href="https://www.braydenpetersen.com/" target="_blank" rel="noopener">Brayden Petersen</a> &amp; <a href="https://marijanapav.com" target="_blank" rel="noopener">Marijana Pavlini&#263;</a></span>
         </div>
     </div>
+</footer>
 
-    <script>
-        const startText = "welcome:&:hello";
-        const targetText = "matthew:h:zhang";
-        
-        function createFlap(startChar, finalChar, index) {
-            const container = document.createElement('div');
-            
-            if (finalChar === ' ') {
-                container.className = 'space';
-                return container;
-            }
-            
-            container.className = 'flap-container';
-            container.dataset.targetChar = finalChar;
-            container.dataset.currentChar = startChar;
-            
-            const flap = document.createElement('div');
-            flap.className = 'flap';
-            
-            // Top half (starts with initial character)
-            const topHalf = document.createElement('div');
-            topHalf.className = 'flap-half flap-top';
-            const topContent = document.createElement('div');
-            topContent.className = 'flap-content';
-            topContent.textContent = startChar;
-            topHalf.appendChild(topContent);
-            
-            // Bottom half (starts with initial character)
-            const bottomHalf = document.createElement('div');
-            bottomHalf.className = 'flap-half flap-bottom';
-            const bottomContent = document.createElement('div');
-            bottomContent.className = 'flap-content';
-            bottomContent.textContent = startChar;
-            bottomHalf.appendChild(bottomContent);
-            
-            flap.appendChild(topHalf);
-            flap.appendChild(bottomHalf);
-            container.appendChild(flap);
-            
-            return container;
-        }
-        
-        function updateStaticFlaps(char) {
-            const topContent = this.querySelector('.flap-top .flap-content');
-            const bottomContent = this.querySelector('.flap-bottom .flap-content');
-            if (topContent) topContent.textContent = char;
-            if (bottomContent) bottomContent.textContent = char;
-        }
+<!-- Preload sounds -->
+<script>
+(function() {
+    // Sound effects
+    var sounds = {
+        click: new Audio('sounds/clickstart.mp3'),
+        clickstart: new Audio('sounds/clickstart.mp3'),
+        clickend: new Audio('sounds/clickend.mp3')
+    };
+    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.8; });
 
-        const resumeLink = document.querySelector('.resume-link');
-        const linkedinLink = document.querySelector('.linkedin-link');
+    function playSound(name) {
+        var s = sounds[name];
+        if (!s) return;
+        var clone = s.cloneNode();
+        clone.volume = s.volume;
+        clone.play().catch(function(){});
+    }
 
-        if (resumeLink && linkedinLink) {
-            resumeLink.addEventListener('mouseenter', () => {
-                const resumeRect = resumeLink.getBoundingClientRect();
-                const linkedinRect = linkedinLink.getBoundingClientRect();
-                const delta = (resumeRect.left + resumeRect.width / 2) - (linkedinRect.left + linkedinRect.width / 2);
-                linkedinLink.style.setProperty('--arrow-offset', `${delta}px`);
-                linkedinLink.classList.add('show-tip');
-            });
-            resumeLink.addEventListener('mouseleave', () => {
-                linkedinLink.classList.remove('show-tip');
-                linkedinLink.style.removeProperty('--arrow-offset');
-            });
+    // Global click sound on links and buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('a, button, .filter-link, .project-card, .featured-card, .nav-link')) {
+            playSound('click');
         }
+    });
 
-        
-        function getCharSequence(startChar, endChar) {
-            const startCode = startChar.charCodeAt(0);
-            const endCode = endChar.charCodeAt(0);
-            const sequence = [];
-            const distance = Math.abs(endCode - startCode);
-            
-            // If the distance is large (like & to h), skip characters to speed it up
-            const skipAmount = distance > 30 ? 3 : 1;
-            
-            if (startCode < endCode) {
-                // Ascending
-                for (let i = startCode; i <= endCode; i += skipAmount) {
-                    sequence.push(String.fromCharCode(i));
-                }
-                // Make sure we end on the target character
-                if (sequence[sequence.length - 1] !== endChar) {
-                    sequence.push(endChar);
-                }
-            } else {
-                // Descending
-                for (let i = startCode; i >= endCode; i -= skipAmount) {
-                    sequence.push(String.fromCharCode(i));
-                }
-                // Make sure we end on the target character
-                if (sequence[sequence.length - 1] !== endChar) {
-                    sequence.push(endChar);
-                }
-            }
-            
-            return sequence;
+    // Theme toggle
+    const toggle = document.querySelector('.theme-toggle');
+    toggle.addEventListener('click', () => {
+        playSound('click');
+        const isDark = document.documentElement.hasAttribute('data-theme');
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.removeItem('theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         }
-        
-        function animateFlap(container, startChar, finalChar) {
-            const sequence = getCharSequence(startChar, finalChar);
-            const baseFlipDuration = 170; // Base duration for each flip in ms
-            let flipIndex = 0;
-            
-            function getFlipDuration(index, total) {
-                // Create an ease-in-ease-out effect
-                // Start slow, speed up in the middle, slow down at the end
-                const progress = index / Math.max(total - 1, 1);
-                
-                if (progress < 0.3) {
-                    // Ease in - start slow, speed up
-                    const easeProgress = progress / 0.3;
-                    return baseFlipDuration * (1 - easeProgress * 0.6); // 100% to 40% speed
-                } else if (progress > 0.7) {
-                    // Ease out - slow down at the end
-                    const easeProgress = (progress - 0.7) / 0.3;
-                    return baseFlipDuration * (0.4 + easeProgress * 0.6); // 40% to 100% speed
-                } else {
-                    // Middle - fast
-                    return baseFlipDuration * 0.4; // 40% speed (fastest)
-                }
-            }
-            
-            function flip() {
-                if (flipIndex >= sequence.length) {
-                    return;
-                }
-                
-                const currentChar = sequence[flipIndex];
-                const duration = getFlipDuration(flipIndex, sequence.length);
-                
-                const flipElement = document.createElement('div');
-                flipElement.className = 'flap-flip';
-                flipElement.style.animation = `flip ${duration}ms ease-in-out`;
-                
-                const content = document.createElement('div');
-                content.className = 'flap-content';
-                content.textContent = currentChar;
-                
-                flipElement.appendChild(content);
-                container.appendChild(flipElement);
-                
-                // Update static flaps to current character
-                updateStaticFlaps.call(container, currentChar);
-                
-                setTimeout(() => {
-                    flipElement.remove();
-                }, duration);
-                
-                flipIndex++;
-                
-                if (flipIndex < sequence.length) {
-                    setTimeout(flip, duration);
-                }
-            }
-            
-            flip();
-        }
-        
-        // Build display with starting text
-        const display = document.getElementById('display');
-        const containers = [];
-        let lastMouseY = 0;
-        const returnTimers = new Map();
-        
-        targetText.split('').forEach((char, index) => {
-            const startChar = startText[index] || 'a';
-            const container = createFlap(startChar, char, index);
-            containers.push(container);
-            display.appendChild(container);
-        });
-        
-        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    });
 
-        // Start animation after mouse movement is detected
-        let hasStarted = false;
-
-        function resetFlapsToTarget() {
-            containers.forEach((container, index) => {
-                const targetChar = targetText[index] || ' ';
-                if (targetChar === ' ') {
-                    container.classList.add('space');
-                    container.dataset.currentChar = ' ';
-                    container.dataset.targetChar = ' ';
-                    return;
-                }
-                container.dataset.targetChar = targetChar;
-                container.dataset.currentChar = targetChar;
-                updateStaticFlaps.call(container, targetChar);
-                container.querySelectorAll('.flap-flip').forEach(el => el.remove());
-            });
+    // Custom cursor
+    var dot = document.getElementById('cursorDot');
+    var ring = document.getElementById('cursorRing');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function followRing() {
+        var tx = mx, ty = my;
+        if (currentTarget && !currentTarget.closest('.big-email') && currentTarget.closest('footer, .footer-links, header, nav, .filter-link')) {
+            var rect = currentTarget.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2;
+            var cy = rect.top + rect.height / 2;
+            tx = mx + (cx - mx) * 0.4;
+            ty = my + (cy - my) * 0.4;
         }
-        
-        function startAnimation() {
-            if (hasStarted) return;
-            hasStarted = true;
-            
-            let maxDuration = 0;
-            
-            containers.forEach((container, index) => {
-                const startChar = startText[index] || 'a';
-                const finalChar = targetText[index];
-                if (finalChar !== ' ') {
-                    // Calculate approximate animation duration
-                    const sequence = getCharSequence(startChar, finalChar);
-                    const duration = sequence.length * 170; // Approximate
-                    maxDuration = Math.max(maxDuration, duration + (index * 50));
-                    
-                    // Stagger each character slightly
-                    setTimeout(() => {
-                        animateFlap(container, startChar, finalChar);
-                    }, index * 50);
-                }
-            });
-            
-            // Fade in navigation links after animation completes
-            const navDelay = 700;
-            setTimeout(() => {
-                document.getElementById('navLinks').classList.add('visible');
-            }, navDelay);
+        rx += (tx - rx) * 0.15; ry += (ty - ry) * 0.15;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(followRing);
+    })();
+    var currentTarget = null;
+    document.addEventListener('mouseover', function(e) {
+        var t = e.target.closest('a, button, [onclick], .project-card-link, .featured-card');
+        if (t === currentTarget) return;
+        currentTarget = t;
+        if (t) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
+        else { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
+    });
+
+    // Draggable canvas items
+    const canvas = document.getElementById('canvas');
+    const canvasImages = [];
+
+    canvasImages.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'canvas-item';
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.width = item.w;
+        img.draggable = false;
+        img.loading = 'lazy';
+        div.appendChild(img);
+
+        // Random position
+        const x = Math.random() * 80 + 5; // 5-85%
+        const y = Math.random() * 70 + 10; // 10-80%
+        const rot = (Math.random() - 0.5) * 30; // -15 to 15
+        div.style.left = x + '%';
+        div.style.top = y + '%';
+        div.style.transform = 'rotate(' + rot + 'deg)';
+
+        canvas.appendChild(div);
+
+        // Staggered fade in
+        setTimeout(() => { div.classList.add('visible'); }, 200 + i * 100);
+
+        // Dragging
+        let isDragging = false;
+        let startX, startY, origLeft, origTop;
+
+        function onStart(e) {
+            isDragging = true;
+            playSound('clickstart');
+            const rect = div.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
+            origLeft = rect.left - canvasRect.left;
+            origTop = rect.top - canvasRect.top;
+            const point = e.touches ? e.touches[0] : e;
+            startX = point.clientX;
+            startY = point.clientY;
+            div.style.left = origLeft + 'px';
+            div.style.top = origTop + 'px';
+            div.style.zIndex = 10;
+            div.style.transition = 'none';
+            e.preventDefault();
         }
 
-        if (isMobile) {
-            setTimeout(startAnimation, 200);
-        }
-        
-        function instantFlip(container, newChar) {
-            const currentChar = container.dataset.currentChar;
-            if (currentChar === newChar) return;
-            
-            const flipDuration = 90;
-            
-            const flipElement = document.createElement('div');
-            flipElement.className = 'flap-flip';
-            flipElement.style.animation = `flip ${flipDuration}ms ease-in-out`;
-            
-            const content = document.createElement('div');
-            content.className = 'flap-content';
-            content.textContent = newChar;
-            
-            flipElement.appendChild(content);
-            container.appendChild(flipElement);
-            
-            // Update static flaps
-            updateStaticFlaps.call(container, newChar);
-            container.dataset.currentChar = newChar;
-            
-            setTimeout(() => {
-                flipElement.remove();
-            }, flipDuration);
-        }
-        
-        function returnToTarget(container) {
-            const currentChar = container.dataset.currentChar;
-            const targetChar = container.dataset.targetChar;
-            
-            if (currentChar !== targetChar) {
-                animateFlap(container, currentChar, targetChar);
-            }
-        }
-        
-        // Check if mouse is near nav links area and show them early
-        function checkNavLinksProximity(e) {
-            const navLinks = document.getElementById('navLinks');
-            if (navLinks.classList.contains('visible')) return;
-
-            const navRect = navLinks.getBoundingClientRect();
-            const proximityThreshold = 100; // pixels
-
-            // Check if mouse is within threshold distance of nav links
-            const nearTop = e.clientY >= navRect.top - proximityThreshold;
-            const nearBottom = e.clientY <= navRect.bottom + proximityThreshold;
-            const nearLeft = e.clientX >= navRect.left - proximityThreshold;
-            const nearRight = e.clientX <= navRect.right + proximityThreshold;
-
-            if (nearTop && nearBottom && nearLeft && nearRight) {
-                navLinks.classList.add('visible');
-            }
+        function onMove(e) {
+            if (!isDragging) return;
+            const point = e.touches ? e.touches[0] : e;
+            const dx = point.clientX - startX;
+            const dy = point.clientY - startY;
+            div.style.left = (origLeft + dx) + 'px';
+            div.style.top = (origTop + dy) + 'px';
+            e.preventDefault();
         }
 
-        // Mouse movement handler for interactive flipping
-        document.addEventListener('mousemove', (e) => {
-            if (!hasStarted) {
-                startAnimation();
-                lastMouseY = e.clientY;
-                return;
-            }
-
-            // Check if cursor is near nav links
-            checkNavLinksProximity(e);
-            
-            const deltaY = e.clientY - lastMouseY;
-            const speed = Math.abs(deltaY);
-            
-            // Check if mouse is over any flap
-            containers.forEach((container) => {
-                if (container.classList.contains('space')) return;
-                
-                const rect = container.getBoundingClientRect();
-                if (e.clientX >= rect.left && e.clientX <= rect.right &&
-                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
-                    
-                    // Clear any pending return timer
-                    if (returnTimers.has(container)) {
-                        clearTimeout(returnTimers.get(container));
-                    }
-                    
-                    // Flip based on direction and speed
-                    if (speed > 2) { // Minimum speed threshold
-                        const currentCharCode = container.dataset.currentChar.charCodeAt(0);
-                        let newCharCode;
-                        
-                        if (deltaY < 0) {
-                            // Moving up - decrease ASCII
-                            newCharCode = currentCharCode - 1;
-                        } else {
-                            // Moving down - increase ASCII
-                            newCharCode = currentCharCode + 1;
-                        }
-                        
-                        // Keep within reasonable ASCII range
-                        newCharCode = Math.max(33, Math.min(126, newCharCode));
-                        const newChar = String.fromCharCode(newCharCode);
-                        
-                        instantFlip(container, newChar);
-                    }
-                    
-                    // Set timer to return to target after mouse leaves
-                    const timer = setTimeout(() => {
-                        returnToTarget(container);
-                    }, 800);
-                    returnTimers.set(container, timer);
-                }
-            });
-            
-            lastMouseY = e.clientY;
-        });
-        
-        // Also trigger on touch for mobile devices
-        document.addEventListener('touchstart', startAnimation, { once: true });
-
-        const scaleIsMobile = window.matchMedia('(max-width: 900px)').matches;
-        let initialMobileScale = null;
-
-        // Dynamic scaling for wrapper
-        function updateWrapperScale() {
-            const wrapper = document.querySelector('.wrapper');
-            if (!wrapper) return;
-
-            // Get the natural width of the wrapper (unscaled)
-            const tempScale = wrapper.style.transform;
-            wrapper.style.transform = 'scale(1)';
-            const naturalWidth = wrapper.scrollWidth;
-            wrapper.style.transform = tempScale || '';
-
-            // Get viewport width with some padding
-            const viewportWidth = window.innerWidth - 40; // 20px padding on each side
-
-            // Calculate scale based on viewport, capped at 0.75 for full screen
-            const scale = Math.min(0.75, viewportWidth / naturalWidth);
-            if (scaleIsMobile) {
-                if (initialMobileScale === null) {
-                    initialMobileScale = scale;
-                }
-                wrapper.style.transform = `scale(${initialMobileScale})`;
-                return;
-            }
-
-            // Apply the scale
-            wrapper.style.transform = `scale(${scale})`;
+        function onEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            playSound('clickend');
+            div.style.zIndex = '';
+            div.style.transition = '';
         }
 
-        // Update scale on load and resize
-        window.addEventListener('load', updateWrapperScale);
-        if (!scaleIsMobile) {
-            window.addEventListener('resize', updateWrapperScale);
-        }
+        div.addEventListener('mousedown', onStart);
+        div.addEventListener('touchstart', onStart, { passive: false });
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('touchmove', onMove, { passive: false });
+        window.addEventListener('mouseup', onEnd);
+        window.addEventListener('touchend', onEnd);
+    });
 
-        // Initial scale update
-        setTimeout(updateWrapperScale, 100);
-
-        // Fix iOS pull-to-refresh glitches by resetting flaps on re-show
-        window.addEventListener('pageshow', () => {
-            resetFlapsToTarget();
-            updateWrapperScale();
-            if (isMobile && !hasStarted) {
-                setTimeout(startAnimation, 200);
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                resetFlapsToTarget();
-                updateWrapperScale();
-            }
-        });
-    </script>
+    document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+    // Measure footer height and set CSS var for spacer
+    function setFooterHeight() {
+        const f = document.querySelector('footer');
+        if (f) document.documentElement.style.setProperty('--footer-height', f.offsetHeight + 'px');
+    }
+    setFooterHeight();
+    window.addEventListener('resize', setFooterHeight);
+    window.addEventListener('load', setFooterHeight);
+    setTimeout(setFooterHeight, 500);
+    setTimeout(setFooterHeight, 1500);
+})();
+</script>
+
 </body>
 </html>

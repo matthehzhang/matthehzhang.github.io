@@ -1,0 +1,153 @@
+[
+  {
+    "slug": "wip-entry-not-accurate",
+    "title": "wip entry, not accurate",
+    "tags": [
+      "PCB Design",
+      "Embedded Systems",
+      "CAD"
+    ],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "In Progress",
+    "outcome": "Custom PCB design and embedded systems for a fully handmade vinyl record player.",
+    "role": "Solo project — all electrical, mechanical, and firmware design.",
+    "skills": [
+      "KiCad",
+      "STM32",
+      "SolidWorks",
+      "Soldering",
+      "Motor Control"
+    ],
+    "motivation": "Wanted to understand every layer of how a record player works by building one from scratch.",
+    "technical": "Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.",
+    "description": "all this to play one album",
+    "link": "projects/vinyl-record-player.html",
+    "preview": "projects/vinyl-record-player/demo.mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/vinyl-record-player/demo.mp4"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/vinyl-000.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/vinyl-001.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/vinyl-002.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/recordplayerPCB.png"
+      }
+    ],
+    "aspect": "1/1",
+    "date": "2026-03-01",
+    "tooltips": [
+      "all this to play one album ^.^",
+      "a diy record player",
+      "custom pcb + firmware"
+    ]
+  },
+  {
+    "slug": "wip-entry-not-accurate",
+    "title": "wip entry, not accurate",
+    "tags": [
+      "Hardware",
+      "Computer Vision",
+      "Python"
+    ],
+    "filters": [
+      "hardware",
+      "software"
+    ],
+    "status": "Complete",
+    "outcome": "A pen that draws on any wall surface using a projector and IR camera tracking.",
+    "role": "Solo project — hardware assembly, computer vision pipeline, and calibration.",
+    "skills": [
+      "Python",
+      "OpenCV",
+      "IR Tracking",
+      "Projector Calibration"
+    ],
+    "motivation": "Wished my whiteboard were larger — wanted infinite drawing space on any surface.",
+    "technical": "IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.",
+    "description": "wished my whiteboard were larger",
+    "link": "projects/wall-projector-pen.html",
+    "preview": "projects/wall-projector-pen/img-000.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-000.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-001.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-002.png"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2025-11-08",
+    "tooltips": [
+      "my whiteboard is now infinite",
+      "opencv + ir tracking"
+    ]
+  },
+  {
+    "slug": "wip-entry-not-accurate",
+    "title": "wip entry, not accurate",
+    "tags": [
+      "Robotics",
+      "CAD",
+      "Competition"
+    ],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "Complete",
+    "outcome": "Designed and built a competition robot for the IEEE Robotathon.",
+    "role": "Mechanical designer — CAD, fabrication, and assembly.",
+    "skills": [
+      "Onshape",
+      "3D Printing",
+      "Laser Cutting",
+      "Mechanical Design"
+    ],
+    "motivation": "Practicing CAD and rapid prototyping under competition constraints.",
+    "technical": "Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.",
+    "description": "practicing some cad",
+    "link": "projects/ieee-robotathon-team-9.html",
+    "preview": "projects/robotathon.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "projects/robotathon.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/ping-pong-launcher-robot/img-000.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/ping-pong-launcher-robot/img-001.jpg"
+      }
+    ],
+    "aspect": "1/1",
+    "date": "2025-10-29",
+    "tooltips": [
+      "practicing some cad :)",
+      "built in 2 weeks"
+    ]
+  }
+]
