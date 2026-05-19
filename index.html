@@ -140,32 +140,10 @@
         main { min-height: 100vh; padding: var(--big) var(--margin) var(--margin); gap: var(--bigger); flex-direction: column; display: flex; }
         @media (max-width: 768px) { main { padding: var(--small) var(--margin) var(--margin); } }
 
-        /* Hero — Canva layout */
-        .hero-custom { position: relative; height: calc(100vh - 80px); }
-        .hero-main { position: absolute; left: 4%; top: 30%; font-family: Inter, sans-serif; font-weight: 700; font-size: clamp(28px, 3.4vw, 45px); line-height: 1.2; letter-spacing: -0.02em; color: var(--foreground); width: 74%; }
-        .hero-at { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 1.6em; color: #2962ff; vertical-align: -0.15em; }
-        .hero-school { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 1.3em; color: #2962ff; }
-        .hero-ecb { position: absolute; left: 4%; top: 50%; font-size: var(--smallest); color: #2962ff; text-decoration: underline; text-underline-offset: 0.15em; }
-        .hero-tree { position: absolute; right: 6%; top: 13%; width: 260px; height: auto; opacity: 0.85; }
-        [data-theme="dark"] .hero-tree { content: url(tree-ascii.png); }
-        [data-theme="dark"] .hero-at, [data-theme="dark"] .hero-school, [data-theme="dark"] .hero-ecb { color: #5c8aff; }
-        .hero-body { position: absolute; left: 4%; top: 68%; width: 28%; font-size: var(--smallest); color: var(--foreground); line-height: 1.65; text-align: justify; }
-        .hero-right { position: absolute; left: 35%; top: 66%; }
-        .hero-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: clamp(26px, 3vw, 40px); color: #2962ff; line-height: 1.05; }
-        .hero-wins { line-height: 1.15; }
-        .hero-accent-lg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: clamp(26px, 3vw, 40px); color: #2962ff; }
-        .hero-accent-lg sup { font-size: 0.45em; vertical-align: super; }
-        .hero-wins-sub { font-size: var(--smallest); color: var(--foreground); vertical-align: 0.15em; }
-        .hero-grad { text-align: right; margin-top: 2px; }
-        .hero-grad-label { font-size: var(--smallest); color: var(--foreground); }
-        [data-theme="dark"] .hero-tagline, [data-theme="dark"] .hero-accent-lg { color: #5c8aff; }
-        @media (max-width: 768px) {
-            .hero-custom { height: auto; padding: var(--big) 0; }
-            .hero-main, .hero-ecb, .hero-tree, .hero-body, .hero-right { position: static; width: 100%; }
-            .hero-main { font-size: 28px; margin-bottom: var(--tinier); }
-            .hero-tree { width: 160px; margin: var(--smaller) 0; }
-            .hero-body { margin: var(--smaller) 0; }
-        }
+        /* Hero — background image from Canva */
+        .hero-custom { position: relative; height: calc(100vh - 80px); background: url('hero-bg.svg') no-repeat center -180px; background-size: 100% auto; user-select: none; -webkit-user-drag: none; }
+        [data-theme="dark"] .hero-custom { filter: invert(1) hue-rotate(180deg); }
+        @media (max-width: 768px) { .hero-custom { height: 60vw; background-size: cover; } }
 
         /* Section headers */
         .section-header { border-bottom: 1px solid var(--border); padding-bottom: var(--tiny); }
@@ -190,13 +168,13 @@
 
         /* Featured card — exact Brayden layout */
         .featured { gap: var(--small); flex-direction: column; display: flex; }
-        .featured-card { gap: var(--tiny); color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; display: flex; flex-direction: column-reverse; }
+        .featured-card { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; }
         .featured-card:hover { background-color: var(--surface-hover); }
         .featured-card:hover .featured-info, .featured-card:hover .featured-image-wrapper { transform: scale(0.97); }
         .featured-card:hover .featured-title { color: var(--accent); }
         .featured-card:hover .featured-image-wrapper img { opacity: 0.9; }
         .featured-info { gap: var(--tinier); padding: var(--tinier) var(--tiniest); flex-direction: column; justify-content: center; transition: transform 0.3s; display: flex; }
-        .featured-title { font-family: 'Cormorant Garamond', serif; font-size: var(--small); letter-spacing: -0.01em; margin: 0; font-weight: 500; font-style: italic; line-height: 110%; }
+        .featured-title { font-size: var(--small); letter-spacing: -0.025em; margin: 0; font-weight: 500; line-height: 110%; }
         .featured-desc { color: var(--muted); margin: 0; font-size: 14px; line-height: 140%; }
         .featured-footer { justify-content: space-between; align-items: flex-end; gap: var(--tiny); margin-top: auto; display: flex; }
         .featured-read-more { color: var(--foreground); font-size: 14px; }
@@ -204,7 +182,7 @@
         .featured-image-wrapper { aspect-ratio: 16 / 9; background: var(--surface); border-radius: var(--tiny); transition: transform 0.3s; position: relative; overflow: hidden; }
         .featured-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
         @media (min-width: 769px) {
-            .featured-card { gap: var(--gap); grid-template-columns: repeat(3, 1fr); display: grid; }
+            .featured-title { font-size: var(--small); }
             .featured-info { padding: var(--tiny); }
             .featured-title { font-size: var(--small); }
         }
@@ -314,46 +292,34 @@
     <!-- Main -->
     <main>
         <!-- Hero -->
-        <section class="hero-custom">
-            <h1 class="hero-main">Hi, I'm Matthew Zhang, Electrical and Computer Engineering &amp; Business Student <span class="hero-at">@</span><span class="hero-school">UT Austin</span></h1>
-            <a href="https://ecb.utexas.edu/" target="_blank" rel="noopener" class="hero-ecb">ecb honors program</a>
-            <img class="hero-tree" src="tree-ascii-dark.png" alt="">
-            <p class="hero-body">robotics, consumer electronics, and startups. flying fpv drones, conversing with friends, illustration, and probably a whole lot more. you'll see me document my work and thoughts here.</p>
-            <div class="hero-right">
-                <div class="hero-tagline">designer turned engineer</div>
-                <div class="hero-wins"><span class="hero-accent-lg">4x, 1<sup>st</sup> place</span> <span class="hero-wins-sub">something-a-thon wins [$7k total]</span></div>
-                <div class="hero-grad"><span class="hero-grad-label">expected</span> <span class="hero-accent-lg">may 2028</span></div>
-            </div>
-        </section>
+        <section class="hero-custom" aria-label="Hi, I'm Matthew Zhang, Electrical and Computer Engineering and Business Student at UT Austin"></section>
 
         <!-- Featured Work -->
         <section class="featured animate-in">
-            <div class="section-header">
-                <span class="section-label">Featured Work</span>
-            </div>
-            <a href="work.html" class="featured-card">
-                <div class="featured-info">
-                    <h2 class="featured-title">Vinyl Record Player</h2>
-                    <p class="featured-desc">Custom PCB design and embedded systems for a fully handmade vinyl record player. all this to play one album.</p>
+            <a href="work.html" class="featured-card" style="display:flex; flex-direction:row; align-items:stretch; gap:var(--smaller);">
+                <div class="featured-info" style="width:320px; flex-shrink:0; display:flex; flex-direction:column; justify-content:space-between; padding:var(--tiny) 0;">
+                    <h2 class="featured-title" style="white-space:nowrap;">view my work!! &rarr;</h2>
+                    <p class="featured-desc" style="margin-top:var(--tinier);">embedded systems, pcb design, robotics, autonomous control, cad, computer vision, fabrication, illustration, 3d printing, laser cutting, soldering, motor control, firmware, fpga, vlsi, machine learning, python, c, cnc, electronics, graphic design... are you really reading all of this? i also like rock climbing, drawing, fpv drones, minecraft, urbex, and whatever else catches my eye</p>
                     <div class="featured-footer">
                         <span class="featured-read-more">Read more &rarr;</span>
-                        <span class="featured-year">In Progress</span>
+                </div>
+                <div style="flex:1; display:flex; gap:var(--tinier); height:250px; min-width:200px;">
+                    <div class="featured-image-wrapper" style="flex:1; height:100%; aspect-ratio:auto;">
+                        <video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
                     </div>
-                </div>
-                <div class="featured-image-wrapper">
-                    <img src="projects/vinyl-record-player/vinyl-000.png" alt="" loading="lazy">
-                </div>
-                <div class="featured-image-wrapper">
-                    <img src="projects/recordplayerPCB.png" alt="" loading="lazy">
+                    <div class="featured-image-wrapper" style="flex:1; height:100%; aspect-ratio:auto;">
+                        <video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+                    </div>
+                    <div class="featured-image-wrapper" style="flex:1; height:100%; aspect-ratio:auto;">
+                        <video src="demo.mp4" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+                    </div>
                 </div>
             </a>
         </section>
 
         <!-- Experience -->
         <section class="experience animate-in">
-            <div class="section-header">
-                <span class="section-label">Experience</span>
-            </div>
+            <h2 class="featured-title" style="margin-bottom:var(--tiny);">experiences.</h2>
             <ul class="exp-list">
                 <li class="exp-item">
                     <span class="exp-date">2026 &ndash; 20xx</span>
