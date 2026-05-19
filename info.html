@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info — Matthew H Zhang</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script>
         (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
     </script>
@@ -379,16 +378,13 @@
 <script>
 (function() {
     // Sound effects
-    var sounds = {
-        click: new Audio('sounds/clickstart.mp3'),
-        clickstart: new Audio('sounds/clickstart.mp3'),
-        clickend: new Audio('sounds/clickend.mp3')
-    };
-    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.8; });
+    var clickSound = new Audio('sounds/clickstart.mp3');
+    clickSound.preload = 'auto'; clickSound.volume = 0.8;
 
-    function playSound(name) {
-        var s = sounds[name];
-        if (!s) return; var clone = s.cloneNode(); clone.volume = s.volume; clone.play().catch(function(){});
+    function playClick() {
+        var clone = clickSound.cloneNode();
+        clone.volume = clickSound.volume;
+        clone.play().catch(function(){});
     }
 
     // Custom cursor
@@ -424,14 +420,14 @@
     // Global click sound on links and buttons
     document.addEventListener('click', function(e) {
         if (e.target.closest('a, button, .filter-link, .project-card, .featured-card, .nav-link')) {
-            playSound('click');
+            playClick();
         }
     });
 
     // Theme toggle
     const toggle = document.querySelector('.theme-toggle');
     toggle.addEventListener('click', () => {
-        playSound('click');
+        playClick();
         const isDark = document.documentElement.hasAttribute('data-theme');
         if (isDark) {
             document.documentElement.removeAttribute('data-theme');

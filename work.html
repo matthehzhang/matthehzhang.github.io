@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work — Matthew H Zhang</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script>
         (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
     </script>
@@ -210,7 +209,6 @@
         .dialog-info { padding: var(--smaller); display: flex; flex-direction: column; gap: var(--tiny); overflow-y: auto; scrollbar-width: none; max-height: 85vh; }
         .dialog-info::-webkit-scrollbar { display: none; }
         @media (max-width: 768px) { .dialog-content { grid-template-columns: 1fr; } .dialog-images { min-height: 250px; } }
-        .dialog-info::-webkit-scrollbar { display: none; }
         .carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--background); border: 1px solid var(--border); color: var(--foreground); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: opacity 0.15s; opacity: 0.7; }
         .carousel-nav:hover { opacity: 1; }
         .carousel-prev { left: var(--tinier); }
@@ -526,18 +524,12 @@
     } // end renderProjects
 
     // Sound effects — use real audio files for clicks, Web Audio for typewriter
-    var sounds = {
-        click: new Audio('sounds/clickstart.mp3'),
-        clickstart: new Audio('sounds/clickstart.mp3'),
-        clickend: new Audio('sounds/clickend.mp3')
-    };
-    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.8; });
+    var clickSound = new Audio('sounds/clickstart.mp3');
+    clickSound.preload = 'auto'; clickSound.volume = 0.8;
 
-    function playSound(name) {
-        var s = sounds[name];
-        if (!s) return;
-        var clone = s.cloneNode();
-        clone.volume = s.volume;
+    function playClick() {
+        var clone = clickSound.cloneNode();
+        clone.volume = clickSound.volume;
         clone.play().catch(function(){});
     }
 
@@ -712,10 +704,8 @@
 
     // Tooltip follows cursor with lag, positioned above cursor centered
     (function followTooltip() {
-        tooltipTx += (mx - tooltipTx) * 0.1;
-        tooltipTy += (my - tooltipTy) * 0.1;
-        tooltipTx += (mx - tooltipTx) * 0.08;
-        tooltipTy += (my - tooltipTy) * 0.08;
+        tooltipTx += (mx - tooltipTx) * 0.15;
+        tooltipTy += (my - tooltipTy) * 0.15;
         tooltip.style.right = (window.innerWidth - tooltipTx + 15) + 'px';
         tooltip.style.left = 'auto';
         tooltip.style.top = (tooltipTy - 50) + 'px';
@@ -725,14 +715,14 @@
     // Global click sound on links and buttons
     document.addEventListener('click', function(e) {
         if (e.target.closest('a, button, .filter-link, .project-card, .featured-card, .nav-link')) {
-            playSound('click');
+            playClick();
         }
     });
 
     // Theme toggle
     var toggle = document.querySelector('.theme-toggle');
     toggle.addEventListener('click', function() {
-        playSound('click');
+        playClick();
         var isDark = document.documentElement.hasAttribute('data-theme');
         if (isDark) {
             document.documentElement.removeAttribute('data-theme');

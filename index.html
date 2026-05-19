@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matthew H Zhang</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
     <script>
         (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
     </script>
@@ -30,7 +30,7 @@
             --background: var(--white);
             --foreground: var(--black);
             --muted: var(--grey-500);
-            --border: var(--grey-300);
+            --border: var(--grey-200);
             --link: var(--grey-500);
             --link-hover: var(--accent);
             --surface: var(--grey-200);
@@ -74,7 +74,7 @@
             --background: var(--black);
             --foreground: var(--white);
             --muted: var(--grey-400);
-            --border: var(--grey-700);
+            --border: var(--grey-800);
             --link: var(--grey-400);
             --surface: var(--grey-900);
             --surface-hover: var(--grey-800);
@@ -171,7 +171,6 @@
         @media (max-width: 768px) { .exp-item { grid-template-columns: 60px 1fr; gap: var(--smallest); } }
 
         /* Featured card — exact Brayden layout */
-        .featured { gap: var(--small); flex-direction: column; display: flex; }
         .featured-card { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; }
         .featured-card:hover { background-color: var(--surface-hover); }
         .featured-card:hover .featured-info, .featured-card:hover .featured-image-wrapper { transform: scale(0.97); }
@@ -191,8 +190,6 @@
             .featured-title { font-size: var(--small); }
         }
 
-        /* Selected */
-        .projects-section { gap: var(--small); padding-bottom: var(--bigger); flex-direction: column; display: flex; }
         .project-grid { gap: var(--gap); grid-template-columns: 1fr; display: grid; }
         @media (min-width: 769px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }
         .project-card { gap: var(--tiny); flex-direction: column; display: flex; }
@@ -209,12 +206,6 @@
         .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
         .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
         .project-card-image { object-fit: cover; width: 100%; height: 100%; transition: opacity 0.3s; }
-        .project-card-info { margin: var(--tiniest); flex-direction: column; gap: 2px; display: flex; }
-        .project-card-info h3 { font-size: var(--smallest); font-weight: 500; margin: 0; }
-        .project-card-meta { font-size: 14px; color: var(--muted); }
-        .project-card-meta .separator { margin: 0 6px; }
-        .project-card-desc { font-size: 14px; color: var(--muted); opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s; }
-        .project-card:hover .project-card-desc { opacity: 0.6; transform: translateY(0); }
 
         /* Footer */
         footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; }
@@ -397,32 +388,26 @@
 <script>
 (function() {
     // Sound effects
-    var sounds = {
-        click: new Audio('sounds/clickstart.mp3'),
-        clickstart: new Audio('sounds/clickstart.mp3'),
-        clickend: new Audio('sounds/clickend.mp3')
-    };
-    Object.values(sounds).forEach(function(s) { s.preload = 'auto'; s.volume = 0.8; });
+    var clickSound = new Audio('sounds/clickstart.mp3');
+    clickSound.preload = 'auto'; clickSound.volume = 0.8;
 
-    function playSound(name) {
-        var s = sounds[name];
-        if (!s) return;
-        var clone = s.cloneNode();
-        clone.volume = s.volume;
+    function playClick() {
+        var clone = clickSound.cloneNode();
+        clone.volume = clickSound.volume;
         clone.play().catch(function(){});
     }
 
     // Global click sound on links and buttons
     document.addEventListener('click', function(e) {
         if (e.target.closest('a, button, .filter-link, .project-card, .featured-card, .nav-link')) {
-            playSound('click');
+            playClick();
         }
     });
 
     // Theme toggle
     const toggle = document.querySelector('.theme-toggle');
     toggle.addEventListener('click', () => {
-        playSound('click');
+        playClick();
         const isDark = document.documentElement.hasAttribute('data-theme');
         if (isDark) {
             document.documentElement.removeAttribute('data-theme');
@@ -461,80 +446,6 @@
         currentTarget = t;
         if (t) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
         else { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
-    });
-
-    // Draggable canvas items
-    const canvas = document.getElementById('canvas');
-    const canvasImages = [];
-
-    canvasImages.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.className = 'canvas-item';
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.width = item.w;
-        img.draggable = false;
-        img.loading = 'lazy';
-        div.appendChild(img);
-
-        // Random position
-        const x = Math.random() * 80 + 5; // 5-85%
-        const y = Math.random() * 70 + 10; // 10-80%
-        const rot = (Math.random() - 0.5) * 30; // -15 to 15
-        div.style.left = x + '%';
-        div.style.top = y + '%';
-        div.style.transform = 'rotate(' + rot + 'deg)';
-
-        canvas.appendChild(div);
-
-        // Staggered fade in
-        setTimeout(() => { div.classList.add('visible'); }, 200 + i * 100);
-
-        // Dragging
-        let isDragging = false;
-        let startX, startY, origLeft, origTop;
-
-        function onStart(e) {
-            isDragging = true;
-            playSound('clickstart');
-            const rect = div.getBoundingClientRect();
-            const canvasRect = canvas.getBoundingClientRect();
-            origLeft = rect.left - canvasRect.left;
-            origTop = rect.top - canvasRect.top;
-            const point = e.touches ? e.touches[0] : e;
-            startX = point.clientX;
-            startY = point.clientY;
-            div.style.left = origLeft + 'px';
-            div.style.top = origTop + 'px';
-            div.style.zIndex = 10;
-            div.style.transition = 'none';
-            e.preventDefault();
-        }
-
-        function onMove(e) {
-            if (!isDragging) return;
-            const point = e.touches ? e.touches[0] : e;
-            const dx = point.clientX - startX;
-            const dy = point.clientY - startY;
-            div.style.left = (origLeft + dx) + 'px';
-            div.style.top = (origTop + dy) + 'px';
-            e.preventDefault();
-        }
-
-        function onEnd() {
-            if (!isDragging) return;
-            isDragging = false;
-            playSound('clickend');
-            div.style.zIndex = '';
-            div.style.transition = '';
-        }
-
-        div.addEventListener('mousedown', onStart);
-        div.addEventListener('touchstart', onStart, { passive: false });
-        window.addEventListener('mousemove', onMove);
-        window.addEventListener('touchmove', onMove, { passive: false });
-        window.addEventListener('mouseup', onEnd);
-        window.addEventListener('touchend', onEnd);
     });
 
     // Intersection Observer for scroll animations
