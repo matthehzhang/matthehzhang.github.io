@@ -80,9 +80,30 @@ class AdminHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as e:
                 self._json_response(500, {'error': str(e)})
 
+        elif self.path == '/api/boats-lock':
+            length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(length))
+            lock_file = os.path.join(DIR, '.boats-locked')
+            if body.get('locked'):
+                open(lock_file, 'w').write('1')
+            else:
+                if os.path.exists(lock_file): os.remove(lock_file)
+            self._json_response(200, {'ok': True, 'locked': body.get('locked')})
+
+        elif self.path == '/api/boats-lock-status':
+            locked = os.path.exists(os.path.join(DIR, '.boats-locked'))
+            self._json_response(200, {'locked': locked})
+
         else:
             self.send_response(404)
             self.end_headers()
+
+    def do_GET(self):
+        if self.path == '/api/boats-lock-status':
+            locked = os.path.exists(os.path.join(DIR, '.boats-locked'))
+            self._json_response(200, {'locked': locked})
+        else:
+            super().do_GET()
 
     def _json_response(self, code, data):
         self.send_response(code)
@@ -101,6 +122,7 @@ import threading
 
 print(f'Portfolio Admin Server running at http://localhost:{PORT}')
 print(f'Admin tool: http://localhost:{PORT}/admin.html')
+print(f'Boats admin: http://localhost:{PORT}/admin-boats.html')
 print(f'Serving from: {DIR}')
 print('Press Ctrl+C to stop.\n')
 

@@ -111,7 +111,7 @@
         .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: var(--smallest); z-index: 5; height: calc(100vh - 68px); }
         .side-tabs-line { width: 2px; background: var(--border); position: relative; border-radius: 2px; cursor: pointer; margin-top: 20px; }
         .side-tabs-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: absolute; left: 50%; transform: translate(-50%, -50%); transition: top 0.2s ease; box-shadow: 0 0 0 4px var(--accent); cursor: pointer; }
-        .side-tabs-links { position: relative; height: 100%; width: 160px; margin-top: 20px; }
+        .side-tabs-links { position: relative; height: 100%; width: 140px; }
         .side-tabs a { text-decoration: none; color: var(--muted); padding: 6px 8px; position: absolute; left: 0; transform: translateY(-50%); transition: color 0.2s ease; display: block; width: 100%; max-width: 100%; white-space: normal; line-height: 1.2; overflow-wrap: anywhere; }
         .side-tabs a:hover { color: var(--foreground); }
         .side-tabs a.active { color: var(--accent); }
@@ -132,6 +132,7 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
                 <a href="../work.html" class="nav-link">Work</a>
+                <a href="../boats.html" class="nav-link">Boats</a>
                 <span class="nav-sep">|</span>
                 <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank">LinkedIn</a>
                 <a href="https://github.com/matthehzhang" class="nav-link" target="_blank">GitHub</a>
@@ -389,7 +390,7 @@
                 var availableWidth = Math.floor(contentRect.left - navRect.left - 28);
                 if (availableWidth < 88) { tabsNav.style.display = 'none'; return; }
                 tabsNav.style.display = '';
-                var clampedWidth = Math.max(88, Math.min(160, availableWidth));
+                var clampedWidth = Math.max(88, Math.min(140, availableWidth));
                 tabsLinks.style.width = clampedWidth + 'px';
             }
             var doc = document.documentElement;

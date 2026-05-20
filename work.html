@@ -98,7 +98,8 @@
 
         /* Base reset */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { width: 100%; max-width: 100%; background: var(--foreground); }
+        html { width: 100%; max-width: 100%; background: var(--foreground); scrollbar-width: none; }
+        html::-webkit-scrollbar { display: none; }
         body { background: none; color: var(--foreground); font-feature-settings: "liga" 1, "calt" 1, "ss04" 1, "ss07" 1; font-optical-sizing: auto; text-wrap: pretty; width: 100%; max-width: 100%; min-height: 100vh; margin: 0; padding: 0; font-family: Inter, sans-serif; font-weight: 400; line-height: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         a { color: inherit; text-decoration: inherit; }
         img, video { max-width: 100%; height: auto; }
@@ -291,6 +292,7 @@
                     </svg>
                 </a>
                 <a href="work.html" class="nav-link active">Work</a>
+                <a href="boats.html" class="nav-link">Boats</a>
                 <span class="nav-sep">|</span>
                 <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">GitHub</a>
@@ -329,7 +331,7 @@
 <footer>
     <div class="footer-content">
         <div class="footer-row">
-            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+            <a href="mailto:matthew.zhang@utexas.edu" class="big-email">matthew.zhang@utexas.edu</a>
             <img class="footer-ascii" src="robot-ascii.png" alt="">
         </div>
         <div class="footer-bottom">

@@ -91,7 +91,8 @@
 
         /* Base reset */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { width: 100%; max-width: 100%; }
+        html { width: 100%; max-width: 100%; scrollbar-width: none; }
+        html::-webkit-scrollbar { display: none; }
         *, a, button { cursor: none !important; }
         .cursor-dot { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: font-size 0.2s ease, transform 0.3s ease; font-size: 18px; font-weight: 300; color: #fff; mix-blend-mode: difference; line-height: 1; }
         .cursor-ring { position: fixed; width: 28px; height: 28px; border: 2px solid #fff; mix-blend-mode: difference; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; opacity: 0.6; }
@@ -142,6 +143,7 @@
 
         /* Hero — background image from Canva */
         .hero-custom { position: relative; height: calc(100vh - 80px); max-height: 820px; user-select: none; -webkit-user-drag: none; overflow: hidden; }
+        .hero-custom::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 20px; background: var(--background); z-index: 1; }
         .hero-svg-wrap { position: absolute; top: -15vw; left: 0; right: 0; }
         .hero-svg { width: 100%; height: auto; display: block; pointer-events: none; -webkit-user-drag: none; transform: scale(1.03); }
         [data-theme="dark"] .hero-svg { transform: scale(1.03); }
@@ -263,6 +265,7 @@
             <a href="index.html" class="logo">Matthew<br>Zhang</a>
             <nav>
                 <a href="work.html" class="nav-link">Work</a>
+                <a href="boats.html" class="nav-link">Boats</a>
                 <span class="nav-sep">|</span>
                 <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">GitHub</a>
@@ -373,7 +376,7 @@
 <footer>
     <div class="footer-content">
         <div class="footer-row">
-            <a href="mailto:matthewzhang@utexas.edu" class="big-email">matthewzhang@utexas.edu</a>
+            <a href="mailto:matthew.zhang@utexas.edu" class="big-email">matthew.zhang@utexas.edu</a>
             <img class="footer-ascii" src="robot-ascii.png" alt="">
         </div>
         <div class="footer-bottom">
