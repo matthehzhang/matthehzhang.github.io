@@ -134,7 +134,7 @@
         .credits a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s; }
         .credits a:hover { color: #fff; }
 
-        .wasd-hint { position: fixed; top: 110px; left: var(--margin); z-index: 50; pointer-events: none; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; opacity: 0.85; }
+        .wasd-hint { position: fixed; bottom: 130px; left: var(--margin); z-index: 50; pointer-events: none; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; opacity: 0.85; }
         .wasd-movement-row { display: flex; align-items: center; gap: 12px; }
         .wasd-movement-row > .controls-label { align-self: flex-end; margin-bottom: 4px; }
         .wasd-keys { display: flex; flex-direction: column; gap: 5px; }
@@ -271,7 +271,7 @@
         </div>
     </div>
     <div class="input-wrap">
-        <input class="sig-input" id="sigInput" type="text" placeholder="sign it — name, @, link (required)" maxlength="60">
+        <input class="sig-input" id="sigInput" type="text" placeholder="your name or handle" maxlength="60">
         <span class="char-count" id="sigCharCount">60</span>
     </div>
     <button class="submit-btn" id="submitBoat">set sail</button>
