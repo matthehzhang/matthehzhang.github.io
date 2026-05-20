@@ -1,5 +1,53 @@
 [
   {
+    "slug": "ieee-robotathon-team-9",
+    "title": "ieee robotathon team #9",
+    "tags": [
+      "Robotics",
+      "CAD",
+      "Competition"
+    ],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "Complete",
+    "outcome": "designed chassis and mechanism in Onshape, 3D printed and laser cut components. developed outer perimeter to help with bang-bang maze routing algorithm. experimented with gears and TPU flywheels for optimal ball trajectory.",
+    "role": "sole designer of mechanical systems, helped develop electronic architecture. worked closely with other members to adjust design to assist task completion.",
+    "skills": [
+      "Onshape",
+      "3D Printing",
+      "Laser Cutting",
+      "Mechanical Design"
+    ],
+    "motivation": "tasked to create a robot that can route mazes autonomously, shoot balls, and compete against others within time constraints",
+    "technical": "Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.",
+    "description": "practicing some cad",
+    "link": "projects/ieee-robotathon-team-9.html",
+    "preview": "projects/robotathon.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "projects/robotathon.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/ieee-robotathon-team-9/IMG_3856.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/ieee-robotathon-team-9/IMG_3866.jpg"
+      }
+    ],
+    "aspect": "1/1",
+    "date": "2025-10-29",
+    "tooltips": [
+      "practicing some cad :)",
+      "first place at ieee robotathon 2025",
+      "software design award too!"
+    ]
+  },
+  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
@@ -129,54 +177,6 @@
     "tooltips": [
       "my whiteboard is now infinite",
       "hacktx 2025"
-    ]
-  },
-  {
-    "slug": "ieee-robotathon-team-9",
-    "title": "ieee robotathon team #9",
-    "tags": [
-      "Robotics",
-      "CAD",
-      "Competition"
-    ],
-    "filters": [
-      "hardware",
-      "design"
-    ],
-    "status": "Complete",
-    "outcome": "designed chassis and mechanism in Onshape, 3D printed and laser cut components. developed outer perimeter to help with bang-bang maze routing algorithm. experimented with gears and TPU flywheels for optimal ball trajectory.",
-    "role": "sole designer of mechanical systems, helped develop electronic architecture. worked closely with other members to adjust design to assist task completion.",
-    "skills": [
-      "Onshape",
-      "3D Printing",
-      "Laser Cutting",
-      "Mechanical Design"
-    ],
-    "motivation": "tasked to create a robot that can route mazes autonomously, shoot balls, and compete against others within time constraints",
-    "technical": "Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.",
-    "description": "practicing some cad",
-    "link": "projects/ieee-robotathon-team-9.html",
-    "preview": "projects/robotathon.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "projects/robotathon.png"
-      },
-      {
-        "type": "image",
-        "src": "projects/ieee-robotathon-team-9/IMG_3856.jpg"
-      },
-      {
-        "type": "image",
-        "src": "projects/ieee-robotathon-team-9/IMG_3866.jpg"
-      }
-    ],
-    "aspect": "1/1",
-    "date": "2025-10-29",
-    "tooltips": [
-      "practicing some cad :)",
-      "first place at ieee robotathon 2025",
-      "software design award too!"
     ]
   }
 ]
