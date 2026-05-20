@@ -1,7 +1,7 @@
 [
   {
-    "slug": "wip-entry-not-accurate",
-    "title": "wip entry, not accurate",
+    "slug": "vinyl-record-player",
+    "title": "vinyl record player",
     "tags": [
       "PCB Design",
       "Embedded Systems",
@@ -9,27 +9,29 @@
     ],
     "filters": [
       "hardware",
+      "software",
       "design"
     ],
     "status": "In Progress",
-    "outcome": "Custom PCB design and embedded systems for a fully handmade vinyl record player.",
-    "role": "sorry not up yet",
+    "outcome": "custom PCB design and embedded systems for a fully handmade vinyl record player. designed a motor driver board, working on a phono preamp, and tonearm assembly. using closed-loop control to regulate 33.33 rpm on platter.",
+    "role": "personal project",
     "skills": [
-      "KiCad",
-      "STM32",
-      "SolidWorks",
-      "Soldering",
-      "Motor Control"
+      "Motor Control",
+      "Control Systems",
+      "Mechanical Design",
+      "Circuit Design",
+      "Embedded Systems",
+      "PCB Layout"
     ],
-    "motivation": "Wanted to understand every layer of how a record player works by building one from scratch.",
+    "motivation": "i received a record player from my TA. i didn't have a record player so i sought to build one. looking forwards to the immense satisfaction of hearing it play for the first time.",
     "technical": "Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.",
     "description": "all this to play one album",
     "link": "projects/vinyl-record-player.html",
-    "preview": "projects/vinyl-record-player/demo.mp4",
+    "preview": "projects/recordplayerPCB.png",
     "media": [
       {
-        "type": "video",
-        "src": "projects/vinyl-record-player/demo.mp4"
+        "type": "image",
+        "src": "projects/recordplayerPCB.png"
       },
       {
         "type": "image",
@@ -42,23 +44,19 @@
       {
         "type": "image",
         "src": "projects/vinyl-record-player/vinyl-002.png"
-      },
-      {
-        "type": "image",
-        "src": "projects/recordplayerPCB.png"
       }
     ],
     "aspect": "1/1",
-    "date": "2026-03-01",
+    "date": "",
     "tooltips": [
-      "all this to play one album ^.^",
+      "all this to play one album",
       "a diy record player",
       "custom pcb + firmware"
     ]
   },
   {
-    "slug": "wip-entry-not-accurate",
-    "title": "wip entry, not accurate",
+    "slug": "wall-projector-pen",
+    "title": "wall projector pen",
     "tags": [
       "Hardware",
       "Computer Vision",
@@ -69,23 +67,30 @@
       "software"
     ],
     "status": "Complete",
-    "outcome": "A pen that draws on any wall surface using a projector and IR camera tracking.",
-    "role": "dsadsadsada",
+    "outcome": "a pen that draws on any wall surface using a projector and LED camera tracking. fiducial markers map pen position to projected canvas.",
+    "role": "embedded systems, circuits, and some software - on hackathon team of 4",
     "skills": [
       "Python",
       "OpenCV",
-      "IR Tracking",
       "Projector Calibration"
     ],
-    "motivation": "Wished my whiteboard were larger — wanted infinite drawing space on any surface.",
+    "motivation": "i love using whiteboards and sometimes i wish i can just draw straight on the wall. that's where the initial idea came from. this project was developed for HackTX 2025.",
     "technical": "IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.",
     "description": "wished my whiteboard were larger",
     "link": "projects/wall-projector-pen.html",
-    "preview": "projects/wall-projector-pen/img-000.png",
+    "preview": "projects/wip-entry-not-accurate/pen.mp4",
     "media": [
       {
+        "type": "video",
+        "src": "projects/wip-entry-not-accurate/pen.mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/wip-entry-not-accurate/pentest.mp4"
+      },
+      {
         "type": "image",
-        "src": "projects/wall-projector-pen/img-000.png"
+        "src": "projects/wip-entry-not-accurate/lightpen.jpeg"
       },
       {
         "type": "image",
@@ -100,12 +105,12 @@
     "date": "2025-11-08",
     "tooltips": [
       "my whiteboard is now infinite",
-      "opencv + ir tracking"
+      "hacktx 2025"
     ]
   },
   {
-    "slug": "wip-entry-not-accurate",
-    "title": "wip entry, not accurate",
+    "slug": "ieee-robotathon-team-9",
+    "title": "ieee robotathon team #9",
     "tags": [
       "Robotics",
       "CAD",
@@ -116,15 +121,15 @@
       "design"
     ],
     "status": "Complete",
-    "outcome": "Designed and built a competition robot for the IEEE Robotathon.",
-    "role": "temp!",
+    "outcome": "designed chassis and mechanism in Onshape, 3D printed and laser cut components. developed outer perimeter to help with bang-bang maze routing algorithm. experimented with gears and TPU flywheels for optimal ball trajectory.",
+    "role": "sole designer of mechanical systems, helped develop electronic architecture. worked closely with other members to adjust design to assist task completion.",
     "skills": [
       "Onshape",
       "3D Printing",
       "Laser Cutting",
       "Mechanical Design"
     ],
-    "motivation": "Practicing CAD and rapid prototyping under competition constraints.",
+    "motivation": "tasked to create a robot that can route mazes autonomously, shoot balls, and compete against others within time constraints",
     "technical": "Designed chassis and mechanism in Onshape, 3D printed and laser cut components, assembled in 2 weeks.",
     "description": "practicing some cad",
     "link": "projects/ieee-robotathon-team-9.html",
@@ -136,18 +141,19 @@
       },
       {
         "type": "image",
-        "src": "projects/ping-pong-launcher-robot/img-000.png"
+        "src": "projects/ieee-robotathon-team-9/IMG_3856.jpg"
       },
       {
         "type": "image",
-        "src": "projects/ping-pong-launcher-robot/img-001.jpg"
+        "src": "projects/ieee-robotathon-team-9/IMG_3866.jpg"
       }
     ],
     "aspect": "1/1",
     "date": "2025-10-29",
     "tooltips": [
       "practicing some cad :)",
-      "built in 2 weeks"
+      "first place at ieee robotathon 2025",
+      "software design award too!"
     ]
   }
 ]
