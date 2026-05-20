@@ -75,11 +75,11 @@
     "technical": "Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.",
     "description": "all this to play one album",
     "link": "projects/vinyl-record-player.html",
-    "preview": "projects/recordplayerPCB.png",
+    "preview": "projects/vinyl-record-player/recordplayerPCB.png",
     "media": [
       {
         "type": "image",
-        "src": "projects/recordplayerPCB.png"
+        "src": "projects/vinyl-record-player/recordplayerPCB.png"
       },
       {
         "type": "image",
