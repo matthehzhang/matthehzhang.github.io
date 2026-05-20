@@ -55,29 +55,6 @@
     ]
   },
   {
-    "slug": "still-wip-and-updating-projects-come-back-later-for-an-actual-list",
-    "title": "still wip, and updating projects! come back later for an actual list",
-    "tags": [],
-    "filters": [],
-    "status": "",
-    "outcome": "",
-    "role": "",
-    "skills": [],
-    "motivation": "",
-    "technical": "",
-    "description": "",
-    "link": "",
-    "preview": "projects/still-wip-and-updating-projects/image.mp4",
-    "media": [
-      {
-        "type": "video",
-        "src": "projects/still-wip-and-updating-projects/image.mp4"
-      }
-    ],
-    "aspect": "3/4",
-    "date": "2026-05-20"
-  },
-  {
     "slug": "ieee-robotathon-team-9",
     "title": "ieee robotathon team #9",
     "tags": [
@@ -178,5 +155,28 @@
       "my whiteboard is now infinite",
       "hacktx 2025"
     ]
+  },
+  {
+    "slug": "still-wip-and-updating-projects-come-back-later-for-an-actual-list",
+    "title": "still wip, and updating projects! come back later for an actual list",
+    "tags": [],
+    "filters": [],
+    "status": "",
+    "outcome": "",
+    "role": "",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects/still-wip-and-updating-projects/image.mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/still-wip-and-updating-projects/image.mp4"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2026-05-20"
   }
 ]
