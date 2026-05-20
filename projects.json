@@ -1,7 +1,7 @@
 [
   {
-    "slug": "still-wip-and-updating-projects-come-back-later-for-an-actual-list",
-    "title": "still wip, and updating projects! come back later for an actual list",
+    "slug": "still-wip-and-adding-projects-day-by-day",
+    "title": "still wip, and adding projects day by day",
     "tags": [],
     "filters": [],
     "status": "",
@@ -20,7 +20,11 @@
       }
     ],
     "aspect": "3/4",
-    "date": "2026-05-20"
+    "date": "2026-05-20",
+    "tooltips": [
+      "come back in a week!",
+      "by then hopefully its updated"
+    ]
   },
   {
     "slug": "vinyl-record-player",
