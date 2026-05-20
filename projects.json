@@ -55,60 +55,6 @@
     ]
   },
   {
-    "slug": "wall-projector-pen",
-    "title": "wall projector pen",
-    "tags": [
-      "Hardware",
-      "Computer Vision",
-      "Python"
-    ],
-    "filters": [
-      "hardware",
-      "software"
-    ],
-    "status": "Complete",
-    "outcome": "a pen that draws on any wall surface using a projector and LED camera tracking. fiducial markers map pen position to projected canvas.",
-    "role": "embedded systems, circuits, and some software - on hackathon team of 4",
-    "skills": [
-      "Python",
-      "OpenCV",
-      "Projector Calibration"
-    ],
-    "motivation": "i love using whiteboards and sometimes i wish i can just draw straight on the wall. that's where the initial idea came from. this project was developed for HackTX 2025.",
-    "technical": "IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.",
-    "description": "wished my whiteboard were larger",
-    "link": "projects/wall-projector-pen.html",
-    "preview": "projects/wip-entry-not-accurate/pen.mp4",
-    "media": [
-      {
-        "type": "video",
-        "src": "projects/wip-entry-not-accurate/pen.mp4"
-      },
-      {
-        "type": "video",
-        "src": "projects/wip-entry-not-accurate/pentest.mp4"
-      },
-      {
-        "type": "image",
-        "src": "projects/wip-entry-not-accurate/lightpen.jpeg"
-      },
-      {
-        "type": "image",
-        "src": "projects/wall-projector-pen/img-001.png"
-      },
-      {
-        "type": "image",
-        "src": "projects/wall-projector-pen/img-002.png"
-      }
-    ],
-    "aspect": "3/4",
-    "date": "2025-11-08",
-    "tooltips": [
-      "my whiteboard is now infinite",
-      "hacktx 2025"
-    ]
-  },
-  {
     "slug": "ieee-robotathon-team-9",
     "title": "ieee robotathon team #9",
     "tags": [
@@ -178,5 +124,59 @@
     ],
     "aspect": "3/4",
     "date": "2026-05-20"
+  },
+  {
+    "slug": "wall-projector-pen",
+    "title": "wall projector pen",
+    "tags": [
+      "Hardware",
+      "Computer Vision",
+      "Python"
+    ],
+    "filters": [
+      "hardware",
+      "software"
+    ],
+    "status": "Complete",
+    "outcome": "a pen that draws on any wall surface using a projector and LED camera tracking. fiducial markers map pen position to projected canvas.",
+    "role": "embedded systems, circuits, and some software - on hackathon team of 4",
+    "skills": [
+      "Python",
+      "OpenCV",
+      "Projector Calibration"
+    ],
+    "motivation": "i love using whiteboards and sometimes i wish i can just draw straight on the wall. that's where the initial idea came from. this project was developed for HackTX 2025.",
+    "technical": "IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.",
+    "description": "wished my whiteboard were larger",
+    "link": "projects/wall-projector-pen.html",
+    "preview": "projects/wip-entry-not-accurate/pen.mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/wip-entry-not-accurate/pen.mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/wip-entry-not-accurate/pentest.mp4"
+      },
+      {
+        "type": "image",
+        "src": "projects/wip-entry-not-accurate/lightpen.jpeg"
+      },
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-001.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/wall-projector-pen/img-002.png"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2025-11-08",
+    "tooltips": [
+      "my whiteboard is now infinite",
+      "hacktx 2025"
+    ]
   }
 ]
