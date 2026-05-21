@@ -150,7 +150,7 @@
       "Projector Calibration"
     ],
     "motivation": "i love using whiteboards and sometimes i wish i can just draw straight on the wall. that's where the initial idea came from. this project was developed for HackTX 2025.",
-    "technical": "IR LED pen tracked by a camera, homography transform maps pen position to projected canvas.",
+    "technical": "",
     "description": "wished my whiteboard were larger",
     "link": "projects/wall-projector-pen.html",
     "preview": "projects/wip-entry-not-accurate/pen.mp4",
