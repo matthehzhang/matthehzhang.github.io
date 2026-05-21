@@ -51,7 +51,7 @@
       "PCB Layout"
     ],
     "motivation": "i received a vinyl record from my TA. i didn't have a record player so i sought to build one. looking forwards to the immense satisfaction of hearing it play for the first time.",
-    "technical": "Designed a motor driver board, phono preamp, and tonearm assembly. Custom 4-layer PCB with power regulation.",
+    "technical": "",
     "description": "all this to play one album",
     "link": "projects/vinyl-record-player.html",
     "preview": "projects/vinyl-record-player/recordplayerPCB.png",
