@@ -142,7 +142,7 @@
       "software"
     ],
     "status": "Complete",
-    "outcome": "a pen that draws on any wall surface using a projector and LED camera tracking. fiducial markers map pen position to projected canvas.",
+    "outcome": "a pen that draws on any wall surface using a projector and LED camera tracking. fiducial markers map pen position to projected canvas. ",
     "role": "embedded systems, circuits, and some software - on hackathon team of 4",
     "skills": [
       "Python",
