@@ -990,6 +990,7 @@
             if (selectedIndex < 0) return;
             const p = projects[selectedIndex];
             p[field] = value;
+            if (field === 'outcome') p.technical = '';
             markUnsaved();
 
             // Auto-gen slug for new projects on title change
