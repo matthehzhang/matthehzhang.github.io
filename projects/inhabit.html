@@ -114,63 +114,11 @@
         </div>
     </header>
 
-    <nav class="side-tabs" aria-label="Project sections">
-        <div class="side-tabs-line">
-            <span class="side-tabs-dot" aria-hidden="true"></span>
-        </div>
-        <div class="side-tabs-links">
-            <a href="#overview">Inhabit</a>
-            <a href="#problem">The Problem</a>
-            <a href="#solution">The Solution</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#universality">Universality</a>
-        </div>
-    </nav>
-
     <main>
-        <h1 id="overview">Inhabit</h1>
+        <h1>Inhabit</h1>
         <p class="meta">Low-cost universal robot teleoperation</p>
         <p class="meta"><strong>STATUS: IN PROGRESS</strong></p>
-        <p>Inhabit is intuitive teleoperation for scalable robotics data. We're building a modular, low-cost teleoperation device that works across different robot platforms — not just one specific arm. The goal is to make collecting high-quality training data for robot learning accessible to everyone, not just labs with $32K budgets.</p>
-
-        <figure class="doc-figure">
-            <img src="inhabit/slide-hero-01.png" alt="Inhabit logo — intuitive teleoperation for scalable robotics data">
-        </figure>
-
-        <p id="problem"><span class="inline-heading">The problem is real:</span><br>Robot learning needs around 1 million hours of training data, and we're nowhere close. Current teleoperation setups like ALOHA 2 cost $32K, are robot-specific, and take days to set up. High-quality teleoperation data costs $136/hour. At $40 per demo, most labs run out of budget before reaching the 800 demos needed just to break even on an ALOHA setup.</p>
-
-        <p>Existing alternatives have their own issues. The SO-101 is cheap but only 5-DOF with known precision limitations — and it's still robot-specific. Meta Quest captures a 6DOF wrist pose but the controller has no physical way to distinguish wrist rotation from arm rotation. The data gap is massive, and it's holding back the entire field.</p>
-
-        <p id="solution"><span class="inline-heading">Our solution:</span><br>Inhabit teleop is comprised of multiple modular joints that can be easily adjusted by the end user to match various robot configurations. Instead of buying a new teleoperation rig for each robot, you reconfigure one device. A standard 8-joint kit covers most common arm and humanoid setups.</p>
-
-        <figure class="doc-figure">
-            <img src="inhabit/slide-modularity-03.png" alt="Inhabit modular joint design">
-            <figcaption><em>modular joints — each one can be adjusted to match different robot configurations</em></figcaption>
-        </figure>
-
-        <p id="how-it-works"><span class="inline-heading">How it works:</span><br>Each joint module houses an MT6701 rotary encoder, connected to an RP2040 microcontroller. The encoder readings are mapped to the target robot's joint space with configurable gains, scaling, offsets, and limits. Commands are published over DDS to either a real robot or a MuJoCo simulation. We built a GUI studio for editing joint mappings and testing with virtual potentiometer sliders before moving to hardware.</p>
-
-        <div class="doc-gallery">
-            <figure class="doc-figure"><img src="inhabit/render1.png" alt="Inhabit teleop rig — full overview"></figure>
-            <figure class="doc-figure"><img src="inhabit/render2.png" alt="Inhabit teleop rig — alternate view"></figure>
-        </div>
-        <div class="doc-gallery">
-            <figure class="doc-figure"><img src="inhabit/render3.png" alt="Inhabit hand mechanism closeup"></figure>
-            <figure class="doc-figure"><img src="inhabit/render4.png" alt="Inhabit joint detail"></figure>
-        </div>
-
-        <p>The hardware is designed to stay inexpensive. At 2,000 units, the estimated unit cost is $36.71 — using off-the-shelf components from Mouser, LCSC, Digikey, and JLCPCB. The shell is injection molded ABS. Retail target is $64.99 per 8-joint kit.</p>
-
-        <p id="universality"><span class="inline-heading">Universal by design:</span><br>The same 8-joint kit can be configured to teleoperate different robots. We've demonstrated compatibility with Universal Robots arms, Hugging Face LeRobot-style arms, and Unitree humanoids — all from the same hardware.</p>
-
-        <figure class="doc-figure">
-            <img src="inhabit/slide-universal-04.png" alt="Inhabit configured for Universal Robots">
-            <figcaption><em>same kit, different robots — buildable with the standard 8 joints</em></figcaption>
-        </figure>
-
-        <p>The firmware runs on an ESP32-S3 reading encoders over I2C, with a Python bridge publishing joint commands via CycloneDDS. The full software stack, GUI tools, and firmware are open source.</p>
-
-        <p><a href="https://github.com/matthehzhang/inhabit_teleop" style="color: var(--accent); text-decoration: underline;">View the source on GitHub</a></p>
+        <p>Page coming soon.</p>
     </main>
 
     <script>
