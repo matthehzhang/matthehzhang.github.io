@@ -302,14 +302,7 @@ const db = firebase.firestore();
 
 // ==================== CONFIG ====================
 const BOAT_AREA = 40, STORAGE_KEY = 'paperboats_data', PUSH_RADIUS = 1.8, PUSH_FORCE = 4.0;
-const SEEDS = [
-    { message:"welcome aboard!", color:"#f5f0e8", x:3, z:8 },
-    { message:"the ocean is full of possibilities", color:"#5ba4cf", x:15, z:-10 },
-    { message:"leave your mark :)", color:"#e86565", x:-12, z:14 },
-    { message:"hello world!", color:"#6bc76b", x:-18, z:-6 },
-    { message:"you found a paper boat!", color:"#b07ed4", x:20, z:8 },
-    { message:"bon voyage ~", color:"#f0a848", x:-6, z:-16 },
-];
+const SEEDS = [];
 function isDark(){return document.documentElement.hasAttribute('data-theme');}
 
 // ==================== RENDERER ====================
