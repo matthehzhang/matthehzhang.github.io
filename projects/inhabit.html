@@ -76,8 +76,19 @@
 
         .doc-figure video { width: calc(100% + 12px); max-width: 980px; height: auto; margin: -6px auto; border-radius: 12px; border: 1px solid var(--border); background: var(--background); clip-path: inset(6px round 12px); transform: translate(4px, 4px) rotate(var(--tilt, 0deg)); }
 
+        .doc-figure.large img { max-width: 980px; }
+        .caption-center { text-align: center; font-size: 15px; color: var(--muted); margin: 6px 0 18px; }
+
         .doc-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 18px 0 22px; }
         .doc-gallery .doc-figure { margin: 0; }
+
+        .doc-figure-row { display: flex; gap: 0; align-items: flex-start; margin: 28px auto; padding: 0; }
+        .doc-figure-row .doc-figure { flex: 1; margin: 0; padding: 0; }
+        .doc-figure-row .doc-figure img { max-width: 100%; }
+        .doc-figure-row .doc-figure:nth-child(1) { transform: translateX(12px) rotate(-0.8deg); z-index: 3; }
+        .doc-figure-row .doc-figure:nth-child(2) { transform: translateY(10px); z-index: 2; }
+        .doc-figure-row .doc-figure:nth-child(3) { transform: translateX(-12px) rotate(0.8deg); z-index: 1; }
+        @media (max-width: 780px) { .doc-figure-row { flex-direction: column; gap: 16px; } .doc-figure-row .doc-figure:nth-child(1), .doc-figure-row .doc-figure:nth-child(2), .doc-figure-row .doc-figure:nth-child(3) { transform: none; } }
 
         /* Side tabs */
         .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: var(--smallest); z-index: 5; height: calc(100vh - 68px); }
@@ -115,10 +126,37 @@
     </header>
 
     <main>
-        <h1>Inhabit</h1>
+        <h1 id="overview">Inhabit</h1>
         <p class="meta">Low-cost universal robot teleoperation</p>
+        <p class="meta">March 2026</p>
         <p class="meta"><strong>STATUS: IN PROGRESS</strong></p>
-        <p>Page coming soon.</p>
+        <p>I met Luke (Yanda) the summer before college, we played games and bonded over our shared experiences captaining robotics teams. When the school year started, I met Youssef in nearly every single one of my classes. We've been deep in current robotics news and have heard from VCs, researchers, and founders alike that the current bottleneck in robotics is good data.</p>
+        <p>I thought I'd try collecting this data myself, finetune a VLA and understand what makes good data … good. I was able to borrow a YAM arm, as well as my robotic team's Oculus Quest to test teleoperation. I found Quest troublesome to use, tried searching online for the leader arm and was shocked to find it was $3,000.</p>
+        <p>So, here we are. The team came together to start developing a cheaper leader arm. Currently, industry solutions work by copying the follower arm and just adding a controller at the end of it. There's tons of waste in using motors or even cheaper servos as joint encoders. We're creating custom hardware that is built directly off of magnetic encoders that allows our teleoperation setup to not waste a single cent.</p>
+        <figure class="doc-figure">
+            <img src="inhabit/pdf-img-1.png" alt="Inhabit BOM breakdown">
+            <figcaption><em>our leader arm includes a motor for haptic feedback</em></figcaption>
+        </figure>
+        <p>Honestly, at the beginning, we were doubtful such a cheap solution could exist. We were surprised it wasn't widespread in the industry yet. There is such a large demand for cheap tools to train robots, yet small startups are having to scrape money to purchase thousands of unnecessary hardware to pilot their robot arms. I experienced this first hand at UT research labs as well as Chris Rilling's (GTM @ Scale AI) stealth startup. We need cheaper solutions to collect robot data, and it's not rocket science.</p>
+        <p id="product"><span class="inline-heading">THE PRODUCT</span></p>
+        <p>Let me explain Inhabit a little more thoroughly. We're creating a build-your-own robot teleoperation tool. The kits we sell are 8 modular joints that can be rearranged to fit a 1-to-1 joint mapping of any robot arm. We aim to keep the cost of the product below a single Quest controller on eBay.</p>
+        <figure class="doc-figure large" style="padding: 0;">
+            <img src="inhabit/pdf-img-2.png" alt="Quest controllers on eBay" style="max-width: 100%; width: 100%;">
+        </figure>
+        <p>Here are some examples about how Inhabit could be customized. We plan to develop custom software on a needs basis – as new users need new plug-and-play software for a different brand of robot arm, we'll develop it, until we have a large library of all types of arms that our product is instantly compatible with. Just like we did with the Unitree, we want the setup to take under 10 minutes for a completely new user.</p>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="inhabit/pdf-img-3.png" alt="Inhabit for Universal Robots">
+            </figure>
+            <figure class="doc-figure">
+                <img src="inhabit/pdf-img-4.png" alt="Inhabit for Hugging Face">
+            </figure>
+            <figure class="doc-figure">
+                <img src="inhabit/pdf-img-5.png" alt="Inhabit for Unitree">
+            </figure>
+        </div>
+        <p class="caption-center"><em>some example configurations</em></p>
+        <p>We're looking forward to getting Inhabit out this summer, and fostering the growth of robotics and physical AI.</p>
     </main>
 
     <script>
