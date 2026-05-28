@@ -84,10 +84,12 @@
         .doc-gallery .doc-figure { margin: 0; }
 
         .video-wrap { position: relative; margin: 28px auto; padding: 0 0 40px; overflow: visible; }
-        .video-wrap .doc-figure { position: relative; z-index: 10; }
+        .video-wrap .doc-figure { position: relative; z-index: 10; max-width: 1000px; margin: 0 -50px; width: calc(100% + 100px); }
         .scatter-img { position: absolute; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 4px; z-index: 1; }
         [data-theme="dark"] .scatter-img { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        .scatter-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .scatter-img { background: var(--background); }
+        .scatter-img img { width: 100%; height: 100%; object-fit: cover; display: block; mix-blend-mode: multiply; opacity: 0.85; }
+        [data-theme="dark"] .scatter-img img { mix-blend-mode: screen; opacity: 0.4; }
         /* left side - spreading horizontally outward */
         .scatter-img:nth-child(1)  { width: 16vw; top: 15%;   left: -6vw;   transform: rotate(-5deg); }
         .scatter-img:nth-child(2)  { width: 13vw; top: 25%;   left: -18vw;  transform: rotate(-9deg); }
@@ -95,7 +97,7 @@
         .scatter-img:nth-child(4)  { width: 22vw; top: 55%;   left: -20vw;  transform: rotate(-11deg); }
         .scatter-img:nth-child(5)  { width: 17vw; top: 65%;   left: -8vw;   transform: rotate(-7deg); }
         /* right side - spreading horizontally outward */
-        .scatter-img:nth-child(6)  { width: 19vw; top: 10%;   right: -13vw; transform: rotate(6deg); }
+        .scatter-img:nth-child(6)  { width: 19vw; top: 10%;   right: -13vw; transform: rotate(6deg) scaleX(-1); }
         .scatter-img:nth-child(7)  { width: 16vw; top: 28%;   right: -19vw; transform: rotate(10deg); }
         .scatter-img:nth-child(8)  { width: 18vw; top: 90%;   right: 12%;   transform: rotate(4deg); }
         .scatter-img:nth-child(9)  { width: 15vw; top: 55%;   right: -22vw; transform: rotate(8deg); }
