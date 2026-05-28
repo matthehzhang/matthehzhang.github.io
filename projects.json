@@ -130,6 +130,61 @@
     ]
   },
   {
+    "slug": "frc-robot",
+    "title": "solo-designing a robot",
+    "tags": [
+      "CAD",
+      "Mechanical Design",
+      "FIRST Robotics"
+    ],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "Complete",
+    "outcome": "solo-designed an $8,000, 125 lbs. robot. 100+ sheet metal parts, 7 custom gearboxes, chain-run cascading elevators, four-bar parallel linkages, and more. won awards at state level and ranked top 29% worldwide with few people and no mentors.",
+    "role": "nearly a personal project",
+    "skills": [
+      "CAD",
+      "Sheet Metal Design",
+      "Gearbox Design",
+      "Mechanical Design"
+    ],
+    "motivation": "learned CAD the semester before and wanted to put self-taught skills to the test.",
+    "technical": "",
+    "description": "",
+    "link": "projects/frc-robot.html",
+    "preview": "projects/frc-robot/IMG_7197.mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/frc-robot/IMG_7197.mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/frc-robot/IMG_7886.mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/frc-robot/IMG_7850.mp4"
+      },
+      {
+        "type": "image",
+        "src": "projects/frc-robot/imdsdsaage.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/frc-robot/oops.jpg"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2025-01-07",
+    "tooltips": [
+      "go frc9400!",
+      "125 lbs and $8,000 of learning"
+    ]
+  },
+  {
     "slug": "wall-projector-pen",
     "title": "wall projector pen",
     "tags": [
