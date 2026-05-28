@@ -83,6 +83,27 @@
         .doc-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 18px 0 22px; }
         .doc-gallery .doc-figure { margin: 0; }
 
+        .video-wrap { position: relative; margin: 28px auto; padding: 0 0 40px; overflow: visible; }
+        .video-wrap .doc-figure { position: relative; z-index: 10; }
+        .scatter-img { position: absolute; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 4px; z-index: 1; }
+        [data-theme="dark"] .scatter-img { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .scatter-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* left side - spreading horizontally outward */
+        .scatter-img:nth-child(1)  { width: 16vw; top: 15%;   left: -6vw;   transform: rotate(-5deg); }
+        .scatter-img:nth-child(2)  { width: 13vw; top: 25%;   left: -18vw;  transform: rotate(-9deg); }
+        .scatter-img:nth-child(3)  { width: 18vw; top: 88%;   left: 12%;    transform: rotate(-3deg); }
+        .scatter-img:nth-child(4)  { width: 22vw; top: 55%;   left: -20vw;  transform: rotate(-11deg); }
+        .scatter-img:nth-child(5)  { width: 17vw; top: 65%;   left: -8vw;   transform: rotate(-7deg); }
+        /* right side - spreading horizontally outward */
+        .scatter-img:nth-child(6)  { width: 19vw; top: 10%;   right: -13vw; transform: rotate(6deg); }
+        .scatter-img:nth-child(7)  { width: 16vw; top: 28%;   right: -19vw; transform: rotate(10deg); }
+        .scatter-img:nth-child(8)  { width: 18vw; top: 90%;   right: 12%;   transform: rotate(4deg); }
+        .scatter-img:nth-child(9)  { width: 15vw; top: 55%;   right: -22vw; transform: rotate(8deg); }
+        .scatter-img:nth-child(10) { width: 22vw; top: 68%;   right: -9vw;  transform: rotate(12deg); }
+        @media (max-width: 720px) {
+            .scatter-img { display: none; }
+        }
+
         /* Side tabs */
         .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: var(--smallest); z-index: 5; height: calc(100vh - 68px); }
         .side-tabs-line { width: 2px; background: var(--border); position: relative; border-radius: 2px; cursor: pointer; margin-top: 20px; }
@@ -128,14 +149,26 @@
         <p class="meta"><strong>STATUS: COMPLETE</strong></p>
         <p>The FIRST Robotics Competition game of 2025 was just announced. The wind was howling outside, the thunder booming — just kidding this is California, the weather was perfect and it wasn't even below 70 degrees.</p>
         <p>Anyways, this project is something that is very dear to me, because it is not only my first fully personal project, it was also a $8,000 125 lbs. beast that bent poles and almost got disqualified for puncturing game pieces on the field (AKA, it was cool af). It was still one of my first exposures to engineering, I only learned CAD the semester before, and it was time to put my self-taught skills to the test.</p>
-        <p>I don't have the time to fully document it right now, instead, here's part of a video that I made in the past for a school project that included snippets of the process. I designed all the hardware, ordered all the parts, and enlisted some amazing friends to help me during assembly. In total, in my senior year, I've designed 100+ sheet metal parts, 7 fully custom gearboxes, as well as mechanisms like chain-run cascading elevators, four-bar parallel linkages, and so much more. My life changed in my senior year of high school, it's never too late.</p>
+        <p>I don't have the time to fully document it right now, instead, here's part of a video that I made in the past for a school project that included snippets of the process. I designed all the hardware, ordered all the parts, and enlisted some amazing friends to help me during assembly. In total, in my senior year, I've designed 100+ sheet metal parts, 7 fully custom gearboxes, as well as mechanisms like chain-run cascading elevators, four-bar parallel linkages, and so much more. I learned all these things, while building up a robotics community and leading many STEM exposure programs inside and outside my neighborhood.</p>
         <p><a href="https://cad.onshape.com/documents/f63aaab1dce7fbbc209f4ce7/w/6240f440dc325a45c0069df0/e/70dee02bf01ab244edbd843e?renderMode=0&uiState=6a18059d9a2d1b198fab8ad8" target="_blank" rel="noopener">View the CAD on Onshape &rarr;</a></p>
-        <figure class="doc-figure">
-            <video id="hero-video" src="frc-robot/baygull.mp4" controls></video>
-            <div class="play-overlay" id="play-overlay" onclick="document.getElementById('hero-video').play(); this.style.display='none';">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.4)"/><polygon points="26,20 26,44 46,32" fill="white"/></svg>
-            </div>
-        </figure>
+        <div class="video-wrap">
+            <div class="scatter-img"><img src="frc-robot/cadding.jpg" alt="CAD workspace"></div>
+            <div class="scatter-img"><img src="frc-robot/outreachccad.jpg" alt="Teaching kids CAD"></div>
+            <div class="scatter-img"><img src="frc-robot/cadmax.jpg" alt="CAD on screen"></div>
+            <div class="scatter-img"><img src="frc-robot/bigtoss.jpg" alt="Group celebration"></div>
+            <div class="scatter-img"><img src="frc-robot/coding.jpg" alt="Kids coding"></div>
+            <div class="scatter-img"><img src="frc-robot/class.jpg" alt="Classroom session"></div>
+            <div class="scatter-img"><img src="frc-robot/arduino.jpg" alt="Teaching Arduino"></div>
+            <div class="scatter-img"><img src="frc-robot/outreaching.jpg" alt="Parts and assembly"></div>
+            <div class="scatter-img"><img src="frc-robot/present.jpg" alt="Panel presentation"></div>
+            <div class="scatter-img"><img src="frc-robot/outreach.jpg" alt="Team photo"></div>
+            <figure class="doc-figure">
+                <video id="hero-video" src="frc-robot/baygull.mp4" controls></video>
+                <div class="play-overlay" id="play-overlay" onclick="document.getElementById('hero-video').play(); this.style.display='none';">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.4)"/><polygon points="26,20 26,44 46,32" fill="white"/></svg>
+                </div>
+            </figure>
+        </div>
     </main>
 
     <script>
