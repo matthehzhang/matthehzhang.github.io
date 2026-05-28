@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FRC Robot — Matthew H Zhang</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script>(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
+    <style>
+        :root {
+            --white: #fff;
+            --black: #0a0a0a;
+            --grey-200: #e5e5e5;
+            --grey-300: #d4d4d4;
+            --grey-400: #a3a3a3;
+            --grey-500: #737373;
+            --grey-700: #404040;
+            --grey-800: #262626;
+            --grey-900: #171717;
+            --background: var(--white);
+            --foreground: var(--black);
+            --muted: var(--grey-500);
+            --border: var(--grey-300);
+            --accent: #00f;
+            --tiniest: 4px; --tinier: 8px; --tiny: 12px; --smallest: 16px; --smaller: 24px; --small: 32px; --big: 48px; --bigger: 64px;
+            --margin: var(--smallest);
+            --columns: 6;
+        }
+        [data-theme="dark"] {
+            --accent: #f60;
+            --background: var(--black);
+            --foreground: var(--white);
+            --muted: var(--grey-400);
+            --border: var(--grey-700);
+        }
+        @media (min-width: 769px) { :root { --margin: var(--small); --columns: 12; } }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { width: 100%; }
+        body { background: var(--background); color: var(--foreground); font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        a { color: inherit; text-decoration: inherit; }
+        img { max-width: 100%; height: auto; border-radius: 6px; }
+
+        /* Header */
+        header { padding: var(--margin); pointer-events: none; position: relative; }
+        .header-inner { pointer-events: auto; justify-content: flex-end; align-items: center; display: flex; }
+        .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; text-decoration: none; }
+        nav { align-items: center; gap: var(--smaller); display: flex; }
+        .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
+        .back-button { width: 32px; height: 32px; margin-right: var(--tinier); color: var(--muted); display: flex; justify-content: center; align-items: center; transition: color 0.2s; text-decoration: none; }
+        .back-button:hover { color: var(--foreground); }
+        .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
+        .nav-link:hover { color: var(--foreground); }
+        .theme-toggle { width: 32px; height: 32px; margin-left: var(--tinier); color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; transition: color 0.2s; display: flex; }
+        .theme-toggle:hover { color: var(--foreground); }
+        .icon-sun { display: block; } .icon-moon { display: none; }
+        [data-theme="dark"] .icon-sun { display: none; } [data-theme="dark"] .icon-moon { display: block; }
+        @media (max-width: 768px) { header { z-index: 1000; background-color: var(--background); border-bottom: 1px solid var(--border); position: sticky; top: 0; } nav { gap: var(--smallest); } }
+
+        /* Main content */
+        main { max-width: 900px; margin: 0 auto; padding: var(--big) var(--margin) var(--margin); }
+
+        p { font-size: 18px; line-height: 1.6; margin-bottom: 14px; }
+
+        .inline-heading { font-weight: 600; font-size: 20px; display: inline-block; margin-top: 12px; }
+
+        h1 { font-size: 28px; line-height: 1.2; margin-bottom: 10px; font-weight: 600; }
+
+        .meta { font-size: 15px; color: var(--muted); margin-bottom: 0; line-height: 1.8; }
+        .meta + .meta { margin-top: 0; }
+        .meta + p { margin-top: 10px; }
+
+        .doc-figure { margin: 28px auto; display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 6%; }
+        .doc-figure img { width: calc(100% + 12px); max-width: 980px; height: auto; margin: -6px auto; border-radius: 12px; border: 1px solid var(--border); background: var(--background); clip-path: inset(6px round 12px); transform: translate(4px, 4px) rotate(var(--tilt, 0deg)); }
+        .doc-figure figcaption { font-size: 15px; color: var(--muted); max-width: 980px; width: calc(100% + 12px); margin: 0 auto; text-align: center; }
+
+        .doc-figure video { width: calc(100% + 12px); max-width: 980px; height: auto; margin: -6px auto; border-radius: 12px; border: 1px solid var(--border); background: var(--background); clip-path: inset(6px round 12px); transform: translate(4px, 4px) rotate(var(--tilt, 0deg)); }
+        .doc-figure video[controls] { clip-path: none; transform: none; margin: 0 auto; width: 100%; }
+        .doc-figure { position: relative; }
+        .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: pointer; z-index: 2; transition: opacity 0.2s; }
+        .play-overlay:hover { opacity: 0.8; }
+
+        .doc-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 18px 0 22px; }
+        .doc-gallery .doc-figure { margin: 0; }
+
+        /* Side tabs */
+        .side-tabs { position: fixed; top: 34px; left: 24px; display: none; flex-direction: row; align-items: stretch; gap: 12px; font-family: Inter, sans-serif; font-size: var(--smallest); z-index: 5; height: calc(100vh - 68px); }
+        .side-tabs-line { width: 2px; background: var(--border); position: relative; border-radius: 2px; cursor: pointer; margin-top: 20px; }
+        .side-tabs-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: absolute; left: 50%; transform: translate(-50%, -50%); transition: top 0.2s ease; box-shadow: 0 0 0 4px var(--accent); cursor: pointer; }
+        .side-tabs-links { position: relative; height: 100%; width: 140px; }
+        .side-tabs a { text-decoration: none; color: var(--muted); padding: 6px 8px; position: absolute; left: 0; transform: translateY(-50%); transition: color 0.2s ease; display: block; width: 100%; max-width: 100%; white-space: normal; line-height: 1.2; overflow-wrap: anywhere; }
+        .side-tabs a:hover { color: var(--foreground); }
+        .side-tabs a.active { color: var(--accent); }
+        @media (min-width: 1200px) { .side-tabs { display: flex; } }
+
+        @media (max-width: 720px) { p { font-size: 17px; } }
+
+        /* In-text links */
+        p a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+        p a:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <nav>
+                <a class="back-button" aria-label="Back" href="../work.html">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="../work.html" class="nav-link">Work</a>
+                <a href="../boats.html" class="nav-link">Boats</a>
+                <span class="nav-sep">|</span>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://twitter.com/vcmatthewzhang" class="nav-link" target="_blank">Twitter</a>
+                <a href="../matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="icon-sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/></svg></span>
+                    <span class="icon-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>solo-designing a robot as a high school senior new to engineering</h1>
+        <p class="meta">January 2025</p>
+        <p class="meta"><strong>STATUS: COMPLETE</strong></p>
+        <p>The FIRST Robotics Competition game of 2025 was just announced. The wind was howling outside, the thunder booming — just kidding this is California, the weather was perfect and it wasn't even below 70 degrees.</p>
+        <p>Anyways, this project is something that is very dear to me, because it is not only my first fully personal project, it was also a $8,000 125 lbs. beast that bent poles and almost got disqualified for puncturing game pieces on the field (AKA, it was cool af). It was still one of my first exposures to engineering, I only learned CAD the semester before, and it was time to put my self-taught skills to the test.</p>
+        <p>I don't have the time to fully document it right now, instead, here's part of a video that I made in the past for a school project that included snippets of the process. I designed all the hardware, ordered all the parts, and enlisted some amazing friends to help me during assembly. In total, in my senior year, I've designed 100+ sheet metal parts, 7 fully custom gearboxes, as well as mechanisms like chain-run cascading elevators, four-bar parallel linkages, and so much more. My life changed in my senior year of high school, it's never too late.</p>
+        <figure class="doc-figure">
+            <video id="hero-video" src="frc-robot/baygull.mp4" controls></video>
+            <div class="play-overlay" id="play-overlay" onclick="document.getElementById('hero-video').play(); this.style.display='none';">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.4)"/><polygon points="26,20 26,44 46,32" fill="white"/></svg>
+            </div>
+        </figure>
+    </main>
+
+    <script>
+        // Hide play overlay when video plays
+        var heroVideo = document.getElementById('hero-video');
+        if (heroVideo) heroVideo.addEventListener('play', function() { document.getElementById('play-overlay').style.display = 'none'; });
+
+        // Theme toggle
+        var toggle = document.querySelector('.theme-toggle');
+        toggle.addEventListener('click', function() {
+            var isDark = document.documentElement.hasAttribute('data-theme');
+            if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.removeItem('theme'); }
+            else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+        });
+
+        // Image tilt
+        var images = Array.from(document.querySelectorAll('.doc-figure img'));
+        var angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
+        var minDiff = 0.6;
+        var lastAngle = null;
+        var pickAngle = function() {
+            var shuffled = angles.slice().sort(function() { return Math.random() - 0.5; });
+            var candidate = shuffled.find(function(a) { return lastAngle === null || Math.abs(a - lastAngle) >= minDiff; });
+            return candidate !== undefined ? candidate : shuffled[0];
+        };
+        images.forEach(function(img) {
+            var angle = pickAngle();
+            img.style.setProperty('--tilt', angle + 'deg');
+            lastAngle = angle;
+        });
+
+        // Side tabs
+        var tabs = Array.from(document.querySelectorAll('.side-tabs a'));
+        var sections = tabs.map(function(tab) { return document.querySelector(tab.getAttribute('href')); }).filter(Boolean);
+        var tabsNav = document.querySelector('.side-tabs');
+        var tabsLinks = document.querySelector('.side-tabs-links');
+        var tabsDot = document.querySelector('.side-tabs-dot');
+        var tabsLine = document.querySelector('.side-tabs-line');
+        var mainContent = document.querySelector('main');
+
+        var setActive = function(index) {
+            tabs.forEach(function(tab, i) { tab.classList.toggle('active', i === index); });
+        };
+
+        var getSectionAnchorTop = function(index) {
+            var section = sections[index];
+            if (!section) return 0;
+            var doc = document.documentElement;
+            var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            var sectionStart = Math.max(0, section.offsetTop);
+            var sectionEnd = index < sections.length - 1
+                ? Math.max(sectionStart, sections[index + 1].offsetTop)
+                : scrollable;
+            return index === sections.length - 1
+                ? sectionStart + ((sectionEnd - sectionStart) * 0.28)
+                : sectionStart;
+        };
+
+        var getTabCenterY = function(index) {
+            var tab = tabs[index];
+            if (!tab || !tabsLine) return 0;
+            var lineRect = tabsLine.getBoundingClientRect();
+            var tabRect = tab.getBoundingClientRect();
+            return (tabRect.top + tabRect.height / 2) - lineRect.top;
+        };
+
+        var getActiveSectionIndex = function() {
+            var scrollTop = Math.max(0, document.documentElement.scrollTop);
+            if (scrollTop <= 4) return 0;
+            var visibleIndex = -1;
+            for (var i = 0; i < sections.length; i++) {
+                var rect = sections[i].getBoundingClientRect();
+                if (rect.top <= window.innerHeight && rect.bottom >= 0) visibleIndex = i;
+            }
+            if (visibleIndex >= 0) return visibleIndex;
+            var passedIndex = 0;
+            for (var i = 0; i < sections.length; i++) {
+                var rect = sections[i].getBoundingClientRect();
+                if (rect.top <= 0) passedIndex = i; else break;
+            }
+            return passedIndex;
+        };
+
+        var positionDotByScroll = function() {
+            if (!tabsDot || !tabs.length) return;
+            var activeIndex = getActiveSectionIndex();
+            setActive(activeIndex);
+            tabsDot.style.top = getTabCenterY(activeIndex) + 'px';
+        };
+
+        var scrollToRatio = function(ratio) {
+            var doc = document.documentElement;
+            var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            var clamped = Math.min(1, Math.max(0, ratio));
+            doc.scrollTop = clamped * scrollable;
+        };
+
+        var getRatioFromEvent = function(event) {
+            if (!tabsLinks) return 0;
+            var rect = tabsLinks.getBoundingClientRect();
+            var padding = 6;
+            var usable = Math.max(1, rect.height - padding * 2);
+            var y = Math.min(rect.bottom - padding, Math.max(rect.top + padding, event.clientY));
+            return (y - rect.top - padding) / usable;
+        };
+
+        var positionTabs = function() {
+            if (!tabsLinks) return;
+            if (tabsNav && mainContent) {
+                var navRect = tabsNav.getBoundingClientRect();
+                var contentRect = mainContent.getBoundingClientRect();
+                var availableWidth = Math.floor(contentRect.left - navRect.left - 28);
+                if (availableWidth < 88) { tabsNav.style.display = 'none'; return; }
+                tabsNav.style.display = '';
+                var clampedWidth = Math.max(88, Math.min(140, availableWidth));
+                tabsLinks.style.width = clampedWidth + 'px';
+            }
+            var doc = document.documentElement;
+            var scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+            var lineHeight = tabsLinks.clientHeight;
+            var padding = 6;
+            var usable = Math.max(1, lineHeight - padding * 2);
+            sections.forEach(function(section, i) {
+                var ratio = Math.min(1, Math.max(0, getSectionAnchorTop(i) / scrollable));
+                var y = padding + ratio * usable;
+                tabs[i].style.top = y + 'px';
+            });
+            for (var i = 1; i < tabs.length; i++) {
+                var prevTop = parseFloat(tabs[i - 1].style.top) || 0;
+                var currentTop = parseFloat(tabs[i].style.top) || 0;
+                var prevHeight = tabs[i - 1].offsetHeight || 0;
+                var currentHeight = tabs[i].offsetHeight || 0;
+                var minGap = Math.max(32, (prevHeight + currentHeight) / 2 + 8);
+                if (currentTop - prevTop < minGap) tabs[i].style.top = (prevTop + minGap) + 'px';
+            }
+            var maxTop = padding + usable;
+            for (var i = tabs.length - 2; i >= 0; i--) {
+                var nextTop = parseFloat(tabs[i + 1].style.top) || maxTop;
+                var currentTop = parseFloat(tabs[i].style.top) || 0;
+                var nextHeight = tabs[i + 1].offsetHeight || 0;
+                var currentHeight = tabs[i].offsetHeight || 0;
+                var minGap = Math.max(32, (nextHeight + currentHeight) / 2 + 8);
+                if (nextTop - currentTop < minGap) tabs[i].style.top = (nextTop - minGap) + 'px';
+            }
+            for (var i = 0; i < tabs.length; i++) {
+                var currentTop = parseFloat(tabs[i].style.top) || 0;
+                tabs[i].style.top = Math.min(maxTop, Math.max(padding, currentTop)) + 'px';
+            }
+            var firstTabY = getTabCenterY(0);
+            var lastTabY = getTabCenterY(tabs.length - 1);
+            if (tabsLine && firstTabY > 0) {
+                var borderColor = getComputedStyle(document.documentElement).getPropertyValue('--border').trim();
+                tabsLine.style.background = 'linear-gradient(to bottom, transparent ' + firstTabY + 'px, ' + borderColor + ' ' + firstTabY + 'px, ' + borderColor + ' ' + lastTabY + 'px, transparent ' + lastTabY + 'px)';
+            }
+            tabsDot.style.top = getTabCenterY(tabs.findIndex(function(tab) { return tab.classList.contains('active'); }) || 0) + 'px';
+        };
+
+        var onResize = function() { positionTabs(); positionDotByScroll(); };
+        positionTabs();
+        setActive(0);
+        positionDotByScroll();
+        window.addEventListener('resize', onResize);
+        window.addEventListener('scroll', function() { requestAnimationFrame(positionDotByScroll); }, { passive: true });
+        window.addEventListener('load', onResize);
+
+        var imagesToWatch = Array.from(document.querySelectorAll('.doc-figure img'));
+        imagesToWatch.forEach(function(media) {
+            if (media.complete) return;
+            media.addEventListener('load', onResize, { once: true });
+        });
+
+        var isDragging = false;
+        var onPointerMove = function(event) { if (!isDragging) return; scrollToRatio(getRatioFromEvent(event)); };
+        var endDrag = function() { isDragging = false; window.removeEventListener('pointermove', onPointerMove); window.removeEventListener('pointerup', endDrag); };
+        if (tabsLine) {
+            tabsLine.addEventListener('pointerdown', function(event) {
+                isDragging = true; scrollToRatio(getRatioFromEvent(event));
+                window.addEventListener('pointermove', onPointerMove); window.addEventListener('pointerup', endDrag);
+            });
+        }
+        if (tabsDot) {
+            tabsDot.addEventListener('pointerdown', function(event) {
+                isDragging = true; scrollToRatio(getRatioFromEvent(event));
+                window.addEventListener('pointermove', onPointerMove); window.addEventListener('pointerup', endDrag);
+                event.preventDefault();
+            });
+        }
+    </script>
+</body>
+</html>
