@@ -58,7 +58,7 @@
       "hardware",
       "software"
     ],
-    "status": "",
+    "status": "In Progress",
     "outcome": "successfully teleoperated a unitree g1 edu w minimal latency.\nv1 is messy, currently building out a cleaner v2 @ founders, inc. w custom PCB and modular joints. (WIP)",
     "role": "electrical design & firmware",
     "skills": [],
