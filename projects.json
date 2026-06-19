@@ -8,9 +8,9 @@
       "CAD"
     ],
     "filters": [
-      "hardware",
+      "electrical",
       "software",
-      "design"
+      "mechanical"
     ],
     "status": "In Progress",
     "outcome": "custom PCB design and embedded systems for a fully handmade vinyl record player. designed a motor driver board using closed-loop PID control to regulate 33.33 rpm on platter.",
@@ -59,7 +59,7 @@
     "title": "inhabit",
     "tags": [],
     "filters": [
-      "hardware",
+      "electrical",
       "software"
     ],
     "status": "In Progress",
@@ -104,8 +104,8 @@
     "title": "eve vehicles",
     "tags": [],
     "filters": [
-      "hardware",
-      "design"
+      "electrical",
+      "mechanical"
     ],
     "status": "In Progress",
     "outcome": "(WIP) working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs & current sensing to disable idle rails during perch ",
@@ -141,8 +141,8 @@
       "FIRST Robotics"
     ],
     "filters": [
-      "hardware",
-      "design"
+      "electrical",
+      "mechanical"
     ],
     "status": "Complete",
     "outcome": "solo-designed an $8,000, 125 lbs. robot. 100+ sheet metal parts, 7 custom gearboxes, chain-run cascading elevators, four-bar parallel linkages, and more. won awards at regionals and ranked top 29% worldwide with few people and no mentors.",
@@ -192,9 +192,9 @@
     "title": "vex u, team ghost",
     "tags": [],
     "filters": [
-      "hardware",
+      "electrical",
       "software",
-      "design"
+      "mechanical"
     ],
     "status": "In Progress",
     "outcome": "worked with team lead on schematics/validation. reduced size of address translator to fit within stock tube.\ncreated CAD designs to mechanically integrate electronics into compact robot. wrote rp2040 ISR based sensor polling software that reports sensor readings to onboard jetson orin nano.",
@@ -276,7 +276,7 @@
     "title": "texas aerial robotics",
     "tags": [],
     "filters": [
-      "hardware",
+      "electrical",
       "software"
     ],
     "status": "In Progress",
@@ -317,7 +317,7 @@
       "Python"
     ],
     "filters": [
-      "hardware",
+      "electrical",
       "software"
     ],
     "status": "Complete",
@@ -371,8 +371,8 @@
       "Competition"
     ],
     "filters": [
-      "hardware",
-      "design"
+      "electrical",
+      "mechanical"
     ],
     "status": "Complete",
     "outcome": "designed chassis and mechanism in Onshape, 3D printed and laser cut components. developed outer perimeter to help with bang-bang maze routing algorithm. experimented with gears and TPU flywheels for optimal ball trajectory. ",
