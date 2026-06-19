@@ -595,7 +595,7 @@
         gain.connect(audioCtx.destination);
         osc.frequency.value = 350 + Math.random() * 200;
         osc.type = 'square';
-        gain.gain.value = 0.025;
+        gain.gain.value = 0.006;
         gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.08);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.08);
