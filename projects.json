@@ -66,15 +66,15 @@
     "technical": "",
     "description": "",
     "link": "https://matthehzhang.github.io/projects/inhabit.html",
-    "preview": "projects/inhabit/inahbitbanner.png",
+    "preview": "projects/inhabit/img-8796-1.mov",
     "media": [
-      {
-        "type": "image",
-        "src": "projects/inhabit/inahbitbanner.png"
-      },
       {
         "type": "video",
         "src": "projects/inhabit/img-8796-1.mov"
+      },
+      {
+        "type": "image",
+        "src": "projects/inhabit/inahbitbanner.png"
       },
       {
         "type": "video",
