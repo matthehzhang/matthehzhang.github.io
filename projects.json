@@ -238,7 +238,7 @@
     "filters": [
       "software"
     ],
-    "status": "",
+    "status": "Complete",
     "outcome": "developed modern control systems approach with PID setpoints and IK. created a robot that plays chess on a physical board w/ stockfish. won 1st place",
     "role": "firmware & controls",
     "skills": [],
