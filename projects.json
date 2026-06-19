@@ -13,7 +13,7 @@
       "design"
     ],
     "status": "In Progress",
-    "outcome": "custom PCB design and embedded systems for a fully handmade vinyl record player. designed a motor driver board, working on a phono preamp, and tonearm assembly. using closed-loop control to regulate 33.33 rpm on platter.",
+    "outcome": "custom PCB design and embedded systems for a fully handmade vinyl record player. designed a motor driver board using closed-loop PID control to regulate 33.33 rpm on platter.",
     "role": "personal project",
     "skills": [
       "Motor Control",
@@ -66,13 +66,11 @@
     "technical": "",
     "description": "",
     "link": "",
-    "preview": "projects//eve-frontpage-hero.mp4",
+    "preview": "projects/eve-frontpage-hero.mp4",
     "media": [
       {
         "type": "video",
-        "src": "projects//eve-frontpage-hero.mp4",
-        "trimStart": 3,
-        "trimEnd": 12.5
+        "src": "projects/eve-frontpage-hero.mp4"
       }
     ],
     "aspect": "3/4",
