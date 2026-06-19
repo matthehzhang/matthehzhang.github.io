@@ -124,7 +124,10 @@
     ],
     "aspect": "3/4",
     "date": "2026-06-19",
-    "tooltips": []
+    "tooltips": [
+      "building electromechanical systems",
+      "i love this team!"
+    ]
   },
   {
     "slug": "frc-robot",
@@ -223,7 +226,10 @@
     ],
     "aspect": "4/3",
     "date": "",
-    "tooltips": []
+    "tooltips": [
+      "prev. 1st place & semi-finalists",
+      "@ vex u ai worlds"
+    ]
   },
   {
     "slug": "betago",
