@@ -73,10 +73,6 @@
         "src": "projects/inhabit/img-8796-1.mov"
       },
       {
-        "type": "image",
-        "src": "projects/inhabit/inahbitbanner.png"
-      },
-      {
         "type": "video",
         "src": "projects/inhabit/img-5796-0-15-0-31.mov"
       },
@@ -87,6 +83,10 @@
       {
         "type": "image",
         "src": "projects/inhabit/img-5632.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/inhabit/img-6889.jpg"
       }
     ],
     "aspect": "16/9",
