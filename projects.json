@@ -1,5 +1,36 @@
 [
   {
+    "slug": "",
+    "title": "",
+    "tags": [],
+    "filters": [],
+    "status": "",
+    "outcome": "",
+    "role": "",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects//img-6594.mov",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects//img-6594.mov"
+      },
+      {
+        "type": "video",
+        "src": "projects//img-6594.mov"
+      },
+      {
+        "type": "video",
+        "src": "projects//simulator.mp4"
+      }
+    ],
+    "aspect": "4/3",
+    "date": "2026-06-19"
+  },
+  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
