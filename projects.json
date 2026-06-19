@@ -98,15 +98,19 @@
     "media": [
       {
         "type": "image",
-        "src": "projects/vex-u/image.png"
-      },
-      {
-        "type": "image",
         "src": "projects//vex.png"
       },
       {
         "type": "image",
+        "src": "projects/vex-u-team-ghost/vex.png"
+      },
+      {
+        "type": "image",
         "src": "projects/vex-u/sensorchain.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/vex-u/image.png"
       },
       {
         "type": "image",
