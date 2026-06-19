@@ -303,7 +303,10 @@
       }
     ],
     "aspect": "1/1",
-    "date": "2026-06-19"
+    "date": "2026-06-19",
+    "tooltips": [
+      "university research org"
+    ]
   },
   {
     "slug": "wall-projector-pen",
