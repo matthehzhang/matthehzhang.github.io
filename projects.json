@@ -27,6 +27,41 @@
     ]
   },
   {
+    "slug": "vex-u",
+    "title": "vex u",
+    "tags": [],
+    "filters": [],
+    "status": "In Progress",
+    "outcome": "",
+    "role": "",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects/vex-u/image.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "projects/vex-u/image.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vex-u/dsad.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vex-u/sensorchain.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects//vex.png"
+      }
+    ],
+    "aspect": "4/3",
+    "date": ""
+  },
+  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
