@@ -166,6 +166,33 @@
     ]
   },
   {
+    "slug": "eve-vehicles",
+    "title": "eve vehicles",
+    "tags": [],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "",
+    "outcome": "working on a 1 kW smart power distribution board\n- per-rail load switches/MOSFETs to disable idle rails during perch\n- per-rail current sensing and ISR based polling\n",
+    "role": "hardware engineer",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects//eve-frontpage-hero.mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects//eve-frontpage-hero.mp4"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2026-06-19",
+    "tooltips": []
+  },
+  {
     "slug": "frc-robot",
     "title": "solo-designing a robot",
     "tags": [
