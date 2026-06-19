@@ -229,8 +229,8 @@
     "tags": [],
     "filters": [],
     "status": "",
-    "outcome": "",
-    "role": "",
+    "outcome": "developed modern control systems approach with PID setpoints and IK. created a robot that plays chess on a physical board w/ stockfish.",
+    "role": "firmware & controls",
     "skills": [],
     "motivation": "",
     "technical": "",
@@ -247,8 +247,8 @@
         "src": "projects/betago/demo2.mp4"
       },
       {
-        "type": "video",
-        "src": "projects//img-6594.mov"
+        "type": "image",
+        "src": "projects/betago/betagofirst.jpg"
       }
     ],
     "aspect": "1/1",
