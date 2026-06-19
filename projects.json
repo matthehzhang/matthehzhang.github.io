@@ -147,7 +147,7 @@
       "design"
     ],
     "status": "",
-    "outcome": "working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs to disable idle rails during perch + current sensing and ISR based polling\n",
+    "outcome": "(WIP) working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs to disable idle rails during perch + current sensing w/ ISR based polling\n",
     "role": "hardware engineer",
     "skills": [],
     "motivation": "",
