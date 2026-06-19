@@ -62,15 +62,11 @@
       },
       {
         "type": "image",
-        "src": "projects/vinyl-record-player/vinyl-000.png"
+        "src": "projects/vinyl-record-player/turntable.png"
       },
       {
         "type": "image",
-        "src": "projects/vinyl-record-player/vinyl-001.png"
-      },
-      {
-        "type": "image",
-        "src": "projects/vinyl-record-player/vinyl-002.png"
+        "src": "projects/vinyl-record-player/vinyl-014.png"
       }
     ],
     "aspect": "1/1",
