@@ -1,7 +1,7 @@
 [
   {
-    "slug": "",
-    "title": "",
+    "slug": "betago",
+    "title": "betago",
     "tags": [],
     "filters": [],
     "status": "",
@@ -16,19 +16,24 @@
     "media": [
       {
         "type": "video",
+        "src": "projects//run-1.mov"
+      },
+      {
+        "type": "video",
         "src": "projects//img-6594.mov"
       },
       {
         "type": "video",
         "src": "projects//simulator.mp4"
-      },
-      {
-        "type": "video",
-        "src": "projects//run-1.mov"
       }
     ],
     "aspect": "1/1",
-    "date": "2026-06-19"
+    "date": "2026-06-19",
+    "tooltips": [
+      "chess playing robot",
+      "founders, inc world tour physical AI hackathon",
+      "1st place"
+    ]
   },
   {
     "slug": "vinyl-record-player",
