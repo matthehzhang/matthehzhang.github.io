@@ -227,12 +227,14 @@
     "slug": "betago",
     "title": "betago",
     "tags": [],
-    "filters": [],
+    "filters": [
+      "software"
+    ],
     "status": "",
     "outcome": "developed modern control systems approach with PID setpoints and IK. created a robot that plays chess on a physical board w/ stockfish. won 1st place",
     "role": "firmware & controls",
     "skills": [],
-    "motivation": "cool hackathon, cool teammates",
+    "motivation": "founders, inc world tour physical ai hackathon. cool hackathon, cool teammates",
     "technical": "",
     "description": "",
     "link": "",
@@ -255,8 +257,7 @@
     "date": "2026-06-19",
     "tooltips": [
       "chess playing robot",
-      "founders, inc world tour physical AI hackathon",
-      "1st place"
+      "1st place @ hackathon"
     ]
   },
   {
