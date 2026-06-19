@@ -236,19 +236,19 @@
     "technical": "",
     "description": "",
     "link": "",
-    "preview": "projects//run-1.mov",
+    "preview": "projects/betago/run-speedup.mp4",
     "media": [
       {
         "type": "video",
-        "src": "projects//run-1.mov"
+        "src": "projects/betago/run-speedup.mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/betago/demo2.mp4"
       },
       {
         "type": "video",
         "src": "projects//img-6594.mov"
-      },
-      {
-        "type": "video",
-        "src": "projects//simulator.mp4"
       }
     ],
     "aspect": "1/1",
