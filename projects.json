@@ -1,32 +1,5 @@
 [
   {
-    "slug": "still-wip-and-updating-projects-day-by-day",
-    "title": "still wip, and updating projects day by day",
-    "tags": [],
-    "filters": [],
-    "status": "",
-    "outcome": "",
-    "role": "",
-    "skills": [],
-    "motivation": "",
-    "technical": "",
-    "description": "",
-    "link": "",
-    "preview": "projects/still-wip-and-updating-projects/image.mp4",
-    "media": [
-      {
-        "type": "video",
-        "src": "projects/still-wip-and-updating-projects/image.mp4"
-      }
-    ],
-    "aspect": "3/4",
-    "date": "2026-05-20",
-    "tooltips": [
-      "come back in a week!",
-      "by then hopefully its updated"
-    ]
-  },
-  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
