@@ -376,7 +376,7 @@
                 '<div class="project-card-inner">' +
                     ((/\.(mp4|webm|mov)$/i.test(project.preview)) ?
                     '<video src="' + project.preview + '" muted autoplay loop playsinline style="aspect-ratio:' + (project.aspect || 'auto') + ';"></video>' :
-                    '<img src="' + project.preview + '" alt="' + project.title + '" style="aspect-ratio:' + (project.aspect || 'auto') + ';" onerror="this.style.opacity=\'0\'">') +
+                    '<img src="' + project.preview + '" alt="' + project.title + '" style="aspect-ratio:' + (project.aspect || 'auto') + ';object-position:' + (project.previewPos || '50% 50%') + ';" onerror="this.style.opacity=\'0\'">') +
                 '</div>' +
                 '<div class="project-card-title">' + project.title + '</div>' +
             '</div>';
@@ -431,7 +431,7 @@
                     (project.role ? '<p class="dialog-section-label">My Role</p><p class="dialog-text">' + project.role + '</p>' : '') +
                     (project.motivation ? '<p class="dialog-section-label">Motivation</p><p class="dialog-text">' + project.motivation + '</p>' : '') +
                     ((project.outcome || project.technical) ? '<p class="dialog-section-label">About</p><p class="dialog-text">' + (project.outcome || '') + (project.outcome && project.technical ? ' ' : '') + (project.technical || '') + '</p>' : '') +
-                    (project.link !== '#' ? '<hr class="dialog-divider"><a href="' + project.link + '" class="dialog-link" target="_blank" rel="noopener">View full project &rarr;</a>' : '') +
+                    (project.link && project.link !== '#' ? '<hr class="dialog-divider"><a href="' + project.link + '" class="dialog-link" target="_blank" rel="noopener">View full project &rarr;</a>' : '') +
                 '</div>' +
             '</div>';
 

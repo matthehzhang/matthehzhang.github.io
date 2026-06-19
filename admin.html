@@ -437,6 +437,7 @@
             background: linear-gradient(transparent, rgba(0,0,0,0.8));
             opacity: 0;
             transition: opacity 0.15s;
+            pointer-events: none; /* never block the video scrubber underneath */
         }
         .preview-card:hover .preview-overlay { opacity: 1; }
         .preview-card .preview-overlay .preview-title {
@@ -449,6 +450,28 @@
             color: #aaa;
             margin-top: 2px;
         }
+        .crop-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+            width: 200px;
+        }
+        .crop-hint {
+            font-size: 10px;
+            color: #777;
+            flex: 1;
+        }
+        .crop-reset {
+            font-size: 10px;
+            color: #aaa;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 3px 8px;
+            cursor: pointer;
+        }
+        .crop-reset:hover { color: #fff; border-color: #4a9eff; }
         .preview-no-image {
             width: 200px;
             aspect-ratio: var(--aspect, 4/3);
@@ -1204,14 +1227,24 @@
             renderSidebar();
         }
 
+        // Make a web-safe filename: lowercase, no spaces/colons/parens, keep extension
+        function safeName(name) {
+            const dot = name.lastIndexOf('.');
+            let base = dot > 0 ? name.slice(0, dot) : name;
+            const ext = dot > 0 ? name.slice(dot + 1).toLowerCase() : '';
+            base = base.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+            if (!base) base = 'file';
+            return ext ? base + '.' + ext : base;
+        }
+
         function browseFile() {
             const input = document.createElement('input');
             input.type = 'file';
-            input.accept = 'image/*,video/*,.gif';
+            // No accept filter — some browsers' file dialogs hide .mov etc. when filtered
             input.onchange = async function() {
                 if (!input.files.length) return;
                 const file = input.files[0];
-                const name = file.name;
+                const name = safeName(file.name);
                 const ext = name.split('.').pop().toLowerCase();
                 // Auto-detect type
                 const typeSelect = document.getElementById('media-type');
@@ -1282,9 +1315,10 @@
 
             if (p.preview) {
                 const isVideo = /\.(mp4|webm|mov)$/i.test(p.preview);
+                const pos = p.previewPos || '50% 50%';
                 const mediaEl = isVideo
                     ? `<video src="${escHTML(p.preview)}" muted autoplay loop playsinline style="aspect-ratio:${escHTML(aspect)};"></video>`
-                    : `<img src="${escHTML(p.preview)}" onerror="this.style.display='none'" style="aspect-ratio:${escHTML(aspect)};">`;
+                    : `<img src="${escHTML(p.preview)}" onerror="this.style.display='none'" draggable="false" style="aspect-ratio:${escHTML(aspect)};object-position:${escHTML(pos)};">`;
                 container.innerHTML = `
                     <div class="preview-card">
                         ${mediaEl}
@@ -1293,7 +1327,16 @@
                             <div class="preview-desc">${escHTML(p.description || '')}</div>
                         </div>
                     </div>
+                    ${isVideo ? '' : `
+                    <div class="crop-controls">
+                        <span class="crop-hint">drag image to reposition crop</span>
+                        <button type="button" class="crop-reset" onclick="resetCrop()">reset</button>
+                    </div>`}
                 `;
+                if (!isVideo) {
+                    const mediaNode = container.querySelector('.preview-card > img');
+                    attachCropDrag(mediaNode, mediaNode, p);
+                }
             } else {
                 container.innerHTML = `
                     <div class="preview-no-image" style="aspect-ratio: ${escHTML(aspect)}">
@@ -1301,6 +1344,51 @@
                     </div>
                 `;
             }
+        }
+
+        // Drag dragEl to set mediaEl's object-position (crop focal point).
+        // For videos dragEl is a separate transparent layer so the native controls stay usable.
+        function attachCropDrag(dragEl, mediaEl, p) {
+            if (!dragEl || !mediaEl) return;
+            const clamp = (n) => Math.max(0, Math.min(100, n));
+            const parsePos = () => {
+                const parts = (p.previewPos || '50% 50%').split(/\s+/);
+                return { x: parseFloat(parts[0]) || 50, y: parseFloat(parts[1]) || 50 };
+            };
+            dragEl.style.cursor = 'grab';
+            dragEl.addEventListener('dragstart', (e) => e.preventDefault());
+            dragEl.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                const rect = mediaEl.getBoundingClientRect();
+                const start = parsePos();
+                const startX = e.clientX, startY = e.clientY;
+                dragEl.setPointerCapture(e.pointerId);
+                dragEl.style.cursor = 'grabbing';
+                const onMove = (ev) => {
+                    // grabbing the image: drag down reveals the top, so position decreases
+                    const dx = (ev.clientX - startX) / rect.width * 100;
+                    const dy = (ev.clientY - startY) / rect.height * 100;
+                    const x = clamp(start.x - dx);
+                    const y = clamp(start.y - dy);
+                    p.previewPos = `${Math.round(x)}% ${Math.round(y)}%`;
+                    mediaEl.style.objectPosition = p.previewPos;
+                };
+                const onUp = () => {
+                    dragEl.style.cursor = 'grab';
+                    dragEl.removeEventListener('pointermove', onMove);
+                    dragEl.removeEventListener('pointerup', onUp);
+                    markUnsaved();
+                };
+                dragEl.addEventListener('pointermove', onMove);
+                dragEl.addEventListener('pointerup', onUp);
+            });
+        }
+
+        function resetCrop() {
+            if (selectedIndex < 0) return;
+            delete projects[selectedIndex].previewPos;
+            markUnsaved();
+            renderPreview();
         }
 
         // ── New / Delete ──
