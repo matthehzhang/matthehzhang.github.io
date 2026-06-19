@@ -27,46 +27,6 @@
     ]
   },
   {
-    "slug": "vex-u-team-ghost",
-    "title": "vex u, team ghost",
-    "tags": [],
-    "filters": [
-      "hardware",
-      "software",
-      "design"
-    ],
-    "status": "In Progress",
-    "outcome": "worked with team lead on schematics/validation. helped reduce size of address translator to fit within stock tube.\ncreated CAD designs to mechanically integrate electronics into compact robot",
-    "role": "some of everything",
-    "skills": [],
-    "motivation": "pioneer a novel, custom designed, vex u sensor system",
-    "technical": "",
-    "description": "",
-    "link": "",
-    "preview": "projects/vex-u/image.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "projects/vex-u/image.png"
-      },
-      {
-        "type": "image",
-        "src": "projects//vex.png"
-      },
-      {
-        "type": "image",
-        "src": "projects/vex-u/sensorchain.jpg"
-      },
-      {
-        "type": "image",
-        "src": "projects/vex-u/dsad.png"
-      }
-    ],
-    "aspect": "4/3",
-    "date": "",
-    "tooltips": []
-  },
-  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
@@ -116,6 +76,46 @@
       "a diy record player",
       "custom pcb + firmware"
     ]
+  },
+  {
+    "slug": "vex-u-team-ghost",
+    "title": "vex u, team ghost",
+    "tags": [],
+    "filters": [
+      "hardware",
+      "software",
+      "design"
+    ],
+    "status": "In Progress",
+    "outcome": "worked with team lead on schematics/validation. helped reduce size of address translator to fit within stock tube.\ncreated CAD designs to mechanically integrate electronics into compact robot",
+    "role": "some of everything",
+    "skills": [],
+    "motivation": "pioneer a novel, custom designed, vex u sensor system",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects/vex-u/image.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "projects/vex-u/image.png"
+      },
+      {
+        "type": "image",
+        "src": "projects//vex.png"
+      },
+      {
+        "type": "image",
+        "src": "projects/vex-u/sensorchain.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/vex-u/dsad.png"
+      }
+    ],
+    "aspect": "4/3",
+    "date": "",
+    "tooltips": []
   },
   {
     "slug": "ieee-robotathon-team-9",
