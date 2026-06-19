@@ -59,7 +59,7 @@
       "software"
     ],
     "status": "",
-    "outcome": "successfully teleoperated a unitree g1 edu w minimal latency.\nv1 is messy, currently building out a cleaner v2 @ founders, inc. w custom PCB and modular joints.\nhttps://github.com/matthehzhang/inhabit_teleop",
+    "outcome": "successfully teleoperated a unitree g1 edu w minimal latency.\nv1 is messy, currently building out a cleaner v2 @ founders, inc. w custom PCB and modular joints.",
     "role": "electrical design & firmware",
     "skills": [],
     "motivation": "view full project :)",
