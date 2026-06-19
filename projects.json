@@ -12,7 +12,7 @@
     "technical": "",
     "description": "",
     "link": "",
-    "preview": "projects//img-6594.mov",
+    "preview": "projects//run-1.mov",
     "media": [
       {
         "type": "video",
@@ -20,14 +20,14 @@
       },
       {
         "type": "video",
-        "src": "projects//img-6594.mov"
+        "src": "projects//simulator.mp4"
       },
       {
         "type": "video",
-        "src": "projects//simulator.mp4"
+        "src": "projects//run-1.mov"
       }
     ],
-    "aspect": "4/3",
+    "aspect": "1/1",
     "date": "2026-06-19"
   },
   {
