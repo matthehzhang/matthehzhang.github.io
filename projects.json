@@ -1,23 +1,5 @@
 [
   {
-    "slug": "texas-aerial-robotics",
-    "title": "texas aerial robotics",
-    "tags": [],
-    "filters": [],
-    "status": "",
-    "outcome": "",
-    "role": "",
-    "skills": [],
-    "motivation": "",
-    "technical": "",
-    "description": "",
-    "link": "",
-    "preview": "",
-    "media": [],
-    "aspect": "4/3",
-    "date": "2026-06-19"
-  },
-  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
@@ -289,6 +271,24 @@
       "chess playing robot",
       "1st place @ hackathon"
     ]
+  },
+  {
+    "slug": "texas-aerial-robotics",
+    "title": "texas aerial robotics",
+    "tags": [],
+    "filters": [],
+    "status": "",
+    "outcome": "",
+    "role": "",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "",
+    "media": [],
+    "aspect": "4/3",
+    "date": "2026-06-19"
   },
   {
     "slug": "wall-projector-pen",
