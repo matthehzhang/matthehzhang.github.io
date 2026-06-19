@@ -1,48 +1,5 @@
 [
   {
-    "slug": "inhabit",
-    "title": "inhabit",
-    "tags": [],
-    "filters": [
-      "hardware",
-      "software"
-    ],
-    "status": "",
-    "outcome": "successfully teleoperated a unitree g1 edu w minimal latency.\nv1 is messy, currently building out a cleaner v2 @ founders, inc. w custom PCB and modular joints.",
-    "role": "electrical design & firmware",
-    "skills": [],
-    "motivation": "view full project :)",
-    "technical": "",
-    "description": "",
-    "link": "https://matthehzhang.github.io/projects/inhabit.html",
-    "preview": "projects/inhabit/inahbitbanner.png",
-    "media": [
-      {
-        "type": "image",
-        "src": "projects/inhabit/inahbitbanner.png"
-      },
-      {
-        "type": "video",
-        "src": "projects/inhabit/img-8796-1.mov"
-      },
-      {
-        "type": "video",
-        "src": "projects/inhabit/img-5796-0-15-0-31.mov"
-      },
-      {
-        "type": "image",
-        "src": "projects/inhabit/img-5799.jpg"
-      },
-      {
-        "type": "image",
-        "src": "projects/inhabit/img-5632.jpg"
-      }
-    ],
-    "aspect": "4/3",
-    "date": "2026-06-19",
-    "tooltips": []
-  },
-  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
@@ -328,5 +285,48 @@
       "first place at ieee robotathon 2025",
       "software design award too!"
     ]
+  },
+  {
+    "slug": "inhabit",
+    "title": "inhabit",
+    "tags": [],
+    "filters": [
+      "hardware",
+      "software"
+    ],
+    "status": "",
+    "outcome": "successfully teleoperated a unitree g1 edu w minimal latency.\nv1 is messy, currently building out a cleaner v2 @ founders, inc. w custom PCB and modular joints.",
+    "role": "electrical design & firmware",
+    "skills": [],
+    "motivation": "view full project :)",
+    "technical": "",
+    "description": "",
+    "link": "https://matthehzhang.github.io/projects/inhabit.html",
+    "preview": "projects/inhabit/inahbitbanner.png",
+    "media": [
+      {
+        "type": "image",
+        "src": "projects/inhabit/inahbitbanner.png"
+      },
+      {
+        "type": "video",
+        "src": "projects/inhabit/img-8796-1.mov"
+      },
+      {
+        "type": "video",
+        "src": "projects/inhabit/img-5796-0-15-0-31.mov"
+      },
+      {
+        "type": "image",
+        "src": "projects/inhabit/img-5799.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/inhabit/img-5632.jpg"
+      }
+    ],
+    "aspect": "4/3",
+    "date": "2026-06-19",
+    "tooltips": []
   }
 ]
