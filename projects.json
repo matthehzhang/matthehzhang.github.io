@@ -51,7 +51,7 @@
       },
       {
         "type": "image",
-        "src": "projects/vex-u/dsad.png"
+        "src": "projects//vex.png"
       },
       {
         "type": "image",
@@ -59,7 +59,7 @@
       },
       {
         "type": "image",
-        "src": "projects//vex.png"
+        "src": "projects/vex-u/dsad.png"
       }
     ],
     "aspect": "4/3",
