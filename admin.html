@@ -670,8 +670,9 @@
                 <div class="section">
                     <div class="section-title">Filters</div>
                     <div class="filter-checks">
-                        <label><input type="checkbox" id="f-filter-hardware" onchange="onFilterChange()"> Hardware</label>
+                        <label><input type="checkbox" id="f-filter-electrical" onchange="onFilterChange()"> Electrical</label>
                         <label><input type="checkbox" id="f-filter-software" onchange="onFilterChange()"> Software</label>
+                        <label><input type="checkbox" id="f-filter-mechanical" onchange="onFilterChange()"> Mechanical</label>
                         <label><input type="checkbox" id="f-filter-design" onchange="onFilterChange()"> Design</label>
                     </div>
                 </div>
@@ -980,8 +981,9 @@
 
             // Filters
             const filters = p.filters || [];
-            document.getElementById('f-filter-hardware').checked = filters.includes('hardware');
+            document.getElementById('f-filter-electrical').checked = filters.includes('electrical');
             document.getElementById('f-filter-software').checked = filters.includes('software');
+            document.getElementById('f-filter-mechanical').checked = filters.includes('mechanical');
             document.getElementById('f-filter-design').checked = filters.includes('design');
 
             // Aspect presets
@@ -1044,8 +1046,9 @@
         function onFilterChange() {
             if (selectedIndex < 0) return;
             const filters = [];
-            if (document.getElementById('f-filter-hardware').checked) filters.push('hardware');
+            if (document.getElementById('f-filter-electrical').checked) filters.push('electrical');
             if (document.getElementById('f-filter-software').checked) filters.push('software');
+            if (document.getElementById('f-filter-mechanical').checked) filters.push('mechanical');
             if (document.getElementById('f-filter-design').checked) filters.push('design');
             projects[selectedIndex].filters = filters;
             markUnsaved();
