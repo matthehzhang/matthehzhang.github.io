@@ -60,7 +60,7 @@
       "design"
     ],
     "status": "In Progress",
-    "outcome": "worked with team lead on schematics/validation. helped reduce size of address translator to fit within stock tube.\ncreated CAD designs to mechanically integrate electronics into compact robot",
+    "outcome": "worked with team lead on schematics/validation. helped reduce size of address translator to fit within stock tube.\ncreated CAD designs to mechanically integrate electronics into compact robot. wrote rp2040 ISR based sensor polling software that reports sensor readings to onboard jetson orin nano.",
     "role": "some of everything",
     "skills": [],
     "motivation": "pioneer a novel, custom designed, vex u sensor system",
