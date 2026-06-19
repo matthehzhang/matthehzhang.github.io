@@ -1,5 +1,23 @@
 [
   {
+    "slug": "texas-aerial-robotics",
+    "title": "texas aerial robotics",
+    "tags": [],
+    "filters": [],
+    "status": "",
+    "outcome": "",
+    "role": "",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "",
+    "media": [],
+    "aspect": "4/3",
+    "date": "2026-06-19"
+  },
+  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
@@ -27,11 +45,15 @@
     "technical": "",
     "description": "all this to play one album",
     "link": "projects/vinyl-record-player.html",
-    "preview": "projects/vinyl-record-player/recordplayerPCB.png",
+    "preview": "projects/vinyl-record-player/pchi.jpg",
     "media": [
       {
         "type": "image",
-        "src": "projects/vinyl-record-player/recordplayerPCB.png"
+        "src": "projects/vinyl-record-player/pchi.jpg"
+      },
+      {
+        "type": "image",
+        "src": "projects/vinyl-record-player/pchi.jpg"
       },
       {
         "type": "image",
