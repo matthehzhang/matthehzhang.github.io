@@ -51,6 +51,37 @@
     ]
   },
   {
+    "slug": "eve-vehicles",
+    "title": "eve vehicles",
+    "tags": [],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "",
+    "outcome": "(WIP) working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs & current sensing to disable idle rails during perch ",
+    "role": "hardware engineer",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects/eve-vehicles/eve-frontpage-hero (0:05 - 0:10).mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/eve-vehicles/eve-frontpage-hero (0:05 - 0:10).mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/eve-vehicles/eve-frontpage-hero (0:26 - 0:33).mp4"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2026-06-19",
+    "tooltips": []
+  },
+  {
     "slug": "vex-u-team-ghost",
     "title": "vex u, team ghost",
     "tags": [],
@@ -92,37 +123,6 @@
     ],
     "aspect": "4/3",
     "date": "",
-    "tooltips": []
-  },
-  {
-    "slug": "eve-vehicles",
-    "title": "eve vehicles",
-    "tags": [],
-    "filters": [
-      "hardware",
-      "design"
-    ],
-    "status": "",
-    "outcome": "(WIP) working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs & current sensing to disable idle rails during perch ",
-    "role": "hardware engineer",
-    "skills": [],
-    "motivation": "",
-    "technical": "",
-    "description": "",
-    "link": "",
-    "preview": "projects/eve-vehicles/eve-frontpage-hero (0:05 - 0:10).mp4",
-    "media": [
-      {
-        "type": "video",
-        "src": "projects/eve-vehicles/eve-frontpage-hero (0:05 - 0:10).mp4"
-      },
-      {
-        "type": "video",
-        "src": "projects/eve-vehicles/eve-frontpage-hero (0:26 - 0:33).mp4"
-      }
-    ],
-    "aspect": "3/4",
-    "date": "2026-06-19",
     "tooltips": []
   },
   {
