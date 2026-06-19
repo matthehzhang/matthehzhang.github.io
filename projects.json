@@ -1,5 +1,39 @@
 [
   {
+    "slug": "eve-vehicles",
+    "title": "eve vehicles",
+    "tags": [],
+    "filters": [
+      "hardware",
+      "design"
+    ],
+    "status": "In Progress",
+    "outcome": "(WIP) working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs & current sensing to disable idle rails during perch ",
+    "role": "hardware engineer",
+    "skills": [],
+    "motivation": "",
+    "technical": "",
+    "description": "",
+    "link": "",
+    "preview": "projects/eve-vehicles/eve-frontpage-hero-0-05-0-10.mp4",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/eve-vehicles/eve-frontpage-hero-0-05-0-10.mp4"
+      },
+      {
+        "type": "video",
+        "src": "projects/eve-vehicles/eve-frontpage-hero-0-26-0-33.mp4"
+      }
+    ],
+    "aspect": "3/4",
+    "date": "2026-06-19",
+    "tooltips": [
+      "building electromechanical systems",
+      "i love this team!"
+    ]
+  },
+  {
     "slug": "vinyl-record-player",
     "title": "vinyl record player",
     "tags": [
@@ -27,11 +61,11 @@
     "technical": "",
     "description": "all this to play one album",
     "link": "projects/vinyl-record-player.html",
-    "preview": "projects/vinyl-record-player/pchi.jpg",
+    "preview": "projects/vinyl-record-player/vinyl-009.png",
     "media": [
       {
         "type": "image",
-        "src": "projects/vinyl-record-player/pchi.jpg"
+        "src": "projects/vinyl-record-player/vinyl-009.png"
       },
       {
         "type": "image",
@@ -97,40 +131,6 @@
     "date": "2026-06-19",
     "tooltips": [
       "accepted into founders, inc offseason II"
-    ]
-  },
-  {
-    "slug": "eve-vehicles",
-    "title": "eve vehicles",
-    "tags": [],
-    "filters": [
-      "hardware",
-      "design"
-    ],
-    "status": "In Progress",
-    "outcome": "(WIP) working on a 1 kW smart power distribution board. per-rail load switches/MOSFETs & current sensing to disable idle rails during perch ",
-    "role": "hardware engineer",
-    "skills": [],
-    "motivation": "",
-    "technical": "",
-    "description": "",
-    "link": "",
-    "preview": "projects/eve-vehicles/eve-frontpage-hero-0-05-0-10.mp4",
-    "media": [
-      {
-        "type": "video",
-        "src": "projects/eve-vehicles/eve-frontpage-hero-0-05-0-10.mp4"
-      },
-      {
-        "type": "video",
-        "src": "projects/eve-vehicles/eve-frontpage-hero-0-26-0-33.mp4"
-      }
-    ],
-    "aspect": "3/4",
-    "date": "2026-06-19",
-    "tooltips": [
-      "building electromechanical systems",
-      "i love this team!"
     ]
   },
   {
@@ -279,15 +279,28 @@
     "filters": [],
     "status": "",
     "outcome": "",
-    "role": "",
+    "role": "hardware & control systems engineer",
     "skills": [],
     "motivation": "",
     "technical": "",
     "description": "",
     "link": "",
-    "preview": "",
-    "media": [],
-    "aspect": "4/3",
+    "preview": "projects/texas-aerial-robotics/img-5415.mov",
+    "media": [
+      {
+        "type": "video",
+        "src": "projects/texas-aerial-robotics/img-5415.mov"
+      },
+      {
+        "type": "video",
+        "src": "projects/texas-aerial-robotics/img-6540.mov"
+      },
+      {
+        "type": "image",
+        "src": "projects/texas-aerial-robotics/dsad.jpg"
+      }
+    ],
+    "aspect": "3/4",
     "date": "2026-06-19"
   },
   {
