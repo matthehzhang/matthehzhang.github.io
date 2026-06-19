@@ -70,7 +70,9 @@
     "media": [
       {
         "type": "video",
-        "src": "projects//eve-frontpage-hero.mp4"
+        "src": "projects//eve-frontpage-hero.mp4",
+        "trimStart": 3,
+        "trimEnd": 12.5
       }
     ],
     "aspect": "3/4",
