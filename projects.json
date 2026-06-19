@@ -27,13 +27,17 @@
     ]
   },
   {
-    "slug": "vex-u-collegiate-robotics-competition",
-    "title": "vex u, collegiate robotics competition",
+    "slug": "vex-u-team-ghost",
+    "title": "vex u, team ghost",
     "tags": [],
-    "filters": [],
+    "filters": [
+      "hardware",
+      "software",
+      "design"
+    ],
     "status": "In Progress",
     "outcome": "",
-    "role": "",
+    "role": "wrote ",
     "skills": [],
     "motivation": "",
     "technical": "",
@@ -59,7 +63,8 @@
       }
     ],
     "aspect": "4/3",
-    "date": ""
+    "date": "",
+    "tooltips": []
   },
   {
     "slug": "vinyl-record-player",
