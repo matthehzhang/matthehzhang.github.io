@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>matterest — Matthew H Zhang</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12' fill='%23e60023'/%3E%3Ctext x='12' y='17' font-size='14' font-weight='bold' font-family='Georgia' fill='white' text-anchor='middle'%3Em%3C/text%3E%3C/svg%3E">
+    <style>
+        :root {
+            --red: #e60023;
+            --red-dark: #ad081b;
+            --black: #111;
+            --grey-100: #efefef;
+            --grey-200: #e2e2e2;
+            --grey-500: #767676;
+            --radius-pill: 24px;
+            --radius-pin: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: #fff;
+            color: var(--black);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+        /* ============ Header ============ */
+        .topbar {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center; gap: 8px;
+            padding: 12px 16px; background: #fff;
+            height: 80px;
+        }
+        .logo-btn {
+            width: 48px; height: 48px; border-radius: 50%; flex: 0 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .logo-btn:hover { background: var(--grey-100); }
+        .logo-mark {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--red); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 17px; line-height: 1;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+        .nav-pill {
+            height: 48px; padding: 0 16px; border-radius: var(--radius-pill);
+            display: flex; align-items: center; font-weight: 600; font-size: 16px;
+            flex: 0 0 auto; transition: background 0.2s;
+        }
+        .nav-pill.active { background: var(--black); color: #fff; }
+        .nav-pill:not(.active):hover { background: var(--grey-100); }
+
+        .searchbar {
+            flex: 1; display: flex; align-items: center; gap: 8px;
+            height: 48px; padding: 0 16px; border-radius: var(--radius-pill);
+            background: var(--grey-100); transition: box-shadow 0.2s;
+            min-width: 0;
+        }
+        .searchbar:focus-within { box-shadow: 0 0 0 4px rgba(0, 132, 255, 0.5); background: #fff; }
+        .searchbar svg { flex: 0 0 auto; color: var(--grey-500); }
+        .searchbar input {
+            flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+            font-size: 16px; font-family: inherit; color: var(--black);
+        }
+        .searchbar input::placeholder { color: var(--grey-500); }
+
+        .icon-btn {
+            width: 48px; height: 48px; border-radius: 50%; flex: 0 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--grey-500); transition: background 0.2s;
+        }
+        .icon-btn:hover { background: var(--grey-100); }
+        .avatar-btn { width: 48px; height: 48px; border-radius: 50%; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .avatar-btn:hover { background: var(--grey-100); }
+        .avatar-btn img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+        .chevron-btn { width: 24px; height: 48px; border-radius: 12px; }
+
+        @media (max-width: 640px) {
+            .topbar { height: 64px; padding: 8px; }
+            .nav-pill { display: none; }
+        }
+
+        /* ============ Masonry grid ============ */
+        .feed { padding: 8px 0 40px; }
+        .grid { column-width: 236px; column-gap: 16px; padding: 0 16px; max-width: 1256px; margin: 0 auto; }
+        @media (min-width: 1600px) { .grid { max-width: 1512px; } }
+
+        .pin-wrap {
+            break-inside: avoid; -webkit-column-break-inside: avoid;
+            margin-bottom: 16px; display: block;
+        }
+        .pin {
+            position: relative; border-radius: var(--radius-pin); overflow: hidden;
+            cursor: zoom-in; background: var(--grey-100);
+        }
+        .pin img, .pin video { width: 100%; display: block; border-radius: var(--radius-pin); }
+        .pin video { pointer-events: none; }
+
+        /* hover overlay */
+        .pin-overlay {
+            position: absolute; inset: 0; border-radius: var(--radius-pin);
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0; transition: opacity 0.15s ease; pointer-events: none;
+        }
+        .pin:hover .pin-overlay, .pin:focus-within .pin-overlay { opacity: 1; pointer-events: auto; }
+        @media (hover: none) { .pin-overlay { display: none; } }
+
+        /* top-left: board dropdown */
+        .board-picker {
+            position: absolute; top: 12px; left: 12px; max-width: calc(100% - 110px);
+            display: flex; align-items: center; gap: 4px;
+            color: #fff; font-weight: 700; font-size: 16px;
+            padding: 8px 8px; border-radius: 8px;
+        }
+        .board-picker:hover { background: rgba(0, 0, 0, 0.3); }
+        .board-picker .board-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .board-picker svg { flex: 0 0 auto; }
+
+        /* top-right: save */
+        .save-btn {
+            position: absolute; top: 12px; right: 12px;
+            background: var(--red); color: #fff; font-weight: 700; font-size: 16px;
+            padding: 12px 16px; border-radius: var(--radius-pill);
+            transition: background 0.1s;
+        }
+        .save-btn:hover { background: var(--red-dark); }
+        .save-btn.saved { background: var(--black); }
+
+        /* bottom-right: docs link */
+        .docs-btn {
+            position: absolute; bottom: 12px; right: 12px;
+            display: flex; align-items: center; gap: 6px;
+            background: rgba(255, 255, 255, 0.9); color: var(--black);
+            font-weight: 700; font-size: 14px;
+            height: 32px; padding: 0 12px; border-radius: 16px;
+        }
+        .docs-btn:hover { background: #fff; }
+        .docs-btn svg { flex: 0 0 auto; }
+
+        /* board dropdown menu */
+        .board-menu {
+            position: absolute; top: 52px; left: 12px; z-index: 5;
+            background: #fff; border-radius: 16px; padding: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+            min-width: 200px; display: none;
+        }
+        .board-menu.open { display: block; }
+        .board-menu .menu-label { font-size: 12px; color: var(--grey-500); padding: 8px 8px 4px; }
+        .board-menu button {
+            display: block; width: 100%; text-align: left;
+            padding: 8px; border-radius: 8px; font-weight: 600; font-size: 14px; color: var(--black);
+        }
+        .board-menu button:hover { background: var(--grey-100); }
+
+        /* text under pin */
+        .pin-meta { padding: 8px 4px 0; }
+        .pin-title {
+            font-size: 14px; font-weight: 500; color: var(--black); line-height: 1.3;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            cursor: pointer;
+        }
+        .pin-title:hover { text-decoration: underline; }
+
+        .empty-msg { text-align: center; color: var(--grey-500); font-size: 16px; padding: 64px 16px; display: none; }
+
+        /* ============ Closeup modal ============ */
+        .closeup-backdrop {
+            position: fixed; inset: 0; z-index: 200;
+            background: #fff;
+            display: none; overflow-y: auto; padding: 32px 16px;
+        }
+        .closeup-backdrop.open { display: block; }
+        .closeup {
+            max-width: 1016px; margin: 0 auto; background: #fff;
+            border-radius: 32px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
+            display: flex; min-height: 480px; overflow: hidden;
+        }
+        .closeup-media {
+            flex: 1 1 50%; min-width: 0; background: var(--grey-100);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .closeup-media img, .closeup-media video {
+            width: 100%; height: 100%; max-height: 85vh; object-fit: contain; display: block;
+        }
+        .closeup-panel {
+            flex: 1 1 50%; min-width: 0; padding: 32px;
+            display: flex; flex-direction: column; gap: 12px;
+            max-height: 85vh; overflow-y: auto;
+        }
+        .closeup-toprow { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .closeup-toprow .left-icons { display: flex; gap: 4px; }
+        .closeup-toprow .icon-btn { color: var(--black); }
+        .closeup-toprow .right-save { display: flex; align-items: center; gap: 8px; }
+        .closeup-board {
+            display: flex; align-items: center; gap: 4px; font-weight: 700; font-size: 16px;
+            padding: 8px 12px; border-radius: var(--radius-pill);
+        }
+        .closeup-board:hover { background: var(--grey-100); }
+        .closeup-save {
+            background: var(--red); color: #fff; font-weight: 700; font-size: 16px;
+            padding: 12px 16px; border-radius: var(--radius-pill);
+        }
+        .closeup-save:hover { background: var(--red-dark); }
+        .closeup-save.saved { background: var(--black); }
+
+        .closeup-link { font-size: 14px; text-decoration: underline; color: var(--black); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .closeup-title { font-size: 28px; font-weight: 600; line-height: 1.2; }
+        .closeup-desc { font-size: 16px; line-height: 1.4; white-space: pre-line; }
+        .closeup-author { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+        .closeup-author img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+        .closeup-author .name { font-weight: 600; font-size: 14px; }
+        .closeup-author .sub { font-size: 14px; color: var(--grey-500); }
+        .closeup-author .follow {
+            margin-left: auto; background: var(--grey-100); font-weight: 700; font-size: 16px;
+            padding: 12px 16px; border-radius: var(--radius-pill);
+        }
+        .closeup-author .follow:hover { background: var(--grey-200); }
+
+        .closeup-comments { margin-top: 8px; }
+        .closeup-comments h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .closeup-comments p { font-size: 14px; color: var(--grey-500); }
+
+        .more-explore { max-width: 1256px; margin: 24px auto 0; }
+        .more-explore h2 { text-align: center; font-size: 20px; font-weight: 600; color: var(--black); margin: 24px 0 16px; }
+        .more-explore .grid .pin { cursor: zoom-in; }
+
+        .closeup-more { margin-top: 12px; }
+        .closeup-more h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .closeup-thumbs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .closeup-thumbs img, .closeup-thumbs video {
+            width: 72px; height: 72px; object-fit: cover; border-radius: 12px; cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .closeup-thumbs .active { border-color: var(--black); }
+
+        .closeup-close {
+            position: fixed; top: 24px; left: 24px; z-index: 210;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: #fff; color: var(--black);
+            display: none; align-items: center; justify-content: center;
+        }
+        .closeup-backdrop.open ~ .closeup-close { display: flex; }
+        .closeup-close:hover { background: var(--grey-100); }
+
+        @media (max-width: 800px) {
+            .closeup { flex-direction: column; }
+            .closeup-media img, .closeup-media video { max-height: 60vh; }
+            .closeup-panel { max-height: none; }
+        }
+
+        /* toast */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+            background: var(--black); color: #fff; font-weight: 600; font-size: 16px;
+            padding: 16px 24px; border-radius: var(--radius-pill); z-index: 300;
+            transition: transform 0.25s ease; pointer-events: none;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="logo-btn" href="index.html" aria-label="Home"><span class="logo-mark">m</span></a>
+        <a class="nav-pill active" href="pinterest.html">Home</a>
+        <a class="nav-pill" href="work.html">Explore</a>
+        <a class="nav-pill" href="info.html">Create</a>
+        <div class="searchbar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="7" stroke="currentColor" stroke-width="2.5"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <input id="search" type="text" placeholder="Search" autocomplete="off">
+        </div>
+        <button class="icon-btn" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7v3.5L3.3 15.6c-.6.9 0 2.1 1.1 2.1h15.2c1.1 0 1.7-1.2 1.1-2.1L19 12.5V9a7 7 0 0 0-7-7zM9.5 19a2.5 2.5 0 0 0 5 0h-5z"/></svg></button>
+        <button class="icon-btn" aria-label="Messages"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6 2 11c0 2.9 1.5 5.4 3.8 7.1L5 22l4.3-2.4c.9.2 1.8.4 2.7.4 5.5 0 10-4 10-9s-4.5-9-10-9z"/></svg></button>
+        <a class="avatar-btn" href="info.html" aria-label="Profile"><img src="about-headshot.jpg" alt="Matthew"></a>
+        <button class="icon-btn chevron-btn" aria-label="Accounts and more options"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 8l8 8 8-8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </header>
+
+    <main class="feed">
+        <div class="grid" id="grid"></div>
+        <div class="empty-msg" id="emptyMsg">Hmm... we couldn't find any pins for that search</div>
+    </main>
+
+    <div class="closeup-backdrop" id="closeupBackdrop">
+        <div class="closeup" id="closeup"></div>
+        <div class="more-explore" id="moreExplore" style="display:none;">
+            <h2>More to explore</h2>
+            <div class="grid" id="moreGrid"></div>
+        </div>
+    </div>
+    <button class="closeup-close" id="closeupClose" aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    (function () {
+        var AVATAR = 'about-headshot.jpg';
+        var AUTHOR = 'Matthew H Zhang';
+        var BOARDS = ['profile', 'electrical', 'software', 'mechanical', 'design'];
+        // projects without a real doc page get a placeholder page
+        var PLACEHOLDERS = {
+            'eve-vehicles': 'projects/eve-vehicles.html',
+            'vex-u-team-ghost': 'projects/vex-u-team-ghost.html',
+            'betago': 'projects/betago.html',
+            'texas-aerial-robotics': 'projects/texas-aerial-robotics.html'
+        };
+
+        var grid = document.getElementById('grid');
+        var emptyMsg = document.getElementById('emptyMsg');
+        var backdrop = document.getElementById('closeupBackdrop');
+        var closeup = document.getElementById('closeup');
+        var closeBtn = document.getElementById('closeupClose');
+        var toast = document.getElementById('toast');
+        var searchInput = document.getElementById('search');
+
+        var pins = [];
+        var saved = {};
+        try { saved = JSON.parse(localStorage.getItem('pinterest-saved') || '{}'); } catch (e) {}
+        var boardsChosen = {};
+        try { boardsChosen = JSON.parse(localStorage.getItem('pinterest-boards') || '{}'); } catch (e) {}
+
+        function docLink(project) {
+            if (project.link) {
+                return project.link.replace('https://matthehzhang.github.io/', '');
+            }
+            return PLACEHOLDERS[project.slug] || 'work.html';
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+        }
+
+        function sharePin(pin) {
+            var url = location.origin + '/' + docLink(pin.project);
+            if (navigator.share) {
+                navigator.share({ title: pin.project.title, url: url }).catch(function () {});
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(function () { showToast('Link copied to clipboard'); });
+            }
+        }
+
+        function mediaEl(media, opts) {
+            opts = opts || {};
+            var el;
+            if (media.type === 'video') {
+                el = document.createElement('video');
+                el.src = media.src;
+                el.muted = true;
+                el.loop = true;
+                el.playsInline = true;
+                el.setAttribute('muted', '');
+                el.setAttribute('playsinline', '');
+                if (opts.autoplay) { el.autoplay = true; el.setAttribute('autoplay', ''); }
+                if (opts.controls) { el.controls = true; }
+                el.preload = 'metadata';
+            } else {
+                el = document.createElement('img');
+                el.src = media.src;
+                el.alt = opts.alt || '';
+                el.loading = 'lazy';
+            }
+            return el;
+        }
+
+        function svg(paths, size) {
+            return '<svg width="' + (size || 16) + '" height="' + (size || 16) + '" viewBox="0 0 24 24" fill="none">' + paths + '</svg>';
+        }
+        var ICON_CHEVRON = svg('<path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>', 14);
+        var ICON_LINK = svg('<path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>', 14);
+        var ICON_SHARE = svg('<path d="M12 15V3M7 8l5-5 5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>', 16);
+        var ICON_MORE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>';
+
+        function pinKey(pin) { return pin.project.slug + '::' + pin.media.src; }
+
+        function defaultBoard(project) {
+            return boardsChosen[project.slug] || (project.filters && project.filters[0]) || 'profile';
+        }
+
+        function closeAllMenus() {
+            document.querySelectorAll('.board-menu.open').forEach(function (m) { m.classList.remove('open'); });
+        }
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.board-picker') && !e.target.closest('.board-menu')) closeAllMenus();
+        });
+
+        function buildPin(pin) {
+            var project = pin.project;
+            var key = pinKey(pin);
+            var link = docLink(project);
+
+            var wrap = document.createElement('div');
+            wrap.className = 'pin-wrap';
+
+            var el = document.createElement('div');
+            el.className = 'pin';
+
+            var media = mediaEl(pin.media, { alt: project.title });
+            el.appendChild(media);
+            if (pin.media.type === 'video') {
+                wrap.addEventListener('mouseenter', function () { media.play().catch(function () {}); });
+                wrap.addEventListener('mouseleave', function () { media.pause(); });
+            }
+
+            var overlay = document.createElement('div');
+            overlay.className = 'pin-overlay';
+
+            // top-left: board picker
+            var boardBtn = document.createElement('button');
+            boardBtn.className = 'board-picker';
+            boardBtn.innerHTML = '<span class="board-name">' + defaultBoard(project) + '</span>' + ICON_CHEVRON;
+            var menu = document.createElement('div');
+            menu.className = 'board-menu';
+            menu.innerHTML = '<div class="menu-label">Save to board</div>';
+            BOARDS.forEach(function (b) {
+                var item = document.createElement('button');
+                item.textContent = b;
+                item.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    boardsChosen[project.slug] = b;
+                    localStorage.setItem('pinterest-boards', JSON.stringify(boardsChosen));
+                    boardBtn.querySelector('.board-name').textContent = b;
+                    menu.classList.remove('open');
+                });
+                menu.appendChild(item);
+            });
+            boardBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var wasOpen = menu.classList.contains('open');
+                closeAllMenus();
+                if (!wasOpen) menu.classList.add('open');
+            });
+
+            // top-right: save
+            var saveBtn = document.createElement('button');
+            saveBtn.className = 'save-btn' + (saved[key] ? ' saved' : '');
+            saveBtn.textContent = saved[key] ? 'Saved' : 'Save';
+            saveBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                saved[key] = !saved[key];
+                if (!saved[key]) delete saved[key];
+                localStorage.setItem('pinterest-saved', JSON.stringify(saved));
+                saveBtn.classList.toggle('saved', !!saved[key]);
+                saveBtn.textContent = saved[key] ? 'Saved' : 'Save';
+                if (saved[key]) showToast('Saved to ' + defaultBoard(project));
+            });
+
+            // bottom-right: docs link
+            var docsBtn = document.createElement('a');
+            docsBtn.className = 'docs-btn';
+            docsBtn.href = link;
+            docsBtn.innerHTML = ICON_LINK + '<span>docs</span>';
+            docsBtn.addEventListener('click', function (e) { e.stopPropagation(); });
+
+            overlay.appendChild(boardBtn);
+            overlay.appendChild(saveBtn);
+            overlay.appendChild(docsBtn);
+            el.appendChild(overlay);
+            el.appendChild(menu);
+
+            el.addEventListener('click', function () { openCloseup(pin); });
+
+            var meta = document.createElement('div');
+            meta.className = 'pin-meta';
+            var title = document.createElement('div');
+            title.className = 'pin-title';
+            title.textContent = project.title;
+            title.addEventListener('click', function () { openCloseup(pin); });
+            meta.appendChild(title);
+
+            wrap.appendChild(el);
+            wrap.appendChild(meta);
+            pin.el = wrap;
+            return wrap;
+        }
+
+        /* ============ closeup ============ */
+        function openCloseup(pin) {
+            var project = pin.project;
+            var key = pinKey(pin);
+            var link = docLink(project);
+            closeup.innerHTML = '';
+
+            var mediaBox = document.createElement('div');
+            mediaBox.className = 'closeup-media';
+            mediaBox.appendChild(mediaEl(pin.media, { autoplay: true, controls: pin.media.type === 'video', alt: project.title }));
+
+            var panel = document.createElement('div');
+            panel.className = 'closeup-panel';
+
+            var toprow = document.createElement('div');
+            toprow.className = 'closeup-toprow';
+            var leftIcons = document.createElement('div');
+            leftIcons.className = 'left-icons';
+            var cShare = document.createElement('button');
+            cShare.className = 'icon-btn';
+            cShare.setAttribute('aria-label', 'Share');
+            cShare.innerHTML = ICON_SHARE.replace('width="16" height="16"', 'width="20" height="20"');
+            cShare.addEventListener('click', function () { sharePin(pin); });
+            var cMore = document.createElement('button');
+            cMore.className = 'icon-btn';
+            cMore.setAttribute('aria-label', 'More options');
+            cMore.innerHTML = ICON_MORE.replace('width="16" height="16"', 'width="20" height="20"');
+            cMore.addEventListener('click', function () { sharePin(pin); });
+            leftIcons.appendChild(cShare);
+            leftIcons.appendChild(cMore);
+
+            var rightSave = document.createElement('div');
+            rightSave.className = 'right-save';
+            var cBoard = document.createElement('button');
+            cBoard.className = 'closeup-board';
+            cBoard.innerHTML = '<span>' + defaultBoard(project) + '</span>' + ICON_CHEVRON;
+            var cSave = document.createElement('button');
+            cSave.className = 'closeup-save' + (saved[key] ? ' saved' : '');
+            cSave.textContent = saved[key] ? 'Saved' : 'Save';
+            cSave.addEventListener('click', function () {
+                saved[key] = !saved[key];
+                if (!saved[key]) delete saved[key];
+                localStorage.setItem('pinterest-saved', JSON.stringify(saved));
+                cSave.classList.toggle('saved', !!saved[key]);
+                cSave.textContent = saved[key] ? 'Saved' : 'Save';
+                if (saved[key]) showToast('Saved to ' + defaultBoard(project));
+            });
+            rightSave.appendChild(cBoard);
+            rightSave.appendChild(cSave);
+            toprow.appendChild(leftIcons);
+            toprow.appendChild(rightSave);
+
+            var linkEl = document.createElement('a');
+            linkEl.className = 'closeup-link';
+            linkEl.href = link;
+            linkEl.textContent = 'matthehzhang.github.io/' + link;
+
+            var title = document.createElement('div');
+            title.className = 'closeup-title';
+            title.textContent = project.title;
+
+            var desc = document.createElement('div');
+            desc.className = 'closeup-desc';
+            desc.textContent = project.outcome || project.description || '';
+
+            var author = document.createElement('div');
+            author.className = 'closeup-author';
+            author.innerHTML = '<img src="' + AVATAR + '" alt=""><div><div class="name">' + AUTHOR + '</div><div class="sub">' + (project.role || 'builder') + '</div></div>';
+            var follow = document.createElement('button');
+            follow.className = 'follow';
+            follow.textContent = 'Follow';
+            follow.addEventListener('click', function () {
+                follow.textContent = follow.textContent === 'Follow' ? 'Following' : 'Follow';
+            });
+            author.appendChild(follow);
+
+            panel.appendChild(toprow);
+            panel.appendChild(linkEl);
+            panel.appendChild(title);
+            panel.appendChild(desc);
+            panel.appendChild(author);
+
+            var comments = document.createElement('div');
+            comments.className = 'closeup-comments';
+            comments.innerHTML = '<h3>Comments</h3><p>No comments yet! Add one to start the conversation.</p>';
+            panel.appendChild(comments);
+
+            if (project.media.length > 1) {
+                var more = document.createElement('div');
+                more.className = 'closeup-more';
+                more.innerHTML = '<h3>More from this project</h3>';
+                var thumbs = document.createElement('div');
+                thumbs.className = 'closeup-thumbs';
+                project.media.forEach(function (m) {
+                    var t = mediaEl(m, {});
+                    if (m.src === pin.media.src) t.classList.add('active');
+                    t.addEventListener('click', function () {
+                        mediaBox.innerHTML = '';
+                        mediaBox.appendChild(mediaEl(m, { autoplay: true, controls: m.type === 'video', alt: project.title }));
+                        thumbs.querySelectorAll('.active').forEach(function (a) { a.classList.remove('active'); });
+                        t.classList.add('active');
+                    });
+                    thumbs.appendChild(t);
+                });
+                more.appendChild(thumbs);
+                panel.appendChild(more);
+            }
+
+            closeup.appendChild(mediaBox);
+            closeup.appendChild(panel);
+
+            // "More to explore" — pins from other projects
+            var moreWrap = document.getElementById('moreExplore');
+            var moreGrid = document.getElementById('moreGrid');
+            moreGrid.innerHTML = '';
+            var others = pins.filter(function (p) { return p.project.slug !== project.slug; });
+            others.sort(function () { return Math.random() - 0.5; });
+            others.slice(0, 12).forEach(function (p) {
+                var w = document.createElement('div');
+                w.className = 'pin-wrap';
+                var d = document.createElement('div');
+                d.className = 'pin';
+                d.appendChild(mediaEl(p.media, { alt: p.project.title }));
+                d.addEventListener('click', function () { openCloseup(p); });
+                w.appendChild(d);
+                moreGrid.appendChild(w);
+            });
+            moreWrap.style.display = others.length ? '' : 'none';
+
+            backdrop.classList.add('open');
+            backdrop.scrollTop = 0;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCloseup() {
+            backdrop.classList.remove('open');
+            closeup.innerHTML = '';
+            document.getElementById('moreGrid').innerHTML = '';
+            document.body.style.overflow = '';
+        }
+        backdrop.addEventListener('click', function (e) { if (e.target === backdrop) closeCloseup(); });
+        closeBtn.addEventListener('click', closeCloseup);
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeCloseup(); });
+
+        /* ============ search ============ */
+        searchInput.addEventListener('input', function () {
+            var q = searchInput.value.trim().toLowerCase();
+            var any = false;
+            pins.forEach(function (pin) {
+                var hay = (pin.project.title + ' ' + (pin.project.outcome || '') + ' ' +
+                    (pin.project.skills || []).join(' ') + ' ' + (pin.project.filters || []).join(' ') + ' ' +
+                    (pin.project.tags || []).join(' ')).toLowerCase();
+                var show = !q || hay.indexOf(q) !== -1;
+                pin.el.style.display = show ? '' : 'none';
+                if (show) any = true;
+            });
+            emptyMsg.style.display = any ? 'none' : 'block';
+        });
+
+        /* ============ load ============ */
+        fetch('projects.json')
+            .then(function (r) { return r.json(); })
+            .then(function (projects) {
+                projects.forEach(function (project) {
+                    (project.media || []).forEach(function (media) {
+                        pins.push({ project: project, media: media });
+                    });
+                });
+                // interleave so one project's media isn't all clumped together
+                pins.sort(function (a, b) {
+                    var ai = a.project.media.indexOf(a.media);
+                    var bi = b.project.media.indexOf(b.media);
+                    return ai - bi;
+                });
+                pins.forEach(function (pin) { grid.appendChild(buildPin(pin)); });
+            });
+    })();
+    </script>
+</body>
+</html>

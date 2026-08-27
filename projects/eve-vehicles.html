@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Eve Vehicles — Matthew H Zhang</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script>(function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
+    <style>
+        :root {
+            --white: #fff;
+            --black: #0a0a0a;
+            --grey-300: #d4d4d4;
+            --grey-400: #a3a3a3;
+            --grey-500: #737373;
+            --grey-700: #404040;
+            --background: var(--white);
+            --foreground: var(--black);
+            --muted: var(--grey-500);
+            --border: var(--grey-300);
+            --accent: #00f;
+            --tiniest: 4px; --tinier: 8px; --tiny: 12px; --smallest: 16px; --smaller: 24px; --small: 32px; --big: 48px;
+            --margin: var(--smallest);
+        }
+        [data-theme="dark"] {
+            --accent: #f60;
+            --background: var(--black);
+            --foreground: var(--white);
+            --muted: var(--grey-400);
+            --border: var(--grey-700);
+        }
+        @media (min-width: 769px) { :root { --margin: var(--small); } }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--background); color: var(--foreground); font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        a { color: inherit; text-decoration: inherit; }
+        img { max-width: 100%; height: auto; border-radius: 6px; }
+
+        header { padding: var(--margin); pointer-events: none; position: relative; }
+        .header-inner { pointer-events: auto; justify-content: flex-end; align-items: center; display: flex; }
+        nav { align-items: center; gap: var(--smaller); display: flex; }
+        .nav-sep { color: var(--border); font-weight: 300; font-size: 14px; }
+        .back-button { width: 32px; height: 32px; margin-right: var(--tinier); color: var(--muted); display: flex; justify-content: center; align-items: center; transition: color 0.2s; text-decoration: none; }
+        .back-button:hover { color: var(--foreground); }
+        .nav-link { font-size: var(--smallest); color: var(--muted); font-weight: 400; text-decoration: none; transition: color 0.2s; }
+        .nav-link:hover { color: var(--foreground); }
+        .theme-toggle { width: 32px; height: 32px; margin-left: var(--tinier); color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; transition: color 0.2s; display: flex; }
+        .theme-toggle:hover { color: var(--foreground); }
+        .icon-sun { display: block; } .icon-moon { display: none; }
+        [data-theme="dark"] .icon-sun { display: none; } [data-theme="dark"] .icon-moon { display: block; }
+        @media (max-width: 768px) { header { z-index: 1000; background-color: var(--background); border-bottom: 1px solid var(--border); position: sticky; top: 0; } nav { gap: var(--smallest); } }
+
+        main { max-width: 900px; margin: 0 auto; padding: var(--big) var(--margin) var(--margin); }
+        p { font-size: 18px; line-height: 1.6; margin-bottom: 14px; }
+        h1 { font-size: 28px; line-height: 1.2; margin-bottom: 10px; font-weight: 600; }
+        .meta { font-size: 15px; color: var(--muted); margin-bottom: 0; line-height: 1.8; }
+        .meta + p { margin-top: 10px; }
+
+        .doc-figure { margin: 28px auto; display: flex; flex-direction: column; gap: 8px; align-items: center; padding: 0 6%; }
+        .doc-figure img, .doc-figure video { width: calc(100% + 12px); max-width: 980px; height: auto; margin: -6px auto; border-radius: 12px; border: 1px solid var(--border); background: var(--background); clip-path: inset(6px round 12px); transform: translate(4px, 4px) rotate(var(--tilt, 0deg)); }
+        .doc-figure figcaption { font-size: 15px; color: var(--muted); max-width: 980px; width: calc(100% + 12px); margin: 0 auto; text-align: center; }
+
+        .wip-note { margin-top: 32px; padding: 16px; border: 1px dashed var(--border); border-radius: 12px; color: var(--muted); font-size: 15px; }
+        @media (max-width: 720px) { p { font-size: 17px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <nav>
+                <a class="back-button" aria-label="Back" href="../work.html">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.25 12H3.75M3.75 12L11.25 4.5M3.75 12L11.25 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="../work.html" class="nav-link">Work</a>
+                <a href="../boats.html" class="nav-link">Boats</a>
+                <span class="nav-sep">|</span>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://twitter.com/matthehzhang" class="nav-link" target="_blank">Twitter</a>
+                <a href="../matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="icon-sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/></svg></span>
+                    <span class="icon-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Eve Vehicles</h1>
+        <p class="meta">Hardware engineer</p>
+        <p class="meta"><strong>STATUS: IN PROGRESS</strong></p>
+        <p>Working on a 1 kW smart power distribution board — per-rail load switches/MOSFETs and current sensing to disable idle rails during perch.</p>
+        <figure class="doc-figure">
+            <video src="eve-vehicles/eve-frontpage-hero-0-05-0-10.mp4" autoplay muted loop playsinline></video>
+        </figure>
+        <figure class="doc-figure">
+            <video src="eve-vehicles/eve-frontpage-hero-0-26-0-33.mp4" autoplay muted loop playsinline></video>
+        </figure>
+        <div class="wip-note">Full documentation coming soon — this page is a placeholder while the project is in progress.</div>
+    </main>
+
+    <script>
+        var toggle = document.querySelector('.theme-toggle');
+        toggle.addEventListener('click', function() {
+            var isDark = document.documentElement.hasAttribute('data-theme');
+            if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.removeItem('theme'); }
+            else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
+        });
+        var media = Array.from(document.querySelectorAll('.doc-figure img, .doc-figure video'));
+        var angles = [-1.6, -1.0, -0.4, 0.4, 1.0, 1.6];
+        var lastAngle = null;
+        media.forEach(function(el) {
+            var shuffled = angles.slice().sort(function() { return Math.random() - 0.5; });
+            var angle = shuffled.find(function(a) { return lastAngle === null || Math.abs(a - lastAngle) >= 0.6; });
+            if (angle === undefined) angle = shuffled[0];
+            el.style.setProperty('--tilt', angle + 'deg');
+            lastAngle = angle;
+        });
+    </script>
+</body>
+</html>
