@@ -195,9 +195,7 @@
         .img-loaded { animation: none; background: none; }
 
         /* Footer */
-        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; }
-        @media (min-width: 769px) { footer { z-index: 0; position: fixed; bottom: 0; left: 0; right: 0; } }
-        @media (max-width: 768px) { footer { position: relative; } }
+        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; z-index: 0; position: sticky; bottom: 0; margin-top: calc(-1 * var(--smaller)); }
         footer a { color: var(--background); transition: opacity 0.15s; text-decoration: none; }
         footer a:hover { opacity: 0.6; }
         .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
@@ -215,10 +213,8 @@
         .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
         @media (max-width: 768px) { .footer-row { flex-direction: column; } .footer-ascii { display: none; } }
 
-        /* Page content wrapper and footer spacer */
+        /* Page content wrapper */
         .page-content { z-index: 1; background: var(--background); min-height: 100vh; position: relative; border-radius: 0 0 var(--smaller) var(--smaller); }
-        .footer-spacer { display: none; }
-        @media (min-width: 769px) { .footer-spacer { height: calc(var(--footer-height, 400px) - var(--smaller)); pointer-events: none; display: block; } }
 
         /* Animations */
         .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -358,7 +354,6 @@
 
 </div>
 
-<div class="footer-spacer"></div>
 
 <!-- Footer -->
 <footer>
@@ -451,12 +446,6 @@
 
     document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-    function setFooterHeight() {
-        const f = document.querySelector('footer');
-        if (f) document.documentElement.style.setProperty('--footer-height', f.offsetHeight + 'px');
-    }
-    setFooterHeight();
-    window.addEventListener('resize', setFooterHeight);
 })();
 </script>
 
