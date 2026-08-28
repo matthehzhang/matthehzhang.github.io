@@ -227,6 +227,13 @@
         /* Card entrance animation */
         @keyframes cardIn { from { opacity: 0; transform: translateY(75px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes imageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
+        /* Transform-free variants: transforms inside CSS columns are mispainted on iOS Safari */
+        @keyframes cardInFade { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes imageInFade { 0% { filter: blur(12px); } 50% { filter: blur(12px); } 100% { filter: blur(0px); } }
+        @media (max-width: 768px) {
+            .project-card { animation-name: cardInFade; }
+            .project-card img, .project-card video { animation-name: imageInFade; }
+        }
 
         /* Project card — double-div border trick */
         .project-card { break-inside: avoid; margin-bottom: var(--tinier); cursor: pointer; border-radius: 8px; position: relative; background: var(--border); padding: 1px; box-shadow: 0px 0px 20px rgba(0,0,0,0.06); opacity: 0; animation: cardIn 0.35s ease-out forwards; }
