@@ -138,7 +138,8 @@
             .theme-toggle { width: 24px; height: 24px; margin-left: 0; }
             .nav-boats, .nav-sep { display: none; }
             .desc-intro { display: none; }
-            .page-description { white-space: normal !important; }
+            .page-description { white-space: normal !important; font-size: 14px; margin-bottom: var(--smaller); }
+            .featured-title { font-size: 20px; }
         }
 
         /* Main */
@@ -173,7 +174,13 @@
         .exp-company { color: var(--accent); font-weight: 400; }
         a.exp-company { text-decoration: underline; text-underline-offset: 0.15em; }
         .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
-        @media (max-width: 768px) { .exp-item { grid-template-columns: 60px 1fr; gap: var(--smallest); } }
+        @media (max-width: 768px) {
+            .exp-item { grid-template-columns: 74px 1fr; gap: var(--tiny); padding: var(--smallest) 0; }
+            .exp-date { font-size: 11px; white-space: nowrap; padding-top: 5px; }
+            .exp-role { font-size: 17px; }
+            .exp-title-row { font-size: 13px; }
+            .exp-desc { font-size: 12px; }
+        }
 
         /* Featured card — exact Brayden layout */
         .featured-card { color: inherit; border-radius: calc(var(--tiny) + 4px); padding: 4px; text-decoration: none; transition: background-color 0.3s; }
@@ -208,7 +215,7 @@
         /* Masonry grid */
         .masonry { column-count: 3; column-gap: var(--tinier); }
         @media (max-width: 900px) { .masonry { column-count: 2; } }
-        @media (max-width: 500px) { .masonry { column-count: 1; } }
+        @media (max-width: 500px) { .masonry { column-count: 2; } }
 
         /* Filter links */
         .filter-link { color: var(--foreground); text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; background: none; border: none; font: inherit; font-size: inherit; padding: 0; transition: color 0.2s; }
@@ -584,7 +591,7 @@
             '<div class="project-card-body">' +
                 '<div class="project-card-inner">' +
                     ((/\.(mp4|webm|mov)$/i.test(project.preview)) ?
-                    '<video class="lazy-media" data-src="' + project.preview + '" muted loop playsinline preload="none" style="aspect-ratio:' + (project.aspect || 'auto') + ';"></video>' :
+                    '<video class="lazy-media" data-src="' + project.preview + '" muted loop playsinline autoplay preload="none" style="aspect-ratio:' + (project.aspect || 'auto') + ';"></video>' :
                     '<img class="lazy-media" data-src="' + project.preview + '" alt="' + project.title + '" loading="lazy" style="aspect-ratio:' + (project.aspect || 'auto') + ';object-position:' + (project.previewPos || '50% 50%') + ';" onerror="this.style.opacity=\'0\'">') +
                 '</div>' +
                 '<div class="project-card-title">' + project.title + '</div>' +
