@@ -2,9 +2,206 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=/">
-    <script>window.location.replace('/');</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matthew H Zhang</title>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <script>
+        (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+        (function(){if(window.innerWidth>768)window.location.replace('index.html');})();
+    </script>
+    <style>
+        :root {
+            --white: #fff;
+            --black: #0a0a0a;
+            --blue: #00f;
+            --orange: #f60;
+            --grey-200: #e5e5e5;
+            --grey-400: #a3a3a3;
+            --grey-500: #737373;
+            --grey-800: #262626;
+            --accent: var(--blue);
+            --background: var(--white);
+            --foreground: var(--black);
+            --muted: var(--grey-500);
+            --border: var(--grey-200);
+            --tiny: 12px;
+            --smallest: 16px;
+            --smaller: 24px;
+            --small: 32px;
+            --bigger: 64px;
+            --margin: var(--smallest);
+            overscroll-behavior-y: none;
+            font-family: Inter, sans-serif;
+        }
+        [data-theme="dark"] {
+            --accent: var(--orange);
+            --background: var(--black);
+            --foreground: var(--white);
+            --muted: var(--grey-400);
+            --border: var(--grey-800);
+        }
+        ::selection { background-color: var(--accent); color: var(--white); }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { width: 100%; max-width: 100%; scrollbar-width: none; overflow-x: clip; }
+        html::-webkit-scrollbar { display: none; }
+        body { overflow-x: clip; background: none; color: var(--foreground); font-feature-settings: "liga" 1, "calt" 1, "ss04" 1, "ss07" 1; text-wrap: pretty; width: 100%; max-width: 100%; min-height: 100vh; font-family: Inter, sans-serif; font-weight: 400; line-height: 100%; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: inherit; }
+
+        /* Header */
+        header { padding: var(--margin); z-index: 1000; background-color: var(--background); border-bottom: 1px solid var(--border); position: sticky; top: 0; }
+        .header-inner { justify-content: space-between; align-items: center; display: flex; }
+        .logo { font-size: var(--smallest); color: var(--foreground); letter-spacing: -0.01em; font-weight: 500; }
+        nav { align-items: center; gap: var(--tiny); display: flex; }
+        .nav-link { font-size: 14px; color: var(--muted); font-weight: 400; transition: color 0.2s; }
+        .nav-link:hover { color: var(--foreground); }
+        .theme-toggle { width: 24px; height: 24px; color: var(--muted); cursor: pointer; background: none; border: none; justify-content: center; align-items: center; padding: 0; display: flex; font: inherit; }
+        .icon-sun { display: block; }
+        .icon-moon { display: none; }
+        [data-theme="dark"] .icon-sun { display: none; }
+        [data-theme="dark"] .icon-moon { display: block; }
+
+        /* Main */
+        main { min-height: calc(100vh - 57px); padding: var(--small) var(--margin) var(--bigger); }
+        .featured-title { font-size: 20px; letter-spacing: -0.025em; font-weight: 500; line-height: 110%; margin-bottom: var(--smaller); }
+
+        /* Experience list */
+        .exp-list { display: flex; flex-direction: column; list-style: none; }
+        .exp-item { display: grid; grid-template-columns: 74px 1fr; gap: var(--tiny); padding: var(--smallest) 0; border-bottom: 1px solid var(--border); }
+        .exp-date { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: 5px; }
+        .exp-info { display: flex; flex-direction: column; gap: 4px; }
+        .exp-title-row { font-size: 13px; line-height: 1.4; }
+        .exp-role { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; font-style: italic; color: var(--foreground); }
+        .exp-at { color: var(--muted); font-weight: 400; }
+        .exp-company { color: var(--accent); font-weight: 400; }
+        a.exp-company { text-decoration: underline; text-underline-offset: 0.15em; }
+        .exp-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+        /* Page content wrapper */
+        .page-content { z-index: 1; background: var(--background); position: relative; border-radius: 0 0 var(--smaller) var(--smaller); }
+
+        /* Footer */
+        footer { width: 100%; padding: var(--bigger) var(--margin) var(--small); background-color: var(--foreground); color: var(--background); overflow: hidden; z-index: 0; position: sticky; bottom: 0; margin-top: -24px; }
+        footer a { color: var(--background); transition: opacity 0.15s; }
+        footer a:hover { opacity: 0.6; }
+        .footer-content { display: flex; flex-direction: column; gap: var(--smaller); }
+        .big-email { color: var(--background); letter-spacing: -0.02em; font-size: 22px; font-weight: 500; line-height: 100%; text-decoration: underline #ffffff59; width: fit-content; }
+        .footer-bottom { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; opacity: 0.4; }
+        .footer-bottom a { text-decoration: underline; text-underline-offset: 0.15em; }
+        .footer-sep { opacity: 0.5; }
+    </style>
 </head>
-<body></body>
+<body>
+
+<div class="page-content">
+    <header>
+        <div class="header-inner">
+            <a href="/" class="logo">Matthew Zhang</a>
+            <nav>
+                <a href="https://linkedin.com/in/matthew-h-zhang" class="nav-link" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://twitter.com/matthehzhang" class="nav-link" target="_blank" rel="noopener">Twitter</a>
+                <a href="matthewzhangresume.pdf" class="nav-link" target="_blank">Resume</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="icon-sun">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5" fill="currentColor"/><path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                    <span class="icon-moon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.75 15.0001C21.3482 15.0669 20.9407 15.1002 20.5322 15.0994C18.5439 15.0994 16.6373 14.3091 15.231 12.9028C13.8247 11.4965 13.0344 9.5899 13.0344 7.60156C13.0352 6.57498 13.2554 5.56053 13.6809 4.62453C14.1064 3.68852 14.7275 2.85188 15.5025 2.17031C15.5765 2.10315 15.6283 2.01461 15.6505 1.91716C15.6727 1.81971 15.6642 1.71804 15.626 1.62548C15.5879 1.53291 15.5219 1.45396 15.4369 1.39969C15.352 1.34542 15.2522 1.31848 15.1509 1.32234C12.4611 1.44063 9.92119 2.57972 8.05611 4.50627C6.19103 6.43282 5.13472 8.00879 5.10388 10.7017C5.07303 13.3947 6.07017 16.0012 7.89013 17.9848C9.71008 19.9683 12.2188 21.1788 14.9028 21.3636C16.2452 21.4557 17.5932 21.2675 18.8617 20.8106C20.1301 20.3537 21.2924 19.638 22.2759 18.7069C22.348 18.6393 22.3979 18.5516 22.4191 18.4553C22.4404 18.3589 22.4322 18.2585 22.3956 18.1668C22.3589 18.0751 22.2955 17.9963 22.2131 17.9408C22.1308 17.8854 22.0333 17.8558 21.9337 17.856L21.75 15.0001Z" fill="currentColor"/></svg>
+                    </span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="experience">
+            <h2 class="featured-title">experiences.</h2>
+            <ul class="exp-list">
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Member of Technical Staff</span> <span class="exp-at">@</span> <span class="exp-company">Stealth, $25M+ raised</span></div>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Lead Hardware Engineer</span> <span class="exp-at">@</span> <span class="exp-company">Texas Aerial Robotics</span></div>
+                        <span class="exp-desc">control systems (pid, mpc, lqr). developing am32-based bldc motor driver board</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2025 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Co-Founder</span> <span class="exp-at">@</span> <a href="https://inhabitrobotics.com/" target="_blank" rel="noopener" class="exp-company">Inhabit</a> <span class="exp-company">(</span><a href="https://f.inc/" target="_blank" rel="noopener" class="exp-company">f.inc</a> <span class="exp-company">&amp;</span> <a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener" class="exp-company">NVIDIA Inception</a><span class="exp-company">)</span></div>
+                        <span class="exp-desc">open source humanoid teleoperation rig. wearable motion capture streaming joint angles at 50 hz. mcu-based magnetic encoder pcbs with rs-485 daisy-chaining. deployed on unitree g1 edu</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 20xx</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">IEEE RAS General Leader</span> <span class="exp-at">@</span> <span class="exp-company">IEEE UT Austin</span></div>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 2026</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Hardware Engineer Intern</span> <span class="exp-at">@</span> <a href="https://www.evevehicles.com/" target="_blank" rel="noopener" class="exp-company">eve Vehicles</a></div>
+                        <span class="exp-desc">developing battery quick-swap, charging, and power distribution + sensing systems for power efficient UAVs</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 2026</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Intern</span> <span class="exp-at">@</span> <a href="https://www.tessventures.xyz/" target="_blank" rel="noopener" class="exp-company">Tess Ventures</a></div>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2026 &ndash; 2026</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Embedded Systems Engineer</span> <span class="exp-at">@</span> <span class="exp-company">GHOST Robotics</span></div>
+                        <span class="exp-desc">designed novel i2c bridge boards for space reduction and reliability. validated pcbs and board bring-up for custom sensor boards. developing sensor polling firmware for jetson orin nano</span>
+                    </div>
+                </li>
+                <li class="exp-item">
+                    <span class="exp-date">2024 &ndash; 2025</span>
+                    <div class="exp-info">
+                        <div class="exp-title-row"><span class="exp-role">Team Captain, Design Lead</span> <span class="exp-at">@</span> <span class="exp-company">BagelBytes Robotics</span></div>
+                        <span class="exp-desc">lead mechanical designer of 2 robots, 2025 solo design</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <a href="mailto:matthew.zhang@utexas.edu" class="big-email">matthew.zhang@utexas.edu</a>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Matthew Zhang</span>
+            <span class="footer-sep">&middot;</span>
+            <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, heavily inspired by <a href="https://www.braydenpetersen.com/" target="_blank" rel="noopener">Brayden Petersen</a> &amp; <a href="https://marijanapav.com" target="_blank" rel="noopener">Marijana Pavlini&#263;</a></span>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    document.querySelector('.theme-toggle').addEventListener('click', function() {
+        var isDark = document.documentElement.hasAttribute('data-theme');
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.removeItem('theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+    window.addEventListener('resize', function() { if (window.innerWidth > 768) window.location.replace('index.html'); });
+})();
+</script>
+
+</body>
 </html>
