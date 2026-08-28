@@ -15,11 +15,11 @@
     "technical": "",
     "description": "",
     "link": "https://devpost.com/software/ribbit-rtnfvg",
-    "preview": "projects/omniscient/img-0092-1.mov",
+    "preview": "projects/omniscient/omniscientui.png",
     "media": [
       {
-        "type": "video",
-        "src": "projects/omniscient/img-0092-1.mov"
+        "type": "image",
+        "src": "projects/omniscient/omniscientui.png"
       },
       {
         "type": "video",
