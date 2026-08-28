@@ -8,7 +8,7 @@
       "software"
     ],
     "status": "Complete",
-    "outcome": "omniscient is a robot fleet management software with remote computer vision based teleoperatio. my contributions included the entire web/UI (Nebius VM for remote comms, LiveKit for video streaming, Anthropic for the VLM), training our ACT policy, capturing/translating hand poses to our mechanical replicant, as well as firmware level control across the board. ",
+    "outcome": "omniscient is a robot fleet management software with remote computer vision based teleoperation. my contributions included the entire web/UI (Nebius VM for remote comms, LiveKit for video streaming, Anthropic for the VLM), training our ACT policy, capturing/translating hand poses to our mechanical replicant, as well as firmware level control across the board. ",
     "role": "frontend, backend, firmware, late-night robot operator finetuning ACT",
     "skills": [],
     "motivation": "sarthak really wanted to control a robot arm with only his hand, i really wanted to build a robotics project",
